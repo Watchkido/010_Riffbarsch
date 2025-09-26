@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hard Negative Mining - mod_020_hard_negativ_bilder_scrappen.py</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f8f9fa;
+            color: #212529;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .header {
+            background: linear-gradient(135deg, #4169e1 0%, #191970 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        .header h1 {
+            margin: 0 0 10px 0;
+            font-size: 2.5em;
+            font-weight: 700;
+        }
+        .header p {
+            margin: 0;
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        .section {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 30px;
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+        .visual-side {
+            flex: 1;
+            background: linear-gradient(45deg, #f1f3f4, #e8eaed);
+            min-height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #5f6368;
+            font-size: 1.1em;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .visual-side::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="%23e0e0e0" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>') repeat;
+            opacity: 0.3;
+        }
+        .visual-placeholder {
+            background: rgba(255,255,255,0.8);
+            padding: 20px;
+            border-radius: 10px;
+            border: 2px dashed #dadce0;
+            position: relative;
+            z-index: 1;
+        }
+        .content-side {
+            flex: 1;
+            padding: 40px;
+        }
+        h2 {
+            color: #1a73e8;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            font-weight: 600;
+            border-bottom: 2px solid #e8f0fe;
+            padding-bottom: 10px;
+        }
+        h3 {
+            color: #137333;
+            font-size: 1.3em;
+            margin-top: 25px;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        .tech-term {
+            background: #e8f0fe;
+            color: #1a73e8;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+        .explanation {
+            background: #f8f9fa;
+            border-left: 4px solid #34a853;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        .code-snippet {
+            background: #f8f9fa;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 15px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.9em;
+            overflow-x: auto;
+            margin: 15px 0;
+        }
+        .highlight {
+            background: linear-gradient(120deg, #a8edea 0%, #fed6e3 100%);
+            padding: 3px 6px;
+            border-radius: 3px;
+            font-weight: 600;
+        }
+        .warning {
+            background: #fef7e0;
+            border: 1px solid #fbc02d;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        ul, ol {
+            padding-left: 20px;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+        .badge {
+            display: inline-block;
+            background: #137333;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: 600;
+            margin: 2px;
+        }
+        .step {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+        .step-number {
+            background: #34a853;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 15px;
+            font-size: 0.9em;
+        }
+        .category-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .category-card {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #4169e1;
+        }
+        .category-card h4 {
+            color: #4169e1;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .stat-card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            border-top: 3px solid #4169e1;
+        }
+        .stat-number {
+            font-size: 2em;
+            font-weight: bold;
+            color: #4169e1;
+        }
+        .stat-label {
+            font-size: 0.9em;
+            color: #5f6368;
+            margin-top: 5px;
+        }
+        .specs-box {
+            background: #4169e1;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+        .spec-item {
+            background: rgba(255,255,255,0.1);
+            padding: 8px 15px;
+            border-radius: 5px;
+            margin: 8px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>💎 Hard Negative Mining (Mod 020)</h1>
+            <p>mod_020_hard_negativ_bilder_scrappen.py - Intelligente Sammlung von Adversarial Training Data</p>
+        </div>
+
+        <div class="section">
+            <div class="visual-side">
+                <div class="visual-placeholder">
+                    <strong>🕷️ Web Scraping Pipeline</strong><br>
+                    Visualisierung:<br>
+                    • Bing Image Search API<br>
+                    • Batch Download Process<br>
+                    • Category Strategy Map<br>
+                    • Hard Negative Examples
+                </div>
+            </div>
+            <div class="content-side">
+                <h2>🎯 Modulüberblick</h2>
+                <p>Dieses Modul implementiert eine <span class="tech-term">Adversarial Data Collection Pipeline</span> zur systematischen Sammlung von schwierigen Negativbeispielen für robustes Machine Learning Training.</p>
+                
+                <div class="explanation">
+                    <strong>Hard Negative Mining:</strong> Das systematische Sammeln von Bildern, die einem Zielobjekt ähnlich sehen, aber keines sind. Wie wenn man einem Freund beibringen will, echte von falschen Designer-Handtaschen zu unterscheiden - man zeigt ihm auch die besten Fälschungen!
+                </div>
+
+                <h3>🧠 Strategische Kategorien</h3>
+                <ul>
+                    <li><span class="badge">Unterwasser-Verwechsler</span> Ähnliche Fische und Korallenmuster</li>
+                    <li><span class="badge">Land-basierte Streifenmuster</span> Zebras, Wespen, gestreifte Tiere</li>
+                    <li><span class="badge">Künstliche Objekte</span> Warnschilder, Zäune, Textilien</li>
+                    <li><span class="badge">Sci-Fi & Kunst</span> Fantasy-Kreaturen und Concept Art</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="visual-side">
+                <div class="visual-placeholder">
+                    <strong>📊 Category Strategy</strong><br>
+                    Visualisierung:<br>
+                    • 4 Hauptkategorien<br>
+                    • 40+ Suchbegriffe<br>
+                    • Verwechsler-Beispiele<br>
+                    • Difficulty Spectrum
+                </div>
+            </div>
+            <div class="content-side">
+                <h2>🧠 Strategische Kategorien</h2>
+                
+                <div class="category-grid">
+                    <div class="category-card">
+                        <h4>🌊 Unterwasser-Verwechsler</h4>
+                        <ul>
+                            <li>Sergeant Major Fische</li>
+                            <li>Butterflyfish (gestreift)</li>
+                            <li>Juvenile Trevally</li>
+                            <li>Gestreifte Korallenmuster</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="category-card">
+                        <h4>🏞️ Land-basierte Streifenmuster</h4>
+                        <ul>
+                            <li>Wespen & Insekten</li>
+                            <li>Zebras & gestreifte Tiere</li>
+                            <li>Vögel mit Streifenmustern</li>
+                            <li>Tiger, Katzen, Stinktiere</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="category-card">
+                        <h4>🏗️ Künstliche Objekte</h4>
+                        <ul>
+                            <li>Gestreifte Zäune</li>
+                            <li>Warnschilder (gelb-schwarz)</li>
+                            <li>Aquarium-Dekoration</li>
+                            <li>Textile Muster</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="category-card">
+                        <h4>🎨 Sci-Fi & Kunst</h4>
+                        <ul>
+                            <li>Gestreifte Alien-Kreaturen</li>
+                            <li>Fantasy-Monster</li>
+                            <li>Concept Art</li>
+                            <li>Digitale Kunstwerke</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="explanation">
+                    <strong>Adversarial Training:</strong> Durch das Sammeln dieser "schwierigen" Beispiele wird das KI-Modell robuster und macht weniger Fehler bei der Klassifikation. Es lernt die feinen Unterschiede zwischen ähnlich aussehenden Objekten.
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="visual-side">
+                <div class="visual-placeholder">
+                    <strong>🔄 Automated Workflow</strong><br>
+                    Visualisierung:<br>
+                    • Keyword Generation<br>
+                    • Bing Image Search<br>
+                    • Batch Download<br>
+                    • Rate Limiting Logic
+                </div>
+            </div>
+            <div class="content-side">
+                <h2>⚙️ Technischer Workflow</h2>
+                
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <div>
+                        <strong>Keyword Generation:</strong> 40+ strategisch gewählte Suchbegriffe in verschiedenen Kategorien
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <div>
+                        <strong>Web Scraping:</strong> BingImageCrawler durchsucht automatisch Bing Images
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <div>
+                        <strong>Batch Download:</strong> 50 Bilder pro Suchbegriff werden heruntergeladen
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <span class="step-number">4</span>
+                    <div>
+                        <strong>Rate Limiting:</strong> Menschliches Verhalten simulieren (2-5s Pausen)
+                    </div>
+                </div>
+
+                <div class="explanation">
+                    <strong>Decision Boundary Refinement:</strong> Hard Negatives helfen dabei, schärfere Grenzen zwischen Klassen zu definieren. Das Modell lernt, was definitiv NICHT ein Riffbarsch ist, wodurch die Erkennungsgenauigkeit steigt.
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="visual-side">
+                <div class="visual-placeholder">
+                    <strong>📈 Collection Statistics</strong><br>
+                    Visualisierung:<br>
+                    • Download Counter<br>
+                    • Success Rate Metrics<br>
+                    • Category Distribution<br>
+                    • Quality Assessment
+                </div>
+            </div>
+            <div class="content-side">
+                <h2>📊 Technische Spezifikationen</h2>
+                
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number">40+</div>
+                        <div class="stat-label">Suchbegriffe</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">2000+</div>
+                        <div class="stat-label">Gesammelte Bilder</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">7</div>
+                        <div class="stat-label">Kategorien</div>
+                    </div>
+                </div>
+                
+                <div class="specs-box">
+                    <h3>🛠️ Verwendete Libraries:</h3>
+                    <div class="spec-item">
+                        <strong>icrawler:</strong> Bing Image Search API Integration
+                    </div>
+                    <div class="spec-item">
+                        <strong>requests:</strong> HTTP Downloads mit Custom Headers
+                    </div>
+                    <div class="spec-item">
+                        <strong>urllib3:</strong> SSL-Handling für problematische URLs
+                    </div>
+                    <div class="spec-item">
+                        <strong>random/time:</strong> Human-like Crawling Behavior
+                    </div>
+                </div>
+
+                <div class="code-snippet">
+# Hard Negative Search Strategy
+search_terms = [
+    "wasp closeup stripes",           # Insekten-Verwechsler
+    "sergeant major fish reef",       # Ähnliche Fische  
+    "zebra stripes closeup",          # Säugetier-Muster
+    "striped alien creature"          # Sci-Fi Varianten
+]
+
+# Automated Crawling with Rate Limiting
+for term in search_terms:
+    crawler = BingImageCrawler(
+        storage={"root_dir": f"downloads/{term}"}
+    )
+    crawler.crawl(keyword=term, max_num=50)
+    time.sleep(random.uniform(2, 5))  # Human-like behavior
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="visual-side">
+                <div class="visual-placeholder">
+                    <strong>🎯 ML Benefits</strong><br>
+                    Visualisierung:<br>
+                    • False Positive Reduction<br>
+                    • Decision Boundary<br>
+                    • Model Robustness<br>
+                    • Generalization Curve
+                </div>
+            </div>
+            <div class="content-side">
+                <h2>💡 Machine Learning Vorteile</h2>
+                
+                <h3>🎯 Warum Hard Negatives?</h3>
+                <ul>
+                    <li><span class="highlight">False Positive Reduction:</span> Weniger "falsche Alarme" bei der Erkennung</li>
+                    <li><span class="highlight">Decision Boundary Refinement:</span> Schärfere Grenzen zwischen Klassen</li>
+                    <li><span class="highlight">Model Generalization:</span> Bessere Leistung auf unbekannten Daten</li>
+                    <li><span class="highlight">Robustness Training:</span> Widerstandsfähigkeit gegen Verwechslungen</li>
+                    <li><span class="highlight">Domain Adaptation:</span> Funktioniert in verschiedenen Umgebungen</li>
+                </ul>
+
+                <div class="explanation">
+                    <strong>Model Generalization:</strong> Durch das Training mit schwierigen Beispielen wird das Modell robuster und macht weniger Fehler bei neuen, ungesehenen Daten. Es lernt die subtilen Unterschiede zwischen ähnlich aussehenden Objekten.
+                </div>
+
+                <div class="warning">
+                    <strong>⚠️ Qualitätskontrolle:</strong> Nach dem automatischen Download sollten die Bilder manuell überprüft werden, um irrelevante oder qualitativ schlechte Beispiele zu entfernen. Dies gewährleistet eine hochwertige Trainingsdatenbasis.
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manual Annotation - mod_010_fotos_haendisch_einteilen.py</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f8f9fa;
+            color: #212529;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .header {
+            background: linear-gradient(135deg, #6a5acd 0%, #483d8b 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        .header h1 {
+            margin: 0 0 10px 0;
+            font-size: 2.5em;
+            font-weight: 700;
+        }
+        .header p {
+            margin: 0;
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        .section {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 30px;
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+        .visual-side {
+            flex: 1;
+            background: linear-gradient(45deg, #f1f3f4, #e8eaed);
+            min-height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #5f6368;
+            font-size: 1.1em;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .visual-side::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="%23e0e0e0" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>') repeat;
+            opacity: 0.3;
+        }
+        .visual-placeholder {
+            background: rgba(255,255,255,0.8);
+            padding: 20px;
+            border-radius: 10px;
+            border: 2px dashed #dadce0;
+            position: relative;
+            z-index: 1;
+        }
+        .content-side {
+            flex: 1;
+            padding: 40px;
+        }
+        h2 {
+            color: #1a73e8;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            font-weight: 600;
+            border-bottom: 2px solid #e8f0fe;
+            padding-bottom: 10px;
+        }
+        h3 {
+            color: #137333;
+            font-size: 1.3em;
+            margin-top: 25px;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        .tech-term {
+            background: #e8f0fe;
+            color: #1a73e8;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+        .explanation {
+            background: #f8f9fa;
+            border-left: 4px solid #34a853;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        .code-snippet {
+            background: #f8f9fa;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 15px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.9em;
+            overflow-x: auto;
+            margin: 15px 0;
+        }
+        .highlight {
+            background: linear-gradient(120deg, #a8edea 0%, #fed6e3 100%);
+            padding: 3px 6px;
+            border-radius: 3px;
+            font-weight: 600;
+        }
+        .warning {
+            background: #fef7e0;
+            border: 1px solid #fbc02d;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        ul, ol {
+            padding-left: 20px;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+        .badge {
+            display: inline-block;
+            background: #137333;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: 600;
+            margin: 2px;
+        }
+        .step {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+        .step-number {
+            background: #34a853;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 15px;
+            font-size: 0.9em;
+        }
+        .key-controls {
+            background: #6a5acd;
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+        .key {
+            background: rgba(255,255,255,0.2);
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-weight: bold;
+            margin: 0 2px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔬 Manual Annotation (Mod 010)</h1>
+            <p>mod_010_fotos_haendisch_einteilen.py - Interaktive Bildklassifikation für Training Data</p>
+        </div>
+
+        <div class="section">
+            <div class="visual-side">
+                <div class="visual-placeholder">
+                    <strong>📸 Interactive Classification</strong><br>
+                    Visualisierung:<br>
+                    • OpenCV Window Display<br>
+                    • Keyboard Input Interface<br>
+                    • Real-time File Movement<br>
+                    • Progress Tracking
+                </div>
+            </div>
+            <div class="content-side">
+                <h2>🎯 Modulüberblick</h2>
+                <p>Dieses Modul implementiert eine <span class="tech-term">Manual Annotation Pipeline</span> für die Vorbereitung von Trainingsdaten in einem Computer Vision Projekt.</p>
+                
+                <div class="explanation">
+                    <strong>Manual Annotation:</strong> Der Prozess, bei dem Menschen Bilder manuell klassifizieren und mit Labels versehen. Das ist wie das Sortieren von Fotos in verschiedene Alben - nur dass die Entscheidungen später zum Training von KI-Modellen verwendet werden.
+                </div>
+
+                <h3>🔧 Technische Konzepte</h3>
+                <ul>
+                    <li><span class="badge">Ground Truth Generation</span> Erstellen der "richtigen Antworten"</li>
+                    <li><span class="badge">Binary Classification</span> Zwei-Klassen-System Setup</li>
+                    <li><span class="badge">Interactive Processing</span> Benutzer-gesteuerte Klassifikation</li>
+                    <li><span class="badge">File Organization</span> Automatisches Sortieren der Bilder</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="visual-side">
+                <div class="visual-placeholder">
+                    <strong>🔄 Workflow Pipeline</strong><br>
+                    Visualisierung:<br>
+                    • File System Scanning<br>
+                    • Image Loading Process<br>
+                    • Interactive Decision Making<br>
+                    • Automated Organization
+                </div>
+            </div>
+            <div class="content-side">
+                <h2>⚙️ Workflow im Detail</h2>
+                
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <div>
+                        <strong>File System Scanning:</strong> Durchsuchen des Quellordners nach Bilddateien (JPG, PNG, DNG)
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <div>
+                        <strong>Image Loading & Preprocessing:</strong> Laden und Verkleinern der Bilder mit OpenCV
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <div>
+                        <strong>Interactive Classification:</strong> Anzeige des Bildes und Warten auf Benutzereingabe
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <span class="step-number">4</span>
+                    <div>
+                        <strong>Automated File Organization:</strong> Verschieben in entsprechende Zielordner
+                    </div>
+                </div>
+
+                <div class="explanation">
+                    <strong>Supervised Learning Preparation:</strong> Die manuelle Klassifikation erstellt die Grundlage für "überwachtes Lernen" - die KI braucht einen menschlichen Experten, der ihr zeigt, was auf den Bildern zu sehen ist.
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="visual-side">
+                <div class="visual-placeholder">
+                    <strong>🎮 User Interface</strong><br>
+                    Visualisierung:<br>
+                    • Tastatur-Layout<br>
+                    • OpenCV Display Window<br>
+                    • Keyboard Shortcuts<br>
+                    • Real-time Feedback
+                </div>
+            </div>
+            <div class="content-side">
+                <h2>🎮 Benutzersteuerung</h2>
+                
+                <div class="key-controls">
+                    <h3>⌨️ Tastenbefehle:</h3>
+                    <p><span class="key">T</span> = Riffbarsch/Taucher erkannt → Verschieben nach "riffbarsch"</p>
+                    <p><span class="key">K</span> = Kein Riffbarsch → Verschieben nach "kein_riffbarsch"</p>
+                    <p><span class="key">Q</span> = Programm beenden</p>
+                </div>
+
+                <div class="explanation">
+                    <strong>Binary Classification Setup:</strong> Das System teilt Bilder in genau zwei Kategorien ein - "Riffbarsch vorhanden" oder "Kein Riffbarsch". Wie ein digitales Ja/Nein-Entscheidungsspiel für jedes Bild.
+                </div>
+
+                <h3>💡 Warum ist das wichtig?</h3>
+                <ul>
+                    <li><span class="highlight">Data Quality:</span> Hochwertiges, manuell überprüftes Trainingsmaterial</li>
+                    <li><span class="highlight">Class Balance:</span> Gleichmäßige Verteilung beider Kategorien</li>
+                    <li><span class="highlight">Domain Expertise:</span> Menschliche Intelligenz zur Qualitätssicherung</li>
+                    <li><span class="highlight">Training Foundation:</span> Grundlage für alle nachfolgenden ML-Modelle</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="visual-side">
+                <div class="visual-placeholder">
+                    <strong>📁 Directory Structure</strong><br>
+                    Visualisierung:<br>
+                    • Input Folder (raw/)<br>
+                    • Output Structure<br>
+                    • File Movement Flow<br>
+                    • Organization Logic
+                </div>
+            </div>
+            <div class="content-side">
+                <h2>📁 Ordnerstruktur</h2>
+                
+                <div class="code-snippet">
+data/
+├── raw/                    # Originalbilder (Input)
+│   ├── IMG_001.jpg
+│   ├── IMG_002.png
+│   └── IMG_003.DNG
+└── processed/
+    ├── riffbarsch/         # Positive Samples (T-Taste)
+    │   ├── riff_001.jpg
+    │   └── riff_002.png
+    └── kein_riffbarsch/    # Negative Samples (K-Taste)
+        ├── empty_001.jpg
+        └── empty_002.png
+                </div>
+
+                <div class="explanation">
+                    <strong>Ground Truth Generation:</strong> Durch die manuelle Klassifikation entstehen die "richtigen Antworten" (Ground Truth) für das Machine Learning Training. Diese Daten sind das Gold des maschinellen Lernens - ohne sie kann kein zuverlässiges Modell trainiert werden.
+                </div>
+
+                <div class="warning">
+                    <strong>⚠️ Qualitätskontrolle:</strong> Die Qualität der manuellen Annotation bestimmt direkt die Qualität des späteren KI-Modells. Sorgfältige und konsistente Klassifikation ist entscheidend für den Erfolg aller nachfolgenden Trainingsschritte.
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

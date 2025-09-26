@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mask R-CNN Training - mod_100_mask_r_cnn_train.py</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f8f9fa;
+            color: #212529;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        .header h1 {
+            margin: 0 0 10px 0;
+            font-size: 2.5em;
+            font-weight: 700;
+        }
+        .header p {
+            margin: 0;
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        .section {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 30px;
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+        .visual-side {
+            flex: 1;
+            background: linear-gradient(45deg, #f1f3f4, #e8eaed);
+            min-height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #5f6368;
+            font-size: 1.1em;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .visual-side::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="%23e0e0e0" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>') repeat;
+            opacity: 0.3;
+        }
+        .visual-placeholder {
+            background: rgba(255,255,255,0.8);
+            padding: 20px;
+            border-radius: 10px;
+            border: 2px dashed #dadce0;
+            position: relative;
+            z-index: 1;
+        }
+        .content-side {
+            flex: 1;
+            padding: 40px;
+        }
+        h2 {
+            color: #1a73e8;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            font-weight: 600;
+            border-bottom: 2px solid #e8f0fe;
+            padding-bottom: 10px;
+        }
+        h3 {
+            color: #137333;
+            font-size: 1.3em;
+            margin-top: 25px;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        .tech-term {
+            background: #e8f0fe;
+            color: #1a73e8;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+        .explanation {
+            background: #f8f9fa;
+            border-left: 4px solid #34a853;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        .code-snippet {
+            background: #f8f9fa;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 15px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.9em;
+            overflow-x: auto;
+            margin: 15px 0;
+        }
+        .highlight {
+            background: linear-gradient(120deg, #a8edea 0%, #fed6e3 100%);
+            padding: 3px 6px;
+            border-radius: 3px;
+            font-weight: 600;
+        }
+        .warning {
+            background: #fef7e0;
+            border: 1px solid #fbc02d;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        ul, ol {
+            padding-left: 20px;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+        .badge {
+            display: inline-block;
+            background: #137333;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: 600;
+            margin: 2px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎯 Mask R-CNN Training (Standard)</h1>
+            <p>mod_100_mask_r_cnn_train.py - Instance Segmentation Training für Riffbarsche und Taucher</p>
+        </div>
+
+        <div class="section">
+            <div class="visual-side">
+                <div class="visual-placeholder">
+                    <strong>📊 Training Pipeline</strong><br>
+                    Visualisierung:<br>
+                    • Datenladefunktion<br>
+                    • Modell-Architektur<br>
+                    • Training-Loop<br>
+                    • Loss-Verlauf
+                </div>
+            </div>
+            <div class="content-side">
+                <h2>🔍 Modulüberblick</h2>
+                <p>Dieses Modul implementiert das <span class="tech-term">Instance Segmentation Training</span> mit einem <span class="tech-term">Mask R-CNN</span> Modell auf CPU-Basis.</p>
+                
+                <div class="explanation">
+                    <strong>Instance Segmentation:</strong> Eine erweiterte Form der Objekterkennung, die nicht nur Objekte lokalisiert (Bounding Boxes), sondern auch deren exakte Pixelmasken vorhersagt. Jedes Objekt wird einzeln segmentiert.
+                </div>
+
+                <h3>📋 Technische Spezifikationen</h3>
+                <ul>
+                    <li><span class="badge">Architektur</span> Mask R-CNN mit ResNet-50 Backbone</li>
+                    <li><span class="badge">Training</span> CPU-Only für Kompatibilität</li>
+                    <li><span class="badge">Klassen</span> 3 Klassen (Hintergrund, Riffbarsch, Taucher)</li>
+                    <li><span class="badge">Batch Size</span> 4 Samples pro Batch</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="visual-side">
+                <div class="visual-placeholder">
+                    <strong>🗂️ Dataset Struktur</strong><br>
+                    Visualisierung:<br>
+                    • Ordnerstruktur<br>
+                    • Bild-Maske Paare<br>
+                    • Label-IDs<br>
+                    • Pixel-Masken
+                </div>
+            </div>
+            <div class="content-side">
+                <h2>📁 Dataset Management</h2>
+                
+                <h3>SimpleMaskDataset Klasse</h3>
+                <p>Das <span class="tech-term">Custom Dataset</span> lädt Bildpaare aus dem maskrcnn_data Verzeichnis.</p>
+                
+                <div class="explanation">
+                    <strong>Custom Dataset:</strong> Eine spezialisierte Datenladefunktion, die PyTorch's Dataset-Klasse erweitert um spezifische Datenformate zu handhaben - hier Bilder mit zugehörigen Segmentierungsmasken.
+                </div>
+
+                <div class="code-snippet">
+# Automatisches Laden aller JPG-Bilder rekursiv
+self.imgs = list(sorted(self.root.glob("**/*.jpg")))
+
+# Zugehörige Maske laden
+mask_path = img_path.with_name(img_path.stem + "_mask.png")
+                </div>
+
+                <h3>🎯 Bounding Box Extraktion</h3>
+                <p>Aus den <span class="tech-term">Pixel-Masken</span> werden automatisch <span class="tech-term">Bounding Boxes</span> berechnet.</p>
+                
+                <div class="explanation">
+                    <strong>Bounding Boxes:</strong> Rechteckige Rahmen um Objekte, definiert durch minimale und maximale X/Y-Koordinaten. Sie umschließen das Objekt vollständig und dienen als grobe Lokalisation vor der detaillierten Segmentierung.
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="visual-side">
+                <div class="visual-placeholder">
+                    <strong>🏗️ Modell-Architektur</strong><br>
+                    Visualisierung:<br>
+                    • ResNet-50 Backbone<br>
+                    • FPN (Feature Pyramid)<br>
+                    • RPN + ROI Heads<br>
+                    • Mask Predictor
+                </div>
+            </div>
+            <div class="content-side">
+                <h2>🧠 Mask R-CNN Architektur</h2>
+                
+                <h3>🔧 Modell-Konfiguration</h3>
+                <p>Verwendung eines <span class="tech-term">vortrainierten Mask R-CNN</span> mit <span class="tech-term">Transfer Learning</span>.</p>
+                
+                <div class="explanation">
+                    <strong>Transfer Learning:</strong> Ein ML-Verfahren, bei dem ein bereits auf großen Datensätzen (hier COCO) trainiertes Modell als Ausgangspunkt genommen und für eine spezifische Aufgabe feinabgestimmt wird.
+                </div>
+
+                <div class="code-snippet">
+# Basis-Modell laden
+model = torchvision.models.detection.maskrcnn_resnet50_fpn(pretrained=True)
+
+# Klassenanzahl anpassen (3 Klassen)
+model.roi_heads.box_predictor = FastRCNNPredictor(in_features, NUM_CLASSES)
+model.roi_heads.mask_predictor = MaskRCNNPredictor(..., NUM_CLASSES)
+                </div>
+
+                <h3>🎛️ Komponenten</h3>
+                <ul>
+                    <li><span class="highlight">ResNet-50 Backbone:</span> Feature-Extraktion aus Bildern</li>
+                    <li><span class="highlight">FPN:</span> Multi-Scale Feature-Maps</li>
+                    <li><span class="highlight">Box Predictor:</span> Bounding Box Regression</li>
+                    <li><span class="highlight">Mask Predictor:</span> Pixel-Level Segmentierung</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="visual-side">
+                <div class="visual-placeholder">
+                    <strong>🔄 Training Loop</strong><br>
+                    Visualisierung:<br>
+                    • Epoch-Progression<br>
+                    • Batch Processing<br>
+                    • Loss-Backpropagation<br>
+                    • Optimizer Steps
+                </div>
+            </div>
+            <div class="content-side">
+                <h2>⚡ Training Pipeline</h2>
+                
+                <h3>🔄 Training Loop</h3>
+                <p>Klassischer <span class="tech-term">Supervised Learning</span> Ansatz mit <span class="tech-term">SGD Optimizer</span>.</p>
+                
+                <div class="explanation">
+                    <strong>SGD (Stochastic Gradient Descent):</strong> Ein Optimierungsalgorithmus, der die Modellparameter schrittweise in Richtung minimaler Loss-Funktion anpasst. "Stochastisch" bedeutet, dass nur kleine Batches statt des gesamten Datensatzes verwendet werden.
+                </div>
+
+                <div class="code-snippet">
+# 5 Epochen Training
+for epoch in range(NUM_EPOCHS):
+    model.train()  # Training-Modus aktivieren
+    
+    for batch_idx, (imgs, targets) in enumerate(train_loader):
+        # Forward Pass - Verlust berechnen
+        loss_dict = model(imgs, targets)
+        losses = sum(loss for loss in loss_dict.values())
+        
+        # Backward Pass - Gradienten berechnen
+        optimizer.zero_grad()
+        losses.backward()
+        optimizer.step()
+                </div>
+
+                <div class="warning">
+                    <strong>⚠️ CPU-Only Training:</strong> Das Training läuft ausschließlich auf der CPU, was deutlich langsamer ist als GPU-Training, aber maximale Kompatibilität gewährleistet.
+                </div>
+
+                <h3>📊 Loss Monitoring</h3>
+                <p>Detailliertes <span class="tech-term">Loss Tracking</span> pro Batch und Epoche für Trainingsüberwachung.</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="visual-side">
+                <div class="visual-placeholder">
+                    <strong>💾 Modell Export</strong><br>
+                    Visualisierung:<br>
+                    • State Dict Saving<br>
+                    • Pfad-Struktur<br>
+                    • Modell-Metadaten<br>
+                    • Deployment-Ready
+                </div>
+            </div>
+            <div class="content-side">
+                <h2>💾 Modell-Persistierung</h2>
+                
+                <h3>🏆 Finale Modell-Speicherung</h3>
+                <p>Nach erfolgreichem Training wird das <span class="tech-term">State Dictionary</span> gespeichert.</p>
+                
+                <div class="explanation">
+                    <strong>State Dictionary:</strong> Eine Python-Dictionary-Struktur, die alle trainierten Parameter (Gewichte und Biases) des neuronalen Netzwerks enthält. Dies ermöglicht das spätere Laden des Modells ohne erneutes Training.
+                </div>
+
+                <div class="code-snippet">
+# Modell in models/maskrcnn/ Ordner speichern
+torch.save(model.state_dict(), OUTPUT_DIR / "maskrcnn_riffbarsch_taucher.pth")
+                </div>
+
+                <h3>🎯 Deployment-Bereitschaft</h3>
+                <ul>
+                    <li><span class="highlight">Format:</span> PyTorch .pth Format</li>
+                    <li><span class="highlight">Verwendung:</span> Inference für neue Bilder</li>
+                    <li><span class="highlight">Kompatibilität:</span> CPU und GPU-ready</li>
+                    <li><span class="highlight">Integration:</span> Mit anderen Modulen kompatibel</li>
+                </ul>
+
+                <h3>📈 Performance-Erwartungen</h3>
+                <p>Bei 5 Epochen Training sollte das Modell grundlegende <span class="tech-term">Instance Segmentation</span> für Riffbarsche und Taucher beherrschen.</p>
+                
+                <div class="explanation">
+                    <strong>Epochen-Anzahl:</strong> 5 Epochen sind ein konservativer Ansatz für erste Ergebnisse. Produktive Modelle benötigen oft 50-200 Epochen für optimale Performance, abhängig von Datensatzgröße und Komplexität.
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

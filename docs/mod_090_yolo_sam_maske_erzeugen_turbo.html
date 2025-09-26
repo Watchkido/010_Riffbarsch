@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modul 090: YOLO+SAM Turbo Maskengenerierung</title>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --success: #27ae60;
+            --warning: #f39c12;
+            --purple: #8e44ad;
+            --orange: #d35400;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --yolo-yellow: #ffd700;
+            --yolo-orange: #ff8c00;
+            --sam-blue: #1e90ff;
+            --sam-teal: #20b2aa;
+            --turbo-red: #dc143c;
+            --turbo-orange: #ff6347;
+            --multiprocess-green: #32cd32;
+            --batch-purple: #9932cc;
+            --ram-blue: #4169e1;
+            --speed-gold: #ffd700;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            background: white;
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        h1 {
+            color: var(--primary);
+            font-size: 2.8rem;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, var(--turbo-red), var(--turbo-orange));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            color: var(--sam-blue);
+            font-size: 1.4rem;
+            font-weight: 500;
+            margin-top: 1rem;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+        }
+
+        .image-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 1400px;
+            color: white;
+            position: relative;
+        }
+
+        .placeholder {
+            width: 100%;
+            height: 700px;
+            background: rgba(255,255,255,0.15);
+            border: 3px dashed rgba(255,255,255,0.6);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.95rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            backdrop-filter: blur(15px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+
+        .image-caption {
+            text-align: center;
+            font-style: italic;
+            background: rgba(255,255,255,0.15);
+            padding: 1.5rem;
+            border-radius: 15px;
+            backdrop-filter: blur(15px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+
+        .text-section {
+            padding: 2rem;
+            overflow-y: auto;
+            max-height: 1400px;
+        }
+
+        .section {
+            margin-bottom: 2.5rem;
+        }
+
+        .section h2 {
+            color: var(--primary);
+            font-size: 1.6rem;
+            margin-bottom: 1rem;
+            border-bottom: 3px solid var(--turbo-orange);
+            padding-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .tech-term {
+            background: linear-gradient(135deg, var(--sam-blue), var(--sam-teal));
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: 0 3px 10px rgba(30, 144, 255, 0.3);
+        }
+
+        .explanation {
+            background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+            padding: 1.2rem;
+            border-left: 5px solid var(--sam-blue);
+            margin: 1rem 0;
+            border-radius: 0 12px 12px 0;
+            box-shadow: 0 4px 15px rgba(30, 144, 255, 0.1);
+        }
+
+        .performance-showcase {
+            background: linear-gradient(135deg, var(--turbo-red), #b71c1c);
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 1.5rem 0;
+            box-shadow: 0 8px 25px rgba(220, 20, 60, 0.3);
+        }
+
+        .performance-showcase h4 {
+            margin-bottom: 1.5rem;
+            color: #ffcdd2;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .perf-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .perf-card {
+            background: rgba(255,255,255,0.15);
+            padding: 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: all 0.3s ease;
+        }
+
+        .perf-card:hover {
+            background: rgba(255,255,255,0.25);
+            transform: translateY(-5px);
+        }
+
+        .perf-number {
+            font-size: 2.2rem;
+            font-weight: bold;
+            color: #ffcdd2;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .perf-label {
+            font-size: 0.85rem;
+            opacity: 0.9;
+        }
+
+        .multiprocessing-showcase {
+            background: linear-gradient(135deg, var(--multiprocess-green), #1b5e20);
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 1.5rem 0;
+            box-shadow: 0 8px 25px rgba(50, 205, 50, 0.3);
+        }
+
+        .multiprocessing-showcase h4 {
+            margin-bottom: 1.5rem;
+            color: #c8e6c9;
+            font-size: 1.3rem;
+        }
+
+        .mp-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .mp-card {
+            background: rgba(255,255,255,0.15);
+            padding: 1.2rem;
+            border-radius: 10px;
+            text-align: center;
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .mp-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .batch-processing {
+            background: linear-gradient(135deg, var(--batch-purple), #4a148c);
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 1.5rem 0;
+            box-shadow: 0 8px 25px rgba(153, 50, 204, 0.3);
+        }
+
+        .batch-processing h4 {
+            margin-bottom: 1.5rem;
+            color: #e1bee7;
+            font-size: 1.3rem;
+        }
+
+        .sam-integration {
+            background: linear-gradient(135deg, var(--sam-teal), #006064);
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 1.5rem 0;
+            box-shadow: 0 8px 25px rgba(32, 178, 170, 0.3);
+        }
+
+        .sam-integration h4 {
+            margin-bottom: 1.5rem;
+            color: #b2dfdb;
+            font-size: 1.3rem;
+        }
+
+        .sam-features {
+            list-style: none;
+            padding: 0;
+        }
+
+        .sam-features li {
+            background: rgba(255,255,255,0.15);
+            padding: 1rem;
+            margin: 0.8rem 0;
+            border-radius: 8px;
+            backdrop-filter: blur(15px);
+            border-left: 4px solid white;
+            transition: all 0.3s ease;
+        }
+
+        .sam-features li:hover {
+            background: rgba(255,255,255,0.25);
+            transform: translateX(8px);
+        }
+
+        .pipeline-flow {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 1.5rem 0;
+            border: 2px solid #dee2e6;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+        }
+
+        .pipeline-flow h3 {
+            color: var(--turbo-red);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.3rem;
+        }
+
+        .pipeline-step {
+            display: flex;
+            align-items: center;
+            margin: 1.2rem 0;
+            padding: 1.2rem;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+        }
+
+        .pipeline-step:hover {
+            transform: translateX(8px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .step-number {
+            background: linear-gradient(135deg, var(--turbo-orange), var(--turbo-red));
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 1.5rem;
+            font-size: 1.3rem;
+            box-shadow: 0 4px 12px rgba(255, 99, 71, 0.3);
+        }
+
+        .optimization-showcase {
+            background: linear-gradient(135deg, var(--speed-gold), #ff9800);
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 1.5rem 0;
+            box-shadow: 0 8px 25px rgba(255, 215, 0, 0.3);
+        }
+
+        .optimization-showcase h4 {
+            margin-bottom: 1.5rem;
+            color: #fff8e1;
+            font-size: 1.3rem;
+        }
+
+        .opt-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .opt-card {
+            background: rgba(255,255,255,0.15);
+            padding: 1.5rem;
+            border-radius: 12px;
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: all 0.3s ease;
+        }
+
+        .opt-card:hover {
+            background: rgba(255,255,255,0.25);
+            transform: scale(1.05);
+        }
+
+        .opt-card h5 {
+            color: #fff8e1;
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .memory-specs {
+            background: linear-gradient(135deg, var(--ram-blue), #1565c0);
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 1.5rem 0;
+            box-shadow: 0 8px 25px rgba(65, 105, 225, 0.3);
+        }
+
+        .memory-specs h4 {
+            margin-bottom: 1.5rem;
+            color: #e3f2fd;
+            font-size: 1.3rem;
+        }
+
+        .memory-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .memory-card {
+            background: rgba(255,255,255,0.15);
+            padding: 1.2rem;
+            border-radius: 10px;
+            text-align: center;
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .memory-value {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #e3f2fd;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .checkpoint-download {
+            background: linear-gradient(135deg, #2c3e50, #34495e);
+            color: #ecf0f1;
+            padding: 2rem;
+            border-radius: 15px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+            margin: 1.5rem 0;
+            box-shadow: 0 8px 25px rgba(44, 62, 80, 0.4);
+            border-left: 5px solid var(--sam-teal);
+        }
+
+        .checkpoint-download h5 {
+            color: var(--sam-teal);
+            margin-bottom: 1rem;
+            font-family: 'Segoe UI', sans-serif;
+            font-size: 1.1rem;
+        }
+
+        .speed-comparison {
+            background: linear-gradient(135deg, var(--success), #00c851);
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 1.5rem 0;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(39, 174, 96, 0.3);
+        }
+
+        .speed-comparison h4 {
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+
+        .speed-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .speed-stat {
+            background: rgba(255,255,255,0.15);
+            padding: 1.5rem;
+            border-radius: 12px;
+            backdrop-filter: blur(15px);
+        }
+
+        .speed-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #d4edda;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .humor-box {
+            background: linear-gradient(135deg, #fd79a8, #fdcb6e);
+            color: white;
+            padding: 1.8rem;
+            border-radius: 15px;
+            margin: 1.5rem 0;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(253, 121, 168, 0.3);
+        }
+
+        .humor-box h4 {
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .image-section {
+                min-height: 500px;
+            }
+            
+            .perf-grid, .mp-features, .opt-grid, .memory-grid, .speed-stats {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🚀 Modul 090: YOLO+SAM Turbo Maskengenerierung</h1>
+            <p class="subtitle">Hochoptimierte Multi-Core Verarbeitung für 13.000+ Bilder</p>
+        </header>
+
+        <div class="main-content">
+            <!-- Linke Seite: Platz für Bild/Grafik -->
+            <div class="image-section">
+                <div class="placeholder">
+                    🎯 YOLO Bounding Box Detection
+                    <br><br>
+                    🎭 SAM Mask Generation Pipeline
+                    <br><br>
+                    🔄 Multi-Processing Architecture (16 Kerne)
+                    <br><br>
+                    📦 Batch Processing Flow (32 Bilder/Batch)
+                    <br><br>
+                    💾 Memory Optimization (50GB RAM)
+                    <br><br>
+                    ⚡ Speed Comparison Chart (6x Turbo)
+                    <br><br>
+                    📊 Performance Monitoring Dashboard
+                    <br><br>
+                    🎨 Before/After Mask Examples
+                    <br><br>
+                    🗂️ Output Directory Structure
+                </div>
+                <div class="image-caption">
+                    <strong>Turbo Power:</strong> Hochoptimierte YOLO+SAM Integration nutzt 16 CPU-Kerne, 50GB RAM und Batch-Processing für 6x schnellere Maskengenerierung bei 13.000+ Bildern
+                </div>
+            </div>
+
+            <!-- Rechte Seite: Text-Inhalt -->
+            <div class="text-section">
+                <div class="section">
+                    <h2>🎯 Was macht dieses Turbo-Modul?</h2>
+                    <p>
+                        Dieses Modul kombiniert <span class="tech-term">YOLO Object Detection</span> mit <span class="tech-term">SAM Segmentation</span> für ultra-schnelle <span class="tech-term">Instance Mask Generierung</span> durch <span class="tech-term">Multi-Core Processing</span>.
+                    </p>
+                    <div class="explanation">
+                        <strong>Einfach erklärt:</strong> Stell dir vor, YOLO findet Objekte wie ein Adlerauge und SAM schneidet sie präzise aus wie ein Chirurg - aber das System nutzt 16 Gehirne gleichzeitig und kann 50GB an Informationen gleichzeitig verarbeiten!
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2>🚀 Extreme Performance Specs</h2>
+                    <div class="performance-showcase">
+                        <h4>💪 Turbo-Konfiguration:</h4>
+                        <div class="perf-grid">
+                            <div class="perf-card">
+                                <span class="perf-number">16</span>
+                                <span class="perf-label">CPU Kerne<br>Maximum</span>
+                            </div>
+                            <div class="perf-card">
+                                <span class="perf-number">32</span>
+                                <span class="perf-label">Bilder<br>pro Batch</span>
+                            </div>
+                            <div class="perf-card">
+                                <span class="perf-number">50GB</span>
+                                <span class="perf-label">RAM<br>Optimiert</span>
+                            </div>
+                            <div class="perf-card">
+                                <span class="perf-number">1,000</span>
+                                <span class="perf-label">Cache<br>Größe</span>
+                            </div>
+                            <div class="perf-card">
+                                <span class="perf-number">13,000+</span>
+                                <span class="perf-label">Bilder<br>Kapazität</span>
+                            </div>
+                            <div class="perf-card">
+                                <span class="perf-number">6x</span>
+                                <span class="perf-label">Speed<br>Boost</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2>⚡ Multi-Processing Architektur</h2>
+                    <div class="multiprocessing-showcase">
+                        <h4>🔄 ProcessPoolExecutor Power:</h4>
+                        <div class="mp-features">
+                            <div class="mp-card">
+                                <span class="mp-icon">🖥️</span>
+                                <div><strong>CPU-Kern Detection</strong><br>mp.cpu_count() bis max 16</div>
+                            </div>
+                            <div class="mp-card">
+                                <span class="mp-icon">🔄</span>
+                                <div><strong>ProcessPool Executor</strong><br>Parallele Worker-Prozesse</div>
+                            </div>
+                            <div class="mp-card">
+                                <span class="mp-icon">📦</span>
+                                <div><strong>Batch Distribution</strong><br>Intelligente Arbeitsaufteilung</div>
+                            </div>
+                            <div class="mp-card">
+                                <span class="mp-icon">🧠</span>
+                                <div><strong>SAM per Worker</strong><br>Modell-Instanz je Prozess</div>
+                            </div>
+                            <div class="mp-card">
+                                <span class="mp-icon">🎯</span>
+                                <div><strong>Batch Results</strong><br>Aggregierte Ergebnisse</div>
+                            </div>
+                            <div class="mp-card">
+                                <span class="mp-icon">⚡</span>
+                                <div><strong>Zero Bottlenecks</strong><br>Non-blocking Execution</div>
+                            </div>
+                        </div>
+                        
+                        <div style="margin-top: 1.5rem; padding: 1rem; background: rgba(255,255,255,0.1); border-radius: 10px;">
+                            <strong>🏃‍♂️ Speed Secret:</strong> Jeder Prozess lädt SAM einmal und verarbeitet einen kompletten Batch - eliminiert Overhead!
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2>📦 Intelligentes Batch-Processing</h2>
+                    <div class="batch-processing">
+                        <h4>🎯 32-Bilder Batch-Strategie:</h4>
+                        <div style="background: rgba(255,255,255,0.15); padding: 1.5rem; border-radius: 12px; margin: 1rem 0;">
+                            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; text-align: center;">
+                                <div><strong>📊 Batch Size:</strong><br>32 Bilder</div>
+                                <div><strong>🧠 SAM Loading:</strong><br>Pro Worker</div>
+                                <div><strong>📋 Box Batching:</strong><br>Alle auf einmal</div>
+                                <div><strong>💾 Cache Reuse:</strong><br>1000 Bilder</div>
+                            </div>
+                        </div>
+                        
+                        <div class="explanation" style="background: linear-gradient(135deg, #f3e5f5, #e1bee7); border-left-color: var(--batch-purple);">
+                            <strong>Batch Magic:</strong> Statt jedes Bild einzeln zu verarbeiten, packt das System 32 Bilder zusammen und lässt SAM alle Bounding Boxes gleichzeitig abarbeiten - wie ein Fließband in der Autoproduktion!
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2>🎭 SAM Integration Turbo</h2>
+                    <div class="sam-integration">
+                        <h4>🤖 Segment Anything Model Power:</h4>
+                        <ul class="sam-features">
+                            <li><strong>🧠 ViT-B Architecture:</strong> Optimales Geschwindigkeit/Qualität Verhältnis für Batch-Processing</li>
+                            <li><strong>📥 Auto-Download:</strong> Automatischer sam_vit_b.pth Download (375MB) mit Fortschrittsanzeige</li>
+                            <li><strong>🎯 Box-Batch Prediction:</strong> Alle YOLO-Boxen eines Bildes parallel verarbeitet</li>
+                            <li><strong>🚀 Single Image Set:</strong> predictor.set_image() nur einmal pro Bild für Performance</li>
+                            <li><strong>💾 Memory Efficient:</strong> Masken sofort gespeichert, nicht im RAM gehalten</li>
+                            <li><strong>🖥️ Device Agnostic:</strong> Automatische CUDA/CPU Detection pro Worker</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2>🔄 Turbo-Pipeline Flow</h2>
+                    <div class="pipeline-flow">
+                        <h3>⚡ 8-Stufen Hochgeschwindigkeits-Pipeline:</h3>
+                        
+                        <div class="pipeline-step">
+                            <span class="step-number">1</span>
+                            <div>
+                                <strong>SAM Download:</strong> Automatischer Checkpoint-Download mit Streaming & Progress
+                            </div>
+                        </div>
+                        
+                        <div class="pipeline-step">
+                            <span class="step-number">2</span>
+                            <div>
+                                <strong>Image Discovery:</strong> Glob-basierte Sammlung aller .jpg Dateien
+                            </div>
+                        </div>
+                        
+                        <div class="pipeline-step">
+                            <span class="step-number">3</span>
+                            <div>
+                                <strong>Batch Creation:</strong> Intelligente Aufteilung in 32-Bilder Batches
+                            </div>
+                        </div>
+                        
+                        <div class="pipeline-step">
+                            <span class="step-number">4</span>
+                            <div>
+                                <strong>Multi-Processing:</strong> ProcessPoolExecutor mit 16 parallelen Workern
+                            </div>
+                        </div>
+                        
+                        <div class="pipeline-step">
+                            <span class="step-number">5</span>
+                            <div>
+                                <strong>SAM Per Worker:</strong> Modell-Loading in jedem Worker-Prozess
+                            </div>
+                        </div>
+                        
+                        <div class="pipeline-step">
+                            <span class="step-number">6</span>
+                            <div>
+                                <strong>Batch Processing:</strong> YOLO-Labels → SAM-Masks für komplette Batches
+                            </div>
+                        </div>
+                        
+                        <div class="pipeline-step">
+                            <span class="step-number">7</span>
+                            <div>
+                                <strong>Parallel I/O:</strong> Masken + JSON Metadaten simultanes Speichern
+                            </div>
+                        </div>
+                        
+                        <div class="pipeline-step">
+                            <span class="step-number">8</span>
+                            <div>
+                                <strong>Results Aggregation:</strong> Batch-Ergebnisse sammeln & Performance-Report
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2>🛠️ YOLO-Label Optimierung</h2>
+                    <div class="optimization-showcase">
+                        <h4>⚡ 10x Schnellere Label-Parsing:</h4>
+                        <div class="opt-grid">
+                            <div class="opt-card">
+                                <h5>📊 Bulk Reading</h5>
+                                <p>Ganze Datei auf einmal statt zeilenweise einlesen</p>
+                            </div>
+                            
+                            <div class="opt-card">
+                                <h5>🔢 Vectorized Parsing</h5>
+                                <p>Alle Zeilen gleichzeitig mit split() verarbeiten</p>
+                            </div>
+                            
+                            <div class="opt-card">
+                                <h5>📐 Coordinate Caching</h5>
+                                <p>YOLO→Pixel Konvertierung ohne Schleifen</p>
+                            </div>
+                            
+                            <div class="opt-card">
+                                <h5>🎯 Array Building</h5>
+                                <p>NumPy Arrays für SAM Batch-Prediction</p>
+                            </div>
+                        </div>
+                        
+                        <div style="margin-top: 1.5rem; padding: 1rem; background: rgba(255,255,255,0.1); border-radius: 10px;">
+                            <strong>🚀 Speed Boost:</strong> Von zeilenweisem Parsing zu Bulk-Verarbeitung - 10x Performance-Gewinn!
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2>💾 Memory Management Elite</h2>
+                    <div class="memory-specs">
+                        <h4>🧠 50GB RAM Optimierung:</h4>
+                        <div class="memory-grid">
+                            <div class="memory-card">
+                                <span class="memory-value">32</span>
+                                <span class="perf-label">Bilder<br>pro Batch</span>
+                            </div>
+                            <div class="memory-card">
+                                <span class="memory-value">1,000</span>
+                                <span class="perf-label">Cache<br>Größe</span>
+                            </div>
+                            <div class="memory-card">
+                                <span class="memory-value">16</span>
+                                <span class="perf-label">SAM<br>Instanzen</span>
+                            </div>
+                            <div class="memory-card">
+                                <span class="memory-value">50GB</span>
+                                <span class="perf-label">RAM<br>Budget</span>
+                            </div>
+                        </div>
+                        
+                        <div style="margin-top: 1.5rem; padding: 1rem; background: rgba(255,255,255,0.1); border-radius: 10px;">
+                            <strong>🧠 Memory Strategy:</strong> Jeder Worker hält SAM im RAM, Bilder werden sofort verarbeitet und wieder freigegeben - optimale RAM-Nutzung ohne Overflow!
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2>📥 Auto-Checkpoint System</h2>
+                    <div class="checkpoint-download">
+                        <h5>🤖 Intelligenter SAM-Download:</h5>
+# Automatischer Download mit Fortschrittsbalken
+def download_sam_checkpoint():
+    if not os.path.exists(CHECKPOINT):
+        response = requests.get(CHECKPOINT_URL, stream=True)
+        total_size = int(response.headers.get('content-length', 0))
+        
+        with open(CHECKPOINT, 'wb') as f:
+            for chunk in response.iter_content(chunk_size=1024*1024):
+                progress = (downloaded / total_size) * 100
+                print(f"📥 Download: {progress:.1f}%", end='\r')
+                        
+# URL: https://dl.fbaipublicfiles.com/segment_anything/sam_vit_b_01ec64.pth
+# Größe: ~375MB ViT-B Model
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2>📊 JSON Metadaten System</h2>
+                    <div class="explanation">
+                        <strong>Structured Output:</strong> Jedes Bild erzeugt ein JSON-File mit Mask-Dateinamen, Klassen-IDs, Bounding Boxes und Klassennamen - perfekt für Training-Pipelines.
+                    </div>
+                    
+                    <div class="explanation">
+                        <strong>Class Mapping:</strong> YOLO-Klassen (0=riffbarsch, 1=taucher) werden automatisch zu sprechenden Namen konvertiert und in der Ordnerstruktur organisiert.
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2>🏆 Performance Vergleich</h2>
+                    <div class="speed-comparison">
+                        <h4>⚡ Turbo vs. Standard Performance</h4>
+                        <div class="speed-stats">
+                            <div class="speed-stat">
+                                <span class="speed-number">6x</span>
+                                <span class="perf-label">Schneller</span>
+                            </div>
+                            <div class="speed-stat">
+                                <span class="speed-number">16</span>
+                                <span class="perf-label">CPU-Kerne</span>
+                            </div>
+                            <div class="speed-stat">
+                                <span class="speed-number">50GB</span>
+                                <span class="perf-label">RAM Power</span>
+                            </div>
+                        </div>
+                        
+                        <div style="margin-top: 1.5rem; padding: 1rem; background: rgba(255,255,255,0.1); border-radius: 10px;">
+                            <strong>🚀 Real Performance:</strong> 13.000 Bilder in Stunden statt Tagen durch extreme Parallelisierung!
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2>💡 Warum diese Turbo-Architecture?</h2>
+                    <div class="explanation">
+                        <strong>Production Scale:</strong> Für 13.000+ Bilder ist Einzelverarbeitung unpraktikabel - Multi-Processing mit Batch-Optimierung macht es in realistischer Zeit möglich.
+                    </div>
+                    
+                    <div class="explanation">
+                        <strong>Memory Efficiency:</strong> 50GB RAM Budget erlaubt 16 SAM-Instanzen parallel zu halten ohne Swapping - jeder Worker arbeitet optimal.
+                    </div>
+
+                    <div class="explanation">
+                        <strong>I/O Optimization:</strong> Bulk-Parsing, Batch-Prediction und paralleles Speichern eliminieren typische Flaschenhälse bei großen Datasets.
+                    </div>
+
+                    <div class="explanation">
+                        <strong>Fault Tolerance:</strong> Jeder Worker ist isoliert - ein Fehler stoppt nicht die gesamte Verarbeitung.
+                    </div>
+                </div>
+
+                <div class="humor-box">
+                    <h4>🚀 Entwickler-Humor:</h4>
+                    <p><em>"Wenn SAM auf Red Bull trifft!"</em></p>
+                    <p style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.9;">
+                        - 16 Kerne, 50GB RAM, Batch-Processing - das ist Masken-Generierung im Turbo-Modus! 💨
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modul 090: YOLO+SAM Maskengenerierung</title>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --success: #27ae60;
+            --warning: #f39c12;
+            --purple: #8e44ad;
+            --orange: #d35400;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --yolo-yellow: #ffd700;
+            --yolo-orange: #ff8c00;
+            --sam-blue: #1e90ff;
+            --sam-teal: #20b2aa;
+            --mask-purple: #9932cc;
+            --json-green: #32cd32;
+            --checkpoint-blue: #4169e1;
+            --instance-orange: #ff6347;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            background: white;
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        h1 {
+            color: var(--primary);
+            font-size: 2.8rem;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, var(--sam-blue), var(--sam-teal));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            color: var(--mask-purple);
+            font-size: 1.4rem;
+            font-weight: 500;
+            margin-top: 1rem;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+        }
+
+        .image-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 1200px;
+            color: white;
+            position: relative;
+        }
+
+        .placeholder {
+            width: 100%;
+            height: 600px;
+            background: rgba(255,255,255,0.15);
+            border: 3px dashed rgba(255,255,255,0.6);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.95rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            backdrop-filter: blur(15px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+
+        .image-caption {
+            text-align: center;
+            font-style: italic;
+            background: rgba(255,255,255,0.15);
+            padding: 1.5rem;
+            border-radius: 15px;
+            backdrop-filter: blur(15px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+
+        .text-section {
+            padding: 2rem;
+            overflow-y: auto;
+            max-height: 1200px;
+        }
+
+        .section {
+            margin-bottom: 2.5rem;
+        }
+
+        .section h2 {
+            color: var(--primary);
+            font-size: 1.6rem;
+            margin-bottom: 1rem;
+            border-bottom: 3px solid var(--sam-teal);
+            padding-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .tech-term {
+            background: linear-gradient(135deg, var(--sam-blue), var(--sam-teal));
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: 0 3px 10px rgba(30, 144, 255, 0.3);
+        }
+
+        .explanation {
+            background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+            padding: 1.2rem;
+            border-left: 5px solid var(--sam-blue);
+            margin: 1rem 0;
+            border-radius: 0 12px 12px 0;
+            box-shadow: 0 4px 15px rgba(30, 144, 255, 0.1);
+        }
+
+        .yolo-sam-integration {
+            background: linear-gradient(135deg, var(--yolo-yellow), var(--yolo-orange));
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 1.5rem 0;
+            box-shadow: 0 8px 25px rgba(255, 215, 0, 0.3);
+        }
+
+        .yolo-sam-integration h4 {
+            margin-bottom: 1.5rem;
+            color: #fff8e1;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .integration-steps {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .step-card {
+            background: rgba(255,255,255,0.15);
+            padding: 1.5rem;
+            border-radius: 12px;
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: all 0.3s ease;
+        }
+
+        .step-card:hover {
+            background: rgba(255,255,255,0.25);
+            transform: translateY(-5px);
+        }
+
+        .step-icon {
+            font-size: 2rem;
+            margin-bottom: 0.8rem;
+            display: block;
+        }
+
+        .step-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: #fff8e1;
+        }
+
+        .checkpoint-system {
+            background: linear-gradient(135deg, var(--checkpoint-blue), #1565c0);
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 1.5rem 0;
+            box-shadow: 0 8px 25px rgba(65, 105, 225, 0.3);
+        }
+
+        .checkpoint-system h4 {
+            margin-bottom: 1.5rem;
+            color: #e3f2fd;
+            font-size: 1.3rem;
+        }
+
+        .checkpoint-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .checkpoint-card {
+            background: rgba(255,255,255,0.15);
+            padding: 1.2rem;
+            border-radius: 10px;
+            text-align: center;
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .checkpoint-size {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #e3f2fd;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .sam-processing {
+            background: linear-gradient(135deg, var(--sam-teal), #006064);
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 1.5rem 0;
+            box-shadow: 0 8px 25px rgba(32, 178, 170, 0.3);
+        }
+
+        .sam-processing h4 {
+            margin-bottom: 1.5rem;
+            color: #b2dfdb;
+            font-size: 1.3rem;
+        }
+
+        .processing-flow {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 1.5rem 0;
+            border: 2px solid #dee2e6;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+        }
+
+        .processing-flow h3 {
+            color: var(--sam-blue);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.3rem;
+        }
+
+        .flow-step {
+            display: flex;
+            align-items: center;
+            margin: 1.2rem 0;
+            padding: 1.2rem;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+        }
+
+        .flow-step:hover {
+            transform: translateX(8px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .flow-number {
+            background: linear-gradient(135deg, var(--sam-teal), var(--sam-blue));
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 1.5rem;
+            font-size: 1.3rem;
+            box-shadow: 0 4px 12px rgba(32, 178, 170, 0.3);
+        }
+
+        .instance-processing {
+            background: linear-gradient(135deg, var(--instance-orange), #d84315);
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 1.5rem 0;
+            box-shadow: 0 8px 25px rgba(255, 99, 71, 0.3);
+        }
+
+        .instance-processing h4 {
+            margin-bottom: 1.5rem;
+            color: #ffccbc;
+            font-size: 1.3rem;
+        }
+
+        .instance-features {
+            list-style: none;
+            padding: 0;
+        }
+
+        .instance-features li {
+            background: rgba(255,255,255,0.15);
+            padding: 1rem;
+            margin: 0.8rem 0;
+            border-radius: 8px;
+            backdrop-filter: blur(15px);
+            border-left: 4px solid white;
+            transition: all 0.3s ease;
+        }
+
+        .instance-features li:hover {
+            background: rgba(255,255,255,0.25);
+            transform: translateX(8px);
+        }
+
+        .json-metadata {
+            background: linear-gradient(135deg, var(--json-green), #1b5e20);
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 1.5rem 0;
+            box-shadow: 0 8px 25px rgba(50, 205, 50, 0.3);
+        }
+
+        .json-metadata h4 {
+            margin-bottom: 1.5rem;
+            color: #c8e6c9;
+            font-size: 1.3rem;
+        }
+
+        .json-example {
+            background: rgba(255,255,255,0.15);
+            padding: 1.5rem;
+            border-radius: 12px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+            margin: 1rem 0;
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .coordinate-conversion {
+            background: linear-gradient(135deg, var(--purple), #4a148c);
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 1.5rem 0;
+            box-shadow: 0 8px 25px rgba(142, 68, 173, 0.3);
+        }
+
+        .coordinate-conversion h4 {
+            margin-bottom: 1.5rem;
+            color: #e1bee7;
+            font-size: 1.3rem;
+        }
+
+        .conversion-formula {
+            background: rgba(255,255,255,0.15);
+            padding: 1.5rem;
+            border-radius: 12px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            margin: 1rem 0;
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .output-structure {
+            background: linear-gradient(135deg, var(--warning), #e65100);
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 1.5rem 0;
+            box-shadow: 0 8px 25px rgba(243, 156, 18, 0.3);
+        }
+
+        .output-structure h4 {
+            margin-bottom: 1.5rem;
+            color: #fff3e0;
+            font-size: 1.3rem;
+        }
+
+        .directory-tree {
+            background: rgba(255,255,255,0.15);
+            padding: 1.5rem;
+            border-radius: 12px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+            margin: 1rem 0;
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .performance-info {
+            background: linear-gradient(135deg, var(--accent), #c62828);
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 1.5rem 0;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(231, 76, 60, 0.3);
+        }
+
+        .performance-info h4 {
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+        }
+
+        .perf-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .perf-stat {
+            background: rgba(255,255,255,0.15);
+            padding: 1.5rem;
+            border-radius: 12px;
+            backdrop-filter: blur(15px);
+        }
+
+        .perf-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #ffcdd2;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .humor-box {
+            background: linear-gradient(135deg, #fd79a8, #fdcb6e);
+            color: white;
+            padding: 1.8rem;
+            border-radius: 15px;
+            margin: 1.5rem 0;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(253, 121, 168, 0.3);
+        }
+
+        .humor-box h4 {
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .image-section {
+                min-height: 400px;
+            }
+            
+            .integration-steps, .checkpoint-features, .perf-stats {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎭 Modul 090: YOLO+SAM Maskengenerierung</h1>
+            <p class="subtitle">Klassische Instance Segmentation Pipeline</p>
+        </header>
+
+        <div class="main-content">
+            <!-- Linke Seite: Platz für Bild/Grafik -->
+            <div class="image-section">
+                <div class="placeholder">
+                    🎯 YOLO Bounding Box zu SAM Mask Pipeline
+                    <br><br>
+                    📦 SAM Checkpoint Auto-Download (375MB)
+                    <br><br>
+                    🔄 Koordinaten-Konvertierung (YOLO→Pixel)
+                    <br><br>
+                    🎨 Instance Mask Generation Examples
+                    <br><br>
+                    📋 JSON Metadaten Struktur
+                    <br><br>
+                    🗂️ Klassenbasierte Ordnerstruktur
+                    <br><br>
+                    ⚙️ Single-threaded Processing Flow
+                </div>
+                <div class="image-caption">
+                    <strong>SAM Power:</strong> Klassische YOLO+SAM Integration konvertiert Bounding Boxes zu präzisen Instance Masks mit automatischem Checkpoint-Download und strukturierter JSON-Metadaten
+                </div>
+            </div>
+
+            <!-- Rechte Seite: Text-Inhalt -->
+            <div class="text-section">
+                <div class="section">
+                    <h2>🎯 Was macht dieses Modul?</h2>
+                    <p>
+                        Dieses Modul konvertiert <span class="tech-term">YOLO Bounding Boxes</span> in präzise <span class="tech-term">SAM Instance Masks</span> für <span class="tech-term">Mask R-CNN Training</span> mit automatischer <span class="tech-term">Checkpoint-Verwaltung</span>.
+                    </p>
+                    <div class="explanation">
+                        <strong>Einfach erklärt:</strong> YOLO findet Objekte in rechteckigen Kästen, SAM schneidet sie pixelgenau aus - wie ein Friseur, der aus groben Markierungen perfekte Konturen macht!
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2>🤝 YOLO+SAM Integration</h2>
+                    <div class="yolo-sam-integration">
+                        <h4>🔗 Zwei-Stufen Pipeline:</h4>
+                        <div class="integration-steps">
+                            <div class="step-card">
+                                <span class="step-icon">🎯</span>
+                                <div class="step-title">YOLO Detection</div>
+                                <p>Bounding Box Koordinaten aus Labels laden</p>
+                            </div>
+                            
+                            <div class="step-card">
+                                <span class="step-icon">🎭</span>
+                                <div class="step-title">SAM Segmentation</div>
+                                <p>Präzise Masken aus Bounding Boxes generieren</p>
+                            </div>
+                            
+                            <div class="step-card">
+                                <span class="step-icon">🔄</span>
+                                <div class="step-title">Koordinaten-Konvertierung</div>
+                                <p>YOLO-Format (relativ) → Pixel-Koordinaten</p>
+                            </div>
+                            
+                            <div class="step-card">
+                                <span class="step-icon">💾</span>
+                                <div class="step-title">Strukturierte Ausgabe</div>
+                                <p>Klassenweise Ordner + JSON Metadaten</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2>📦 Automatisches Checkpoint-System</h2>
+                    <div class="checkpoint-system">
+                        <h4>🤖 SAM ViT-B Download Management:</h4>
+                        <div class="checkpoint-features">
+                            <div class="checkpoint-card">
+                                <span class="checkpoint-size">375MB</span>
+                                <span class="perf-label">ViT-B Model<br>Größe</span>
+                            </div>
+                            <div class="checkpoint-card">
+                                <span class="checkpoint-size">Auto</span>
+                                <span class="perf-label">Download<br>Detection</span>
+                            </div>
+                            <div class="checkpoint-card">
+                                <span class="checkpoint-size">8KB</span>
+                                <span class="perf-label">Chunk<br>Size</span>
+                            </div>
+                            <div class="checkpoint-card">
+                                <span class="checkpoint-size">Meta AI</span>
+                                <span class="perf-label">Official<br>Source</span>
+                            </div>
+                        </div>
+                        
+                        <div style="margin-top: 1.5rem; padding: 1rem; background: rgba(255,255,255,0.1); border-radius: 10px;">
+                            <strong>🔗 URL:</strong> https://dl.fbaipublicfiles.com/segment_anything/sam_vit_b_01ec64.pth<br>
+                            <strong>✅ Smart Check:</strong> Download nur wenn Datei nicht existiert
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2>🎭 SAM Processing Engine</h2>
+                    <div class="sam-processing">
+                        <h4>🧠 Segment Anything Model Power:</h4>
+                        <div style="background: rgba(255,255,255,0.15); padding: 1.5rem; border-radius: 12px; margin: 1rem 0;">
+                            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem;">
+                                <div><strong>🖥️ Device:</strong> Auto CUDA/CPU</div>
+                                <div><strong>🎯 Model:</strong> ViT-B (balanced)</div>
+                                <div><strong>📊 Input:</strong> Bounding Boxes</div>
+                                <div><strong>🎨 Output:</strong> Binary Masks</div>
+                            </div>
+                        </div>
+                        
+                        <div class="explanation" style="background: linear-gradient(135deg, #e0f2f1, #b2dfdb); border-left-color: var(--sam-teal);">
+                            <strong>SAM Magic:</strong> Das Modell "versteht" Objekte so gut, dass es aus einem groben Rechteck die exakte Form herausschneiden kann - wie Röntgenblick für KI!
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2>🔄 Verarbeitungsablauf</h2>
+                    <div class="processing-flow">
+                        <h3>⚙️ 8-Stufen Pipeline:</h3>
+                        
+                        <div class="flow-step">
+                            <span class="flow-number">1</span>
+                            <div>
+                                <strong>Checkpoint Check:</strong> SAM Modell automatisch herunterladen falls nötig
+                            </div>
+                        </div>
+                        
+                        <div class="flow-step">
+                            <span class="flow-number">2</span>
+                            <div>
+                                <strong>Model Loading:</strong> SAM ViT-B auf CUDA/CPU laden und initialisieren
+                            </div>
+                        </div>
+                        
+                        <div class="flow-step">
+                            <span class="flow-number">3</span>
+                            <div>
+                                <strong>Image Discovery:</strong> Alle .jpg Bilder im YOLO train/images Ordner finden
+                            </div>
+                        </div>
+                        
+                        <div class="flow-step">
+                            <span class="flow-number">4</span>
+                            <div>
+                                <strong>Label Loading:</strong> Entsprechende .txt YOLO-Labels für jedes Bild laden
+                            </div>
+                        </div>
+                        
+                        <div class="flow-step">
+                            <span class="flow-number">5</span>
+                            <div>
+                                <strong>Koordinaten-Konvertierung:</strong> YOLO-Format (relativ) → Pixel-Koordinaten
+                            </div>
+                        </div>
+                        
+                        <div class="flow-step">
+                            <span class="flow-number">6</span>
+                            <div>
+                                <strong>SAM Prediction:</strong> Für jede Bounding Box eine präzise Maske generieren
+                            </div>
+                        </div>
+                        
+                        <div class="flow-step">
+                            <span class="flow-number">7</span>
+                            <div>
+                                <strong>Mask Speicherung:</strong> Binäre Masken klassenweise als PNG-Dateien speichern
+                            </div>
+                        </div>
+                        
+                        <div class="flow-step">
+                            <span class="flow-number">8</span>
+                            <div>
+                                <strong>JSON Metadaten:</strong> Strukturierte Metadaten für Mask R-CNN Training erstellen
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2>🎯 Instance Processing</h2>
+                    <div class="instance-processing">
+                        <h4>🔍 Pro-Instanz Verarbeitung:</h4>
+                        <ul class="instance-features">
+                            <li><strong>🎨 Separate Masks:</strong> Jede Objektinstanz wird als eigene PNG-Maske gespeichert</li>
+                            <li><strong>🏷️ Class Mapping:</strong> YOLO-IDs (0=riffbarsch, 1=taucher) zu Namen konvertiert</li>
+                            <li><strong>📁 Directory Structure:</strong> Klassenbasierte Unterordner für organisierte Ablage</li>
+                            <li><strong>🔢 Unique Naming:</strong> Bildname + Klasse + Index für eindeutige Dateinamen</li>
+                            <li><strong>🎭 Binary Masks:</strong> 0/255 Werte für klare Objekt/Hintergrund Trennung</li>
+                            <li><strong>💾 PNG Compression:</strong> Optimale Speicherung ohne Qualitätsverlust</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2>🔄 Koordinaten-Konvertierung</h2>
+                    <div class="coordinate-conversion">
+                        <h4>📐 YOLO → Pixel Transformation:</h4>
+                        <div class="conversion-formula">
+# YOLO Format (normiert 0-1) → Pixel-Koordinaten
+cls, x, y, w, h = map(float, line.strip().split())
+
+# Zentrum-Koordinaten zu Ecken-Koordinaten
+x1 = int((x - w/2) * img_w)  # Links
+y1 = int((y - h/2) * img_h)  # Oben  
+x2 = int((x + w/2) * img_w)  # Rechts
+y2 = int((y + h/2) * img_h)  # Unten
+
+# Box-Array für SAM: [x1, y1, x2, y2]
+box = np.array([x1, y1, x2, y2])
+                        </div>
+                        
+                        <div class="explanation" style="background: linear-gradient(135deg, #f3e5f5, #e1bee7); border-left-color: var(--purple);">
+                            <strong>Koordinaten-Magie:</strong> YOLO gibt relative Werte (0.5 = Bildmitte), SAM braucht absolute Pixel - wie Umrechnung von Prozent zu echten Zentimetern!
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2>📋 JSON Metadaten System</h2>
+                    <div class="json-metadata">
+                        <h4>🗂️ Strukturierte Trainingsdaten:</h4>
+                        <div class="json-example">
+{
+  "image": "riffbarsch_001.jpg",
+  "instances": [
+    {
+      "mask_file": "riffbarsch_001_riffbarsch_00.png",
+      "class_id": 1,           // +1 für Mask R-CNN (0=Background)
+      "class_name": "riffbarsch",
+      "bbox": [120, 80, 250, 180]
+    },
+    {
+      "mask_file": "riffbarsch_001_taucher_01.png", 
+      "class_id": 2,
+      "class_name": "taucher",
+      "bbox": [300, 150, 400, 280]
+    }
+  ]
+}
+                        </div>
+                        
+                        <div style="margin-top: 1.5rem; padding: 1rem; background: rgba(255,255,255,0.1); border-radius: 10px;">
+                            <strong>🎯 Training Ready:</strong> JSON-Format ist direkt kompatibel mit Mask R-CNN Frameworks wie Detectron2
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2>🗂️ Output-Struktur</h2>
+                    <div class="output-structure">
+                        <h4>📁 Organisierte Dateiablage:</h4>
+                        <div class="directory-tree">
+maskrcnn_data/
+├── masks/
+│   └── train/
+│       ├── riffbarsch/
+│       │   ├── bild001_riffbarsch_00.png
+│       │   ├── bild002_riffbarsch_00.png
+│       │   └── ...
+│       ├── taucher/
+│       │   ├── bild001_taucher_01.png
+│       │   ├── bild003_taucher_00.png
+│       │   └── ...
+│       ├── bild001_metadata.json
+│       ├── bild002_metadata.json
+│       └── ...
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2>📊 Performance Charakteristik</h2>
+                    <div class="performance-info">
+                        <h4>⚙️ Single-Thread Processing:</h4>
+                        <div class="perf-stats">
+                            <div class="perf-stat">
+                                <span class="perf-value">1</span>
+                                <span class="perf-label">Thread</span>
+                            </div>
+                            <div class="perf-stat">
+                                <span class="perf-value">375MB</span>
+                                <span class="perf-label">Model Size</span>
+                            </div>
+                            <div class="perf-stat">
+                                <span class="perf-value">Sequential</span>
+                                <span class="perf-label">Processing</span>
+                            </div>
+                        </div>
+                        
+                        <div style="margin-top: 1.5rem; padding: 1rem; background: rgba(255,255,255,0.1); border-radius: 10px;">
+                            <strong>🐌 Trade-off:</strong> Einfache Implementierung vs. Geschwindigkeit - ideal für kleinere Datasets oder erste Tests
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2>💡 Warum diese Standard-Version?</h2>
+                    <div class="explanation">
+                        <strong>Simplicity First:</strong> Klassische sequentielle Verarbeitung ist einfach zu verstehen, zu debuggen und für kleinere Datasets völlig ausreichend.
+                    </div>
+                    
+                    <div class="explanation">
+                        <strong>Memory Friendly:</strong> Nur eine SAM-Instanz im Speicher, geringer RAM-Verbrauch, läuft auf Standard-Hardware ohne Probleme.
+                    </div>
+
+                    <div class="explanation">
+                        <strong>Debugging Friendly:</strong> Sequentielle Verarbeitung macht es einfach, Probleme zu identifizieren und einzelne Bilder zu analysieren.
+                    </div>
+
+                    <div class="explanation">
+                        <strong>Production Pipeline:</strong> Perfekte Basis für Experimente bevor man zur Turbo-Version für große Datasets wechselt.
+                    </div>
+                </div>
+
+                <div class="humor-box">
+                    <h4>🎭 Entwickler-Humor:</h4>
+                    <p><em>"Wie ein gemütlicher Sonntagsspaziergang - langsam aber sicher!"</em></p>
+                    <p style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.9;">
+                        - Manchmal ist einfach besser als schnell 🚶‍♂️
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

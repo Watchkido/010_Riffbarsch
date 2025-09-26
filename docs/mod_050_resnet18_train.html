@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modul 050: ResNet18 Deep Learning Training</title>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --success: #2ecc71;
+            --warning: #f39c12;
+            --purple: #9b59b6;
+            --orange: #e67e22;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --pytorch-orange: #ee4c2c;
+            --train-green: #27ae60;
+            --val-blue: #3498db;
+            --test-purple: #9b59b6;
+            --resnet-blue: #4a90e2;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            background: white;
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        h1 {
+            color: var(--primary);
+            font-size: 2.8rem;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, var(--pytorch-orange), var(--resnet-blue));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            color: var(--pytorch-orange);
+            font-size: 1.4rem;
+            font-weight: 500;
+            margin-top: 1rem;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+        }
+
+        .image-section {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%);
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 1000px;
+            color: white;
+            position: relative;
+        }
+
+        .placeholder {
+            width: 100%;
+            height: 500px;
+            background: rgba(255,255,255,0.15);
+            border: 3px dashed rgba(255,255,255,0.6);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.0rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            backdrop-filter: blur(15px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+
+        .image-caption {
+            text-align: center;
+            font-style: italic;
+            background: rgba(255,255,255,0.15);
+            padding: 1.5rem;
+            border-radius: 15px;
+            backdrop-filter: blur(15px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+
+        .text-section {
+            padding: 2rem;
+            overflow-y: auto;
+            max-height: 1000px;
+        }
+
+        .section {
+            margin-bottom: 2.5rem;
+        }
+
+        .section h2 {
+            color: var(--primary);
+            font-size: 1.6rem;
+            margin-bottom: 1rem;
+            border-bottom: 3px solid var(--pytorch-orange);
+            padding-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .tech-term {
+            background: linear-gradient(135deg, var(--pytorch-orange), var(--accent));
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: 0 3px 10px rgba(238, 76, 44, 0.3);
+        }
+
+        .explanation {
+            background: linear-gradient(135deg, #ffeaa7, #fab1a0);
+            padding: 1.2rem;
+            border-left: 5px solid var(--pytorch-orange);
+            margin: 1rem 0;
+            border-radius: 0 12px 12px 0;
+            box-shadow: 0 4px 15px rgba(238, 76, 44, 0.1);
+        }
+
+        .architecture {
+            background: linear-gradient(135deg, var(--primary), #34495e);
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 1.5rem 0;
+            box-shadow: 0 8px 25px rgba(44, 62, 80, 0.3);
+        }
+
+        .architecture h4 {
+            margin-bottom: 1.5rem;
+            color: #74b9ff;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .resnet-layers {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .layer {
+            background: rgba(255,255,255,0.15);
+            padding: 1rem;
+            border-radius: 10px;
+            text-align: center;
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: all 0.3s ease;
+        }
+
+        .layer:hover {
+            background: rgba(255,255,255,0.25);
+            transform: translateY(-3px);
+        }
+
+        .layer-name {
+            font-weight: bold;
+            color: #dda0dd;
+            margin-bottom: 0.5rem;
+        }
+
+        .training-pipeline {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 1.5rem 0;
+            border: 2px solid #dee2e6;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+        }
+
+        .training-pipeline h3 {
+            color: var(--success);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.3rem;
+        }
+
+        .pipeline-step {
+            display: flex;
+            align-items: center;
+            margin: 1.2rem 0;
+            padding: 1rem;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+        }
+
+        .pipeline-step:hover {
+            transform: translateX(5px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+        }
+
+        .step-number {
+            background: linear-gradient(135deg, var(--pytorch-orange), var(--accent));
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 1.2rem;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 12px rgba(238, 76, 44, 0.3);
+        }
+
+        .hyperparameters {
+            background: linear-gradient(135deg, var(--purple), #6c5ce7);
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 1.5rem 0;
+            box-shadow: 0 8px 25px rgba(108, 92, 231, 0.3);
+        }
+
+        .hyperparameters h4 {
+            margin-bottom: 1.5rem;
+            color: #dda0dd;
+            font-size: 1.3rem;
+        }
+
+        .param-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .param-item {
+            background: rgba(255,255,255,0.15);
+            padding: 1.2rem;
+            border-radius: 12px;
+            text-align: center;
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: all 0.3s ease;
+        }
+
+        .param-item:hover {
+            background: rgba(255,255,255,0.25);
+            transform: translateY(-3px);
+        }
+
+        .param-value {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #dda0dd;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .param-label {
+            font-size: 0.85rem;
+            opacity: 0.9;
+        }
+
+        .analysis-features {
+            background: linear-gradient(135deg, #ffeaa7, #fdcb6e);
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 1.5rem 0;
+            box-shadow: 0 8px 25px rgba(253, 203, 110, 0.3);
+        }
+
+        .analysis-features h4 {
+            color: var(--dark);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.3rem;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            border-left: 5px solid var(--success);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .feature-card h5 {
+            color: var(--primary);
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .confusion { border-left-color: var(--accent); }
+        .roc { border-left-color: var(--warning); }
+        .gradcam { border-left-color: var(--purple); }
+        .examples { border-left-color: var(--success); }
+
+        .transforms {
+            background: linear-gradient(135deg, #e8f4f8, #d1ecf1);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin: 1rem 0;
+            border-left: 5px solid var(--secondary);
+        }
+
+        .transforms h5 {
+            color: var(--secondary);
+            margin-bottom: 1rem;
+        }
+
+        .transform-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 0.8rem;
+        }
+
+        .transform-item {
+            background: white;
+            padding: 0.8rem;
+            border-radius: 6px;
+            text-align: center;
+            font-size: 0.85rem;
+            border-bottom: 2px solid var(--secondary);
+            transition: all 0.2s ease;
+        }
+
+        .transform-item:hover {
+            background: #f8f9fa;
+            transform: translateY(-2px);
+        }
+
+        .early-stopping {
+            background: linear-gradient(135deg, #fd79a8, #fdcb6e);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin: 1.5rem 0;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(253, 121, 168, 0.3);
+        }
+
+        .early-stopping h4 {
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .code-highlight {
+            background: linear-gradient(135deg, #2c3e50, #34495e);
+            color: #ecf0f1;
+            padding: 1.5rem;
+            border-radius: 12px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+            margin: 1.5rem 0;
+            overflow-x: auto;
+            box-shadow: 0 8px 25px rgba(44, 62, 80, 0.4);
+            border-left: 5px solid var(--pytorch-orange);
+        }
+
+        .output-showcase {
+            background: linear-gradient(135deg, var(--success), #00b894);
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 1.5rem 0;
+            box-shadow: 0 8px 25px rgba(46, 204, 113, 0.3);
+        }
+
+        .output-showcase h4 {
+            margin-bottom: 1.5rem;
+            color: #dff9fb;
+            font-size: 1.3rem;
+        }
+
+        .output-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .output-item {
+            background: rgba(255,255,255,0.15);
+            padding: 1.2rem;
+            border-radius: 10px;
+            text-align: center;
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .output-item h6 {
+            color: #dff9fb;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .image-section {
+                min-height: 400px;
+            }
+            
+            .features-grid, .param-grid, .resnet-layers {
+                grid-template-columns: 1fr;
+            }
+            
+            .output-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🧠 Modul 050: ResNet18 Deep Learning Training</h1>
+            <p class="subtitle">Vollautomatische Computer Vision Pipeline mit PyTorch & Erweiterten Analysen</p>
+        </header>
+
+        <div class="main-content">
+            <!-- Linke Seite: Platz für Bild/Grafik -->
+            <div class="image-section">
+                <div class="placeholder">
+                    🧠 ResNet18 Architektur Diagramm
+                    <br><br>
+                    📊 Training vs Validation Kurven
+                    <br><br>
+                    🎯 Confusion Matrix Heatmap
+                    <br><br>
+                    📈 ROC & Precision-Recall Kurven
+                    <br><br>
+                    🔥 Grad-CAM Aktivierungskarten
+                    <br><br>
+                    📸 Beispielbilder mit Predictions
+                    <br><br>
+                    ❌ Falsch klassifizierte Beispiele
+                </div>
+                <div class="image-caption">
+                    <strong>Deep Learning in Aktion:</strong> Vollständige Computer Vision Pipeline von Datenaugmentation über Training bis zur detaillierten Modell-Analyse mit visualisierten Fehlern und Aktivierungskarten
+                </div>
+            </div>
+
+            <!-- Rechte Seite: Text-Inhalt -->
+            <div class="text-section">
+                <div class="section">
+                    <h2>🎯 Was macht dieses Modul?</h2>
+                    <p>
+                        Dieses Modul implementiert eine vollständige <span class="tech-term">Deep Learning Training Pipeline</span> mit <span class="tech-term">Transfer Learning</span> basierend auf ResNet18/50 für Multi-Class Image Classification.
+                    </p>
+                    <div class="explanation">
+                        <strong>Einfach erklärt:</strong> Das Programm nimmt ein bereits intelligentes "Gehirn" (ResNet), das schon Millionen von Bildern gesehen hat, und trainiert es speziell für unsere Riffbarsch-Erkennung. Wie wenn du einem Experten für Tiere beibringst, speziell Riffbarsche zu unterscheiden - er hat schon das Grundwissen, muss nur die Details lernen!
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2>🏗️ ResNet Architektur</h2>
+                    <div class="architecture">
+                        <h4>🧠 Residual Network Struktur:</h4>
+                        <div class="resnet-layers">
+                            <div class="layer">
+                                <div class="layer-name">Input Layer</div>
+                                <div>224×224×3 RGB</div>
+                            </div>
+                            <div class="layer">
+                                <div class="layer-name">Conv2d + BN</div>
+                                <div>Feature Extraktion</div>
+                            </div>
+                            <div class="layer">
+                                <div class="layer-name">Layer 1-4</div>
+                                <div>Residual Blocks</div>
+                            </div>
+                            <div class="layer">
+                                <div class="layer-name">AdaptivePool</div>
+                                <div>Global Pooling</div>
+                            </div>
+                            <div class="layer">
+                                <div class="layer-name">FC Layer</div>
+                                <div>3 Klassen Output</div>
+                            </div>
+                        </div>
+                        
+                        <div style="margin-top: 1.5rem; padding: 1rem; background: rgba(255,255,255,0.1); border-radius: 10px;">
+                            <strong>🔗 Skip Connections:</strong> ResNet's revolutionäre "Abkürzungen" ermöglichen Training sehr tiefer Netzwerke ohne Vanishing Gradient Problem
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2>⚙️ Training Pipeline</h2>
+                    <div class="training-pipeline">
+                        <h3>🔄 Vollautomatisierte Trainingsschritte:</h3>
+                        
+                        <div class="pipeline-step">
+                            <span class="step-number">1</span>
+                            <div>
+                                <strong>Data Loading & Preprocessing:</strong> ImageFolder mit standardisierten Transformationen
+                            </div>
+                        </div>
+                        
+                        <div class="pipeline-step">
+                            <span class="step-number">2</span>
+                            <div>
+                                <strong>Model Setup:</strong> ResNet18/50 mit Transfer Learning & angepasstem FC Layer
+                            </div>
+                        </div>
+                        
+                        <div class="pipeline-step">
+                            <span class="step-number">3</span>
+                            <div>
+                                <strong>Training Loop:</strong> Forward/Backward Pass mit Loss & Accuracy Tracking
+                            </div>
+                        </div>
+                        
+                        <div class="pipeline-step">
+                            <span class="step-number">4</span>
+                            <div>
+                                <strong>Validation & Early Stopping:</strong> Overfitting-Kontrolle mit Patience-Mechanismus
+                            </div>
+                        </div>
+                        
+                        <div class="pipeline-step">
+                            <span class="step-number">5</span>
+                            <div>
+                                <strong>Model Saving:</strong> Zeitgestempelte .pt Dateien mit Metadaten
+                            </div>
+                        </div>
+                        
+                        <div class="pipeline-step">
+                            <span class="step-number">6</span>
+                            <div>
+                                <strong>Comprehensive Analysis:</strong> 7 verschiedene Visualisierungs- & Analysemethoden
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2>🎛️ Hyperparameter & Konfiguration</h2>
+                    <div class="hyperparameters">
+                        <h4>🔧 Trainings-Parameter:</h4>
+                        <div class="param-grid">
+                            <div class="param-item">
+                                <span class="param-value">128</span>
+                                <span class="param-label">Batch Size</span>
+                            </div>
+                            <div class="param-item">
+                                <span class="param-value">1e-4</span>
+                                <span class="param-label">Learning Rate</span>
+                            </div>
+                            <div class="param-item">
+                                <span class="param-value">30</span>
+                                <span class="param-label">Max Epochen</span>
+                            </div>
+                            <div class="param-item">
+                                <span class="param-value">30min</span>
+                                <span class="param-label">Zeitlimit</span>
+                            </div>
+                            <div class="param-item">
+                                <span class="param-value">5</span>
+                                <span class="param-label">Early Stopping<br>Patience</span>
+                            </div>
+                            <div class="param-item">
+                                <span class="param-value">14</span>
+                                <span class="param-label">Num Workers</span>
+                            </div>
+                        </div>
+                        
+                        <div class="transforms">
+                            <h5>🎨 Bild-Transformationen:</h5>
+                            <div class="transform-list">
+                                <div class="transform-item">Resize(256)</div>
+                                <div class="transform-item">CenterCrop(224)</div>
+                                <div class="transform-item">ToTensor()</div>
+                                <div class="transform-item">Normalize(ImageNet)</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2>📊 Erweiterte Analyse-Features</h2>
+                    <div class="analysis-features">
+                        <h4>🔍 7 Automatische Visualisierungen:</h4>
+                        <div class="features-grid">
+                            <div class="feature-card">
+                                <h5>📈 Loss & Accuracy Kurven</h5>
+                                <p>Training vs. Validation Performance über alle Epochen mit Grid-Layout</p>
+                            </div>
+                            
+                            <div class="feature-card confusion">
+                                <h5>🎯 Confusion Matrix</h5>
+                                <p>Seaborn Heatmap zeigt Klassifikationsfehler pro Klasse mit Annotation</p>
+                            </div>
+                            
+                            <div class="feature-card roc">
+                                <h5>📊 ROC & PR Kurven</h5>
+                                <p>Receiver Operating Characteristic & Precision-Recall für Binary Classification</p>
+                            </div>
+                            
+                            <div class="feature-card examples">
+                                <h5>📸 Beispielbilder mit Predictions</h5>
+                                <p>8 Test-Bilder mit Grund-Wahrheit, Vorhersage und Konfidenz-Scores</p>
+                            </div>
+                            
+                            <div class="feature-card gradcam">
+                                <h5>🔥 Grad-CAM Aktivierungskarten</h5>
+                                <p>Visualisierung welche Bildregionen das Modell für Entscheidungen nutzt</p>
+                            </div>
+                            
+                            <div class="feature-card">
+                                <h5>❌ Fehleranalyse</h5>
+                                <p>Alle falsch klassifizierten Bilder mit detaillierter Statistik nach Klassen</p>
+                            </div>
+                            
+                            <div class="feature-card">
+                                <h5>🎯 Spezifische Fehler</h5>
+                                <p>Hard Negatives die fälschlicherweise als Riffbarsch erkannt wurden</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2>🛡️ Robuste Training-Features</h2>
+                    <div class="early-stopping">
+                        <h4>⏰ Early Stopping Mechanismus</h4>
+                        <p>Automatisches Training-Stop nach 5 Epochen ohne Validation-Loss Verbesserung</p>
+                        <p style="margin-top: 0.5rem; font-size: 0.9rem; opacity: 0.9;">
+                            Verhindert Overfitting und spart Rechenzeit
+                        </p>
+                    </div>
+                    
+                    <div class="code-highlight">
+# Transfer Learning Setup
+model = models.resnet18(weights=ResNet18_Weights.DEFAULT)
+num_ftrs = model.fc.in_features
+model.fc = nn.Linear(num_ftrs, num_classes)  # 3 Klassen
+
+# Adam Optimizer mit niedriger Learning Rate
+optimizer = optim.Adam(model.parameters(), lr=1e-4)
+criterion = nn.CrossEntropyLoss()
+
+# GPU/CPU Auto-Detection
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2>💾 Automatische Ausgaben</h2>
+                    <div class="output-showcase">
+                        <h4>📁 Generierte Dateien (alle automatisch):</h4>
+                        <div class="output-grid">
+                            <div class="output-item">
+                                <h6>🧠 Model File</h6>
+                                <p>fisch_v2_Z30_DATUM_resnet.pt</p>
+                            </div>
+                            <div class="output-item">
+                                <h6>📊 Loss/Accuracy</h6>
+                                <p>*_loss_acc.png</p>
+                            </div>
+                            <div class="output-item">
+                                <h6>🎯 Confusion Matrix</h6>
+                                <p>*_confusion.png</p>
+                            </div>
+                            <div class="output-item">
+                                <h6>📈 ROC Kurve</h6>
+                                <p>*_roc.png</p>
+                            </div>
+                            <div class="output-item">
+                                <h6>🔄 PR Kurve</h6>
+                                <p>*_pr.png</p>
+                            </div>
+                            <div class="output-item">
+                                <h6>📸 Beispiele</h6>
+                                <p>*_examples.png</p>
+                            </div>
+                            <div class="output-item">
+                                <h6>🔥 Grad-CAM</h6>
+                                <p>*_gradcam.png</p>
+                            </div>
+                            <div class="output-item">
+                                <h6>❌ Fehler-Bilder</h6>
+                                <p>*_falsch_klassifiziert.png</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2>🤖 Deep Learning Konzepte</h2>
+                    <div class="explanation">
+                        <strong>Transfer Learning:</strong> Statt von Null zu beginnen, verwenden wir ein auf ImageNet vortrainiertes ResNet. Das Modell kennt bereits grundlegende Bildfeatures (Kanten, Texturen, Formen) und muss nur die letzten Schichten für unsere spezifischen Klassen anpassen.
+                    </div>
+                    
+                    <div class="explanation">
+                        <strong>Grad-CAM (Gradient-weighted Class Activation Mapping):</strong> Visualisierungstechnik, die zeigt, welche Bildregionen das Modell für seine Entscheidung betrachtet. Wie ein Highlight-Marker, der die wichtigsten Stellen im Bild markiert.
+                    </div>
+
+                    <div class="explanation">
+                        <strong>CrossEntropyLoss:</strong> Standard-Loss-Funktion für Multi-Class Classification. Bestraft falsche Vorhersagen exponentiell stärker als richtige und fördert hohe Konfidenz bei korrekten Predictions.
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2>💡 Warum diese Pipeline?</h2>
+                    <div class="features-grid">
+                        <div class="feature-card">
+                            <h5>🚀 Produktionsreif</h5>
+                            <p>Zeitlimits, Error Handling, automatische Speicherung - bereit für reale Anwendungen</p>
+                        </div>
+                        
+                        <div class="feature-card">
+                            <h5>🔍 Vollständige Diagnose</h5>
+                            <p>7 verschiedene Analysemethoden decken alle Aspekte der Modell-Performance ab</p>
+                        </div>
+                        
+                        <div class="feature-card">
+                            <h5>⚡ GPU-Optimiert</h5>
+                            <p>Pin Memory, Multi-Threading (14 Workers), CUDA-Support für maximale Performance</p>
+                        </div>
+                        
+                        <div class="feature-card">
+                            <h5>🎯 Interpretierbar</h5>
+                            <p>Grad-CAM zeigt genau, warum das Modell bestimmte Entscheidungen trifft</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
