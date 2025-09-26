@@ -3,941 +3,721 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Modul 101: Mask R-CNN RAM-Turbo Training</title>
+    <title>Mask R-CNN RAM-Turbo Training - mod_101_mask_r_cnn_train_ram_turbo.py</title>
     <style>
-        :root {
-            --primary: #2c3e50;
-            --secondary: #3498db;
-            --accent: #e74c3c;
-            --success: #27ae60;
-            --warning: #f39c12;
-            --purple: #8e44ad;
-            --orange: #d35400;
-            --light: #ecf0f1;
-            --dark: #2c3e50;
-            --turbo-red: #dc143c;
-            --turbo-orange: #ff6347;
-            --ram-blue: #4169e1;
-            --ram-purple: #9932cc;
-            --cache-green: #32cd32;
-            --performance-gold: #ffd700;
-            --maskrcnn-teal: #20b2aa;
-            --torch-orange: #ff7f00;
-            --batch-blue: #1e90ff;
-            --speed-lime: #32cd32;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f8f9fa;
+            color: #212529;
             line-height: 1.6;
-            color: var(--dark);
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
-            min-height: 100vh;
         }
-
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
-            padding: 2rem;
         }
-
-        header {
-            text-align: center;
-            margin-bottom: 3rem;
-            background: white;
-            padding: 2.5rem;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            backdrop-filter: blur(10px);
-        }
-
-        h1 {
-            color: var(--primary);
-            font-size: 2.8rem;
-            margin-bottom: 0.5rem;
-            background: linear-gradient(135deg, var(--turbo-red), var(--turbo-orange));
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .subtitle {
-            color: var(--ram-blue);
-            font-size: 1.4rem;
-            font-weight: 500;
-            margin-top: 1rem;
-        }
-
-        .main-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem;
-            background: white;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
-        }
-
-        .image-section {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
-            padding: 2rem;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            min-height: 1400px;
+        .header {
+            background: linear-gradient(135deg, #ff9a00 0%, #dc143c 100%);
             color: white;
-            position: relative;
-        }
-
-        .placeholder {
-            width: 100%;
-            height: 700px;
-            background: rgba(255,255,255,0.15);
-            border: 3px dashed rgba(255,255,255,0.6);
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 0.95rem;
-            margin-bottom: 2rem;
-            text-align: center;
-            backdrop-filter: blur(15px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-        }
-
-        .image-caption {
-            text-align: center;
-            font-style: italic;
-            background: rgba(255,255,255,0.15);
-            padding: 1.5rem;
+            padding: 40px;
             border-radius: 15px;
-            backdrop-filter: blur(15px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
         }
-
-        .text-section {
-            padding: 2rem;
-            overflow-y: auto;
-            max-height: 1400px;
+        .header h1 {
+            margin: 0 0 10px 0;
+            font-size: 2.5em;
+            font-weight: 700;
         }
-
-        .section {
-            margin-bottom: 2.5rem;
-        }
-
-        .section h2 {
-            color: var(--primary);
-            font-size: 1.6rem;
-            margin-bottom: 1rem;
-            border-bottom: 3px solid var(--turbo-orange);
-            padding-bottom: 0.5rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .tech-term {
-            background: linear-gradient(135deg, var(--ram-blue), var(--ram-purple));
-            color: white;
-            padding: 0.3rem 0.8rem;
-            border-radius: 8px;
-            font-weight: bold;
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            box-shadow: 0 3px 10px rgba(65, 105, 225, 0.3);
-        }
-
-        .explanation {
-            background: linear-gradient(135deg, #e3f2fd, #bbdefb);
-            padding: 1.2rem;
-            border-left: 5px solid var(--ram-blue);
-            margin: 1rem 0;
-            border-radius: 0 12px 12px 0;
-            box-shadow: 0 4px 15px rgba(65, 105, 225, 0.1);
-        }
-
-        .ram-turbo-specs {
-            background: linear-gradient(135deg, var(--turbo-red), #b71c1c);
-            color: white;
-            padding: 2rem;
-            border-radius: 15px;
-            margin: 1.5rem 0;
-            box-shadow: 0 8px 25px rgba(220, 20, 60, 0.3);
-        }
-
-        .ram-turbo-specs h4 {
-            margin-bottom: 1.5rem;
-            color: #ffcdd2;
-            font-size: 1.3rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .specs-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-            gap: 1.5rem;
-            margin: 1.5rem 0;
-        }
-
-        .spec-card {
-            background: rgba(255,255,255,0.15);
-            padding: 1.5rem;
-            border-radius: 12px;
-            text-align: center;
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(255,255,255,0.2);
-            transition: all 0.3s ease;
-        }
-
-        .spec-card:hover {
-            background: rgba(255,255,255,0.25);
-            transform: translateY(-5px);
-        }
-
-        .spec-number {
-            font-size: 2.2rem;
-            font-weight: bold;
-            color: #ffcdd2;
-            display: block;
-            margin-bottom: 0.5rem;
-        }
-
-        .spec-label {
-            font-size: 0.85rem;
+        .header p {
+            margin: 0;
+            font-size: 1.2em;
             opacity: 0.9;
         }
-
-        .ram-cache-system {
-            background: linear-gradient(135deg, var(--cache-green), #1b5e20);
-            color: white;
-            padding: 2rem;
-            border-radius: 15px;
-            margin: 1.5rem 0;
-            box-shadow: 0 8px 25px rgba(50, 205, 50, 0.3);
-        }
-
-        .ram-cache-system h4 {
-            margin-bottom: 1.5rem;
-            color: #c8e6c9;
-            font-size: 1.3rem;
-        }
-
-        .cache-phases {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1.5rem;
-            margin: 1.5rem 0;
-        }
-
-        .cache-phase {
-            background: rgba(255,255,255,0.15);
-            padding: 1.5rem;
-            border-radius: 12px;
-            text-align: center;
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(255,255,255,0.2);
-            transition: all 0.3s ease;
-        }
-
-        .cache-phase:hover {
-            background: rgba(255,255,255,0.25);
-            transform: scale(1.05);
-        }
-
-        .cache-icon {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            display: block;
-        }
-
-        .cache-title {
-            font-weight: bold;
-            margin-bottom: 0.8rem;
-            color: #c8e6c9;
-            font-size: 1.1rem;
-        }
-
-        .maskrcnn-architecture {
-            background: linear-gradient(135deg, var(--maskrcnn-teal), #006064);
-            color: white;
-            padding: 2rem;
-            border-radius: 15px;
-            margin: 1.5rem 0;
-            box-shadow: 0 8px 25px rgba(32, 178, 170, 0.3);
-        }
-
-        .maskrcnn-architecture h4 {
-            margin-bottom: 1.5rem;
-            color: #b2dfdb;
-            font-size: 1.3rem;
-        }
-
-        .architecture-features {
-            list-style: none;
-            padding: 0;
-        }
-
-        .architecture-features li {
-            background: rgba(255,255,255,0.15);
-            padding: 1rem;
-            margin: 0.8rem 0;
-            border-radius: 8px;
-            backdrop-filter: blur(15px);
-            border-left: 4px solid white;
-            transition: all 0.3s ease;
-        }
-
-        .architecture-features li:hover {
-            background: rgba(255,255,255,0.25);
-            transform: translateX(8px);
-        }
-
-        .training-pipeline {
-            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
-            padding: 2rem;
-            border-radius: 15px;
-            margin: 1.5rem 0;
-            border: 2px solid #dee2e6;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.08);
-        }
-
-        .training-pipeline h3 {
-            color: var(--turbo-red);
-            margin-bottom: 1.5rem;
+        .section {
             display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 1.3rem;
-        }
-
-        .pipeline-step {
-            display: flex;
-            align-items: center;
-            margin: 1.2rem 0;
-            padding: 1.2rem;
+            gap: 30px;
+            margin-bottom: 30px;
             background: white;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-            transition: all 0.3s ease;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
         }
-
-        .pipeline-step:hover {
-            transform: translateX(8px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        .visual-side {
+            flex: 1;
+            background: linear-gradient(45deg, #f1f3f4, #e8eaed);
+            min-height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #5f6368;
+            font-size: 1.1em;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
         }
-
-        .step-number {
-            background: linear-gradient(135deg, var(--turbo-orange), var(--turbo-red));
+        .visual-side::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="%23e0e0e0" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>') repeat;
+            opacity: 0.3;
+        }
+        .visual-placeholder {
+            background: rgba(255,255,255,0.8);
+            padding: 20px;
+            border-radius: 10px;
+            border: 2px dashed #dadce0;
+            position: relative;
+            z-index: 1;
+        }
+        .content-side {
+            flex: 1;
+            padding: 40px;
+        }
+        h2 {
+            color: #1a73e8;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            font-weight: 600;
+            border-bottom: 2px solid #e8f0fe;
+            padding-bottom: 10px;
+        }
+        h3 {
+            color: #137333;
+            font-size: 1.3em;
+            margin-top: 25px;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        .tech-term {
+            background: #e8f0fe;
+            color: #1a73e8;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+        .explanation {
+            background: #f8f9fa;
+            border-left: 4px solid #34a853;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        .code-snippet {
+            background: #f8f9fa;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 15px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.9em;
+            overflow-x: auto;
+            margin: 15px 0;
+        }
+        .highlight {
+            background: linear-gradient(120deg, #a8edea 0%, #fed6e3 100%);
+            padding: 3px 6px;
+            border-radius: 3px;
+            font-weight: 600;
+        }
+        .warning {
+            background: #fef7e0;
+            border: 1px solid #fbc02d;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        ul, ol {
+            padding-left: 20px;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+        .badge {
+            display: inline-block;
+            background: #137333;
             color: white;
-            width: 50px;
-            height: 50px;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: 600;
+            margin: 2px;
+        }
+        .step {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+        .step-number {
+            background: #34a853;
+            color: white;
+            width: 30px;
+            height: 30px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: bold;
-            margin-right: 1.5rem;
-            font-size: 1.3rem;
-            box-shadow: 0 4px 12px rgba(255, 99, 71, 0.3);
+            margin-right: 15px;
+            font-size: 0.9em;
         }
-
-        .performance-optimizations {
-            background: linear-gradient(135deg, var(--performance-gold), #ff9800);
-            color: white;
-            padding: 2rem;
-            border-radius: 15px;
-            margin: 1.5rem 0;
-            box-shadow: 0 8px 25px rgba(255, 215, 0, 0.3);
-        }
-
-        .performance-optimizations h4 {
-            margin-bottom: 1.5rem;
-            color: #fff8e1;
-            font-size: 1.3rem;
-        }
-
-        .optimization-grid {
+        .specs-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 1.5rem;
-            margin: 1.5rem 0;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin: 20px 0;
         }
-
-        .optimization-card {
-            background: rgba(255,255,255,0.15);
-            padding: 1.5rem;
-            border-radius: 12px;
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(255,255,255,0.2);
-            transition: all 0.3s ease;
+        .spec-card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            border-top: 3px solid #ff9a00;
         }
-
-        .optimization-card:hover {
-            background: rgba(255,255,255,0.25);
-            transform: scale(1.05);
+        .spec-number {
+            font-size: 2em;
+            font-weight: bold;
+            color: #ff9a00;
         }
-
-        .optimization-card h5 {
-            color: #fff8e1;
-            margin-bottom: 0.8rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 1.1rem;
+        .spec-label {
+            font-size: 0.9em;
+            color: #5f6368;
+            margin-top: 5px;
         }
-
-        .batch-processing {
-            background: linear-gradient(135deg, var(--batch-blue), #1565c0);
+        .ram-cache-system {
+            background: linear-gradient(135deg, #32cd32, #1b5e20);
             color: white;
-            padding: 2rem;
-            border-radius: 15px;
-            margin: 1.5rem 0;
-            box-shadow: 0 8px 25px rgba(30, 144, 255, 0.3);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
         }
-
-        .batch-processing h4 {
-            margin-bottom: 1.5rem;
-            color: #e3f2fd;
-            font-size: 1.3rem;
+        .cache-phases {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin: 20px 0;
         }
-
+        .cache-phase {
+            background: rgba(255,255,255,0.15);
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .maskrcnn-architecture {
+            background: linear-gradient(135deg, #20b2aa, #006064);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+        .feature-list {
+            list-style: none;
+            padding: 0;
+        }
+        .feature-list li {
+            background: rgba(255,255,255,0.15);
+            padding: 12px;
+            margin: 8px 0;
+            border-radius: 5px;
+            border-left: 4px solid white;
+            color: white;
+        }
+        .batch-processing {
+            background: linear-gradient(135deg, #1e90ff, #1565c0);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
         .batch-stats {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-            gap: 1rem;
-            margin: 1.5rem 0;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin: 20px 0;
         }
-
         .batch-stat {
             background: rgba(255,255,255,0.15);
-            padding: 1.2rem;
-            border-radius: 10px;
+            padding: 15px;
+            border-radius: 8px;
             text-align: center;
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(255,255,255,0.2);
         }
-
         .batch-value {
-            font-size: 1.8rem;
+            font-size: 1.8em;
             font-weight: bold;
             color: #e3f2fd;
             display: block;
-            margin-bottom: 0.5rem;
+            margin-bottom: 8px;
         }
-
         .memory-management {
-            background: linear-gradient(135deg, var(--ram-purple), #4a148c);
+            background: linear-gradient(135deg, #9932cc, #4a148c);
             color: white;
-            padding: 2rem;
-            border-radius: 15px;
-            margin: 1.5rem 0;
-            box-shadow: 0 8px 25px rgba(153, 50, 204, 0.3);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
         }
-
-        .memory-management h4 {
-            margin-bottom: 1.5rem;
-            color: #e1bee7;
-            font-size: 1.3rem;
-        }
-
         .memory-features {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 1.5rem;
-            margin: 1.5rem 0;
+            gap: 15px;
+            margin: 20px 0;
         }
-
         .memory-feature {
             background: rgba(255,255,255,0.15);
-            padding: 1.5rem;
-            border-radius: 12px;
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(255,255,255,0.2);
+            padding: 15px;
+            border-radius: 8px;
         }
-
-        .feature-icon {
-            font-size: 2rem;
-            margin-bottom: 0.8rem;
-            display: block;
-        }
-
         .training-advantages {
-            background: linear-gradient(135deg, var(--speed-lime), #2e7d32);
+            background: linear-gradient(135deg, #32cd32, #2e7d32);
             color: white;
-            padding: 2rem;
-            border-radius: 15px;
-            margin: 1.5rem 0;
-            box-shadow: 0 8px 25px rgba(50, 205, 50, 0.3);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
         }
-
-        .training-advantages h4 {
-            margin-bottom: 1.5rem;
-            color: #c8e6c9;
-            font-size: 1.3rem;
-        }
-
         .advantages-list {
             list-style: none;
             padding: 0;
         }
-
         .advantages-list li {
             background: rgba(255,255,255,0.15);
-            padding: 1rem;
-            margin: 0.8rem 0;
-            border-radius: 8px;
-            backdrop-filter: blur(15px);
+            padding: 12px;
+            margin: 8px 0;
+            border-radius: 5px;
             border-left: 4px solid white;
-            transition: all 0.3s ease;
-        }
-
-        .advantages-list li:hover {
-            background: rgba(255,255,255,0.25);
-            transform: translateX(8px);
-        }
-
-        .performance-comparison {
-            background: linear-gradient(135deg, var(--success), #00c851);
             color: white;
-            padding: 2rem;
-            border-radius: 15px;
-            margin: 1.5rem 0;
+        }
+        .performance-comparison {
+            background: linear-gradient(135deg, #27ae60, #00c851);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
             text-align: center;
-            box-shadow: 0 8px 25px rgba(39, 174, 96, 0.3);
         }
-
-        .performance-comparison h4 {
-            margin-bottom: 1.5rem;
-            font-size: 1.5rem;
-        }
-
         .comparison-stats {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 1.5rem;
-            margin: 1.5rem 0;
+            gap: 15px;
+            margin: 20px 0;
         }
-
         .comparison-stat {
             background: rgba(255,255,255,0.15);
-            padding: 1.5rem;
-            border-radius: 12px;
-            backdrop-filter: blur(15px);
+            padding: 15px;
+            border-radius: 8px;
         }
-
         .comparison-number {
-            font-size: 2.5rem;
+            font-size: 2.5em;
             font-weight: bold;
             color: #d4edda;
             display: block;
-            margin-bottom: 0.5rem;
+            margin-bottom: 8px;
         }
-
         .humor-box {
             background: linear-gradient(135deg, #fd79a8, #fdcb6e);
             color: white;
-            padding: 1.8rem;
-            border-radius: 15px;
-            margin: 1.5rem 0;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
             text-align: center;
-            box-shadow: 0 8px 25px rgba(253, 121, 168, 0.3);
         }
-
-        .humor-box h4 {
-            margin-bottom: 1rem;
-            font-size: 1.3rem;
-        }
-
-        @media (max-width: 768px) {
-            .main-content {
-                grid-template-columns: 1fr;
-            }
-            
-            .image-section {
-                min-height: 500px;
-            }
-            
-            .specs-grid, .cache-phases, .optimization-grid, .batch-stats, .memory-features, .comparison-stats {
-                grid-template-columns: 1fr;
-            }
-            
-            h1 {
-                font-size: 2.2rem;
-            }
+        .turbo-showcase {
+            background: linear-gradient(135deg, #dc143c, #ff6347);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <header>
-            <h1>🚀 Modul 101: Mask R-CNN RAM-Turbo Training</h1>
-            <p class="subtitle">Hochgeschwindigkeits-Training mit 128GB RAM-Cache</p>
-        </header>
+        <div class="header">
+            <h1>🚀 Mask R-CNN RAM-Turbo Training (Mod 101)</h1>
+            <p>mod_101_mask_r_cnn_train_ram_turbo.py - Hochgeschwindigkeits-Training mit 128GB RAM-Cache</p>
+        </div>
 
-        <div class="main-content">
-            <!-- Linke Seite: Platz für Bild/Grafik -->
-            <div class="image-section">
-                <div class="placeholder">
-                    🧠 128GB RAM Cache Architecture
-                    <br><br>
-                    📊 3-Phasen Loading System (Metadata→Images→Masks)
-                    <br><br>
-                    🎯 Mask R-CNN ResNet50-FPN Architecture
-                    <br><br>
-                    ⚡ Batch Size 8 vs Standard Batch Size 2
-                    <br><br>
-                    📈 RAM Usage Monitoring Dashboard
-                    <br><br>
-                    🔄 Ultra-Fast DataLoader (No Workers Needed)
-                    <br><br>
-                    💾 Training Progress with RAM Stats
-                    <br><br>
-                    📋 Performance Comparison Chart
-                    <br><br>
-                    🎨 Instance Segmentation Examples
-                </div>
-                <div class="image-caption">
-                    <strong>RAM Power:</strong> Revolutionäre Mask R-CNN Training Pipeline nutzt 60GB RAM-Cache für komplettes Dataset im Speicher - eliminiert I/O Bottlenecks und ermöglicht Batch Size 8
+        <div class="section">
+            <div class="visual-side">
+                <div class="visual-placeholder">
+                    <strong>🧠 RAM-Cache Architecture</strong><br>
+                    Visualisierung:<br>
+                    • 128GB RAM Cache System<br>
+                    • 3-Phasen Loading Process<br>
+                    • Mask R-CNN Architecture<br>
+                    • Performance Comparison Chart
                 </div>
             </div>
-
-            <!-- Rechte Seite: Text-Inhalt -->
-            <div class="text-section">
-                <div class="section">
-                    <h2>🎯 Was macht dieses RAM-Turbo Modul?</h2>
-                    <p>
-                        Dieses Modul revolutioniert <span class="tech-term">Mask R-CNN Training</span> durch vollständiges <span class="tech-term">Dataset RAM-Caching</span> für <span class="tech-term">I/O-freie Performance</span> mit <span class="tech-term">128GB RAM Optimierung</span>.
-                    </p>
-                    <div class="explanation">
-                        <strong>Einfach erklärt:</strong> Stell dir vor, du hast alle Bücher einer Bibliothek auf deinem Schreibtisch statt sie jedes Mal zu holen - das System lädt einmal alle 13.000+ Bilder und Masken in den RAM und trainiert dann mit Lichtgeschwindigkeit!
-                    </div>
+            <div class="content-side">
+                <h2>🎯 Modulüberblick</h2>
+                <p>Dieses Modul revolutioniert <span class="tech-term">Mask R-CNN Training</span> durch vollständiges <span class="tech-term">Dataset RAM-Caching</span> für <span class="tech-term">I/O-freie Performance</span> mit <span class="tech-term">128GB RAM Optimierung</span>.</p>
+                
+                <div class="explanation">
+                    <strong>RAM Power:</strong> Stell dir vor, du hast alle Bücher einer Bibliothek auf deinem Schreibtisch statt sie jedes Mal zu holen - das System lädt einmal alle 13.000+ Bilder und Masken in den RAM und trainiert dann mit Lichtgeschwindigkeit!
                 </div>
 
-                <div class="section">
-                    <h2>🚀 RAM-Turbo Spezifikationen</h2>
-                    <div class="ram-turbo-specs">
-                        <h4>💪 Extreme Hardware-Auslastung:</h4>
-                        <div class="specs-grid">
-                            <div class="spec-card">
-                                <span class="spec-number">128GB</span>
-                                <span class="spec-label">System<br>RAM</span>
-                            </div>
-                            <div class="spec-card">
-                                <span class="spec-number">60GB</span>
-                                <span class="spec-label">Cache<br>Budget</span>
-                            </div>
-                            <div class="spec-card">
-                                <span class="spec-number">8</span>
-                                <span class="spec-label">Batch<br>Size</span>
-                            </div>
-                            <div class="spec-card">
-                                <span class="spec-number">10</span>
-                                <span class="spec-label">Epochen<br>Turbo</span>
-                            </div>
-                            <div class="spec-card">
-                                <span class="spec-number">0</span>
-                                <span class="spec-label">DataLoader<br>Workers</span>
-                            </div>
-                            <div class="spec-card">
-                                <span class="spec-number">3</span>
-                                <span class="spec-label">Klassen<br>(+Background)</span>
-                            </div>
-                        </div>
+                <h3>🚀 Extreme Performance</h3>
+                <ul>
+                    <li><span class="badge">128GB RAM</span> Komplettes System-RAM für optimale Auslastung</li>
+                    <li><span class="badge">60GB Cache</span> Budget für Dataset im Speicher</li>
+                    <li><span class="badge">Batch Size 8</span> 4x größere Batches durch RAM-Power</li>
+                    <li><span class="badge">0ms I/O</span> Eliminierte Festplattenzugriffe</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="visual-side">
+                <div class="visual-placeholder">
+                    <strong>📊 RAM-Turbo Specs</strong><br>
+                    Visualisierung:<br>
+                    • 128GB System RAM<br>
+                    • 60GB Cache Budget<br>
+                    • Batch Size 8 vs 2<br>
+                    • 4x Speed Improvement
+                </div>
+            </div>
+            <div class="content-side">
+                <h2>🚀 RAM-Turbo Spezifikationen</h2>
+                
+                <div class="specs-grid">
+                    <div class="spec-card">
+                        <div class="spec-number">128GB</div>
+                        <div class="spec-label">System RAM</div>
+                    </div>
+                    <div class="spec-card">
+                        <div class="spec-number">60GB</div>
+                        <div class="spec-label">Cache Budget</div>
+                    </div>
+                    <div class="spec-card">
+                        <div class="spec-number">8</div>
+                        <div class="spec-label">Batch Size</div>
+                    </div>
+                    <div class="spec-card">
+                        <div class="spec-number">10</div>
+                        <div class="spec-label">Epochen Turbo</div>
+                    </div>
+                    <div class="spec-card">
+                        <div class="spec-number">0</div>
+                        <div class="spec-label">DataLoader Workers</div>
+                    </div>
+                    <div class="spec-card">
+                        <div class="spec-number">3</div>
+                        <div class="spec-label">Klassen (+Background)</div>
                     </div>
                 </div>
+                
+                <div class="turbo-showcase">
+                    <h3>💪 Extreme Hardware-Auslastung</h3>
+                    <p><strong>13.000+ Bilder komplett im RAM</strong> - Das System nutzt moderne Hardware optimal aus für revolutionäre Training-Performance.</p>
+                    <p><strong>4x Speed Boost</strong> - Durch eliminierte I/O-Wartezeiten wird Training dramatisch beschleunigt.</p>
+                </div>
+            </div>
+        </div>
 
-                <div class="section">
-                    <h2>🧠 3-Phasen RAM-Cache System</h2>
-                    <div class="ram-cache-system">
-                        <h4>⚡ Intelligentes Vorladen in den Speicher:</h4>
-                        <div class="cache-phases">
-                            <div class="cache-phase">
-                                <span class="cache-icon">📋</span>
-                                <div class="cache-title">Phase 1: Metadata</div>
-                                <p>Alle JSON-Files komplett in RAM laden und indexieren</p>
-                            </div>
-                            
-                            <div class="cache-phase">
-                                <span class="cache-icon">🖼️</span>
-                                <div class="cache-title">Phase 2: Images</div>
-                                <p>13.000+ Bilder zu Tensoren konvertiert im RAM-Cache</p>
-                            </div>
-                            
-                            <div class="cache-phase">
-                                <span class="cache-icon">🎭</span>
-                                <div class="cache-title">Phase 3: Masks</div>
-                                <p>Alle Instance Masks binär konvertiert und gecacht</p>
-                            </div>
+        <div class="section">
+            <div class="visual-side">
+                <div class="visual-placeholder">
+                    <strong>🧠 3-Phasen Cache</strong><br>
+                    Visualisierung:<br>
+                    • Phase 1: Metadata Loading<br>
+                    • Phase 2: Images → Tensors<br>
+                    • Phase 3: Masks → Binary<br>
+                    • RAM Usage Monitoring
+                </div>
+            </div>
+            <div class="content-side">
+                <h2>🧠 3-Phasen RAM-Cache System</h2>
+                
+                <div class="ram-cache-system">
+                    <h3>⚡ Intelligentes Vorladen in den Speicher</h3>
+                    <div class="cache-phases">
+                        <div class="cache-phase">
+                            <div style="font-size: 2em; margin-bottom: 10px;">📋</div>
+                            <div><strong>Phase 1: Metadata</strong><br>Alle JSON-Files komplett in RAM laden und indexieren</div>
                         </div>
                         
-                        <div style="margin-top: 1.5rem; padding: 1rem; background: rgba(255,255,255,0.1); border-radius: 10px;">
-                            <strong>🔥 Ladezeit Investment:</strong> 2-5 Minuten einmalig laden, dann instant Datenzugriff für alle Epochen!
+                        <div class="cache-phase">
+                            <div style="font-size: 2em; margin-bottom: 10px;">🖼️</div>
+                            <div><strong>Phase 2: Images</strong><br>13.000+ Bilder zu Tensoren konvertiert im RAM-Cache</div>
+                        </div>
+                        
+                        <div class="cache-phase">
+                            <div style="font-size: 2em; margin-bottom: 10px;">🎭</div>
+                            <div><strong>Phase 3: Masks</strong><br>Alle Instance Masks binär konvertiert und gecacht</div>
                         </div>
                     </div>
                 </div>
-
-                <div class="section">
-                    <h2>🎭 Mask R-CNN Architektur</h2>
-                    <div class="maskrcnn-architecture">
-                        <h4>🤖 ResNet50-FPN Backbone Power:</h4>
-                        <ul class="architecture-features">
-                            <li><strong>🏗️ Backbone:</strong> ResNet50 mit Feature Pyramid Network für multi-scale Detection</li>
-                            <li><strong>🎯 RPN:</strong> Region Proposal Network für intelligent Bounding Box Vorschläge</li>
-                            <li><strong>📦 ROI Heads:</strong> FastRCNNPredictor für 3-Klassen Classification</li>
-                            <li><strong>🎭 Mask Head:</strong> MaskRCNNPredictor für pixel-genaue Instance Segmentation</li>
-                            <li><strong>⚙️ Pre-trained:</strong> ImageNet Weights als optimaler Starting Point</li>
-                            <li><strong>🔧 Custom Heads:</strong> Angepasst für riffbarsch/taucher Detection</li>
-                        </ul>
-                    </div>
+                
+                <div class="explanation">
+                    <strong>🔥 Ladezeit Investment:</strong> 2-5 Minuten einmalig laden, dann instant Datenzugriff für alle Epochen!
                 </div>
+            </div>
+        </div>
 
-                <div class="section">
-                    <h2>🔄 Ultra-Fast Training Pipeline</h2>
-                    <div class="training-pipeline">
-                        <h3>⚡ 8-Stufen RAM-Turbo Training:</h3>
-                        
-                        <div class="pipeline-step">
-                            <span class="step-number">1</span>
-                            <div>
-                                <strong>RAM Check:</strong> System-RAM Analyse und 60GB Cache-Budget Allokation
-                            </div>
+        <div class="section">
+            <div class="visual-side">
+                <div class="visual-placeholder">
+                    <strong>🎭 Mask R-CNN Architecture</strong><br>
+                    Visualisierung:<br>
+                    • ResNet50-FPN Backbone<br>
+                    • RPN + ROI Heads<br>
+                    • MaskRCNNPredictor<br>
+                    • 3-Class Classification
+                </div>
+            </div>
+            <div class="content-side">
+                <h2>🎭 Mask R-CNN Architektur</h2>
+                
+                <div class="maskrcnn-architecture">
+                    <h3>🤖 ResNet50-FPN Backbone Power</h3>
+                    <ul class="feature-list">
+                        <li><strong>🏗️ Backbone:</strong> ResNet50 mit Feature Pyramid Network für multi-scale Detection</li>
+                        <li><strong>🎯 RPN:</strong> Region Proposal Network für intelligent Bounding Box Vorschläge</li>
+                        <li><strong>📦 ROI Heads:</strong> FastRCNNPredictor für 3-Klassen Classification</li>
+                        <li><strong>🎭 Mask Head:</strong> MaskRCNNPredictor für pixel-genaue Instance Segmentation</li>
+                        <li><strong>⚙️ Pre-trained:</strong> ImageNet Weights als optimaler Starting Point</li>
+                        <li><strong>🔧 Custom Heads:</strong> Angepasst für riffbarsch/taucher Detection</li>
+                    </ul>
+                </div>
+                
+                <div class="explanation">
+                    <strong>Instance Segmentation:</strong> Mask R-CNN erkennt nicht nur Objekte (Detection), sondern segmentiert sie pixel-genau (Segmentation) - perfekt für präzise Riffbarsch-Analyse.
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="visual-side">
+                <div class="visual-placeholder">
+                    <strong>📦 Batch Processing</strong><br>
+                    Visualisierung:<br>
+                    • Batch Size 8 vs 2<br>
+                    • ~16 Instances per Batch<br>
+                    • 0ms I/O Wait Time<br>
+                    • 4x Speed Boost Chart
+                </div>
+            </div>
+            <div class="content-side">
+                <h2>📦 Batch Processing Turbo</h2>
+                
+                <div class="batch-processing">
+                    <h3>⚡ 4x Größere Batches möglich</h3>
+                    <div class="batch-stats">
+                        <div class="batch-stat">
+                            <span class="batch-value">8</span>
+                            <span class="spec-label">Bilder pro Batch</span>
                         </div>
-                        
-                        <div class="pipeline-step">
-                            <span class="step-number">2</span>
-                            <div>
-                                <strong>Dataset Loading:</strong> Komplettes Dataset in 3 Phasen in RAM laden
-                            </div>
+                        <div class="batch-stat">
+                            <span class="batch-value">~16</span>
+                            <span class="spec-label">Instances pro Batch</span>
                         </div>
-                        
-                        <div class="pipeline-step">
-                            <span class="step-number">3</span>
-                            <div>
-                                <strong>Model Initialize:</strong> Mask R-CNN ResNet50-FPN mit Custom Heads laden
-                            </div>
+                        <div class="batch-stat">
+                            <span class="batch-value">0</span>
+                            <span class="spec-label">I/O Wartezeit</span>
                         </div>
-                        
-                        <div class="pipeline-step">
-                            <span class="step-number">4</span>
-                            <div>
-                                <strong>Turbo DataLoader:</strong> Batch Size 8, keine Workers (RAM-Cache braucht keine)
-                            </div>
-                        </div>
-                        
-                        <div class="pipeline-step">
-                            <span class="step-number">5</span>
-                            <div>
-                                <strong>Optimizer Setup:</strong> SGD mit LR=0.002, Momentum=0.9 (höhere LR durch Stabilität)
-                            </div>
-                        </div>
-                        
-                        <div class="pipeline-step">
-                            <span class="step-number">6</span>
-                            <div>
-                                <strong>Training Loop:</strong> 10 Epochen mit Gradient Clipping und NaN-Protection
-                            </div>
-                        </div>
-                        
-                        <div class="pipeline-step">
-                            <span class="step-number">7</span>
-                            <div>
-                                <strong>Progress Monitoring:</strong> Live RAM-Tracking und Batch/Sekunde Metriken
-                            </div>
-                        </div>
-                        
-                        <div class="pipeline-step">
-                            <span class="step-number">8</span>
-                            <div>
-                                <strong>Model Persistence:</strong> Checkpoint alle 2 Epochen + finales Modell
-                            </div>
+                        <div class="batch-stat">
+                            <span class="batch-value">4x</span>
+                            <span class="spec-label">Speed Boost</span>
                         </div>
                     </div>
                 </div>
-
-                <div class="section">
-                    <h2>⚡ Performance-Optimierungen</h2>
-                    <div class="performance-optimizations">
-                        <h4>🔧 Turbo-Techniken im Detail:</h4>
-                        <div class="optimization-grid">
-                            <div class="optimization-card">
-                                <h5>🧠 Complete RAM Cache</h5>
-                                <p>Alle Daten einmal laden, dann zero I/O Overhead</p>
-                            </div>
-                            
-                            <div class="optimization-card">
-                                <h5>📦 Higher Batch Size</h5>
-                                <p>Batch 8 statt 2 durch RAM-Stabilität</p>
-                            </div>
-                            
-                            <div class="optimization-card">
-                                <h5>⚡ No DataLoader Workers</h5>
-                                <p>RAM-Cache eliminiert Worker-Overhead</p>
-                            </div>
-                            
-                            <div class="optimization-card">
-                                <h5>🎯 Gradient Clipping</h5>
-                                <p>max_norm=1.0 für Training-Stabilität</p>
-                            </div>
-                            
-                            <div class="optimization-card">
-                                <h5>🛡️ NaN Protection</h5>
-                                <p>Loss-Validation und Skip bei Inf/NaN</p>
-                            </div>
-                            
-                            <div class="optimization-card">
-                                <h5>📈 Higher Learning Rate</h5>
-                                <p>LR=0.002 durch RAM-Cache Stabilität</p>
-                            </div>
-                        </div>
-                    </div>
+                
+                <div class="explanation">
+                    <strong>🚀 Batch Magic:</strong> RAM-Cache erlaubt größere Batches ohne I/O Wartezeiten - mehr Gradienten-Updates pro Zeiteinheit!
                 </div>
+            </div>
+        </div>
 
-                <div class="section">
-                    <h2>📦 Batch Processing Turbo</h2>
-                    <div class="batch-processing">
-                        <h4>⚡ 4x Größere Batches möglich:</h4>
-                        <div class="batch-stats">
-                            <div class="batch-stat">
-                                <span class="batch-value">8</span>
-                                <span class="spec-label">Bilder<br>pro Batch</span>
-                            </div>
-                            <div class="batch-stat">
-                                <span class="batch-value">~16</span>
-                                <span class="spec-label">Instances<br>pro Batch</span>
-                            </div>
-                            <div class="batch-stat">
-                                <span class="batch-value">0</span>
-                                <span class="spec-label">I/O<br>Wartezeit</span>
-                            </div>
-                            <div class="batch-stat">
-                                <span class="batch-value">4x</span>
-                                <span class="spec-label">Speed<br>Boost</span>
-                            </div>
+        <div class="section">
+            <div class="visual-side">
+                <div class="visual-placeholder">
+                    <strong>💾 Memory Management</strong><br>
+                    Visualisierung:<br>
+                    • Live RAM Monitoring<br>
+                    • Smart Memory Allocation<br>
+                    • Tensor Cloning Process<br>
+                    • Garbage Collection Flow
+                </div>
+            </div>
+            <div class="content-side">
+                <h2>💾 Memory Management Elite</h2>
+                
+                <div class="memory-management">
+                    <h3>🧠 128GB RAM Orchestrierung</h3>
+                    <div class="memory-features">
+                        <div class="memory-feature">
+                            <div style="font-size: 2em; margin-bottom: 8px;">📊</div>
+                            <div><strong>Live RAM Monitoring:</strong><br>psutil.virtual_memory() für Echtzeit-Überwachung</div>
                         </div>
                         
-                        <div style="margin-top: 1.5rem; padding: 1rem; background: rgba(255,255,255,0.1); border-radius: 10px;">
-                            <strong>🚀 Batch Magic:</strong> RAM-Cache erlaubt größere Batches ohne I/O Wartezeiten - mehr Gradienten-Updates pro Zeiteinheit!
-                        </div>
-                    </div>
-                </div>
-
-                <div class="section">
-                    <h2>💾 Memory Management Elite</h2>
-                    <div class="memory-management">
-                        <h4>🧠 128GB RAM Orchestrierung:</h4>
-                        <div class="memory-features">
-                            <div class="memory-feature">
-                                <span class="feature-icon">📊</span>
-                                <div><strong>Live RAM Monitoring:</strong><br>psutil.virtual_memory() für Echtzeit-Überwachung</div>
-                            </div>
-                            
-                            <div class="memory-feature">
-                                <span class="feature-icon">🔄</span>
-                                <div><strong>Smart Memory Allocation:</strong><br>60GB Budget für Dataset, Rest für System</div>
-                            </div>
-                            
-                            <div class="memory-feature">
-                                <span class="feature-icon">🎯</span>
-                                <div><strong>Tensor Cloning:</strong><br>Sichere Kopien für Thread-Safety</div>
-                            </div>
-                            
-                            <div class="memory-feature">
-                                <span class="feature-icon">🛡️</span>
-                                <div><strong>Garbage Collection:</strong><br>Automatisches Memory Cleanup nach Epochen</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="section">
-                    <h2>🏆 Training Advantages</h2>
-                    <div class="training-advantages">
-                        <h4>✅ RAM-Turbo Vorteile:</h4>
-                        <ul class="advantages-list">
-                            <li><strong>⚡ Zero I/O Bottleneck:</strong> Kein Festplatten-Zugriff während Training</li>
-                            <li><strong>📦 4x Höhere Batch Size:</strong> Batch 8 statt 2 für bessere Gradienten</li>
-                            <li><strong>🕐 Predictable Training Time:</strong> Keine I/O Variabilität, konstante Performance</li>
-                            <li><strong>🎯 Better Convergence:</strong> Größere Batches = stabilere Gradienten-Updates</li>
-                            <li><strong>💻 CPU Optimiert:</strong> Perfekt für High-RAM CPU-Systeme ohne GPU</li>
-                            <li><strong>🔄 Reproducible Results:</strong> Deterministisch durch eliminierten I/O-Noise</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="section">
-                    <h2>🎯 Ultra-Fast Dataset Access</h2>
-                    <div class="explanation">
-                        <strong>__getitem__ Magic:</strong> Datenzugriff erfolgt mit .clone() aus RAM-Cache - wie Copy&Paste statt Dateien öffnen, 1000x schneller!
-                    </div>
-                    
-                    <div class="explanation">
-                        <strong>Tensor Optimization:</strong> Alle Bilder bereits als PyTorch Tensoren im Speicher, keine PIL→Tensor Konvertierung zur Laufzeit.
-                    </div>
-
-                    <div class="explanation">
-                        <strong>Validation & Clamping:</strong> Bounding Box Koordinaten werden automatisch validiert und an Bildgrenzen angepasst.
-                    </div>
-                </div>
-
-                <div class="section">
-                    <h2>📊 Performance Vergleich</h2>
-                    <div class="performance-comparison">
-                        <h4>🚀 RAM-Turbo vs. Standard Training</h4>
-                        <div class="comparison-stats">
-                            <div class="comparison-stat">
-                                <span class="comparison-number">4x</span>
-                                <span class="spec-label">Schneller</span>
-                            </div>
-                            <div class="comparison-stat">
-                                <span class="comparison-number">8 vs 2</span>
-                                <span class="spec-label">Batch Size</span>
-                            </div>
-                            <div class="comparison-stat">
-                                <span class="comparison-number">0ms</span>
-                                <span class="spec-label">I/O Latenz</span>
-                            </div>
+                        <div class="memory-feature">
+                            <div style="font-size: 2em; margin-bottom: 8px;">🔄</div>
+                            <div><strong>Smart Memory Allocation:</strong><br>60GB Budget für Dataset, Rest für System</div>
                         </div>
                         
-                        <div style="margin-top: 1.5rem; padding: 1rem; background: rgba(255,255,255,0.1); border-radius: 10px;">
-                            <strong>🎯 Real Performance:</strong> 10 Epochen in 20-30 Minuten statt 2-3 Stunden durch RAM-Power!
+                        <div class="memory-feature">
+                            <div style="font-size: 2em; margin-bottom: 8px;">🎯</div>
+                            <div><strong>Tensor Cloning:</strong><br>Sichere Kopien für Thread-Safety</div>
+                        </div>
+                        
+                        <div class="memory-feature">
+                            <div style="font-size: 2em; margin-bottom: 8px;">🛡️</div>
+                            <div><strong>Garbage Collection:</strong><br>Automatisches Memory Cleanup nach Epochen</div>
                         </div>
                     </div>
                 </div>
+                
+                <div class="explanation">
+                    <strong>Memory Strategy:</strong> Intelligente RAM-Nutzung mit 60GB Budget für Dataset und automatischer Speicher-Verwaltung für optimale Performance.
+                </div>
+            </div>
+        </div>
 
-                <div class="section">
-                    <h2>💡 Warum RAM-Turbo Architecture?</h2>
-                    <div class="explanation">
-                        <strong>I/O Elimination:</strong> Festplattenzugriff ist 1000x langsamer als RAM - einmal laden, dann instant Training ohne Wartezeiten.
-                    </div>
-                    
-                    <div class="explanation">
-                        <strong>Larger Batches:</strong> Stable RAM-Daten ermöglichen größere Batch Sizes für bessere Gradienten-Qualität und Konvergenz.
-                    </div>
+        <div class="section">
+            <div class="visual-side">
+                <div class="visual-placeholder">
+                    <strong>🏆 Training Advantages</strong><br>
+                    Visualisierung:<br>
+                    • Zero I/O Bottleneck<br>
+                    • Better Convergence Chart<br>
+                    • CPU Optimization Stats<br>
+                    • Reproducible Results Flow
+                </div>
+            </div>
+            <div class="content-side">
+                <h2>🏆 Training Advantages</h2>
+                
+                <div class="training-advantages">
+                    <h3>✅ RAM-Turbo Vorteile</h3>
+                    <ul class="advantages-list">
+                        <li><strong>⚡ Zero I/O Bottleneck:</strong> Kein Festplatten-Zugriff während Training</li>
+                        <li><strong>📦 4x Höhere Batch Size:</strong> Batch 8 statt 2 für bessere Gradienten</li>
+                        <li><strong>🕐 Predictable Training Time:</strong> Keine I/O Variabilität, konstante Performance</li>
+                        <li><strong>🎯 Better Convergence:</strong> Größere Batches = stabilere Gradienten-Updates</li>
+                        <li><strong>💻 CPU Optimiert:</strong> Perfekt für High-RAM CPU-Systeme ohne GPU</li>
+                        <li><strong>🔄 Reproducible Results:</strong> Deterministisch durch eliminierten I/O-Noise</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
 
-                    <div class="explanation">
-                        <strong>Predictable Performance:</strong> Keine I/O-Variabilität bedeutet konstante, vorhersagbare Trainingszeiten für Planung.
-                    </div>
-
-                    <div class="explanation">
-                        <strong>Hardware Utilization:</strong> 128GB RAM optimal genutzt statt verschwendet - moderne Hardware verdient moderne Algorithmen!
+        <div class="section">
+            <div class="visual-side">
+                <div class="visual-placeholder">
+                    <strong>📊 Performance Results</strong><br>
+                    Visualisierung:<br>
+                    • 4x Speed Improvement<br>
+                    • Batch 8 vs 2 Comparison<br>
+                    • 0ms I/O Latency<br>
+                    • Training Time Reduction
+                </div>
+            </div>
+            <div class="content-side">
+                <h2>📊 Performance Vergleich</h2>
+                
+                <div class="performance-comparison">
+                    <h3>🚀 RAM-Turbo vs. Standard Training</h3>
+                    <div class="comparison-stats">
+                        <div class="comparison-stat">
+                            <span class="comparison-number">4x</span>
+                            <span class="spec-label">Schneller</span>
+                        </div>
+                        <div class="comparison-stat">
+                            <span class="comparison-number">8 vs 2</span>
+                            <span class="spec-label">Batch Size</span>
+                        </div>
+                        <div class="comparison-stat">
+                            <span class="comparison-number">0ms</span>
+                            <span class="spec-label">I/O Latenz</span>
+                        </div>
                     </div>
                 </div>
+                
+                <div class="explanation">
+                    <strong>🎯 Real Performance:</strong> 10 Epochen in 20-30 Minuten statt 2-3 Stunden durch RAM-Power!
+                </div>
+            </div>
+        </div>
 
+        <div class="section">
+            <div class="visual-side">
+                <div class="visual-placeholder">
+                    <strong>⚡ Dataset Access Magic</strong><br>
+                    Visualisierung:<br>
+                    • __getitem__ Performance<br>
+                    • Tensor Cloning Process<br>
+                    • Bounding Box Validation<br>
+                    • Memory Efficiency Chart
+                </div>
+            </div>
+            <div class="content-side">
+                <h2>🎯 Ultra-Fast Dataset Access</h2>
+                
+                <div class="code-snippet">
+# RAM-Cache Dataset Access
+def __getitem__(self, idx):
+    # Instant access from RAM cache
+    image_tensor = self.cached_images[idx].clone()
+    masks = self.cached_masks[idx].clone()
+    
+    # No PIL loading, no file I/O - pure RAM speed!
+    return {
+        'image': image_tensor,
+        'masks': masks,
+        'boxes': validated_boxes,
+        'labels': torch.tensor(labels)
+    }
+                </div>
+                
+                <div class="explanation">
+                    <strong>__getitem__ Magic:</strong> Datenzugriff erfolgt mit .clone() aus RAM-Cache - wie Copy&Paste statt Dateien öffnen, 1000x schneller!
+                </div>
+                
+                <div class="explanation">
+                    <strong>Tensor Optimization:</strong> Alle Bilder bereits als PyTorch Tensoren im Speicher, keine PIL→Tensor Konvertierung zur Laufzeit.
+                </div>
+                
+                <div class="explanation">
+                    <strong>Validation & Clamping:</strong> Bounding Box Koordinaten werden automatisch validiert und an Bildgrenzen angepasst.
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="visual-side">
+                <div class="visual-placeholder">
+                    <strong>💡 Architecture Benefits</strong><br>
+                    Visualisierung:<br>
+                    • I/O Elimination Chart<br>
+                    • Hardware Utilization<br>
+                    • Performance Predictability<br>
+                    • Modern Algorithm Benefits
+                </div>
+            </div>
+            <div class="content-side">
+                <h2>💡 Warum RAM-Turbo Architecture?</h2>
+                
+                <ul>
+                    <li><strong>I/O Elimination:</strong> Festplattenzugriff ist 1000x langsamer als RAM - einmal laden, dann instant Training ohne Wartezeiten.</li>
+                    <li><strong>Larger Batches:</strong> Stable RAM-Daten ermöglichen größere Batch Sizes für bessere Gradienten-Qualität und Konvergenz.</li>
+                    <li><strong>Predictable Performance:</strong> Keine I/O-Variabilität bedeutet konstante, vorhersagbare Trainingszeiten für Planung.</li>
+                    <li><strong>Hardware Utilization:</strong> 128GB RAM optimal genutzt statt verschwendet - moderne Hardware verdient moderne Algorithmen!</li>
+                </ul>
+                
+                <div class="warning">
+                    <strong>⚠️ Hardware Requirements:</strong> Dieses Modul benötigt mindestens 64GB RAM für effektiven Betrieb. Mit 128GB RAM ist optimale Performance garantiert.
+                </div>
+                
                 <div class="humor-box">
-                    <h4>🚀 Entwickler-Humor:</h4>
+                    <h3>🚀 Entwickler-Humor</h3>
                     <p><em>"Wenn dein RAM größer ist als dein Dataset!"</em></p>
-                    <p style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.9;">
+                    <p style="margin-top: 15px; font-size: 0.9em; opacity: 0.9;">
                         - 128GB RAM + 13.000 Bilder = Training im Turbo-Modus! 🔥
                     </p>
                 </div>

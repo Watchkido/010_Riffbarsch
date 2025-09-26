@@ -5,756 +5,339 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modul 060: YOLOv8 Klassifikations-Dataset</title>
     <style>
-        :root {
-            --primary: #2c3e50;
-            --secondary: #3498db;
-            --accent: #e74c3c;
-            --success: #2ecc71;
-            --warning: #f39c12;
-            --purple: #9b59b6;
-            --orange: #e67e22;
-            --light: #ecf0f1;
-            --dark: #2c3e50;
-            --yolo-yellow: #ffd700;
-            --yolo-orange: #ff8c00;
-            --train-green: #27ae60;
-            --val-blue: #3498db;
-            --test-purple: #9b59b6;
-            --riffbarsch-teal: #16a085;
-            --taucher-navy: #2c3e50;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f8f9fa;
+            color: #212529;
             line-height: 1.6;
-            color: var(--dark);
-            background: linear-gradient(135deg, #ffd89b 0%, #19547b 100%);
-            min-height: 100vh;
         }
-
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
-            padding: 2rem;
         }
-
-        header {
-            text-align: center;
-            margin-bottom: 3rem;
-            background: white;
-            padding: 2.5rem;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            backdrop-filter: blur(10px);
-        }
-
-        h1 {
-            color: var(--primary);
-            font-size: 2.8rem;
-            margin-bottom: 0.5rem;
-            background: linear-gradient(135deg, var(--yolo-yellow), var(--yolo-orange));
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .subtitle {
-            color: var(--yolo-orange);
-            font-size: 1.4rem;
-            font-weight: 500;
-            margin-top: 1rem;
-        }
-
-        .main-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem;
-            background: white;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
-        }
-
-        .image-section {
-            background: linear-gradient(135deg, #ffd89b 0%, #19547b 50%, #667eea 100%);
-            padding: 2rem;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            min-height: 1000px;
+        .header {
+            background: linear-gradient(135deg, #0984e3 0%, #0c7ecf 100%);
             color: white;
-            position: relative;
-        }
-
-        .placeholder {
-            width: 100%;
-            height: 500px;
-            background: rgba(255,255,255,0.15);
-            border: 3px dashed rgba(255,255,255,0.6);
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 1.0rem;
-            margin-bottom: 2rem;
-            text-align: center;
-            backdrop-filter: blur(15px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-        }
-
-        .image-caption {
-            text-align: center;
-            font-style: italic;
-            background: rgba(255,255,255,0.15);
-            padding: 1.5rem;
+            padding: 40px;
             border-radius: 15px;
-            backdrop-filter: blur(15px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
         }
-
-        .text-section {
-            padding: 2rem;
-            overflow-y: auto;
-            max-height: 1000px;
+        .header h1 {
+            margin: 0 0 10px 0;
+            font-size: 2.5em;
+            font-weight: 700;
         }
-
-        .section {
-            margin-bottom: 2.5rem;
-        }
-
-        .section h2 {
-            color: var(--primary);
-            font-size: 1.6rem;
-            margin-bottom: 1rem;
-            border-bottom: 3px solid var(--yolo-orange);
-            padding-bottom: 0.5rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .tech-term {
-            background: linear-gradient(135deg, var(--yolo-yellow), var(--yolo-orange));
-            color: white;
-            padding: 0.3rem 0.8rem;
-            border-radius: 8px;
-            font-weight: bold;
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            box-shadow: 0 3px 10px rgba(255, 140, 0, 0.3);
-        }
-
-        .explanation {
-            background: linear-gradient(135deg, #fff3cd, #ffeeba);
-            padding: 1.2rem;
-            border-left: 5px solid var(--yolo-orange);
-            margin: 1rem 0;
-            border-radius: 0 12px 12px 0;
-            box-shadow: 0 4px 15px rgba(255, 140, 0, 0.1);
-        }
-
-        .yolo-architecture {
-            background: linear-gradient(135deg, var(--primary), #34495e);
-            color: white;
-            padding: 2rem;
-            border-radius: 15px;
-            margin: 1.5rem 0;
-            box-shadow: 0 8px 25px rgba(44, 62, 80, 0.3);
-        }
-
-        .yolo-architecture h4 {
-            margin-bottom: 1.5rem;
-            color: var(--yolo-yellow);
-            font-size: 1.3rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .yolo-features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-            margin: 1.5rem 0;
-        }
-
-        .yolo-feature {
-            background: rgba(255,255,255,0.15);
-            padding: 1.2rem;
-            border-radius: 10px;
-            text-align: center;
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(255,255,255,0.2);
-            transition: all 0.3s ease;
-        }
-
-        .yolo-feature:hover {
-            background: rgba(255,255,255,0.25);
-            transform: translateY(-3px);
-        }
-
-        .feature-icon {
-            font-size: 2rem;
-            color: var(--yolo-yellow);
-            margin-bottom: 0.5rem;
-        }
-
-        .classes-showcase {
-            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
-            padding: 2rem;
-            border-radius: 15px;
-            margin: 1.5rem 0;
-            border: 2px solid #dee2e6;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.08);
-        }
-
-        .classes-showcase h3 {
-            color: var(--success);
-            margin-bottom: 1.5rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 1.3rem;
-        }
-
-        .class-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem;
-            margin: 1.5rem 0;
-        }
-
-        .class-card {
-            background: white;
-            padding: 2rem;
-            border-radius: 15px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
-            transition: all 0.3s ease;
-            border-top: 5px solid;
-        }
-
-        .class-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
-        }
-
-        .riffbarsch-card { border-top-color: var(--riffbarsch-teal); }
-        .taucher-card { border-top-color: var(--taucher-navy); }
-
-        .class-card h4 {
-            color: var(--dark);
-            margin-bottom: 1.5rem;
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-            font-size: 1.4rem;
-        }
-
-        .class-emoji {
-            font-size: 2rem;
-        }
-
-        .source-list {
-            list-style: none;
-            padding: 0;
-            margin: 1rem 0;
-        }
-
-        .source-list li {
-            background: #f8f9fa;
-            padding: 0.8rem;
-            margin: 0.5rem 0;
-            border-radius: 8px;
-            border-left: 3px solid var(--secondary);
-            font-size: 0.9rem;
-            transition: all 0.2s ease;
-        }
-
-        .source-list li:hover {
-            background: #e9ecef;
-            transform: translateX(5px);
-        }
-
-        .data-pipeline {
-            background: linear-gradient(135deg, #ffeaa7, #fdcb6e);
-            padding: 2rem;
-            border-radius: 15px;
-            margin: 1.5rem 0;
-            box-shadow: 0 8px 25px rgba(253, 203, 110, 0.3);
-        }
-
-        .data-pipeline h4 {
-            color: var(--dark);
-            margin-bottom: 1.5rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 1.3rem;
-        }
-
-        .pipeline-step {
-            display: flex;
-            align-items: center;
-            margin: 1.2rem 0;
-            padding: 1.2rem;
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-            transition: all 0.3s ease;
-        }
-
-        .pipeline-step:hover {
-            transform: translateX(8px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-        }
-
-        .step-number {
-            background: linear-gradient(135deg, var(--yolo-yellow), var(--yolo-orange));
-            color: white;
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            margin-right: 1.5rem;
-            font-size: 1.2rem;
-            box-shadow: 0 4px 12px rgba(255, 140, 0, 0.3);
-        }
-
-        .split-visualization {
-            background: linear-gradient(135deg, var(--purple), #6c5ce7);
-            color: white;
-            padding: 2rem;
-            border-radius: 15px;
-            margin: 1.5rem 0;
-            box-shadow: 0 8px 25px rgba(108, 92, 231, 0.3);
-        }
-
-        .split-visualization h4 {
-            margin-bottom: 1.5rem;
-            color: #dda0dd;
-            font-size: 1.3rem;
-            text-align: center;
-        }
-
-        .split-bars {
-            margin: 1.5rem 0;
-        }
-
-        .split-bar {
-            background: rgba(255,255,255,0.1);
-            height: 60px;
-            border-radius: 30px;
-            margin: 1.2rem 0;
-            position: relative;
-            overflow: hidden;
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(255,255,255,0.2);
-        }
-
-        .split-fill {
-            height: 100%;
-            display: flex;
-            align-items: center;
-            border-radius: 30px;
-            position: relative;
-            transition: width 0.8s ease;
-        }
-
-        .train-fill { 
-            background: linear-gradient(90deg, var(--train-green), #00b894); 
-            width: 70%; 
-        }
-        .val-fill { 
-            background: linear-gradient(90deg, var(--val-blue), #74b9ff); 
-            width: 15%; 
-            margin-left: auto;
-        }
-        .test-fill { 
-            background: linear-gradient(90deg, var(--test-purple), #a29bfe); 
-            width: 15%; 
-            margin-left: auto;
-        }
-
-        .split-label {
-            color: white;
-            font-weight: bold;
-            margin-left: 2rem;
-            font-size: 1.2rem;
-        }
-
-        .split-percentage {
-            position: absolute;
-            right: 2rem;
-            font-weight: bold;
-            font-size: 1.3rem;
-        }
-
-        .yaml-config {
-            background: linear-gradient(135deg, #2c3e50, #34495e);
-            color: #ecf0f1;
-            padding: 2rem;
-            border-radius: 15px;
-            font-family: 'Courier New', monospace;
-            margin: 1.5rem 0;
-            box-shadow: 0 8px 25px rgba(44, 62, 80, 0.4);
-            border-left: 5px solid var(--yolo-yellow);
-        }
-
-        .yaml-config h5 {
-            color: var(--yolo-yellow);
-            margin-bottom: 1rem;
-            font-family: 'Segoe UI', sans-serif;
-            font-size: 1.1rem;
-        }
-
-        .folder-structure {
-            background: var(--dark);
-            color: #00ff00;
-            padding: 2rem;
-            border-radius: 12px;
-            font-family: 'Courier New', monospace;
-            font-size: 0.9rem;
-            line-height: 1.4;
-            box-shadow: 0 8px 25px rgba(44, 62, 80, 0.4);
-            margin: 1.5rem 0;
-        }
-
-        .folder { color: var(--yolo-yellow); font-weight: bold; }
-        .train { color: var(--train-green); }
-        .val { color: var(--val-blue); }
-        .test { color: var(--test-purple); }
-        .class-riff { color: var(--riffbarsch-teal); }
-        .class-tauch { color: #74b9ff; }
-
-        .statistics {
-            background: linear-gradient(135deg, var(--success), #00b894);
-            color: white;
-            padding: 2rem;
-            border-radius: 15px;
-            margin: 1.5rem 0;
-            box-shadow: 0 8px 25px rgba(46, 204, 113, 0.3);
-        }
-
-        .statistics h4 {
-            margin-bottom: 1.5rem;
-            color: #dff9fb;
-            font-size: 1.3rem;
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-            gap: 1.5rem;
-            margin: 1.5rem 0;
-        }
-
-        .stat-card {
-            background: rgba(255,255,255,0.15);
-            padding: 1.5rem;
-            border-radius: 12px;
-            text-align: center;
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(255,255,255,0.2);
-            transition: all 0.3s ease;
-        }
-
-        .stat-card:hover {
-            background: rgba(255,255,255,0.25);
-            transform: translateY(-5px);
-        }
-
-        .stat-number {
-            font-size: 2.5rem;
-            font-weight: bold;
-            color: #dff9fb;
-            display: block;
-            margin-bottom: 0.5rem;
-        }
-
-        .stat-label {
-            font-size: 0.85rem;
+        .header p {
+            margin: 0;
+            font-size: 1.2em;
             opacity: 0.9;
         }
-
-        .advantages {
-            background: linear-gradient(135deg, #fd79a8, #fdcb6e);
-            color: white;
-            padding: 2rem;
+        .section {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 30px;
+            background: white;
             border-radius: 15px;
-            margin: 1.5rem 0;
-            box-shadow: 0 8px 25px rgba(253, 121, 168, 0.3);
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
         }
-
-        .advantages h4 {
-            margin-bottom: 1.5rem;
-            font-size: 1.3rem;
-        }
-
-        .advantage-list {
-            list-style: none;
-            padding: 0;
-        }
-
-        .advantage-list li {
-            background: rgba(255,255,255,0.15);
-            padding: 1.2rem;
-            margin: 0.8rem 0;
-            border-radius: 10px;
-            backdrop-filter: blur(15px);
-            border-left: 4px solid white;
-            transition: all 0.3s ease;
-        }
-
-        .advantage-list li:hover {
-            background: rgba(255,255,255,0.25);
-            transform: translateX(8px);
-        }
-
-        .humor-box {
-            background: linear-gradient(135deg, #a29bfe, #6c5ce7);
-            color: white;
-            padding: 1.8rem;
-            border-radius: 15px;
-            margin: 1.5rem 0;
+        .visual-side {
+            flex: 1;
+            background: linear-gradient(135deg, #0984e3 0%, #0c7ecf 100%);
+            min-height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
             text-align: center;
-            box-shadow: 0 8px 25px rgba(108, 92, 231, 0.3);
+            color: white;
         }
-
-        .humor-box h4 {
-            margin-bottom: 1rem;
-            font-size: 1.3rem;
+        .visual-placeholder {
+            background: rgba(255,255,255,0.2);
+            border: 2px dashed rgba(255,255,255,0.6);
+            border-radius: 10px;
+            padding: 60px 20px;
+            margin: 20px;
+            backdrop-filter: blur(5px);
         }
-
-        @media (max-width: 768px) {
-            .main-content {
-                grid-template-columns: 1fr;
+        .visual-placeholder h3 {
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+        .visual-placeholder p {
+            opacity: 0.9;
+        }
+        .content-side {
+            flex: 1;
+            padding: 40px;
+        }
+        .content-side h2 {
+            color: #0984e3;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+            font-weight: 600;
+        }
+        .badge {
+            display: inline-block;
+            background: linear-gradient(45deg, #0984e3, #0c7ecf);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: 600;
+            margin: 2px;
+        }
+        .explanation {
+            background: #e8f4f8;
+            border-left: 4px solid #0984e3;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        .explanation strong {
+            color: #0c7ecf;
+        }
+        .step-card {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px 0;
+            transition: transform 0.2s;
+        }
+        .step-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .step-number {
+            background: linear-gradient(45deg, #0984e3, #0c7ecf);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 15px;
+        }
+        .code-snippet {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            overflow-x: auto;
+            margin: 15px 0;
+        }
+        .highlight {
+            background: linear-gradient(45deg, rgba(9,132,227,0.1), rgba(12,126,207,0.1));
+            border: 1px solid #0984e3;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        @media (max-width: 968px) {
+            .section {
+                flex-direction: column;
             }
-            
-            .image-section {
-                min-height: 400px;
-            }
-            
-            .class-grid, .yolo-features, .stats-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            h1 {
-                font-size: 2.2rem;
+            .visual-side {
+                min-height: 250px;
             }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <header>
+        <div class="header">
             <h1>🎯 Modul 060: YOLOv8 Klassifikations-Dataset</h1>
-            <p class="subtitle">Spezialisierte Datenaufbereitung für Ultra-Fast Object Classification</p>
-        </header>
+            <p>Spezialisierte Datenaufbereitung für Ultra-Fast Object Classification</p>
+        </div>
 
-        <div class="main-content">
-            <!-- Linke Seite: Platz für Bild/Grafik -->
-            <div class="image-section">
-                <div class="placeholder">
-                    📊 YOLOv8 Ordnerstruktur Diagramm
-                    <br><br>
-                    🗂️ Dataset/Split/Klasse Hierarchie
-                    <br><br>
-                    📈 70/15/15 Split Visualisierung
-                    <br><br>
-                    🎯 Riffbarsch vs Taucher Beispiele
-                    <br><br>
-                    📋 YAML Config Vorschau
-                    <br><br>
-                    📸 Dataset-Übersicht Grid (2×4)
-                    <br><br>
-                    ⚡ YOLOv8 Logo & Performance
-                </div>
-                <div class="image-caption">
-                    <strong>YOLOv8 Classification Ready:</strong> Optimierte Dataset-Struktur für ultra-schnelle Bildklassifikation ohne Label-Dateien - direkt kompatibel mit YOLOv8n-cls Training Pipeline
+        <div class="section">
+            <div class="visual-side">
+                <div class="visual-placeholder">
+                    <h3>📊 YOLOv8 Ordnerstruktur</h3>
+                    <p>🗂️ Dataset/Split/Klasse Hierarchie<br>📈 70/15/15 Split Visualisierung<br>🎯 Riffbarsch vs Taucher Beispiele<br>📋 YAML Config Vorschau<br>📸 Dataset-Übersicht Grid (2×4)<br>⚡ YOLOv8 Logo & Performance</p>
                 </div>
             </div>
-
-            <!-- Rechte Seite: Text-Inhalt -->
-            <div class="text-section">
-                <div class="section">
-                    <h2>🎯 Was macht dieses Modul?</h2>
-                    <p>
-                        Dieses Modul erstellt eine <span class="tech-term">YOLOv8-Classification Dataset Structure</span> für <span class="tech-term">Ultra-Fast Binary Classification</span> zwischen Riffbarsch und Taucher ohne Label-Dateien.
-                    </p>
-                    <div class="explanation">
-                        <strong>Einfach erklärt:</strong> YOLOv8 ist wie ein super-schneller Erkennungs-Roboter, der normalerweise Objekte in Bildern findet UND umrahmt. Hier verwenden wir nur die "Erkennungs"-Fähigkeit - er soll einfach sagen "Das ist ein Riffbarsch" oder "Das ist ein Taucher". Wie ein Blitz-schneller Sortierroboter für Fotos!
-                    </div>
+            <div class="content-side">
+                <h2>🎯 Was macht dieses Modul?</h2>
+                <p>Dieses Modul erstellt eine <span class="badge">YOLOv8-Classification Dataset Structure</span> für <span class="badge">Ultra-Fast Binary Classification</span> zwischen Riffbarsch und Taucher ohne Label-Dateien.</p>
+                <div class="explanation">
+                    <strong>Einfach erklärt:</strong> YOLOv8 ist wie ein super-schneller Erkennungs-Roboter, der normalerweise Objekte in Bildern findet UND umrahmt. Hier verwenden wir nur die "Erkennungs"-Fähigkeit - er soll einfach sagen "Das ist ein Riffbarsch" oder "Das ist ein Taucher". Wie ein Blitz-schneller Sortierroboter für Fotos!
                 </div>
+            </div>
+        </div>
 
-                <div class="section">
-                    <h2>⚡ YOLOv8 Classification Besonderheiten</h2>
-                    <div class="yolo-architecture">
-                        <h4>🚀 YOLO "You Only Look Once" Architektur:</h4>
-                        <div class="yolo-features">
-                            <div class="yolo-feature">
-                                <div class="feature-icon">⚡</div>
-                                <div><strong>Ultra-Fast</strong><br>Real-time inference</div>
-                            </div>
-                            <div class="yolo-feature">
-                                <div class="feature-icon">🎯</div>
-                                <div><strong>Single Pass</strong><br>One forward pass</div>
-                            </div>
-                            <div class="yolo-feature">
-                                <div class="feature-icon">🔧</div>
-                                <div><strong>No Labels</strong><br>Ordnerstruktur reicht</div>
-                            </div>
-                            <div class="yolo-feature">
-                                <div class="feature-icon">📱</div>
-                                <div><strong>Mobile Ready</strong><br>Edge deployment</div>
-                            </div>
-                        </div>
-                        
-                        <div style="margin-top: 1.5rem; padding: 1rem; background: rgba(255,255,255,0.1); border-radius: 10px;">
-                            <strong>🎯 YOLOv8n-cls:</strong> Speziell für Klassifikation optimierte Version - keine Bounding Boxes, nur Klassen-Wahrscheinlichkeiten
-                        </div>
-                    </div>
+        <div class="section">
+            <div class="visual-side">
+                <div class="visual-placeholder">
+                    <h3>⚡ YOLOv8 Classification</h3>
+                    <p>🚀 YOLO "You Only Look Once"<br>⚡ Ultra-Fast Real-time<br>🎯 Single Pass Processing<br>🔧 No Labels Required<br>📱 Mobile Ready<br>🎯 YOLOv8n-cls optimiert</p>
                 </div>
-
-                <div class="section">
-                    <h2>🏷️ Zwei-Klassen-System</h2>
-                    <div class="classes-showcase">
-                        <h3>🎯 Binary Classification Setup:</h3>
-                        <div class="class-grid">
-                            <div class="class-card riffbarsch-card">
-                                <h4>
-                                    <span class="class-emoji">🐠</span>
-                                    Riffbarsch (Klasse 0)
-                                </h4>
-                                <p>Hauptzielklasse - verschiedene Riffbarsch-Arten und Posen für robuste Erkennung</p>
-                                
-                                <h5 style="margin: 1.5rem 0 1rem; color: var(--riffbarsch-teal);">📁 Quellordner:</h5>
-                                <ul class="source-list">
-                                    <li>🗂️ riffbarsch (Basis-Sammlung)</li>
-                                    <li>🗂️ riffbarsch_extra (Zusätzliche Varianten)</li>
-                                    <li>🎨 riffbarsch_i_net_data_augmentation (24× erweitert)</li>
-                                </ul>
-                            </div>
-                            
-                            <div class="class-card taucher-card">
-                                <h4>
-                                    <span class="class-emoji">🤿</span>
-                                    Taucher (Klasse 1)
-                                </h4>
-                                <p>Kontrastklasse - Taucher in verschiedenen Unterwasser-Szenarien als klare Abgrenzung</p>
-                                
-                                <h5 style="margin: 1.5rem 0 1rem; color: var(--taucher-navy);">📁 Quellordner:</h5>
-                                <ul class="source-list">
-                                    <li>🗂️ taucher (Taucher-Basis-Sammlung)</li>
-                                    <li>🗂️ taucher_extra (Erweiterte Taucher-Szenen)</li>
-                                </ul>
-                            </div>
+            </div>
+            <div class="content-side">
+                <h2>⚡ YOLOv8 Classification Besonderheiten</h2>
+                <div class="highlight">
+                    <h4>🚀 YOLO "You Only Look Once" Architektur</h4>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px; margin: 15px 0;">
+                        <div style="background: #0984e3; color: white; padding: 15px; border-radius: 8px; text-align: center;">
+                            <div style="font-size: 1.5em;">⚡</div>
+                            <div style="font-weight: bold;">Ultra-Fast</div>
+                            <div style="font-size: 0.9em;">Real-time inference</div>
+                        </div>
+                        <div style="background: #0c7ecf; color: white; padding: 15px; border-radius: 8px; text-align: center;">
+                            <div style="font-size: 1.5em;">🎯</div>
+                            <div style="font-weight: bold;">Single Pass</div>
+                            <div style="font-size: 0.9em;">One forward pass</div>
+                        </div>
+                        <div style="background: #0a6db8; color: white; padding: 15px; border-radius: 8px; text-align: center;">
+                            <div style="font-size: 1.5em;">🔧</div>
+                            <div style="font-weight: bold;">No Labels</div>
+                            <div style="font-size: 0.9em;">Ordnerstruktur reicht</div>
+                        </div>
+                        <div style="background: #0863a1; color: white; padding: 15px; border-radius: 8px; text-align: center;">
+                            <div style="font-size: 1.5em;">📱</div>
+                            <div style="font-weight: bold;">Mobile Ready</div>
+                            <div style="font-size: 0.9em;">Edge deployment</div>
                         </div>
                     </div>
                 </div>
+                
+                <div class="explanation">
+                    <strong>🎯 YOLOv8n-cls:</strong> Speziell für Klassifikation optimierte Version - keine Bounding Boxes, nur Klassen-Wahrscheinlichkeiten
+                </div>
+            </div>
+        </div>
 
-                <div class="section">
-                    <h2>🔄 4-Stufen Daten-Pipeline</h2>
-                    <div class="data-pipeline">
-                        <h4>⚙️ Automatisierte Verarbeitungsschritte:</h4>
-                        
-                        <div class="pipeline-step">
-                            <span class="step-number">1</span>
-                            <div>
-                                <strong>Multi-Source Collection:</strong> Sammelt Bilder aus 5 verschiedenen Quellordnern mit rekursiver Suche
-                            </div>
+        <div class="section">
+            <div class="visual-side">
+                <div class="visual-placeholder">
+                    <h3>🏷️ Zwei-Klassen-System</h3>
+                    <p>🎯 Binary Classification Setup<br>🐠 Riffbarsch (Klasse 0)<br>🤿 Taucher (Klasse 1)<br><br>5 Quellordner total<br>Verschiedene Varianten<br>Robuste Erkennung</p>
+                </div>
+            </div>
+            <div class="content-side">
+                <h2>🏷️ Zwei-Klassen-System</h2>
+                <div class="step-card">
+                    <span class="step-number">🐠</span>
+                    <strong>Riffbarsch (Klasse 0):</strong> Hauptzielklasse - verschiedene Riffbarsch-Arten und Posen für robuste Erkennung<br>
+                    <small>Quellen: riffbarsch, riffbarsch_extra, riffbarsch_i_net_data_augmentation (24× erweitert)</small>
+                </div>
+                
+                <div class="step-card">
+                    <span class="step-number">🤿</span>
+                    <strong>Taucher (Klasse 1):</strong> Kontrastklasse - Taucher in verschiedenen Unterwasser-Szenarien als klare Abgrenzung<br>
+                    <small>Quellen: taucher, taucher_extra</small>
+                </div>
+                
+                <div class="explanation">
+                    <strong>Binary Classification:</strong> Einfachste und schnellste Form der Klassifikation - optimale Performance für Zwei-Klassen-Probleme
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="visual-side">
+                <div class="visual-placeholder">
+                    <h3>🔄 4-Stufen Pipeline</h3>
+                    <p>⚙️ Automatisierte Verarbeitung<br>1. Multi-Source Collection<br>2. YOLOv8-Struktur Creation<br>3. YAML Configuration<br>4. Visual Overview<br><br>Ohne Label-Dateien</p>
+                </div>
+            </div>
+            <div class="content-side">
+                <h2>🔄 4-Stufen Daten-Pipeline</h2>
+                <div class="step-card">
+                    <span class="step-number">1</span>
+                    <strong>Multi-Source Collection:</strong> Sammelt Bilder aus 5 verschiedenen Quellordnern mit rekursiver Suche
+                </div>
+                
+                <div class="step-card">
+                    <span class="step-number">2</span>
+                    <strong>YOLOv8-Struktur Creation:</strong> Erstellt dataset/split/klasse/ Hierarchie ohne Label-Dateien
+                </div>
+                
+                <div class="step-card">
+                    <span class="step-number">3</span>
+                    <strong>YAML Configuration:</strong> Generiert automatische YAML-Config mit Pfaden und Klassen-Mapping
+                </div>
+                
+                <div class="step-card">
+                    <span class="step-number">4</span>
+                    <strong>Visual Overview:</strong> Erstellt 2×4 Dataset-Übersicht mit Beispielbildern und Statistiken
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="visual-side">
+                <div class="visual-placeholder">
+                    <h3>📊 70/15/15 Stratified Splitting</h3>
+                    <p>🎯 Proportionale Aufteilung<br>🎓 TRAINING (70%)<br>🔍 VALIDATION (15%)<br>🎯 TEST (15%)<br><br>Beide Klassen identisch<br>Garantierte Balance</p>
+                </div>
+            </div>
+            <div class="content-side">
+                <h2>📊 70/15/15 Stratified Splitting</h2>
+                <div class="highlight">
+                    <h4>🎯 Proportionale Dataset-Aufteilung</h4>
+                    <div style="margin: 15px 0;">
+                        <div style="background: #27ae60; color: white; padding: 15px; border-radius: 5px; margin: 5px 0; display: flex; justify-content: space-between; align-items: center;">
+                            <span>🎓 TRAINING</span>
+                            <strong>70%</strong>
                         </div>
-                        
-                        <div class="pipeline-step">
-                            <span class="step-number">2</span>
-                            <div>
-                                <strong>YOLOv8-Struktur Creation:</strong> Erstellt dataset/split/klasse/ Hierarchie ohne Label-Dateien
-                            </div>
+                        <div style="background: #3498db; color: white; padding: 15px; border-radius: 5px; margin: 5px 0; display: flex; justify-content: space-between; align-items: center;">
+                            <span>🔍 VALIDATION</span>
+                            <strong>15%</strong>
                         </div>
-                        
-                        <div class="pipeline-step">
-                            <span class="step-number">3</span>
-                            <div>
-                                <strong>YAML Configuration:</strong> Generiert automatische YAML-Config mit Pfaden und Klassen-Mapping
-                            </div>
-                        </div>
-                        
-                        <div class="pipeline-step">
-                            <span class="step-number">4</span>
-                            <div>
-                                <strong>Visual Overview:</strong> Erstellt 2×4 Dataset-Übersicht mit Beispielbildern und Statistiken
-                            </div>
+                        <div style="background: #9b59b6; color: white; padding: 15px; border-radius: 5px; margin: 5px 0; display: flex; justify-content: space-between; align-items: center;">
+                            <span>🎯 TEST</span>
+                            <strong>15%</strong>
                         </div>
                     </div>
+                    <p style="text-align: center; font-style: italic; margin-top: 15px;">Beide Klassen werden identisch aufgeteilt - garantierte Balance in allen Splits</p>
                 </div>
+            </div>
+        </div>
 
-                <div class="section">
-                    <h2>📊 70/15/15 Stratified Splitting</h2>
-                    <div class="split-visualization">
-                        <h4>🎯 Proportionale Dataset-Aufteilung:</h4>
-                        
-                        <div class="split-bars">
-                            <div class="split-bar">
-                                <div class="split-fill train-fill">
-                                    <span class="split-label">🎓 TRAINING</span>
-                                    <span class="split-percentage">70%</span>
-                                </div>
-                            </div>
-                            
-                            <div class="split-bar">
-                                <div class="split-fill val-fill">
-                                    <span class="split-label">🔍 VALIDATION</span>
-                                    <span class="split-percentage">15%</span>
-                                </div>
-                            </div>
-                            
-                            <div class="split-bar">
-                                <div class="split-fill test-fill">
-                                    <span class="split-label">🎯 TEST</span>
-                                    <span class="split-percentage">15%</span>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <p style="margin-top: 1.5rem; opacity: 0.9; text-align: center; font-style: italic;">
-                            Beide Klassen werden identisch aufgeteilt - garantierte Balance in allen Splits
-                        </p>
-                    </div>
+        <div class="section">
+            <div class="visual-side">
+                <div class="visual-placeholder">
+                    <h3>📁 YOLOv8 Ordnerstruktur</h3>
+                    <p>yolo_classification/<br>├── train/ (riffbarsch, taucher)<br>├── val/ (riffbarsch, taucher)<br>├── test/ (riffbarsch, taucher)<br>├── *.yaml<br>└── *.png<br><br>Keine Label-Dateien nötig</p>
                 </div>
-
-                <div class="section">
-                    <h2>📁 YOLOv8 Ordnerstruktur</h2>
-                    <div class="folder-structure">
-<span class="folder">yolo_classification/</span>
-├── <span class="train">train/</span>
-│   ├── <span class="class-riff">riffbarsch/</span>           <span style="color: #888;">← 70% Riffbarsch-Bilder</span>
-│   └── <span class="class-tauch">taucher/</span>             <span style="color: #888;">← 70% Taucher-Bilder</span>
-├── <span class="val">val/</span>
-│   ├── <span class="class-riff">riffbarsch/</span>           <span style="color: #888;">← 15% Riffbarsch-Bilder</span>
-│   └── <span class="class-tauch">taucher/</span>             <span style="color: #888;">← 15% Taucher-Bilder</span>
-├── <span class="test">test/</span>
-│   ├── <span class="class-riff">riffbarsch/</span>           <span style="color: #888;">← 15% Riffbarsch-Bilder</span>
-│   └── <span class="class-tauch">taucher/</span>             <span style="color: #888;">← 15% Taucher-Bilder</span>
-├── <span style="color: #ffd700;">yolo_classification.yaml</span>    <span style="color: #888;">← Training-Konfiguration</span>
-└── <span style="color: #ff69b4;">dataset_uebersicht.png</span>     <span style="color: #888;">← Visuelle Übersicht</span>
-                    </div>
+            </div>
+            <div class="content-side">
+                <h2>📁 YOLOv8 Ordnerstruktur</h2>
+                <div class="code-snippet">
+yolo_classification/
+├── train/
+│   ├── riffbarsch/           ← 70% Riffbarsch-Bilder
+│   └── taucher/              ← 70% Taucher-Bilder
+├── val/
+│   ├── riffbarsch/           ← 15% Riffbarsch-Bilder
+│   └── taucher/              ← 15% Taucher-Bilder
+├── test/
+│   ├── riffbarsch/           ← 15% Riffbarsch-Bilder
+│   └── taucher/              ← 15% Taucher-Bilder
+├── yolo_classification.yaml  ← Training-Konfiguration
+└── dataset_uebersicht.png    ← Visuelle Übersicht
                 </div>
+            </div>
+        </div>
 
-                <div class="section">
-                    <h2>⚙️ YAML Konfiguration</h2>
-                    <div class="yaml-config">
-                        <h5>📋 Automatisch generierte YOLOv8 Config:</h5>
+        <div class="section">
+            <div class="visual-side">
+                <div class="visual-placeholder">
+                    <h3>⚙️ YAML Konfiguration</h3>
+                    <p>📋 Automatisch generiert<br>path, train, val, test<br>names: 0: riffbarsch, 1: taucher<br>nc: 2<br><br>YOLOv8n-cls Training Ready</p>
+                </div>
+            </div>
+            <div class="content-side">
+                <h2>⚙️ YAML Konfiguration</h2>
+                <div class="code-snippet">
 # YOLOv8n-Klassifikation für Riffbarsch-Taucher
 path: E:/dev/projekt_python_venv/010_Riffbarsch/datasets/yolo_classification
 train: train
@@ -768,90 +351,137 @@ names:
 
 # Anzahl der Klassen
 nc: 2
-                    </div>
                 </div>
+                <div class="explanation">
+                    <strong>Automatisch generierte YOLOv8 Config:</strong> Komplette YAML-Datei wird basierend auf der erstellten Ordnerstruktur automatisch erzeugt
+                </div>
+            </div>
+        </div>
 
-                <div class="section">
-                    <h2>📈 Dataset Statistiken</h2>
-                    <div class="statistics">
-                        <h4>🎯 Automatisch generierte Metriken:</h4>
-                        <div class="stats-grid">
-                            <div class="stat-card">
-                                <span class="stat-number">2</span>
-                                <span class="stat-label">Klassen<br>(Binary)</span>
-                            </div>
-                            <div class="stat-card">
-                                <span class="stat-number">5</span>
-                                <span class="stat-label">Quellordner<br>Total</span>
-                            </div>
-                            <div class="stat-card">
-                                <span class="stat-number">7</span>
-                                <span class="stat-label">Unterstützte<br>Formate</span>
-                            </div>
-                            <div class="stat-card">
-                                <span class="stat-number">70%</span>
-                                <span class="stat-label">Training<br>Data</span>
-                            </div>
-                            <div class="stat-card">
-                                <span class="stat-number">2×4</span>
-                                <span class="stat-label">Übersichts-<br>Grid</span>
-                            </div>
-                            <div class="stat-card">
-                                <span class="stat-number">v2</span>
-                                <span class="stat-label">Modul<br>Version</span>
-                            </div>
+        <div class="section">
+            <div class="visual-side">
+                <div class="visual-placeholder">
+                    <h3>📈 Dataset Statistiken</h3>
+                    <p>🎯 Automatische Metriken<br>2 Klassen (Binary)<br>5 Quellordner Total<br>7 Unterstützte Formate<br>70% Training Data<br>2×4 Übersichts-Grid<br>v2 Modul Version</p>
+                </div>
+            </div>
+            <div class="content-side">
+                <h2>📈 Dataset Statistiken</h2>
+                <div class="highlight">
+                    <h4>🎯 Automatisch generierte Metriken</h4>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 10px; margin: 15px 0;">
+                        <div style="background: #0984e3; color: white; padding: 15px; border-radius: 8px; text-align: center;">
+                            <div style="font-size: 1.5em; font-weight: bold;">2</div>
+                            <div style="font-size: 0.9em;">Klassen (Binary)</div>
                         </div>
-                        
-                        <div style="margin-top: 1.5rem; padding: 1rem; background: rgba(255,255,255,0.1); border-radius: 10px;">
-                            <strong>📊 Smart Balance Check:</strong> Automatische Überprüfung der Klassenverteilung mit Warnung bei starkem Ungleichgewicht
+                        <div style="background: #0c7ecf; color: white; padding: 15px; border-radius: 8px; text-align: center;">
+                            <div style="font-size: 1.5em; font-weight: bold;">5</div>
+                            <div style="font-size: 0.9em;">Quellordner Total</div>
+                        </div>
+                        <div style="background: #0a6db8; color: white; padding: 15px; border-radius: 8px; text-align: center;">
+                            <div style="font-size: 1.5em; font-weight: bold;">7</div>
+                            <div style="font-size: 0.9em;">Unterstützte Formate</div>
+                        </div>
+                        <div style="background: #0863a1; color: white; padding: 15px; border-radius: 8px; text-align: center;">
+                            <div style="font-size: 1.5em; font-weight: bold;">70%</div>
+                            <div style="font-size: 0.9em;">Training Data</div>
+                        </div>
+                        <div style="background: #06598a; color: white; padding: 15px; border-radius: 8px; text-align: center;">
+                            <div style="font-size: 1.5em; font-weight: bold;">2×4</div>
+                            <div style="font-size: 0.9em;">Übersichts-Grid</div>
+                        </div>
+                        <div style="background: #044f73; color: white; padding: 15px; border-radius: 8px; text-align: center;">
+                            <div style="font-size: 1.5em; font-weight: bold;">v2</div>
+                            <div style="font-size: 0.9em;">Modul Version</div>
                         </div>
                     </div>
                 </div>
+                
+                <div class="explanation">
+                    <strong>📊 Smart Balance Check:</strong> Automatische Überprüfung der Klassenverteilung mit Warnung bei starkem Ungleichgewicht
+                </div>
+            </div>
+        </div>
 
-                <div class="section">
-                    <h2>🚀 YOLOv8 Vorteile</h2>
-                    <div class="advantages">
-                        <h4>💡 Warum YOLOv8 Classification?</h4>
-                        <ul class="advantage-list">
-                            <li><strong>⚡ Ultra-Fast Inference:</strong> Millisekundenschnelle Klassifikation für Real-Time Anwendungen</li>
-                            <li><strong>📱 Edge Deployment:</strong> Läuft auf Smartphones, Raspberry Pi und IoT-Geräten</li>
-                            <li><strong>🎯 State-of-the-Art:</strong> Aktuelle YOLO-Generation mit besten Accuracy/Speed Trade-offs</li>
-                            <li><strong>🔧 No Label Files:</strong> Einfachste Datenstruktur - nur Ordnernamen bestimmen Klassen</li>
-                            <li><strong>📊 Built-in Metrics:</strong> Automatische Confusion Matrix, Precision, Recall, F1-Score</li>
-                            <li><strong>🎨 Easy Transfer Learning:</strong> Pre-trained Weights für sofortigen Start verfügbar</li>
-                            <li><strong>🔄 Flexible Export:</strong> ONNX, TensorRT, CoreML für verschiedene Deployment-Szenarien</li>
-                        </ul>
-                    </div>
+        <div class="section">
+            <div class="visual-side">
+                <div class="visual-placeholder">
+                    <h3>🚀 YOLOv8 Vorteile</h3>
+                    <p>💡 Warum YOLOv8 Classification?<br>⚡ Ultra-Fast Inference<br>📱 Edge Deployment<br>🎯 State-of-the-Art<br>🔧 No Label Files<br>📊 Built-in Metrics<br>🎨 Transfer Learning<br>🔄 Flexible Export</p>
+                </div>
+            </div>
+            <div class="content-side">
+                <h2>🚀 YOLOv8 Vorteile</h2>
+                <div class="step-card">
+                    <span class="step-number">⚡</span>
+                    <strong>Ultra-Fast Inference:</strong> Millisekundenschnelle Klassifikation für Real-Time Anwendungen
+                </div>
+                
+                <div class="step-card">
+                    <span class="step-number">📱</span>
+                    <strong>Edge Deployment:</strong> Läuft auf Smartphones, Raspberry Pi und IoT-Geräten
+                </div>
+                
+                <div class="step-card">
+                    <span class="step-number">🎯</span>
+                    <strong>State-of-the-Art:</strong> Aktuelle YOLO-Generation mit besten Accuracy/Speed Trade-offs
+                </div>
+                
+                <div class="step-card">
+                    <span class="step-number">🔧</span>
+                    <strong>No Label Files:</strong> Einfachste Datenstruktur - nur Ordnernamen bestimmen Klassen
+                </div>
+                
+                <div class="step-card">
+                    <span class="step-number">📊</span>
+                    <strong>Built-in Metrics:</strong> Automatische Confusion Matrix, Precision, Recall, F1-Score
+                </div>
+                
+                <div class="step-card">
+                    <span class="step-number">🎨</span>
+                    <strong>Easy Transfer Learning:</strong> Pre-trained Weights für sofortigen Start verfügbar
+                </div>
+                
+                <div class="step-card">
+                    <span class="step-number">🔄</span>
+                    <strong>Flexible Export:</strong> ONNX, TensorRT, CoreML für verschiedene Deployment-Szenarien
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="visual-side">
+                <div class="visual-placeholder">
+                    <h3>💻 Technische Features</h3>
+                    <p>Type Hints & Documentation<br>Error Handling<br>Visual Feedback<br>Clean Architecture<br><br>Professionelle Entwicklung<br>Robuste Implementierung</p>
+                </div>
+            </div>
+            <div class="content-side">
+                <h2>💻 Technische Features</h2>
+                <div class="explanation">
+                    <strong>Type Hints & Documentation:</strong> Vollständige Python Type Annotations mit detaillierten Docstrings für professionelle Entwicklung.
+                </div>
+                
+                <div class="explanation">
+                    <strong>Error Handling:</strong> Robuste Fehlerbehandlung mit Existenz-Checks für Quellordner und Image-Loading mit Exception Handling.
                 </div>
 
-                <div class="section">
-                    <h2>💻 Technische Features</h2>
-                    <div class="explanation">
-                        <strong>Type Hints & Documentation:</strong> Vollständige Python Type Annotations mit detaillierten Docstrings für professionelle Entwicklung.
-                    </div>
-                    
-                    <div class="explanation">
-                        <strong>Error Handling:</strong> Robuste Fehlerbehandlung mit Existenz-Checks für Quellordner und Image-Loading mit Exception Handling.
-                    </div>
-
-                    <div class="explanation">
-                        <strong>Visual Feedback:</strong> Automatische Dataset-Übersicht mit 2×4 Grid zeigt Beispielbilder aus jedem Split und jeder Klasse mit Statistiken.
-                    </div>
-
-                    <div class="explanation">
-                        <strong>Clean Architecture:</strong> Modular aufgebaut mit separaten Funktionen für Collection, Strukturierung, YAML-Generation und Visualisierung.
-                    </div>
+                <div class="explanation">
+                    <strong>Visual Feedback:</strong> Automatische Dataset-Übersicht mit 2×4 Grid zeigt Beispielbilder aus jedem Split und jeder Klasse mit Statistiken.
                 </div>
 
-                <div class="humor-box">
-                    <h4>🐠 Entwickler-Humor:</h4>
+                <div class="explanation">
+                    <strong>Clean Architecture:</strong> Modular aufgebaut mit separaten Funktionen für Collection, Strukturierung, YAML-Generation und Visualisierung.
+                </div>
+                
+                <div class="highlight">
+                    <h4>🐠 Entwickler-Humor</h4>
                     <p><em>"Wer seine Daten richtig sortiert, findet seine Fische auch im Dunkeln!"</em></p>
-                    <p style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.9;">
-                        - Changelog 2025-01-14: Speziell für YOLOv8n-cls entwickelt
-                    </p>
+                    <p style="margin-top: 10px; font-size: 0.9em; opacity: 0.9;">- Changelog 2025-01-14: Speziell für YOLOv8n-cls entwickelt</p>
                 </div>
             </div>
         </div>
     </div>
 </body>
 </html>
+      

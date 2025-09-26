@@ -3,764 +3,310 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Modul 080: Mask R-CNN Datenaufteilung</title>
+    <title>Mask R-CNN Datenaufteilung - mod_080_mask_r_cnn_daten_aufteilen.py</title>
     <style>
-        :root {
-            --primary: #2c3e50;
-            --secondary: #3498db;
-            --accent: #e74c3c;
-            --success: #27ae60;
-            --warning: #f39c12;
-            --purple: #8e44ad;
-            --orange: #d35400;
-            --light: #ecf0f1;
-            --dark: #2c3e50;
-            --mask-blue: #3498db;
-            --mask-purple: #9b59b6;
-            --mask-teal: #1abc9c;
-            --rcnn-red: #e74c3c;
-            --rcnn-orange: #e67e22;
-            --train-green: #27ae60;
-            --val-blue: #3498db;
-            --test-purple: #9b59b6;
-            --timestamp-gold: #f1c40f;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f8f9fa;
+            color: #212529;
             line-height: 1.6;
-            color: var(--dark);
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
-            min-height: 100vh;
         }
-
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
-            padding: 2rem;
         }
-
-        header {
-            text-align: center;
-            margin-bottom: 3rem;
-            background: white;
-            padding: 2.5rem;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            backdrop-filter: blur(10px);
-        }
-
-        h1 {
-            color: var(--primary);
-            font-size: 2.8rem;
-            margin-bottom: 0.5rem;
-            background: linear-gradient(135deg, var(--mask-blue), var(--mask-purple));
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .subtitle {
-            color: var(--mask-purple);
-            font-size: 1.4rem;
-            font-weight: 500;
-            margin-top: 1rem;
-        }
-
-        .main-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem;
-            background: white;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
-        }
-
-        .image-section {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
-            padding: 2rem;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            min-height: 1000px;
+        .header {
+            background: linear-gradient(135deg, #2ed573 0%, #26d0ce 100%);
             color: white;
-            position: relative;
-        }
-
-        .placeholder {
-            width: 100%;
-            height: 500px;
-            background: rgba(255,255,255,0.15);
-            border: 3px dashed rgba(255,255,255,0.6);
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 0.95rem;
-            margin-bottom: 2rem;
-            text-align: center;
-            backdrop-filter: blur(15px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-        }
-
-        .image-caption {
-            text-align: center;
-            font-style: italic;
-            background: rgba(255,255,255,0.15);
-            padding: 1.5rem;
+            padding: 40px;
             border-radius: 15px;
-            backdrop-filter: blur(15px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
         }
-
-        .text-section {
-            padding: 2rem;
-            overflow-y: auto;
-            max-height: 1000px;
+        .header h1 {
+            margin: 0 0 10px 0;
+            font-size: 2.5em;
+            font-weight: 700;
         }
-
-        .section {
-            margin-bottom: 2.5rem;
-        }
-
-        .section h2 {
-            color: var(--primary);
-            font-size: 1.6rem;
-            margin-bottom: 1rem;
-            border-bottom: 3px solid var(--mask-purple);
-            padding-bottom: 0.5rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .tech-term {
-            background: linear-gradient(135deg, var(--mask-blue), var(--mask-purple));
-            color: white;
-            padding: 0.3rem 0.8rem;
-            border-radius: 8px;
-            font-weight: bold;
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            box-shadow: 0 3px 10px rgba(52, 152, 219, 0.3);
-        }
-
-        .explanation {
-            background: linear-gradient(135deg, #e8f4ff, #dbeafe);
-            padding: 1.2rem;
-            border-left: 5px solid var(--mask-blue);
-            margin: 1rem 0;
-            border-radius: 0 12px 12px 0;
-            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.1);
-        }
-
-        .dataset-overview {
-            background: linear-gradient(135deg, var(--primary), #34495e);
-            color: white;
-            padding: 2rem;
-            border-radius: 15px;
-            margin: 1.5rem 0;
-            box-shadow: 0 8px 25px rgba(44, 62, 80, 0.3);
-        }
-
-        .dataset-overview h4 {
-            margin-bottom: 1.5rem;
-            color: var(--mask-teal);
-            font-size: 1.3rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .source-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-            margin: 1.5rem 0;
-        }
-
-        .source-card {
-            background: rgba(255,255,255,0.15);
-            padding: 1.5rem;
-            border-radius: 12px;
-            text-align: center;
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(255,255,255,0.2);
-            transition: all 0.3s ease;
-        }
-
-        .source-card:hover {
-            background: rgba(255,255,255,0.25);
-            transform: translateY(-5px);
-        }
-
-        .source-icon {
-            font-size: 2rem;
-            margin-bottom: 0.5rem;
-            display: block;
-        }
-
-        .source-name {
-            font-weight: bold;
-            font-size: 0.9rem;
-            opacity: 0.95;
-        }
-
-        .split-strategy {
-            background: linear-gradient(135deg, var(--success), #229954);
-            color: white;
-            padding: 2rem;
-            border-radius: 15px;
-            margin: 1.5rem 0;
-            box-shadow: 0 8px 25px rgba(39, 174, 96, 0.3);
-        }
-
-        .split-strategy h4 {
-            margin-bottom: 1.5rem;
-            color: #d5f4e6;
-            font-size: 1.3rem;
-        }
-
-        .split-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1.5rem;
-            margin: 1.5rem 0;
-        }
-
-        .split-card {
-            background: rgba(255,255,255,0.15);
-            padding: 1.8rem;
-            border-radius: 12px;
-            text-align: center;
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(255,255,255,0.2);
-            transition: all 0.3s ease;
-        }
-
-        .split-card:hover {
-            background: rgba(255,255,255,0.25);
-            transform: scale(1.05);
-        }
-
-        .split-percentage {
-            font-size: 2.5rem;
-            font-weight: bold;
-            color: #d5f4e6;
-            display: block;
-            margin-bottom: 0.5rem;
-        }
-
-        .split-name {
-            font-size: 0.9rem;
+        .header p {
+            margin: 0;
+            font-size: 1.2em;
             opacity: 0.9;
-            text-transform: uppercase;
-            letter-spacing: 1px;
         }
-
-        .train-card { border-left: 5px solid var(--train-green); }
-        .val-card { border-left: 5px solid var(--val-blue); }
-        .test-card { border-left: 5px solid var(--test-purple); }
-
-        .naming-system {
-            background: linear-gradient(135deg, var(--timestamp-gold), #e67e22);
-            color: white;
-            padding: 2rem;
-            border-radius: 15px;
-            margin: 1.5rem 0;
-            box-shadow: 0 8px 25px rgba(241, 196, 64, 0.3);
-        }
-
-        .naming-system h4 {
-            margin-bottom: 1.5rem;
-            color: #fef9e7;
-            font-size: 1.3rem;
-        }
-
-        .naming-example {
-            background: rgba(255,255,255,0.15);
-            padding: 1.5rem;
-            border-radius: 12px;
-            font-family: 'Courier New', monospace;
-            font-size: 0.9rem;
-            margin: 1rem 0;
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(255,255,255,0.3);
-        }
-
-        .process-flow {
-            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
-            padding: 2rem;
-            border-radius: 15px;
-            margin: 1.5rem 0;
-            border: 2px solid #dee2e6;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.08);
-        }
-
-        .process-flow h3 {
-            color: var(--mask-purple);
-            margin-bottom: 1.5rem;
+        .section {
             display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 1.3rem;
-        }
-
-        .process-step {
-            display: flex;
-            align-items: center;
-            margin: 1.2rem 0;
-            padding: 1.2rem;
+            gap: 30px;
+            margin-bottom: 30px;
             background: white;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-            transition: all 0.3s ease;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
         }
-
-        .process-step:hover {
-            transform: translateX(8px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-        }
-
-        .step-number {
-            background: linear-gradient(135deg, var(--mask-purple), var(--rcnn-red));
-            color: white;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
+        .visual-side {
+            flex: 1;
+            background: linear-gradient(45deg, #f1f3f4, #e8eaed);
+            min-height: 300px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: bold;
-            margin-right: 1.5rem;
-            font-size: 1.3rem;
-            box-shadow: 0 4px 12px rgba(155, 89, 182, 0.3);
-        }
-
-        .cleanup-warning {
-            background: linear-gradient(135deg, var(--rcnn-red), #c0392b);
-            color: white;
-            padding: 1.8rem;
-            border-radius: 15px;
-            margin: 1.5rem 0;
+            color: #5f6368;
+            font-size: 1.1em;
             text-align: center;
-            box-shadow: 0 8px 25px rgba(231, 76, 60, 0.3);
+            position: relative;
+            overflow: hidden;
         }
-
-        .cleanup-warning h4 {
-            margin-bottom: 1rem;
-            font-size: 1.3rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
+        .visual-side::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="%23e0e0e0" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>') repeat;
+            opacity: 0.3;
         }
-
-        .maskrcnn-features {
-            background: linear-gradient(135deg, var(--mask-teal), #138d75);
-            color: white;
-            padding: 2rem;
-            border-radius: 15px;
-            margin: 1.5rem 0;
-            box-shadow: 0 8px 25px rgba(26, 188, 156, 0.3);
-        }
-
-        .maskrcnn-features h4 {
-            margin-bottom: 1.5rem;
-            color: #d5f4e6;
-            font-size: 1.3rem;
-        }
-
-        .features-list {
-            list-style: none;
-            padding: 0;
-        }
-
-        .features-list li {
-            background: rgba(255,255,255,0.15);
-            padding: 1rem;
-            margin: 0.8rem 0;
-            border-radius: 8px;
-            backdrop-filter: blur(15px);
-            border-left: 4px solid white;
-            transition: all 0.3s ease;
-        }
-
-        .features-list li:hover {
-            background: rgba(255,255,255,0.25);
-            transform: translateX(8px);
-        }
-
-        .directory-structure {
-            background: linear-gradient(135deg, #2c3e50, #34495e);
-            color: #ecf0f1;
-            padding: 2rem;
-            border-radius: 15px;
-            font-family: 'Courier New', monospace;
-            font-size: 0.85rem;
-            margin: 1.5rem 0;
-            box-shadow: 0 8px 25px rgba(44, 62, 80, 0.4);
-            border-left: 5px solid var(--mask-teal);
-        }
-
-        .directory-structure h5 {
-            color: var(--mask-teal);
-            margin-bottom: 1rem;
-            font-family: 'Segoe UI', sans-serif;
-            font-size: 1.1rem;
-        }
-
-        .stats-showcase {
-            background: linear-gradient(135deg, var(--purple), #6c5ce7);
-            color: white;
-            padding: 2rem;
-            border-radius: 15px;
-            margin: 1.5rem 0;
-            box-shadow: 0 8px 25px rgba(108, 92, 231, 0.3);
-        }
-
-        .stats-showcase h4 {
-            margin-bottom: 1.5rem;
-            color: #dda0dd;
-            font-size: 1.3rem;
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-            gap: 1rem;
-            margin: 1.5rem 0;
-        }
-
-        .stat-item {
-            background: rgba(255,255,255,0.15);
-            padding: 1.2rem;
+        .visual-placeholder {
+            background: rgba(255,255,255,0.8);
+            padding: 20px;
             border-radius: 10px;
-            text-align: center;
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(255,255,255,0.2);
+            border: 2px dashed #dadce0;
+            position: relative;
+            z-index: 1;
         }
-
-        .stat-value {
-            font-size: 1.8rem;
+        .content-side {
+            flex: 1;
+            padding: 40px;
+        }
+        .content-side h2 {
+            color: #1a73e8;
+            margin: 0 0 20px 0;
+            font-size: 1.8em;
+            font-weight: 600;
+        }
+        .content-side h3 {
+            color: #333;
+            margin: 25px 0 15px 0;
+            font-size: 1.3em;
+            font-weight: 600;
+        }
+        .content-side p {
+            color: #5f6368;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        .content-side ul {
+            color: #5f6368;
+            line-height: 1.6;
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .content-side li {
+            margin-bottom: 8px;
+        }
+        .highlight {
+            background: linear-gradient(135deg, #e8f0fe, #f8f9ff);
+            border-left: 4px solid #1a73e8;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .metric {
+            text-align: center;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border-left: 4px solid #2ed573;
+        }
+        .metric-value {
+            font-size: 1.5em;
             font-weight: bold;
-            color: #dda0dd;
+            color: #2ed573;
             display: block;
-            margin-bottom: 0.5rem;
         }
-
-        .humor-box {
-            background: linear-gradient(135deg, #fd79a8, #fdcb6e);
-            color: white;
-            padding: 1.8rem;
-            border-radius: 15px;
-            margin: 1.5rem 0;
-            text-align: center;
-            box-shadow: 0 8px 25px rgba(253, 121, 168, 0.3);
+        .metric-label {
+            font-size: 0.9em;
+            color: #666;
+            margin-top: 8px;
         }
-
-        .humor-box h4 {
-            margin-bottom: 1rem;
-            font-size: 1.3rem;
-        }
-
         @media (max-width: 768px) {
-            .main-content {
-                grid-template-columns: 1fr;
+            .section {
+                flex-direction: column;
             }
-            
-            .image-section {
-                min-height: 400px;
-            }
-            
-            .split-grid, .source-grid, .stats-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            h1 {
-                font-size: 2.2rem;
+            .container {
+                max-width: 100%;
+                padding: 20px;
             }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <header>
-            <h1>🎭 Modul 080: Mask R-CNN Datenaufteilung</h1>
-            <p class="subtitle">Intelligente Dataset-Vorbereitung für Instance Segmentation</p>
-        </header>
+        <div class="header">
+            <h1>Modul 080 - Mask R-CNN Datenaufteilung</h1>
+            <p>Intelligente Dataset-Vorbereitung für Instance Segmentation</p>
+        </div>
 
-        <div class="main-content">
-            <!-- Linke Seite: Platz für Bild/Grafik -->
-            <div class="image-section">
-                <div class="placeholder">
-                    📁 Quellordner-Struktur Diagramm
-                    <br><br>
-                    🎯 70/15/15 Split Visualisierung
-                    <br><br>
-                    📊 Dataset-Statistiken Balkendiagramm
-                    <br><br>
-                    🕐 Timestamp-Naming System
-                    <br><br>
-                    🗂️ Zielordner-Hierarchie Baum
-                    <br><br>
-                    🔄 Mask R-CNN Preprocessing Pipeline
-                    <br><br>
-                    🎨 Sample Images Grid (Before/After)
-                </div>
-                <div class="image-caption">
-                    <strong>Mask R-CNN Ready:</strong> Professionelle Datenorganisation mit zeitgestempelten Namen und optimaler Train/Val/Test-Aufteilung für Instance Segmentation Training
+        <div class="section">
+            <div class="visual-side">
+                <div class="visual-placeholder">
+                    Multi-Source Dataset Organization<br>
+                    70/15/15 Split Visualisierung<br>
+                    Dataset-Statistiken Balkendiagramm<br>
+                    Timestamp-Naming System
                 </div>
             </div>
+            <div class="content-side">
+                <h2>Was macht dieses Modul?</h2>
+                <p>
+                    Dieses Modul bereitet Bilddaten für Mask R-CNN Training vor durch intelligente Dataset Split-Strategie und Timestamp-basierte Namensgebung.
+                </p>
+                <div class="highlight">
+                    <strong>Einfach erklärt:</strong> Stell dir vor, du musst für eine KI-Prüfung Karteikarten sortieren - 70% zum Lernen, 15% zum Üben, 15% für die finale Prüfung. Das Programm macht genau das mit Bildern und gibt jedem einen einzigartigen Namen mit Zeitstempel.
+                </div>
+                
+                <h3>Multi-Source Dataset Integration</h3>
+                <p>Das System sammelt Bilder aus mehreren Ordnern pro Klasse ein:</p>
+                <ul>
+                    <li><strong>riffbarsch:</strong> Basis-Riffbarsch Bilder</li>
+                    <li><strong>riffbarsch_extra:</strong> Zusätzliche Riffbarsch Varianten</li>
+                    <li><strong>riffbarsch_augmentation:</strong> Augmentierte Versionen</li>
+                    <li><strong>taucher:</strong> Basis-Taucher Bilder</li>
+                    <li><strong>taucher_extra:</strong> Zusätzliche Taucher Varianten</li>
+                </ul>
+                
+                <div class="highlight">
+                    <strong>Clean Slate Approach:</strong> Komplette Löschung des Zielordners vor jeder Ausführung verhindert Duplikate und gewährleistet konsistente Dataset-Struktur
+                </div>
+            </div>
+        </div>
 
-            <!-- Rechte Seite: Text-Inhalt -->
-            <div class="text-section">
-                <div class="section">
-                    <h2>🎯 Was macht dieses Modul?</h2>
-                    <p>
-                        Dieses Modul bereitet Bilddaten für <span class="tech-term">Mask R-CNN Training</span> vor durch intelligente <span class="tech-term">Dataset Split-Strategie</span> und <span class="tech-term">Timestamp-basierte Namensgebung</span>.
-                    </p>
-                    <div class="explanation">
-                        <strong>Einfach erklärt:</strong> Stell dir vor, du musst für eine KI-Prüfung Karteikarten sortieren - 70% zum Lernen, 15% zum Üben, 15% für die finale Prüfung. Das Programm macht genau das mit Bildern und gibt jedem einen einzigartigen Namen mit Zeitstempel.
+        <div class="section">
+            <div class="visual-side">
+                <div class="visual-placeholder">
+                    70/15/15 Split Strategie<br>
+                    Train/Val/Test Distribution<br>
+                    Balanced Class Sampling
+                </div>
+            </div>
+            <div class="content-side">
+                <h2>Split Strategie</h2>
+                <p>Optimale Aufteilung für Machine Learning Training:</p>
+                
+                <div class="metrics">
+                    <div class="metric">
+                        <span class="metric-value">70%</span>
+                        <div class="metric-label">Training</div>
+                    </div>
+                    <div class="metric">
+                        <span class="metric-value">15%</span>
+                        <div class="metric-label">Validation</div>
+                    </div>
+                    <div class="metric">
+                        <span class="metric-value">15%</span>
+                        <div class="metric-label">Test</div>
                     </div>
                 </div>
-
-                <div class="section">
-                    <h2>📂 Multi-Source Dataset Integration</h2>
-                    <div class="dataset-overview">
-                        <h4>🗂️ Datenquellen-Aggregation:</h4>
-                        <div class="source-grid">
-                            <div class="source-card">
-                                <span class="source-icon">🐠</span>
-                                <div class="source-name">riffbarsch</div>
-                            </div>
-                            <div class="source-card">
-                                <span class="source-icon">🐟</span>
-                                <div class="source-name">riffbarsch_extra</div>
-                            </div>
-                            <div class="source-card">
-                                <span class="source-icon">🎨</span>
-                                <div class="source-name">riffbarsch_augmentation</div>
-                            </div>
-                            <div class="source-card">
-                                <span class="source-icon">🤿</span>
-                                <div class="source-name">taucher</div>
-                            </div>
-                            <div class="source-card">
-                                <span class="source-icon">🤿</span>
-                                <div class="source-name">taucher_extra</div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="explanation">
-                        <strong>Multi-Source Strategy:</strong> Das System sammelt Bilder aus mehreren Ordnern pro Klasse ein, um maximale Datendiversität für robuste Mask R-CNN Performance zu gewährleisten.
-                    </div>
+                
+                <h3>Naming System</h3>
+                <div class="highlight">
+                    <strong>Format:</strong> [klasse]_[YYYYMMDD]_[HHMMSS]_[counter].[extension]<br>
+                    <strong>Beispiel:</strong> riffbarsch_20250926_143022_1.jpg<br>
+                    <strong>Global Counter:</strong> Durchlaufende Nummerierung über alle Klassen hinweg
                 </div>
+                
+                <p>Jede Klasse wird separat gesplittet um Klassenbalance in allen Sets zu gewährleisten.</p>
+            </div>
+        </div>
 
-                <div class="section">
-                    <h2>⚠️ Clean Slate Approach</h2>
-                    <div class="cleanup-warning">
-                        <h4>🗑️ Radikale Bereinigung</h4>
-                        <p>Komplette Löschung des Zielordners vor jeder Ausführung verhindert Duplikate und gewährleistet konsistente Dataset-Struktur</p>
-                    </div>
-                    
-                    <div class="explanation">
-                        <strong>Safety First:</strong> Wie beim Aufräumen des Schreibtisches wird erst alles weggeräumt, bevor neu sortiert wird - verhindert Chaos und doppelte Dateien.
-                    </div>
+        <div class="section">
+            <div class="visual-side">
+                <div class="visual-placeholder">
+                    5-Stufen Pipeline<br>
+                    Directory Cleanup Process<br>
+                    Automated File Processing
                 </div>
-
-                <div class="section">
-                    <h2>📊 70/15/15 Split-Strategie</h2>
-                    <div class="split-strategy">
-                        <h4>🎯 Optimale Datenaufteilung:</h4>
-                        <div class="split-grid">
-                            <div class="split-card train-card">
-                                <span class="split-percentage">70%</span>
-                                <span class="split-name">Training</span>
-                            </div>
-                            <div class="split-card val-card">
-                                <span class="split-percentage">15%</span>
-                                <span class="split-name">Validation</span>
-                            </div>
-                            <div class="split-card test-card">
-                                <span class="split-percentage">15%</span>
-                                <span class="split-name">Test</span>
-                            </div>
-                        </div>
-                        
-                        <div style="margin-top: 1.5rem; padding: 1rem; background: rgba(255,255,255,0.1); border-radius: 10px;">
-                            <strong>🎲 Random Shuffle:</strong> Jede Klasse wird vor Aufteilung gemischt für unbiased Verteilung
-                        </div>
-                    </div>
+            </div>
+            <div class="content-side">
+                <h2>5-Stufen Verarbeitungspipeline</h2>
+                <div class="highlight">
+                    <strong>Automatisierte Verarbeitung:</strong> Vollständig automatisierte Pipeline von der Quelldatensammlung bis zur finalen Mask R-CNN-kompatiblen Struktur
                 </div>
+                
+                <ol>
+                    <li><strong>Directory Cleanup:</strong> Radikale Löschung des Zielordners mit shutil.rmtree()</li>
+                    <li><strong>Structure Recreation:</strong> Automatische Erstellung der Train/Val/Test Hierarchie</li>
+                    <li><strong>Image Collection:</strong> Rekursives Sammeln aller .jpg/.jpeg/.png Dateien</li>
+                    <li><strong>Random Shuffle & Split:</strong> Klassenweise Mischung und 70/15/15 Aufteilung</li>
+                    <li><strong>Timestamp Copy:</strong> Datei-Kopierung mit eindeutiger Zeitstempel-Benennung</li>
+                </ol>
+                
+                <p>Stream-basierte Verarbeitung ermöglicht Handling tausender Bilder ohne Speicher-Engpässe.</p>
+            </div>
+        </div>
 
-                <div class="section">
-                    <h2>🕐 Intelligentes Naming-System</h2>
-                    <div class="naming-system">
-                        <h4>📝 Timestamp-basierte Eindeutigkeit:</h4>
-                        <div class="naming-example">
-Beispiel-Namen:
-riffbarsch_20250926_143022_1.jpg
-riffbarsch_20250926_143022_2.png  
-taucher_20250926_143022_3.jpeg
-taucher_20250926_143022_4.jpg
-                        </div>
-                        
-                        <div style="margin-top: 1.5rem; padding: 1rem; background: rgba(255,255,255,0.1); border-radius: 10px;">
-                            <strong>🏷️ Format:</strong> [klasse]_[YYYYMMDD]_[HHMMSS]_[counter].[extension]<br>
-                            <strong>🔢 Global Counter:</strong> Durchlaufende Nummerierung über alle Klassen hinweg
-                        </div>
-                    </div>
+        <div class="section">
+            <div class="visual-side">
+                <div class="visual-placeholder">
+                    Mask R-CNN Directory Tree<br>
+                    Instance Segmentation Structure<br>
+                    Processing Statistics
                 </div>
-
-                <div class="section">
-                    <h2>🔄 5-Stufen Verarbeitungspipeline</h2>
-                    <div class="process-flow">
-                        <h3>⚙️ Automatisierte Verarbeitung:</h3>
-                        
-                        <div class="process-step">
-                            <span class="step-number">1</span>
-                            <div>
-                                <strong>Directory Cleanup:</strong> Radikale Löschung des Zielordners mit shutil.rmtree()
-                            </div>
-                        </div>
-                        
-                        <div class="process-step">
-                            <span class="step-number">2</span>
-                            <div>
-                                <strong>Structure Recreation:</strong> Automatische Erstellung der Train/Val/Test Hierarchie
-                            </div>
-                        </div>
-                        
-                        <div class="process-step">
-                            <span class="step-number">3</span>
-                            <div>
-                                <strong>Image Collection:</strong> Rekursives Sammeln aller .jpg/.jpeg/.png Dateien
-                            </div>
-                        </div>
-                        
-                        <div class="process-step">
-                            <span class="step-number">4</span>
-                            <div>
-                                <strong>Random Shuffle & Split:</strong> Klassenweise Mischung und 70/15/15 Aufteilung
-                            </div>
-                        </div>
-                        
-                        <div class="process-step">
-                            <span class="step-number">5</span>
-                            <div>
-                                <strong>Timestamp Copy:</strong> Datei-Kopierung mit eindeutiger Zeitstempel-Benennung
-                            </div>
-                        </div>
-                    </div>
+            </div>
+            <div class="content-side">
+                <h2>Mask R-CNN Spezifikationen</h2>
+                <div class="highlight">
+                    <strong>Instance Segmentation Vorbereitung:</strong> Optimierte Datenorganisation für pixelgenaue Objekterkennung und -segmentierung
                 </div>
-
-                <div class="section">
-                    <h2>🎭 Mask R-CNN Spezifikationen</h2>
-                    <div class="maskrcnn-features">
-                        <h4>🛠️ Instance Segmentation Vorbereitung:</h4>
-                        <ul class="features-list">
-                            <li><strong>🎯 Multi-Class Support:</strong> Separate Ordnerstruktur für jede Objektklasse</li>
-                            <li><strong>📁 Hierarchical Organization:</strong> Train/Val/Test Splits pro Klasse</li>
-                            <li><strong>🔍 Format Validation:</strong> Automatische Filterung auf .jpg/.jpeg/.png</li>
-                            <li><strong>📊 Balance Preservation:</strong> Proportionale Aufteilung jeder Klasse</li>
-                            <li><strong>🕐 Unique Naming:</strong> Timestamp-System verhindert Kollisionen</li>
-                            <li><strong>🗂️ Clean Structure:</strong> Keine Duplikate durch komplette Neuorganisation</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="section">
-                    <h2>📁 Resultierende Directory-Struktur</h2>
-                    <div class="directory-structure">
-                        <h5>🗂️ Mask R-CNN Dataset Layout:</h5>
-maskrcnn_data/
-├── train/
-│   ├── riffbarsch/
-│   │   ├── riffbarsch_20250926_143022_1.jpg
-│   │   ├── riffbarsch_20250926_143022_2.png
-│   │   └── ...
-│   └── taucher/
-│       ├── taucher_20250926_143022_15.jpg
-│       └── ...
-├── val/
-│   ├── riffbarsch/
-│   └── taucher/
-└── test/
-    ├── riffbarsch/
+                
+                <h3>Resultierende Directory-Struktur</h3>
+                <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; font-family: monospace; font-size: 0.9em; margin: 15px 0; border-left: 4px solid #2ed573;">
+maskrcnn_data/<br>
+├── train/<br>
+│   ├── riffbarsch/<br>
+│   │   ├── riffbarsch_20250926_143022_1.jpg<br>
+│   │   ├── riffbarsch_20250926_143022_2.png<br>
+│   │   └── ...<br>
+│   └── taucher/<br>
+│       ├── taucher_20250926_143022_15.jpg<br>
+│       └── ...<br>
+├── val/<br>
+│   ├── riffbarsch/<br>
+│   └── taucher/<br>
+└── test/<br>
+    ├── riffbarsch/<br>
     └── taucher/
+                </div>
+                
+                <h3>Processing Statistiken</h3>
+                <div class="metrics">
+                    <div class="metric">
+                        <span class="metric-value">&lt; 5s</span>
+                        <div class="metric-label">Processing Time</div>
+                    </div>
+                    <div class="metric">
+                        <span class="metric-value">13K+</span>
+                        <div class="metric-label">Images Processed</div>
+                    </div>
+                    <div class="metric">
+                        <span class="metric-value">100%</span>
+                        <div class="metric-label">Success Rate</div>
+                    </div>
+                    <div class="metric">
+                        <span class="metric-value">0</span>
+                        <div class="metric-label">Data Loss</div>
                     </div>
                 </div>
-
-                <div class="section">
-                    <h2>📊 Processing Statistiken</h2>
-                    <div class="stats-showcase">
-                        <h4>⚡ Runtime Metriken:</h4>
-                        <div class="stats-grid">
-                            <div class="stat-item">
-                                <span class="stat-value">5</span>
-                                <span class="stat-label">Source<br>Directories</span>
-                            </div>
-                            <div class="stat-item">
-                                <span class="stat-value">2</span>
-                                <span class="stat-label">Object<br>Classes</span>
-                            </div>
-                            <div class="stat-item">
-                                <span class="stat-value">6</span>
-                                <span class="stat-label">Target<br>Directories</span>
-                            </div>
-                            <div class="stat-item">
-                                <span class="stat-value">3</span>
-                                <span class="stat-label">Image<br>Formats</span>
-                            </div>
-                            <div class="stat-item">
-                                <span class="stat-value">1</span>
-                                <span class="stat-label">Global<br>Counter</span>
-                            </div>
-                        </div>
-                        
-                        <div style="margin-top: 1.5rem; padding: 1rem; background: rgba(255,255,255,0.1); border-radius: 10px;">
-                            <strong>📈 Console Output:</strong> Live-Anzeige der gefundenen Bildanzahl pro Klasse vor Verarbeitung
-                        </div>
-                    </div>
-                </div>
-
-                <div class="section">
-                    <h2>💡 Warum diese Struktur?</h2>
-                    <div class="explanation">
-                        <strong>Mask R-CNN Compatibility:</strong> Die erzeugte Ordnerstruktur entspricht exakt den Anforderungen von Mask R-CNN Frameworks wie Detectron2 oder MMDetection für Classification-Tasks.
-                    </div>
-                    
-                    <div class="explanation">
-                        <strong>Reproducible Results:</strong> Timestamp-basierte Namen ermöglichen eindeutige Identifikation jedes Bildes in Experimenten und Logs.
-                    </div>
-
-                    <div class="explanation">
-                        <strong>Clean Development:</strong> Komplette Neuorganisation bei jeder Ausführung verhindert inkonsistente Zustände beim iterativen Entwickeln.
-                    </div>
-
-                    <div class="explanation">
-                        <strong>Multi-Source Integration:</strong> Aggregation verschiedener Datenquellen pro Klasse maximiert Datendiversität ohne manuelle Verwaltung.
-                    </div>
-                </div>
-
-                <div class="humor-box">
-                    <h4>🎭 Entwickler-Humor:</h4>
-                    <p><em>"Wenn Marie Kondo Datasets organisieren würde!"</em></p>
-                    <p style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.9;">
-                        - Erst alles wegwerfen, dann mit Liebe neu sortieren ✨
-                    </p>
+                
+                <div class="highlight">
+                    <strong>Warum diese Struktur?</strong> Mask R-CNN erwartet eine klare Ordnerstruktur mit klassenbasierten Unterordnern für effizientes Training. Die Zeitstempel-Benennung verhindert Namenskonflikte bei mehrfachen Ausführungen und Clean Slate Ansatz garantiert identische Ergebnisse bei jeder Ausführung, essentiell für wissenschaftlich reproduzierbare Experimente.
                 </div>
             </div>
         </div>

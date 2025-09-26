@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🐠 Von Riff-Fotos zur KI-Anwendung</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f9ff;
+        }
+        .container {
+            max-width: 800px;
+        }
+        .card {
+            background-color: #ffffff;
+            border-radius: 1.5rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+        }
+        .text-shadow {
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body class="bg-blue-50 flex items-center justify-center min-h-screen p-4">
+
+    <div class="container mx-auto">
+        <div class="card p-8 md:p-12">
+            <h1 class="text-4xl md:text-5xl font-bold text-center text-blue-800 mb-6 text-shadow">
+                🐠 Zusammenfassung & Ausblick
+            </h1>
+            <p class="text-xl md:text-2xl text-center text-gray-600 mb-10">
+                Die Reise vom Riff zur KI-Anwendung
+            </p>
+
+            <div class="space-y-8">
+                <div>
+                    <h2 class="text-2xl font-bold text-blue-700 mb-4">Ablauf der Arbeiten</h2>
+                    <ul class="list-disc list-inside space-y-2 text-gray-700">
+                        <li>
+                            <strong class="font-semibold text-blue-900">Datensammeln:</strong> Die abenteuerliche Mission im ägyptischen Riff, um Urlaubsfotos als Rohdaten für das Projekt zu gewinnen.
+                        </li>
+                        <li>
+                            <strong class="font-semibold text-blue-900">Daten-Pipeline:</strong> Die mühsame, aber notwendige Annotation der Bilder, um Fische und Taucher mit sogenannten Bounding Boxes zu markieren. Aus 500 Bildern wurden durch Datenaugmentation über 5.000 Trainingsdaten.
+                        </li>
+                        <li>
+                            <strong class="font-semibold text-blue-900">Modell-Training:</strong> Das Gehirn des Projekts. Ein neuronales Netzwerk (YOLOv8) wurde trainiert, indem es seine Vorhersagen schrittweise anpasste, um den Fehler zu minimieren (Loss-Funktion).
+                        </li>
+                        <li>
+                            <strong class="font-semibold text-blue-900">Inferenz & Anwendung:</strong> Das fertige Modell kann nun Fische und Taucher automatisch erkennen. Wir haben gesehen, dass diese Technik auch für wichtige, reale Probleme angewendet werden kann, wie faire Kreditvergabe oder humanitäre Hilfe.
+                        </li>
+                    </ul>
+                </div>
+
+                <hr class="border-t-2 border-gray-200">
+
+                <div>
+                    <h2 class="text-2xl font-bold text-blue-700 mb-4">Fazit</h2>
+                    <p class="text-base md:text-lg text-gray-700 leading-relaxed mb-4">
+                        Machine Learning ist keine Magie, sondern ein strukturierter Prozess: Daten sammeln, aufbereiten, ein Modell trainieren und dann die Ergebnisse bewerten. Die Trainingsdaten sind das Fundament, und das Modell lernt durch die Reduzierung von Fehlern.
+                    </p>
+                    <p class="text-base md:text-lg text-gray-700 leading-relaxed mb-4">
+                        Meine App, die Fische erkennt, gibt es jetzt. Und ich habe sie nur mit meinen Urlaubsfotos gebaut.
+                    </p>
+                </div>
+
+                <div>
+                    <h2 class="text-2xl font-bold text-blue-700 mb-4">Dein Call-to-Action</h2>
+                    <p class="text-base md:text-lg text-gray-700 leading-relaxed">
+                        Dein Weg zum Data Analyst beginnt nicht mit komplizierten Formeln, sondern mit einer einfachen Frage: Welches Problem willst du lösen? Probier es selbst! Such dir ein kleines Problem, sammle Daten und fang an zu experimentieren. Es muss nicht perfekt sein, es muss dich nur weiterbringen. Und wenn du Hilfe brauchst – die Community ist groß.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

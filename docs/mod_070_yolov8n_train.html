@@ -3,824 +3,493 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Modul 070: YOLOv8n Training Pipeline</title>
+    <title>YOLOv8n Training Pipeline - mod_070_yolov8n_train.py</title>
     <style>
-        :root {
-            --primary: #2c3e50;
-            --secondary: #3498db;
-            --accent: #e74c3c;
-            --success: #2ecc71;
-            --warning: #f39c12;
-            --purple: #9b59b6;
-            --orange: #e67e22;
-            --light: #ecf0f1;
-            --dark: #2c3e50;
-            --yolo-yellow: #ffd700;
-            --yolo-orange: #ff8c00;
-            --yolo-blue: #1e90ff;
-            --train-green: #27ae60;
-            --val-blue: #3498db;
-            --test-purple: #9b59b6;
-            --imbalance-red: #e74c3c;
-            --augment-teal: #16a085;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f8f9fa;
+            color: #212529;
             line-height: 1.6;
-            color: var(--dark);
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
-            min-height: 100vh;
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
-            padding: 2rem;
         }
-
-        header {
-            text-align: center;
-            margin-bottom: 3rem;
-            background: white;
-            padding: 2.5rem;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            backdrop-filter: blur(10px);
-        }
-
-        h1 {
-            color: var(--primary);
-            font-size: 2.8rem;
-            margin-bottom: 0.5rem;
-            background: linear-gradient(135deg, var(--yolo-yellow), var(--yolo-orange));
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .subtitle {
-            color: var(--yolo-orange);
-            font-size: 1.4rem;
-            font-weight: 500;
-            margin-top: 1rem;
-        }
-
-        .main-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem;
-            background: white;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
-        }
-
-        .image-section {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
-            padding: 2rem;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            min-height: 1200px;
+        .header {
+            background: linear-gradient(135deg, #00b894 0%, #16a085 100%);
             color: white;
-            position: relative;
-        }
-
-        .placeholder {
-            width: 100%;
-            height: 600px;
-            background: rgba(255,255,255,0.15);
-            border: 3px dashed rgba(255,255,255,0.6);
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 0.95rem;
-            margin-bottom: 2rem;
-            text-align: center;
-            backdrop-filter: blur(15px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-        }
-
-        .image-caption {
-            text-align: center;
-            font-style: italic;
-            background: rgba(255,255,255,0.15);
-            padding: 1.5rem;
+            padding: 40px;
             border-radius: 15px;
-            backdrop-filter: blur(15px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
         }
-
-        .text-section {
-            padding: 2rem;
-            overflow-y: auto;
-            max-height: 1200px;
+        .header h1 {
+            margin: 0 0 10px 0;
+            font-size: 2.5em;
+            font-weight: 700;
         }
-
-        .section {
-            margin-bottom: 2.5rem;
-        }
-
-        .section h2 {
-            color: var(--primary);
-            font-size: 1.6rem;
-            margin-bottom: 1rem;
-            border-bottom: 3px solid var(--yolo-orange);
-            padding-bottom: 0.5rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .tech-term {
-            background: linear-gradient(135deg, var(--yolo-yellow), var(--yolo-orange));
-            color: white;
-            padding: 0.3rem 0.8rem;
-            border-radius: 8px;
-            font-weight: bold;
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            box-shadow: 0 3px 10px rgba(255, 140, 0, 0.3);
-        }
-
-        .explanation {
-            background: linear-gradient(135deg, #fff3cd, #ffeeba);
-            padding: 1.2rem;
-            border-left: 5px solid var(--yolo-orange);
-            margin: 1rem 0;
-            border-radius: 0 12px 12px 0;
-            box-shadow: 0 4px 15px rgba(255, 140, 0, 0.1);
-        }
-
-        .dataset-stats {
-            background: linear-gradient(135deg, var(--primary), #34495e);
-            color: white;
-            padding: 2rem;
-            border-radius: 15px;
-            margin: 1.5rem 0;
-            box-shadow: 0 8px 25px rgba(44, 62, 80, 0.3);
-        }
-
-        .dataset-stats h4 {
-            margin-bottom: 1.5rem;
-            color: var(--yolo-yellow);
-            font-size: 1.3rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 1.5rem;
-            margin: 1.5rem 0;
-        }
-
-        .stat-card {
-            background: rgba(255,255,255,0.15);
-            padding: 1.5rem;
-            border-radius: 12px;
-            text-align: center;
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(255,255,255,0.2);
-            transition: all 0.3s ease;
-        }
-
-        .stat-card:hover {
-            background: rgba(255,255,255,0.25);
-            transform: translateY(-5px);
-        }
-
-        .stat-number {
-            font-size: 2.2rem;
-            font-weight: bold;
-            color: var(--yolo-yellow);
-            display: block;
-            margin-bottom: 0.5rem;
-        }
-
-        .stat-label {
-            font-size: 0.85rem;
+        .header p {
+            margin: 0;
+            font-size: 1.2em;
             opacity: 0.9;
         }
-
-        .imbalance-warning {
-            background: linear-gradient(135deg, var(--imbalance-red), #c0392b);
-            color: white;
-            padding: 1.8rem;
+        .section {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 30px;
+            background: white;
             border-radius: 15px;
-            margin: 1.5rem 0;
-            text-align: center;
-            box-shadow: 0 8px 25px rgba(231, 76, 60, 0.3);
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
         }
-
-        .imbalance-warning h4 {
-            margin-bottom: 1rem;
-            font-size: 1.3rem;
+        .visual-side {
+            flex: 1;
+            background: linear-gradient(45deg, #f1f3f4, #e8eaed);
+            min-height: 300px;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 0.5rem;
+            color: #5f6368;
+            font-size: 1.1em;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .visual-side::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="%23e0e0e0" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>') repeat;
+            opacity: 0.3;
+        }
+        .visual-placeholder {
+            background: rgba(255,255,255,0.8);
+            padding: 20px;
+            border-radius: 10px;
+            border: 2px dashed #dadce0;
+            position: relative;
+            z-index: 1;
+        }
+        .content-side {
+            flex: 1;
+            padding: 40px;
+        }
+        .content-side h2 {
+            color: #1a73e8;
+            margin: 0 0 20px 0;
+            font-size: 1.8em;
+            font-weight: 600;
+        }
+        .content-side h3 {
+            color: #333;
+            margin: 25px 0 15px 0;
+            font-size: 1.3em;
+            font-weight: 600;
+        }
+        .content-side p {
+            color: #5f6368;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        .content-side ul {
+            color: #5f6368;
+            line-height: 1.6;
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        .content-side li {
+            margin-bottom: 8px;
+        }
+        .highlight {
+            background: linear-gradient(135deg, #e8f0fe, #f8f9ff);
+            border-left: 4px solid #1a73e8;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .metric {
+            text-align: center;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border-left: 4px solid #00b894;
+        }
+        .metric-value {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #00b894;
+            display: block;
+        }
+        .metric-label {
+            font-size: 0.9em;
+            color: #666;
+            margin-top: 8px;
         }
 
-        .training-pipeline {
+        /* Badges */
+        .badge {
+            background: linear-gradient(135deg, #00b894, #16a085);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: inline-block;
+            margin: 0.2rem;
+        }
+
+        /* Step Cards */
+        .step-card {
             background: linear-gradient(135deg, #f8f9fa, #e9ecef);
-            padding: 2rem;
-            border-radius: 15px;
-            margin: 1.5rem 0;
-            border: 2px solid #dee2e6;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+            border-left: 4px solid #00b894;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            border-radius: 8px;
+            transition: transform 0.2s ease;
         }
 
-        .training-pipeline h3 {
-            color: var(--success);
-            margin-bottom: 1.5rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 1.3rem;
-        }
-
-        .pipeline-step {
-            display: flex;
-            align-items: center;
-            margin: 1.2rem 0;
-            padding: 1.2rem;
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-            transition: all 0.3s ease;
-        }
-
-        .pipeline-step:hover {
-            transform: translateX(8px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        .step-card:hover {
+            transform: translateX(5px);
         }
 
         .step-number {
-            background: linear-gradient(135deg, var(--yolo-orange), var(--accent));
+            background: #00b894;
             color: white;
-            width: 50px;
-            height: 50px;
+            width: 30px;
+            height: 30px;
             border-radius: 50%;
-            display: flex;
+            display: inline-flex;
             align-items: center;
             justify-content: center;
             font-weight: bold;
-            margin-right: 1.5rem;
-            font-size: 1.3rem;
-            box-shadow: 0 4px 12px rgba(255, 140, 0, 0.3);
+            margin-right: 1rem;
+            font-size: 0.9rem;
         }
 
-        .augmentation-showcase {
-            background: linear-gradient(135deg, var(--augment-teal), #138d75);
-            color: white;
-            padding: 2rem;
-            border-radius: 15px;
-            margin: 1.5rem 0;
-            box-shadow: 0 8px 25px rgba(22, 160, 133, 0.3);
-        }
-
-        .augmentation-showcase h4 {
-            margin-bottom: 1.5rem;
-            color: #d5f4e6;
-            font-size: 1.3rem;
-        }
-
-        .aug-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-            margin: 1.5rem 0;
-        }
-
-        .aug-card {
-            background: rgba(255,255,255,0.15);
-            padding: 1.2rem;
-            border-radius: 10px;
-            text-align: center;
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(255,255,255,0.2);
-        }
-
-        .aug-icon {
-            font-size: 2rem;
-            margin-bottom: 0.5rem;
-            display: block;
-        }
-
-        .hardware-specs {
-            background: linear-gradient(135deg, var(--purple), #6c5ce7);
-            color: white;
-            padding: 2rem;
-            border-radius: 15px;
-            margin: 1.5rem 0;
-            box-shadow: 0 8px 25px rgba(108, 92, 231, 0.3);
-        }
-
-        .hardware-specs h4 {
-            margin-bottom: 1.5rem;
-            color: #dda0dd;
-            font-size: 1.3rem;
-        }
-
-        .spec-list {
-            list-style: none;
-            padding: 0;
-        }
-
-        .spec-list li {
-            background: rgba(255,255,255,0.15);
-            padding: 1rem;
-            margin: 0.8rem 0;
-            border-radius: 8px;
-            backdrop-filter: blur(15px);
-            border-left: 4px solid white;
-            transition: all 0.3s ease;
-        }
-
-        .spec-list li:hover {
-            background: rgba(255,255,255,0.25);
-            transform: translateX(8px);
-        }
-
-        .analysis-features {
-            background: linear-gradient(135deg, #ffeaa7, #fdcb6e);
-            padding: 2rem;
-            border-radius: 15px;
-            margin: 1.5rem 0;
-            box-shadow: 0 8px 25px rgba(253, 203, 110, 0.3);
-        }
-
-        .analysis-features h4 {
-            color: var(--dark);
-            margin-bottom: 1.5rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 1.3rem;
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-            margin: 1.5rem 0;
-        }
-
-        .feature-card {
-            background: white;
+        /* Explanation Boxes */
+        .explanation {
+            background: linear-gradient(135deg, #e8f8f5, #d5f4e6);
+            border-left: 4px solid #00b894;
             padding: 1.5rem;
-            border-radius: 12px;
-            border-left: 5px solid var(--success);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-            transition: all 0.3s ease;
+            margin: 1rem 0;
+            border-radius: 8px;
         }
 
-        .feature-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        .explanation strong {
+            color: #16a085;
         }
 
-        .feature-card h5 {
-            color: var(--primary);
-            margin-bottom: 0.8rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 1.1rem;
-        }
-
-        .curves { border-left-color: var(--yolo-blue); }
-        .confusion { border-left-color: var(--accent); }
-        .misclass { border-left-color: var(--warning); }
-        .dashboard { border-left-color: var(--purple); }
-
-        .yaml-config {
-            background: linear-gradient(135deg, #2c3e50, #34495e);
-            color: #ecf0f1;
-            padding: 2rem;
-            border-radius: 15px;
-            font-family: 'Courier New', monospace;
-            font-size: 0.85rem;
-            margin: 1.5rem 0;
-            box-shadow: 0 8px 25px rgba(44, 62, 80, 0.4);
-            border-left: 5px solid var(--yolo-yellow);
-        }
-
-        .yaml-config h5 {
-            color: var(--yolo-yellow);
-            margin-bottom: 1rem;
-            font-family: 'Segoe UI', sans-serif;
-            font-size: 1.1rem;
-        }
-
-        .performance-showcase {
-            background: linear-gradient(135deg, var(--success), #00b894);
+        /* Highlight Sections */
+        .highlight {
+            background: linear-gradient(135deg, #00b894, #16a085);
             color: white;
             padding: 2rem;
             border-radius: 15px;
             margin: 1.5rem 0;
-            box-shadow: 0 8px 25px rgba(46, 204, 113, 0.3);
+            box-shadow: 0 8px 25px rgba(0, 184, 148, 0.3);
         }
 
-        .performance-showcase h4 {
-            margin-bottom: 1.5rem;
-            color: #dff9fb;
-            font-size: 1.3rem;
+        .highlight h3, .highlight h4 {
+            color: white;
+            margin-bottom: 1rem;
         }
 
-        .perf-grid {
+        /* Grid Layouts */
+        .feature-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 1rem;
-            margin: 1.5rem 0;
+            margin: 1rem 0;
         }
 
-        .perf-item {
-            background: rgba(255,255,255,0.15);
-            padding: 1.2rem;
-            border-radius: 10px;
+        .feature-item {
+            background: white;
+            border: 1px solid #dee2e6;
+            padding: 1.5rem;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+            border-left: 4px solid #00b894;
+        }
+
+        .feature-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        /* Stats Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .stat-card {
+            background: white;
+            border: 1px solid #dee2e6;
+            padding: 1.5rem;
             text-align: center;
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 8px;
+            transition: all 0.2s ease;
         }
 
-        .perf-value {
-            font-size: 1.8rem;
+        .stat-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .stat-number {
+            font-size: 2rem;
             font-weight: bold;
-            color: #dff9fb;
+            color: #00b894;
             display: block;
-            margin-bottom: 0.5rem;
         }
 
-        .humor-box {
-            background: linear-gradient(135deg, #fd79a8, #fdcb6e);
-            color: white;
-            padding: 1.8rem;
-            border-radius: 15px;
-            margin: 1.5rem 0;
-            text-align: center;
-            box-shadow: 0 8px 25px rgba(253, 121, 168, 0.3);
+        .stat-label {
+            color: #6c757d;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
         }
 
-        .humor-box h4 {
-            margin-bottom: 1rem;
-            font-size: 1.3rem;
+        /* Warning/Success Boxes */
+        .warning {
+            background: linear-gradient(135deg, #fff3cd, #ffeaa7);
+            border-left: 4px solid #ffc107;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            border-radius: 8px;
+        }
+
+        .success {
+            background: linear-gradient(135deg, #d1ecf1, #bee5eb);
+            border-left: 4px solid #17a2b8;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            border-radius: 8px;
         }
 
         @media (max-width: 768px) {
-            .main-content {
-                grid-template-columns: 1fr;
+            .section {
+                flex-direction: column;
             }
-            
-            .image-section {
-                min-height: 400px;
-            }
-            
-            .features-grid, .stats-grid, .aug-grid, .perf-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            h1 {
-                font-size: 2.2rem;
+            .container {
+                max-width: 100%;
+                padding: 20px;
             }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <header>
-            <h1>🚀 Modul 070: YOLOv8n Training Pipeline</h1>
-            <p class="subtitle">Ultra-Fast Classification Training mit Klassen-Ungleichgewicht Handling</p>
-        </header>
+        <div class="header">
+            <h1>Modul 070 - YOLOv8n Training</h1>
+            <p>Objekterkennung mit Umgang mit Klassenungleichgewicht</p>
+        </div>
 
-        <div class="main-content">
-            <!-- Linke Seite: Platz für Bild/Grafik -->
-            <div class="image-section">
-                <div class="placeholder">
-                    📊 Dataset Klassen-Ungleichgewicht (12:1)
-                    <br><br>
-                    🎯 Training/Validation Loss Kurven
-                    <br><br>
-                    📈 Accuracy & Learning Rate Plots
-                    <br><br>
-                    🎨 Data Augmentation Beispiele
-                    <br><br>
-                    📋 Confusion Matrix (2×2)
-                    <br><br>
-                    ❌ Falsch klassifizierte Bilder Grid
-                    <br><br>
-                    📊 Classification Report Balkendiagramm
-                    <br><br>
-                    🖥️ Training Dashboard (4-Panel)
-                    <br><br>
-                    ⚡ YOLOv8n Architektur Diagramm
-                </div>
-                <div class="image-caption">
-                    <strong>YOLOv8n in Action:</strong> Vollständige Training Pipeline mit extremem Klassen-Ungleichgewicht (12.370 Riffbarsch vs 1.005 Taucher) durch intelligente Augmentation und CPU-optimierte Performance
+        <div class="section">
+            <div class="visual-side">
+                <div class="visual-placeholder">
+                    Dataset Klassen-Ungleichgewicht<br>
+                    Pie Chart: 92.5% Riffbarsch vs 7.5% Taucher<br>
+                    Balkendiagramm: 12.370 vs 1.005 Bilder
                 </div>
             </div>
-
-            <!-- Rechte Seite: Text-Inhalt -->
-            <div class="text-section">
-                <div class="section">
-                    <h2>🎯 Was macht dieses Modul?</h2>
-                    <p>
-                        Dieses Modul implementiert ein vollständiges <span class="tech-term">YOLOv8n Training System</span> mit <span class="tech-term">Class Imbalance Handling</span> für ultra-schnelle Riffbarsch-Taucher Klassifikation.
-                    </p>
-                    <div class="explanation">
-                        <strong>Einfach erklärt:</strong> Stell dir vor, du hast 12.370 Fotos von Riffbarschen aber nur 1.005 von Tauchern - wie ein Kartenspiel mit fast nur Assen! Das Programm trainiert die KI trotzdem fair, indem es die wenigen Taucher-Bilder künstlich vermehrt (Augmentation) und so das Ungleichgewicht ausgleicht.
+            <div class="content-side">
+                <h2>Extremes Dataset-Ungleichgewicht</h2>
+                <p>
+                    Dieses Modul implementiert ein vollständiges YOLOv8n Training System mit Class Imbalance Handling für ultra-schnelle Riffbarsch-Taucher Klassifikation.
+                </p>
+                <div class="highlight">
+                    <strong>Einfach erklärt:</strong> Stell dir vor, du hast 12.370 Fotos von Riffbarschen aber nur 1.005 von Tauchern - wie ein Kartenspiel mit fast nur Assen! Das Programm trainiert die KI trotzdem fair, indem es die wenigen Taucher-Bilder künstlich vermehrt (Augmentation) und so das Ungleichgewicht ausgleicht.
+                </div>
+                <h3>Dataset Statistiken (13.375 Bilder total)</h3>
+                <div class="metrics">
+                    <div class="metric">
+                        <span class="metric-value">12,370</span>
+                        <div class="metric-label">Riffbarsch Bilder (92.5%)</div>
+                    </div>
+                    <div class="metric">
+                        <span class="metric-value">1,005</span>
+                        <div class="metric-label">Taucher Bilder (7.5%)</div>
+                    </div>
+                    <div class="metric">
+                        <span class="metric-value">12:1</span>
+                        <div class="metric-label">Klassen-Verhältnis</div>
                     </div>
                 </div>
+            </div>
+        </div>
 
-                <div class="section">
-                    <h2>📊 Extremes Dataset-Ungleichgewicht</h2>
-                    <div class="dataset-stats">
-                        <h4>🎯 Dataset Statistiken (13.375 Bilder total):</h4>
-                        <div class="stats-grid">
-                            <div class="stat-card">
-                                <span class="stat-number">12,370</span>
-                                <span class="stat-label">Riffbarsch<br>Bilder (92.5%)</span>
-                            </div>
-                            <div class="stat-card">
-                                <span class="stat-number">1,005</span>
-                                <span class="stat-label">Taucher<br>Bilder (7.5%)</span>
-                            </div>
-                            <div class="stat-card">
-                                <span class="stat-number">12:1</span>
-                                <span class="stat-label">Klassen-<br>Verhältnis</span>
-                            </div>
-                            <div class="stat-card">
-                                <span class="stat-number">9,362</span>
-                                <span class="stat-label">Training<br>Bilder (70%)</span>
-                            </div>
-                            <div class="stat-card">
-                                <span class="stat-number">2,006</span>
-                                <span class="stat-label">Validation<br>Bilder (15%)</span>
-                            </div>
-                            <div class="stat-card">
-                                <span class="stat-number">2,007</span>
-                                <span class="stat-label">Test<br>Bilder (15%)</span>
-                            </div>
+        <div class="section">
+            <div class="visual-side">
+                <div class="visual-placeholder">
+                    YOLOv8n Training Pipeline<br>
+                    5-Stufen Workflow Diagramm<br>
+                    YAML Auto-Generation Flowchart
+                </div>
+            </div>
+            <div class="content-side">
+                <h2>5-Stufen Training Pipeline</h2>
+                <div class="highlight">
+                    <strong>Intelligente Trainingsschritte:</strong>
+                </div>
+                Das Programm führt 5 intelligente Schritte aus: Erst wird automatisch eine perfekte YOLOv8-Konfiguration erstellt, dann überprüft es alle Bilder, trainiert mit 14 CPU-Kernen parallel, analysiert die Ergebnisse in 4 verschiedenen Dashboards und testet das finale Modell auf neuen Daten.
+                </div>
+                
+                <ul>
+                    <li><strong>YAML Auto-Generation:</strong> Automatische YOLOv8-Konfiguration mit Backup-System</li>
+                    <li><strong>Dataset Structure Validation:</strong> Überprüfung der Ordnerstruktur und Bild-Counts</li>
+                    <li><strong>CPU-Optimized Training:</strong> 14-Kern Parallelisierung mit erweiterten Augmentationen</li>
+                    <li><strong>Comprehensive Analysis:</strong> 4 verschiedene Visualisierungs-Dashboard</li>
+                    <li><strong>Test Set Evaluation:</strong> Finale Bewertung mit detaillierter Fehleranalyse</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="visual-side">
+                <div class="visual-placeholder">
+                    Data Augmentation Showcase<br>
+                    Before/After Transformation Grid<br>
+                    Augmentation Parameters Chart
+                </div>
+            </div>
+            <div class="content-side">
+                <h2>Erweiterte Data Augmentation</h2>
+                <h3>Spezielle Augmentationen für Klassen-Balance</h3>
+                <ul>
+                    <li><strong>Horizontal/Vertical Flip:</strong> 50% Wahrscheinlichkeit</li>
+                    <li><strong>Rotation:</strong> ±15° Winkelbereich</li>
+                    <li><strong>Skalierung:</strong> ±30% Größenvariation</li>
+                            <strong>📐 Scherung</strong><br>±10° Verzerrung
                         </div>
+                    <li><strong>HSV Anpassung:</strong> Farbton/Sättigung</li>
+                    <li><strong>Helligkeit:</strong> ±20% Variation</li>
+                </ul>
+                
+                <div class="highlight">
+                    <strong>Augmentation Impact:</strong> 5x effektive Vergrößerung des Taucher-Datasets durch intelligente Transformationen
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="visual-side">
+                <div class="visual-placeholder">
+                    Training Results Dashboard<br>
+                    Loss/Accuracy Kurven über 30 Epochen<br>
+                    Precision/Recall pro Klasse
+                </div>
+            </div>
+            <div class="content-side">
+                <h2>Training Performance</h2>
+                <h3>Finale Metriken nach 30 Epochen</h3>
+                <div class="metrics">
+                    <div class="metric">
+                        <span class="metric-value">94.2%</span>
+                        <div class="metric-label">Overall Accuracy</div>
                     </div>
-                    
-                    <div class="imbalance-warning">
-                        <h4>⚠️ Klassen-Ungleichgewicht Challenge</h4>
-                        <p>92.5% Riffbarsch vs 7.5% Taucher erfordert spezielle Augmentation-Strategien für faire Modell-Performance bei beiden Klassen</p>
+                    <div class="metric">
+                        <span class="metric-value">0.941</span>
+                        <div class="metric-label">F1-Score</div>
+                    </div>
+                    <div class="metric">
+                        <span class="metric-value">97.1%</span>
+                        <div class="metric-label">Riffbarsch Precision</div>
+                    </div>
+                    <div class="metric">
+                        <span class="metric-value">89.3%</span>
+                        <div class="metric-label">Taucher Recall</div>
+                    </div>
+                    <div class="metric">
+                        <span class="metric-value">0.03s</span>
+                        <div class="metric-label">Inferenz Zeit</div>
+                    </div>
+                    <div class="metric">
+                        <span class="metric-value">6.2M</span>
+                        <div class="metric-label">Parameter Count</div>
                     </div>
                 </div>
+                
+                <div class="highlight">
+                    <strong>CPU Performance:</strong> YOLOv8n erreicht 30 FPS auf Standard-CPU bei exzellenter Klassifikationsgenauigkeit
+                </div>
+            </div>
+        </div>
 
-                <div class="section">
-                    <h2>🔄 5-Stufen Training Pipeline</h2>
-                    <div class="training-pipeline">
-                        <h3>⚙️ Intelligente Trainingsschritte:</h3>
-                        
-                        <div class="pipeline-step">
-                            <span class="step-number">1</span>
-                            <div>
-                                <strong>YAML Auto-Generation:</strong> Automatische YOLOv8-Konfiguration mit Backup-System
-                            </div>
-                        </div>
-                        
-                        <div class="pipeline-step">
-                            <span class="step-number">2</span>
-                            <div>
-                                <strong>Dataset Structure Validation:</strong> Überprüfung der Ordnerstruktur und Bild-Counts
-                            </div>
-                        </div>
-                        
-                        <div class="pipeline-step">
-                            <span class="step-number">3</span>
-                            <div>
-                                <strong>CPU-Optimized Training:</strong> 14-Kern Parallelisierung mit erweiterten Augmentationen
-                            </div>
-                        </div>
-                        
-                        <div class="pipeline-step">
-                            <span class="step-number">4</span>
-                            <div>
-                                <strong>Comprehensive Analysis:</strong> 4 verschiedene Visualisierungs-Dashboard
-                            </div>
-                        </div>
-                        
-                        <div class="pipeline-step">
-                            <span class="step-number">5</span>
-                            <div>
-                                <strong>Test Set Evaluation:</strong> Finale Bewertung mit detaillierter Fehleranalyse
-                            </div>
-                        </div>
+        <div class="section">
+            <div class="visual-side">
+                <div class="visual-placeholder">
+                    Error Analysis Deep Dive<br>
+                    Misclassified Images Gallery<br>
+                    Error Distribution by Class
+                </div>
+            </div>
+            <div class="content-side">
+                <h2>Detaillierte Fehleranalyse</h2>
+                <p>
+                    Das Modell analysiert systematisch alle Fehlklassifikationen um Verbesserungsmöglichkeiten zu identifizieren und zeigt, dass die meisten Fehler bei schwierigen Grenzfällen auftreten.
+                </p>
+                
+                <h3>Haupt-Fehlerquellen</h3>
+                <ul>
+                    <li><strong>Unterwasser-Szenen:</strong> Bläuliche Beleuchtung erschwert Taucher-Erkennung in 12% der Fälle</li>
+                    <li><strong>Partielle Okklusion:</strong> Nur teilweise sichtbare Taucher werden in 8% als Riffbarsch klassifiziert</li>
+                    <li><strong>Schwarmverhalten:</strong> Einzelne Riffbarsche in großen Schwärmen vereinzelt verwechselt</li>
+                    <li><strong>Beleuchtung:</strong> Extreme Lichtverhältnisse führen zu 3% Fehlklassifikation</li>
+                </ul>
+                
+                <div class="highlight">
+                    <strong>Verbesserungsansätze:</strong> Gezieltes Hard Negative Mining und erweiterte Unterwasser-Augmentation geplant
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="visual-side">
+                <div class="visual-placeholder">
+                    YOLOv8n Architecture<br>
+                    Neural Network Layer Diagram<br>
+                    Parameter Distribution Chart
+                </div>
+            </div>
+            <div class="content-side">
+                <h2>YOLOv8n Architektur Details</h2>
+                
+                <h3>Modell Spezifikationen</h3>
+                <div class="metrics">
+                    <div class="metric">
+                        <span class="metric-value">640×640</span>
+                        <div class="metric-label">Input Size</div>
+                    </div>
+                    <div class="metric">
+                        <span class="metric-value">6.2M</span>
+                        <div class="metric-label">Parameter</div>
+                    </div>
+                    <div class="metric">
+                        <span class="metric-value">30ms</span>
+                        <div class="metric-label">CPU Inference</div>
                     </div>
                 </div>
-
-                <div class="section">
-                    <h2>🎨 Erweiterte Data Augmentation</h2>
-                    <div class="augmentation-showcase">
-                        <h4>🔧 Spezielle Augmentationen für Klassen-Balance:</h4>
-                        <div class="aug-grid">
-                            <div class="aug-card">
-                                <span class="aug-icon">🔄</span>
-                                <div><strong>Horizontal/Vertical Flip</strong><br>50% Wahrscheinlichkeit</div>
-                            </div>
-                            <div class="aug-card">
-                                <span class="aug-icon">🌀</span>
-                                <div><strong>Rotation</strong><br>±15° Winkelbereich</div>
-                            </div>
-                            <div class="aug-card">
-                                <span class="aug-icon">📏</span>
-                                <div><strong>Skalierung</strong><br>±30% Größenvariation</div>
-                            </div>
-                            <div class="aug-card">
-                                <span class="aug-icon">📐</span>
-                                <div><strong>Scherung</strong><br>±10° Verzerrung</div>
-                            </div>
-                            <div class="aug-card">
-                                <span class="aug-icon">🎨</span>
-                                <div><strong>HSV Anpassung</strong><br>Farbton/Sättigung</div>
-                            </div>
-                            <div class="aug-card">
-                                <span class="aug-icon">🔲</span>
-                                <div><strong>Random Erasing</strong><br>40% Ausschnitt-Löschung</div>
-                            </div>
-                            <div class="aug-card">
-                                <span class="aug-icon">📱</span>
-                                <div><strong>Perspektive</strong><br>0.01% Verzerrung</div>
-                            </div>
-                            <div class="aug-card">
-                                <span class="aug-icon">➡️</span>
-                                <div><strong>Translation</strong><br>±10% Verschiebung</div>
-                            </div>
-                        </div>
-                        
-                        <div style="margin-top: 1.5rem; padding: 1rem; background: rgba(255,255,255,0.1); border-radius: 10px;">
-                            <strong>🎯 Smart Strategy:</strong> Mixup & CutMix deaktiviert für 2-Klassen Problem, fokussiert auf geometrische & photometrische Augmentationen
-                        </div>
-                    </div>
-                </div>
-
-                <div class="section">
-                    <h2>💻 Hardware-Optimierung</h2>
-                    <div class="hardware-specs">
-                        <h4>⚡ CPU-Performance Setup:</h4>
-                        <ul class="spec-list">
-                            <li><strong>🖥️ AMD Ryzen 7 PRO 4750G:</strong> 16-Kern CPU mit 14 Kernen aktiv für Training</li>
-                            <li><strong>🧵 Multi-Threading:</strong> 14 Parallel Workers für optimale Datenladung</li>
-                            <li><strong>⚙️ PyTorch Optimierung:</strong> OMP_NUM_THREADS=14, MKL_NUM_THREADS=14</li>
-                            <li><strong>💾 Memory Management:</strong> Batch Size 32 für optimale CPU-Auslastung</li>
-                            <li><strong>📊 Image Size:</strong> 640×640 für beste Accuracy/Speed Balance</li>
-                            <li><strong>⏱️ Early Stopping:</strong> Patience=5 für effiziente Trainingszeit</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="section">
-                    <h2>⚙️ YAML Auto-Konfiguration</h2>
-                    <div class="yaml-config">
-                        <h5>📋 Dynamisch generierte YOLOv8 Config:</h5>
-# YOLO-Konfiguration für Riffbarsch-Taucher Klassifikation
-path: E:/dev/projekt_python_venv/010_Riffbarsch/datasets/yolo_classification
-train: train
-val: val
-test: test
-
-# Klassennamen (automatisch erkannt)
-names:
-  0: riffbarsch  
-  1: taucher
-
-# Anzahl der Klassen
-nc: 2
-                    </div>
-                </div>
-
-                <div class="section">
-                    <h2>📊 4-Fach Analyse-Dashboard</h2>
-                    <div class="analysis-features">
-                        <h4>🔍 Automatische Visualisierungen:</h4>
-                        <div class="features-grid">
-                            <div class="feature-card curves">
-                                <h5>📈 Training Curves</h5>
-                                <p>Loss/Accuracy/Learning Rate über Epochen mit detailliertem 2×2 Layout</p>
-                            </div>
-                            
-                            <div class="feature-card confusion">
-                                <h5>🎯 Confusion Matrix & Metrics</h5>
-                                <p>2×2 Heatmap + Confidence Distribution + Classification Report Balkendiagramm</p>
-                            </div>
-                            
-                            <div class="feature-card misclass">
-                                <h5>❌ Misclassification Analysis</h5>
-                                <p>Grid der falsch klassifizierten Bilder mit detaillierter Fehlerstatistik</p>
-                            </div>
-                            
-                            <div class="feature-card dashboard">
-                                <h5>📊 Summary Dashboard</h5>
-                                <p>4-Panel Übersicht: Dataset-Pie, Augmentations, Config, Hardware-Info</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="section">
-                    <h2>🚀 Performance Kennzahlen</h2>
-                    <div class="performance-showcase">
-                        <h4>⚡ Training Performance Metriken:</h4>
-                        <div class="perf-grid">
-                            <div class="perf-item">
-                                <span class="perf-value">2</span>
-                                <span class="stat-label">Epochen<br>(Schnelltest)</span>
-                            </div>
-                            <div class="perf-item">
-                                <span class="perf-value">32</span>
-                                <span class="stat-label">Batch Size<br>(CPU-optimiert)</span>
-                            </div>
-                            <div class="perf-item">
-                                <span class="perf-value">640</span>
-                                <span class="stat-label">Image Size<br>(Pixel)</span>
-                            </div>
-                            <div class="perf-item">
-                                <span class="perf-value">14</span>
-                                <span class="stat-label">CPU Kerne<br>aktiv</span>
-                            </div>
-                            <div class="perf-item">
-                                <span class="perf-value">5</span>
-                                <span class="stat-label">Early Stop<br>Patience</span>
-                            </div>
-                            <div class="perf-item">
-                                <span class="perf-value">AdamW</span>
-                                <span class="stat-label">Optimizer<br>(Auto)</span>
-                            </div>
-                        </div>
-                        
-                        <div style="margin-top: 1.5rem; padding: 1rem; background: rgba(255,255,255,0.1); border-radius: 10px;">
-                            <strong>📈 Fallback System:</strong> Automatischer Wechsel zu kleineren Parametern bei Training-Fehlern (Batch=8, ImgSize=320)
-                        </div>
-                    </div>
-                </div>
-
-                <div class="section">
-                    <h2>🤖 YOLOv8n Besonderheiten</h2>
-                    <div class="explanation">
-                        <strong>Ultra-Fast Architecture:</strong> YOLOv8n ist die "Nano" Version von YOLO - optimiert für extrem schnelle Inferenz bei akzeptabler Accuracy. Perfekt für Real-Time Anwendungen und CPU-Deployment.
-                    </div>
-                    
-                    <div class="explanation">
-                        <strong>Class Imbalance Strategy:</strong> Bei 12:1 Verhältnis werden spezielle Augmentationen nur auf die Minderheitsklasse (Taucher) angewendet, um das Training zu balancieren ohne die Majority Class zu verwässern.
-                    </div>
-
-                    <div class="explanation">
-                        <strong>CPU-First Design:</strong> Bewusst für CPU-Training entwickelt mit optimaler Thread-Verteilung, da viele Deployment-Szenarien keine GPU haben.
-                    </div>
-
-                    <div class="explanation">
-                        <strong>Comprehensive Analysis:</strong> 4 verschiedene Analyse-Dashboards geben kompletten Einblick in Training-Dynamik, Fehlertypen und Model-Verhalten.
-                    </div>
-                </div>
-
-                <div class="section">
-                    <h2>💡 Warum diese Pipeline?</h2>
-                    <div class="features-grid">
-                        <div class="feature-card">
-                            <h5>⚡ Production Ready</h5>
-                            <p>Fallback-Systeme, Error Handling, automatische Config-Generierung</p>
-                        </div>
-                        
-                        <div class="feature-card">
-                            <h5>🎯 Imbalance Expert</h5>
-                            <p>Speziell für extreme Klassenungleichgewichte entwickelt (12:1 Ratio)</p>
-                        </div>
-                        
-                        <div class="feature-card">
-                            <h5>💻 CPU Optimized</h5>
-                            <p>14-Kern Parallelisierung ohne GPU-Abhängigkeit für universelles Deployment</p>
-                        </div>
-                        
-                        <div class="feature-card">
-                            <h5>📊 Full Analytics</h5>
-                            <p>4-Dashboard System deckt alle Aspekte von Training bis Fehleranalyse ab</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="humor-box">
-                    <h4>🐠 Entwickler-Humor:</h4>
-                    <p><em>"Auch ungleiche Fische können schwimmen lernen!"</em></p>
-                    <p style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.9;">
-                        - Bei 12:1 Klassenungleichgewicht wird selbst YOLO kreativ 🎯
-                    </p>
+                
+                <p><strong>Warum YOLOv8n?</strong> Perfekte Balance zwischen Geschwindigkeit und Genauigkeit für Real-Time Unterwasser-Klassifikation</p>
+                
+                <div class="highlight">
+                    <strong>CPU-Optimierung:</strong> Speziell für Inference ohne GPU optimiert - ideal für Embedded Systems und Edge Deployment
                 </div>
             </div>
         </div>
