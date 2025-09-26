@@ -1,0 +1,8 @@
+"""
+pyprojekt.toml
+Projekt-Metadaten und Build-Konfiguration.
+Hier werden Build-Tools und Metadaten für das Projekt definiert.
+"""
+
+[tool.black]
+line-length = 88

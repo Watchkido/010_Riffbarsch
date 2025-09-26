@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fisch-Erkennung mit Deep Learning - Projektabschlussarbeit</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>🎯 Fisch-Erkennung mit Deep Learning</h1>
+        <p>Projektabschlussarbeit - Neuronale Netze für marine Bildanalyse</p>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="#einleitung">Einleitung</a></li>
+            <li><a href="#pipeline">Pipeline</a></li>
+            <li><a href="#models">Models</a></li>
+            <li><a href="#ergebnisse">Ergebnisse</a></li>
+            <li><a href="#gui">GUI</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <!-- Einleitung -->
+        <section id="einleitung">
+            <h2>1. Einleitung & Zielsetzung</h2>
+            <div class="content-card">
+                <h3>Projektziel</h3>
+                <p>Automatische Erkennung und Segmentierung von Fischen in Unterwasseraufnahmen zur Unterstützung mariner Forschungsprojekte.</p>
+                
+                <h3>Datenbasis</h3>
+                <ul>
+                    <li><strong>Quelle:</strong> Eigene Sammlung + öffentliche Datensätze</li>
+                    <li><strong>Sampling:</strong> Manuelle Annotation von Fischpositionen</li>
+                    <li><strong>Vorverarbeitung:</strong> Cropping, Normalisierung, Augmentation</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Pipeline -->
+        <section id="pipeline">
+            <h2>2. Daten-Pipeline</h2>
+            <div class="content-card">
+                <div class="pipeline-step">
+                    <h3>📸 1. Manuelle Foto-Einteilung</h3>
+                    <p>Händische Kategorisierung der Fischbilder nach Arten und Qualität</p>
+                </div>
+                
+                <div class="pipeline-step">
+                    <h3>🔍 2. Hard Negative Mining</h3>
+                    <p>Extraktion anspruchsvoller Negativbeispiele zur Verbesserung der Robustheit</p>
+                </div>
+                
+                <div class="pipeline-step">
+                    <h3>🔄 3. Data Augmentation</h3>
+                    <p>Erweiterung des Datensatzes durch Rotation, Skalierung, Helligkeitsanpassung</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Modelle -->
+        <section id="modelle">
+            <h2>3. Modell-Architekturen & Training</h2>
+            <div class="model-comparison">
+                <div class="model-card">
+                    <h3>🔬 ResNet-18</h3>
+                    <ul>
+                        <li><strong>Datenaufteilung:</strong> 70/15/15 (Train/Val/Test)</li>
+                        <li><strong>Training:</strong> Transfer Learning mit Feinabstimmung</li>
+                        <li><strong>Einsatz:</strong> Basis-Klassifikation</li>
+                    </ul>
+                </div>
+                
+                <div class="model-card">
+                    <h3>⚡ YOLOv8n</h3>
+                    <ul>
+                        <li><strong>Datenaufteilung:</strong> Spezifisch für Object Detection</li>
+                        <li><strong>Training:</strong> Echtzeit-Objekterkennung</li>
+                        <li><strong>Besonderheit:</strong> Hohe Inferenz-Geschwindigkeit</li>
+                    </ul>
+                </div>
+                
+                <div class="model-card">
+                    <h3>🎯 Mask R-CNN</h3>
+                    <ul>
+                        <li><strong>Maskenerzeugung:</strong> YOLO → SAM Pipeline</li>
+                        <li><strong>Training:</strong> 10h mit RAM Turbo</li>
+                        <li><strong>Leistung:</strong> Pixelgenaue Segmentierung</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Ergebnisse -->
+        <section id="ergebnisse">
+            <h2>4. Evaluation & Ergebnisse</h2>
+            <div class="content-card">
+                <h3>Metriken im Vergleich</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Modell</th>
+                            <th>Accuracy</th>
+                            <th>Precision</th>
+                            <th>Recall</th>
+                            <th>F1-Score</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>ResNet-18</td>
+                            <td>92%</td>
+                            <td>0.89</td>
+                            <td>0.91</td>
+                            <td>0.90</td>
+                        </tr>
+                        <tr>
+                            <td>YOLOv8n</td>
+                            <td>88%</td>
+                            <td>0.85</td>
+                            <td>0.87</td>
+                            <td>0.86</td>
+                        </tr>
+                        <tr>
+                            <td>Mask R-CNN</td>
+                            <td>95%</td>
+                            <td>0.93</td>
+                            <td>0.94</td>
+                            <td>0.935</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- GUI -->
+        <section id="gui">
+            <h2>5. Interactive GUI</h2>
+            <div class="content-card">
+                <h3>🎨 Eigene Benutzeroberfläche</h3>
+                <p>Upload eines Bildes und automatische Analyse durch alle trainierten Modelle:</p>
+                <ul>
+                    <li>Klassifikation (ResNet-18)</li>
+                    <li>Objekterkennung (YOLOv8n)</li>
+                    <li>Segmentierung (Mask R-CNN)</li>
+                </ul>
+                <div class="upload-demo">
+                    <input type="file" id="imageUpload" accept="image/*">
+                    <button onclick="analyzeImage()">Bild analysieren</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>Projektabschlussarbeit - Deep Learning Fisch-Erkennung</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

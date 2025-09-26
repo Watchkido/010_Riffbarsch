@@ -1,0 +1,13 @@
+# YOLO-Konfiguration für Riffbarsch-Taucher Klassifikation
+path: E:/dev/projekt_python_venv/010_Riffbarsch/datasets/yolo_classification
+train: train
+val: val
+test: test
+
+# Klassennamen (werden automatisch aus Ordnerstruktur erkannt)
+names:
+  0: riffbarsch  
+  1: taucher
+
+# Anzahl der Klassen
+nc: 2

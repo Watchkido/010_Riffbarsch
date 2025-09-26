@@ -1,0 +1,14 @@
+"""
+requirements-dev.txt
+Zusätzliche Pakete für Entwicklung und Tests.
+Hier stehen Tools wie pytest, black, flake8 etc.
+"""
+
+pytest
+black
+flake8
+mypy
+isort
+pytest-cov
+pre-commit
+jupyter

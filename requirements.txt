@@ -1,0 +1,14 @@
+"""
+requirements.txt
+Liste der benötigten Python-Pakete für das Projekt.
+Hier stehen alle Bibliotheken, die für den Produktivbetrieb nötig sind.
+"""
+
+pandas
+torch
+torchvision
+matplotlib
+seaborn
+scikit-learn
+numpy
+ultralytics
