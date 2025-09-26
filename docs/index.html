@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🐠 Riffbarsch KI-Training - Modulübersicht</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .container {
+            display: flex;
+            height: 100vh;
+        }
+
+        .sidebar {
+            width: 350px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-right: 1px solid rgba(255, 255, 255, 0.2);
+            display: flex;
+            flex-direction: column;
+            box-shadow: 2px 0 20px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+
+        .header {
+            padding: 20px;
+            background: linear-gradient(135deg, #4169e1 0%, #8a2be2 100%);
+            color: white;
+            text-align: center;
+            border-radius: 0 0 15px 15px;
+            margin-bottom: 10px;
+        }
+
+        .header h1 {
+            font-size: 1.8em;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .header p {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+
+        .menu {
+            flex: 1;
+            overflow-y: auto;
+            padding: 10px;
+        }
+
+        .menu-item {
+            display: block;
+            width: 100%;
+            padding: 12px 15px;
+            margin: 5px 0;
+            text-decoration: none;
+            color: #2c3e50;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 10px;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            font-size: 0.9em;
+            position: relative;
+        }
+
+        .menu-item:hover {
+            background: rgba(255, 255, 255, 1);
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .menu-item.active {
+            background: linear-gradient(135deg, #4169e1, #8a2be2);
+            color: white;
+            box-shadow: 0 5px 15px rgba(65, 105, 225, 0.3);
+        }
+
+        .module-number {
+            display: inline-block;
+            min-width: 40px;
+            height: 25px;
+            background: rgba(65, 105, 225, 0.2);
+            color: #4169e1;
+            border-radius: 12px;
+            text-align: center;
+            font-size: 0.8em;
+            font-weight: bold;
+            line-height: 25px;
+            margin-right: 10px;
+        }
+
+        .menu-item.active .module-number {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+
+        .module-title {
+            font-weight: 600;
+            display: block;
+            margin-top: 5px;
+        }
+
+        .module-description {
+            font-size: 0.8em;
+            opacity: 0.7;
+            display: block;
+            margin-top: 3px;
+        }
+
+        .main-content {
+            flex: 1;
+            background: white;
+            position: relative;
+            border-radius: 15px 0 0 0;
+            overflow: hidden;
+            margin: 10px 10px 10px 0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .content-frame {
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 15px;
+        }
+
+        .loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            font-size: 1.2em;
+            color: #666;
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+        }
+
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #4169e1;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-right: 15px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .footer {
+            padding: 15px;
+            text-align: center;
+            font-size: 0.8em;
+            color: #666;
+            background: rgba(255, 255, 255, 0.9);
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                position: absolute;
+                z-index: 2000;
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
+            }
+
+            .sidebar.open {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin: 0;
+                border-radius: 0;
+            }
+
+            .menu-toggle {
+                position: fixed;
+                top: 20px;
+                left: 20px;
+                z-index: 3000;
+                background: rgba(65, 105, 225, 0.9);
+                color: white;
+                border: none;
+                padding: 10px;
+                border-radius: 50%;
+                cursor: pointer;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar" id="sidebar">
+            <div class="header">
+                <h1>🐠 Riffbarsch KI-Training</h1>
+                <p>Machine Learning Pipeline</p>
+            </div>
+
+            <div class="menu" id="menu"></div>
+
+            <div class="footer">
+                <p>🐠 Riffbarsch KI-Training Pipeline<br>
+                Machine Learning • Computer Vision • Deep Learning</p>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="loading" id="loading">
+                <div class="loading-spinner"></div>
+                Lade Modul...
+            </div>
+            <iframe class="content-frame" id="contentFrame" src="mod_000_start.html" style="display: none;"></iframe>
+        </div>
+    </div>
+
+    <button class="menu-toggle" id="menuToggle" style="display: none;">☰</button>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const menu = document.getElementById('menu');
+            const contentFrame = document.getElementById('contentFrame');
+            const loading = document.getElementById('loading');
+            const sidebar = document.getElementById('sidebar');
+            const menuToggle = document.getElementById('menuToggle');
+
+            // Menüeinträge
+            const modules = [
+                { num: '000', title: '🚀 Start', desc: 'Von Riff-Fotos zur KI-Anwendung', file: 'mod_000_start.html' },
+                { num: '010', title: '✏️ Manual Annotation', desc: 'Präzise Bildannotation für Training', file: 'mod_010_manual_annotation.html' },
+                { num: '020', title: '💎 Hard Negative Mining', desc: 'Schwierige Negativbeispiele sammeln', file: 'mod_020_hard_negative_mining.html' },
+                { num: '030', title: '🎨 Data Augmentation', desc: 'Bilddatenvervielfachung mit Albumentations', file: 'mod_030_data_augmentation.html' },
+                { num: '040', title: '🗂️ ResNet Datenaufteilung', desc: 'Drei-Klassen-Dataset-Partitionierung', file: 'mod_040_resnet_daten_aufteilen.html' },
+                { num: '050', title: '🧠 ResNet18 Training', desc: 'Deep Learning Classification', file: 'mod_050_resnet18_train.html' },
+                { num: '060', title: '📊 YOLO Datenaufteilung', desc: 'Object Detection Dataset-Vorbereitung', file: 'mod_060_yolo_daten_aufteilen_v2.html' },
+                { num: '070', title: '🎯 YOLOv8n Training', desc: 'Real-time Object Detection', file: 'mod_070_yolov8n_train.html' },
+                { num: '080', title: '🔄 Mask R-CNN Datenaufteilung', desc: 'Instance Segmentation Dataset-Splits', file: 'mod_080_mask_r_cnn_daten_aufteilen.html' },
+                { num: '090', title: '🚀 YOLO+SAM Turbo', desc: 'Multi-Core Maskengenerierung', file: 'mod_090_yolo_sam_maske_erzeugen_turbo.html' },
+                { num: '100', title: '🎭 Mask R-CNN Training', desc: 'Instance Segmentation Training', file: 'mod_100_mask_r_cnn_train.html' },
+                { num: '101', title: '🚀 RAM-Turbo Training', desc: '128GB RAM-Cache Optimierung', file: 'mod_101_mask_r_cnn_train_ram_turbo.html' },
+                { num: '105', title: '🎮 Main Application', desc: 'Hauptanwendung und Integration', file: 'mod_105_main.html' },
+                { num: '110', title: '🏁 Ende', desc: 'Projektabschluss und Ausblick', file: 'mod_110_ende.html' }
+            ];
+
+            // Menü erstellen
+            modules.forEach((module, index) => {
+                const menuItem = document.createElement('a');
+                menuItem.href = '#';
+                menuItem.className = 'menu-item' + (index === 0 ? ' active' : '');
+                menuItem.setAttribute('data-src', module.file);
+                menuItem.innerHTML = `
+                    <span class="module-number">${module.num}</span>
+                    <span class="module-title">${module.title}</span>
+                    <span class="module-description">${module.desc}</span>
+                `;
+                menu.appendChild(menuItem);
+            });
+
+            const menuItems = document.querySelectorAll('.menu-item');
+
+            function isMobile() {
+                return window.innerWidth <= 768;
+            }
+
+            function updateMenuToggle() {
+                if (isMobile()) {
+                    menuToggle.style.display = 'block';
+                } else {
+                    menuToggle.style.display = 'none';
+                    sidebar.classList.remove('open');
+                }
+            }
+
+            menuToggle.addEventListener('click', function() {
+                sidebar.classList.toggle('open');
+            });
+
+            document.addEventListener('click', function(e) {
+                if (isMobile() && !sidebar.contains(e.target) && !menuToggle.contains(e.target)) {
+                    sidebar.classList.remove('open');
+                }
+            });
+
+            menuItems.forEach(item => {
+                item.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    menuItems.forEach(mi => mi.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    loading.style.display = 'flex';
+                    contentFrame.style.display = 'none';
+                    
+                    const src = this.getAttribute('data-src');
+                    contentFrame.src = src;
+                    
+                    if (isMobile()) {
+                        sidebar.classList.remove('open');
+                    }
+                });
+            });
+
+            contentFrame.addEventListener('load', function() {
+                loading.style.display = 'none';
+                contentFrame.style.display = 'block';
+            });
+
+            window.addEventListener('resize', updateMenuToggle);
+            updateMenuToggle();
+
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'ArrowUp' || e.key === 'ArrowDown') {
+                    e.preventDefault();
+                    const activeItem = document.querySelector('.menu-item.active');
+                    const items = Array.from(menuItems);
+                    const currentIndex = items.indexOf(activeItem);
+                    
+                    let newIndex;
+                    if (e.key === 'ArrowUp') {
+                        newIndex = currentIndex > 0 ? currentIndex - 1 : items.length - 1;
+                    } else {
+                        newIndex = currentIndex < items.length - 1 ? currentIndex + 1 : 0;
+                    }
+                    
+                    items[newIndex].click();
+                    items[newIndex].scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }
+            });
+
+            setTimeout(function() {
+                loading.style.display = 'none';
+                contentFrame.style.display = 'block';
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
