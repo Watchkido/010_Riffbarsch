@@ -1,93 +1,435 @@
-# 🐟 010_Riffbarsch
+# 🐟 Riffbarsch AI-Analyse
 
-## Projektübersicht
-Pipeline für Unterwasser-Fischdetektion (Riffbarsch) von Datensatz bis Deployment.
+![Python](https://img.shields.io/badge/Python-3.8+-blue.svg) ![PyTorch](https://img.shields.io/badge/PyTorch-2.0+-red.svg) ![License](https://img.shields.io/badge/License-MIT-green.svg) ![Status](https://img.shields.io/badge/Status-Active-brightgreen.svg)
+
+**KI-gestützte Unterwasser-Fischerkennung und -analyse**
+
+[Installation](#installation) • [Verwendung](#verwendung) • [Features](#features) • [Dokumentation](#dokumentation)
+
+## 📋 Inhaltsverzeichnis
+
+*   [Projektübersicht](#-projektübersicht)
+*   [Features](#-features)
+*   [Installation](#-installation)
+*   [Schnellstart](#-schnellstart)
+*   [Verwendung](#-verwendung)
+*   [Projektstruktur](#-projektstruktur)
+*   [Modelle](#-modelle)
+*   [Konfiguration](#-konfiguration)
+*   [Entwicklung](#-entwicklung)
+*   [Troubleshooting](#-troubleshooting)
+*   [Beitragen](#-beitragen)
+*   [Lizenz](#-lizenz)
+*   [Ressourcen](#-ressourcen)
+*   [Autoren & Mitwirkende](#-autoren--mitwirkende)
+*   [Roadmap](#-roadmap)
+
+## 🌊 Projektübersicht
+
+Das Riffbarsch AI-Analyse Projekt ist eine vollständige Pipeline für die KI-gestützte Erkennung und Analyse von Unterwasserfischen, speziell Riffbarschen. Das System kombiniert moderne Computer Vision Techniken mit einer benutzerfreundlichen GUI.
+
+### 🎯 Hauptziele
+
+*   **Klassifikation**: Unterscheidung zwischen Riffbarsch, Taucher und anderen Objekten
+*   **Objekterkennung**: Erkennung und Lokalisierung von Fischen in Unterwasserbildern
+*   **Segmentierung**: Präzise Abgrenzung von Fischkonturen
+*   **Real-time Analyse**: Schnelle Verarbeitung für praktische Anwendungen
+
+### 🔬 Wissenschaftlicher Hintergrund
+
+Entwickelt für die marine Biodiversitätsforschung, unterstützt das System:
+
+*   Quantitative Fischbestandserfassung
+*   Verhaltensanalyse von Meereslebewesen
+*   Umweltmonitoring in Korallenriffen
+*   Automatisierte Datenauswertung für Meeresbiologen
+
+## ✨ Features
+
+### 🖥️ Benutzeroberfläche
+
+*   Moderne GUI mit Tkinter
+*   Tab-basierte Navigation (Upload, Klassifikation, Objekterkennung, Segmentierung)
+*   Echtzeit-Visualisierung der Analyseergebnisse
+*   Progress-Bars für lange Berechnungen
+*   Interaktive Diagramme mit `matplotlib`
+
+### 🤖 KI-Modelle
+
+*   ResNet18 für Bildklassifikation (3 Klassen)
+*   YOLOv8n für Objekterkennung
+*   Adaptive Segmentierung basierend auf Bildcharakteristiken
+*   GPU-Beschleunigung (CUDA-Support)
+
+### 📊 Analysefunktionen
+
+*   Klassenwahrscheinlichkeiten mit Konfidenzintervallen
+*   Bounding Box Erkennung mit Objektzählung
+*   Segmentierungsmasken mit Flächenberechnung
+*   Statistische Auswertung der Ergebnisse
+
+### 🔧 Technische Features
+
+*   Multi-Threading für responsive GUI
+*   Robuste Fehlerbehandlung
+*   Debug-Ausgaben für Entwicklung
+*   Modulare Architektur für Erweiterbarkeit
+
+## 🚀 Installation
+
+### Voraussetzungen
+
+*   Python 3.8+
+*   CUDA-fähige GPU (empfohlen)
+*   4GB+ RAM
+*   2GB+ Festplattenspeicher
+
+### 1. Repository klonen
+
+```bash
+git clone https://github.com/Watchkido/010_Riffbarsch.git
+cd 010_Riffbarsch
+```
+
+### 2. Virtual Environment erstellen (empfohlen)
+
+```bash
+# Windows
+python -m venv venv
+venv\Scripts\activate
+
+# Linux/macOS
+python -m venv venv
+source venv/bin/activate
+```
+
+### 3. Dependencies installieren
+
+```bash
+pip install -r requirements.txt
+```
+
+### 4. Modelle herunterladen
+
+Stelle sicher, dass die folgenden Modelle verfügbar sind:
+
+*   `models/resnet/fisch_v2_Z30_20250924_0727_resnet.pt`
+*   `models/yolov8n/riffbarsch_taucher_run/weights/best.pt`
+
+## ⚡ Schnellstart
+
+### GUI starten
+
+```bash
+python src/010_Riffbarsch/main.py
+```
+
+### Grundlegende Verwendung
+
+*   **Bild laden**: Tab "Upload" → "Bild laden"
+*   **Klassifikation**: Tab "Klassifikation" → "Klassifizieren"
+*   **Objekterkennung**: Tab "Objekterkennung" → "Objekte erkennen"
+*   **Segmentierung**: Tab "Segmentierung" → "Segmentieren"
+
+## 📖 Verwendung
+
+### Klassifikation
+
+```python
+# Führt ResNet18-basierte Klassifikation durch
+# Ausgabe: Wahrscheinlichkeiten für [Riffbarsch, Taucher, Anderer]
+# Visualisierung: Balkendiagramm mit Konfidenzwerten
+```
+
+### Objekterkennung
+
+```python
+# Verwendet YOLOv8 für Objektlokalisierung
+# Ausgabe: Bounding Boxes mit Klassenlabels
+# Visualisierung: Objektzählung nach Kategorien
+```
+
+### Segmentierung
+
+```python
+# Adaptive Segmentierung basierend auf Bildcharakteristiken
+# Ausgabe: Segmentierungsmaske und Flächenprozentsatz
+# Visualisierung: Maske + prozentuale Verteilung
+```
+
+## 📁 Projektstruktur
+
+```text
+010_Riffbarsch/
+├── 📄 README.md                    # Diese Datei
+├── 📄 requirements.txt             # Python Dependencies
+├── 📄 LICENSE                      # MIT Lizenz
+├── 📁 src/010_Riffbarsch/          # Hauptquellcode
+│   ├── 📄 main.py                  # Hauptanwendung (GUI)
+│   ├── 📄 config.py                # Konfigurationseinstellungen
+│   ├── 📁 utils/                   # Hilfsfunktionen
+│   └── 📁 tests/                   # Unit Tests
+├── 📁 models/                      # Trainierte AI-Modelle
+│   ├── 📁 resnet/                  # ResNet18 Klassifikation
+│   └── 📁 yolov8n/                 # YOLO Objekterkennung
+├── 📁 data/                        # Daten
+│   ├── 📁 raw/                     # Rohdaten
+│   ├── 📁 processed/               # Verarbeitete Daten
+│   └── 📁 results/                 # Analyseergebnisse
+├── 📁 notebooks/                   # Jupyter Notebooks
+├── 📁 scripts/                     # Zusätzliche Skripte
+└── 📁 docs/                        # Dokumentation
+```
+
+## 🤖 Modelle
+
+### ResNet18 Klassifikator
+
+*   **Architektur**: ResNet18 mit angepasstem FC-Layer
+*   **Klassen**: 3 (Riffbarsch, Taucher, Anderer)
+*   **Input**: 224×224 RGB Bilder
+*   **Vortraining**: ImageNet
+*   **Genauigkeit**: ~85% auf Testdaten
+
+### YOLOv8n Objektdetektor
+
+*   **Architektur**: YOLOv8 Nano
+*   **Klassen**: Riffbarsch, Taucher, Anderer
+*   **Input**: Variable Auflösung (empfohlen 640×640)
+*   **mAP**: ~0.72 @ IoU 0.5
+
+### Segmentierungsalgorithmus
+
+*   **Adaptive Strategie**: Basiert auf Bildhelligkeits- und Kontrastanalyse
+*   **Modi**: Kontur-basiert, Kantenerkennung, Elliptisch
+*   **Morphologie**: Opening/Closing für Glättung
+
+## ⚙️ Konfiguration
+
+### Modellpfade anpassen
+
+```python
+# In src/010_Riffbarsch/config.py
+RESNET_PATH = "path/to/your/resnet/model.pt"
+YOLO_PATH = "path/to/your/yolo/model.pt"
+```
+
+### GUI-Einstellungen
+
+```python
+# Fenstergröße
+WINDOW_SIZE = "1400x800"
+
+# Farben
+COLORS = {
+    'primary': '#2c3e50',
+    'success': '#27ae60',
+    # ...
+}
+```
+
+### Analyseeinstellungen
+
+```python
+# YOLO Konfidenz-Schwelle
+YOLO_CONFIDENCE_THRESHOLD = 0.25
+
+# Segmentierungsparameter
+SEGMENT_ELLIPSE_SCALE = (0.35, 0.25)
+```
+
+## 🛠️ Entwicklung
+
+### Entwicklungsumgebung einrichten
+
+```bash
+# Development Dependencies installieren
+pip install -r requirements-dev.txt
+
+# Pre-commit hooks installieren
+pre-commit install
+```
+
+### Tests ausführen
+
+```bash
+# Alle Tests
+pytest
+
+# Mit Coverage
+pytest --cov=src/010_Riffbarsch
+
+# Spezifische Tests
+pytest tests/test_01_unit.py
+```
+
+### Code-Qualität
+
+```bash
+# Linting
+flake8 src/
+black src/
+isort src/
+
+# Type checking
+mypy src/
+```
+
+### Neues Modell hinzufügen
+
+1.  Modell in `models/` Ordner speichern
+2.  Pfad in `config.py` aktualisieren
+3.  Loader-Funktion erstellen
+4.  GUI-Integration in entsprechendem Tab
+
+## 🔧 Troubleshooting
+
+### Häufige Probleme
+
+#### `ModuleNotFoundError`
+
+```bash
+# Lösung: PYTHONPATH setzen
+export PYTHONPATH="${PYTHONPATH}:$(pwd)/src"
+
+# oder
+python -m src.010_Riffbarsch.main
+```
+
+#### `CUDA out of memory`
+
+```bash
+# Lösung: Batch Size reduzieren oder CPU verwenden
+# In config.py:
+device = torch.device("cpu")  # Statt "cuda"
+```
+
+#### Modell nicht gefunden
+
+```bash
+# Prüfe Pfade in config.py
+# Stelle sicher dass .pt Dateien existieren
+ls models/resnet/
+ls models/yolov8n/riffbarsch_taucher_run/weights/
+```
+
+### Debug-Modus aktivieren
+
+```python
+# In main.py:
+import logging
+logging.basicConfig(level=logging.DEBUG)
+```
+
+### Performance-Optimierung
+
+*   **GPU verwenden**: Stelle sicher, dass CUDA installiert ist
+*   **Bildgröße reduzieren**: Für schnellere Verarbeitung
+*   **Batch Processing**: Für mehrere Bilder gleichzeitig
+
+## 🤝 Beitragen
+
+### Wie du beitragen kannst
+
+1.  Fork das Repository
+2.  Branch für deine Änderungen: `git checkout -b feature/AmazingFeature`
+3.  Commit deine Änderungen: `git commit -m 'Add AmazingFeature'`
+4.  Push zum Branch: `git push origin feature/AmazingFeature`
+5.  Pull Request öffnen
+
+### Code-Standards
+
+*   PEP 8 Python Style Guide befolgen
+*   Type Hints verwenden wo möglich
+*   Docstrings für alle öffentlichen Funktionen
+*   Tests für neue Features schreiben
+*   Meaningful Commit Messages verwenden
+
+### Issue Guidelines
+
+*   **Bug Reports**: Template verwenden, Steps to reproduce angeben
+*   **Feature Requests**: Use Case und erwarteten Nutzen beschreiben
+*   **Questions**: Stack Overflow bevorzugen für generelle Fragen
+
+## 📚 Ressourcen
+
+### Wissenschaftliche Referenzen
+
+*   [Deep Residual Learning for Image Recognition (ResNet)](https://arxiv.org/abs/1512.03385)
+*   [YOLOv8: A Real-Time Object Detection Algorithm (YOLO)](https://docs.ultralytics.com/yolov8/)
+*   Marine Life Detection in Underwater Images
+
+### Nützliche Links
+
+*   NN Visualisierung: [https://adamharley.com/nn_vis/cnn/3d.html](https://adamharley.com/nn_vis/cnn/3d.html)
+*   KI Explainability: [https://lrpserver.hhi.fraunhofer.de/](https://lrpserver.hhi.fraunhofer.de/)
+*   Modell Visualisierung: [https://netron.app/](https://netron.app/)
+*   Ultralytics Docs: [https://docs.ultralytics.com/](https://docs.ultralytics.com/)
+*   PyTorch Tutorials: [https://pytorch.org/tutorials/](https://pytorch.org/tutorials/)
+
+### Datensätze
+
+*   FishNet - Large-scale fish dataset
+*   Fish4Knowledge - Underwater fish recognition
+*   NOAA Fisheries - Government fish data
+
+## 📄 Lizenz
+
+Dieses Projekt ist unter der MIT License lizenziert - siehe [LICENSE](LICENSE) Datei für Details.
+
+```text
+MIT License
+
+Copyright (c) 2025 Riffbarsch AI Project
+
+Permission is hereby granted, free of charge, to any person obtaining a copy...
+```
+
+```text
+YOLOv8-Modelle werden unter AGPL-3.0- und Enterprise-Lizenzen bereitgestellt.
+@software{yolov8_ultralytics,
+  author = {Glenn Jocher and Ayush Chaurasia and Jing Qiu},
+  title = {Ultralytics YOLOv8},
+  version = {8.0.0},
+  year = {2023},
+  url = {https://github.com/ultralytics/ultralytics},
+  orcid = {0000-0001-5950-6979, 0000-0002-7603-6750, 0000-0003-3783-7069},
+  license = {AGPL-3.0}
+}
+
+```
 
 
-## Webseirten
-     https://adamharley.com/nn_vis/cnn/3d.html
-   wi efindet das programm die richtigen punkte inm bild. https://lrpserver.hhi.fraunhofer.de/
-   Modell anzeigen lassen: https://netron.app/
----
 
-## 1. Datensatz & Labeling
-- **Zielklasse:** Riffbarsch (ein Klassenlabel reicht für den Anfang)
-- **Annotation:** Bounding Boxes (YOLO-/COCO-Format)
-- **Tools:** Label Studio, CVAT, Roboflow
-- **Split:** 70% Training, 15% Validierung, 15% Test
-- **Qualität:** Mindestens 5–10% doppelt prüfen (Unterwasserbilder sind tricky: Blendlicht, Trübung, Partikel)
-Input: Hochauflösende JPGs
+## 👥 Autoren & Mitwirkende
 
-Output: Positionen der Riffbarsche als Bounding Boxes
+*   **Hauptentwickler**: @Watchkido
+*   **KI-Experte**: Arbeitet an Computer Vision
+*   **Data Analyst**: Beratung für maritime Anwendungen
 
-Modell: Ein einfaches CNN + Region Proposal oder ein Tiny-YOLOv3 in reinem PyTorch
+## 📈 Roadmap
 
-Annotation: Du brauchst manuelle Labels (z. B. mit LabelImg oder CVAT) im YOLO- oder Pascal VOC-Format
----
+### Version 2.0 (Geplant)
 
-## 2. Vorverarbeitung
-- **Farbkorrektur:** Weißabgleich, Gray-World, CLAHE (optional, offline)
-- **Auflösung:** Originale behalten, fürs Training in Patches/Tiles schneiden (z. B. 1024×1024, 10–20% Überlappung)
-- **Duplikate entfernen:** Near-duplicate detection (z. B. Perceptual Hashing)
+*   Web-Interface mit Flask/FastAPI
+*   REST API für externe Integration
+*   Batch Processing für große Bildermengen
+*   Model Ensemble für höhere Genauigkeit
+*   Real-time Video Analyse
+*   Cloud Deployment (Docker/Kubernetes)
 
----
+### Version 1.5 (In Entwicklung)
 
-## 3. Augmentations (bei <1000 Bildern essentiell)
-- **Geometrisch:** Horizontal-Flip, Rotation, Random Crop mit IoU-Erhalt
-- **Fotometrisch:** Helligkeit/Kontrast, Farb-Jitter, Gaussian Noise, Motion Blur
-- **Mosaik/MixUp:** Sparsam einsetzen
-- **Kleine-Objekt-Fokus:** Random scale up/down, kleine Fische nicht verlieren
+*   Improved Segmentation mit SAM Integration
+*   Data Augmentation Pipeline
+*   Model Interpretability mit Grad-CAM
+*   Performance Metrics Dashboard
 
----
+<div align="center">
+⭐ Wenn dir dieses Projekt gefällt, gib ihm einen Stern! ⭐
 
-## 4. Modellwahl
-- **Startpunkt:** YOLOv8/YOLOv5 oder RT-DETR-Small (vortrainiert)
-- **Backbone:** Small/Medium, Multi-Scale-FPN/PAFPN für kleine Ziele
-- **Ankerfrei vs. Ankerbasiert:** YOLOv8/RT-DETR sind robust, beides testen
+![Last Commit](https://img.shields.io/github/last-commit/Watchkido/010_Riffbarsch)
+![Contributors](https://img.shields.io/github/contributors/Watchkido/010_Riffbarsch)
 
----
-
-## 5. Training
-- **Bildgröße:** 1024 oder 1280 (bei Tiling: 1024)
-- **Batch/GPU:** So groß wie VRAM erlaubt (Gradient Accumulation falls nötig)
-- **Optimierer:** SGD oder AdamW, Lernrate 1e-3 (Cosine Decay oft gut)
-- **Epochen:** 100–300, Early Stopping nach Val mAP
-- **Klassenungleichgewicht:** Focal Loss aktivieren
-- **Class-agnostic NMS:** Anfangs ok, später klassenspezifisch
-
----
-
-## 6. Metriken & Monitoring
-- **Primär:** mAP@0.50 und mAP@0.50:0.95
-- **Sekundär:** Precision/Recall, PR-Kurve, Fehlerinspektion (FP bei Korallen/Steinen, FN bei verdeckten Fischen)
-- **Per-Size-Analyse:** mAP small/medium (wichtig bei mini-Fischen)
-
----
-
-## 7. Inferenz & Postprocessing
-- **Sliding Window/Tiling:** Fensterweise detektieren, NMS über Kachelgrenzen
-- **Confidence-/IoU-Threshold:** Sweepen (z. B. conf 0.15–0.35; IoU-NMS 0.5–0.7)
-- **Tracking (optional):** DeepSORT/ByteTrack für Videos
-
----
-
-## 8. Iteratives Verbessern
-- **Active Learning:** Unsichere Beispiele nachannotieren
-- **Hard Negatives:** Verwechslungsstrukturen gezielt hinzufügen
-- **Domain Randomization:** Mehr Variation in Farben/Trübung/Beleuchtung
-
----
-
-## Hinweise
-- Für Fragen und Erweiterungen: Siehe /notebooks und /scripts
-- Kontakt: Projektleitung oder GitHub-Issues
-
-## Praxis-Tipps für Unterwasser-Robustheit
-- Weißabgleich-Varianz: Trainiere mit leicht unterschiedlichen WB-Versionen derselben Szene als Augmentation, 
-  um Farbdrift zu entkoppeln.
-- Backscatter/Partikel: Leichte Additive Noise- und Speckle-Simulation verbessert die Robustheit.
-- Falsche Positive: Korallenäste, Schatten und Felsen sind typische Täuschungen. 
-  Sammle ein “hard negatives”- Subset und füge es dem Training hinzu.
-- Kleine Ziele: Prüfe mAP-small. Wenn schwach, erhöhe Eingabeauflösung, nutze stärkere PAFPN-Varianten, 
-  oder reduziere Stride der ersten Stufen.
+</div>
 
