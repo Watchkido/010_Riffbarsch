@@ -24,6 +24,10 @@
 *   [Autoren & Mitwirkende](#-autoren--mitwirkende)
 *   [Roadmap](#-roadmap)
 
+## 🚧 Webseite
+
+PyTorch Tutorials: [https://watchkido.github.io/010_Riffbarsch/](https://watchkido.github.io/010_Riffbarsch/)
+
 ## 🌊 Projektübersicht
 
 Das Riffbarsch AI-Analyse Projekt ist eine vollständige Pipeline für die KI-gestützte Erkennung und Analyse von Unterwasserfischen, speziell Riffbarschen. Das System kombiniert moderne Computer Vision Techniken mit einer benutzerfreundlichen GUI.
