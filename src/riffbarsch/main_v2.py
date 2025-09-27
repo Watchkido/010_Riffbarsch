@@ -1,7 +1,7 @@
 # pip install torch torchvision matplotlib pillow ultralytics scipy
 import tkinter as tk
 from tkinter import ttk, filedialog
-from PIL import Image, ImageTk
+from PIL import Image, ImageTk, ImageDraw
 import threading
 import torch
 from torchvision import transforms, models
@@ -11,6 +11,7 @@ import numpy as np
 import time
 from ultralytics import YOLO
 from scipy import ndimage
+
 
 # ================== Pfade zu deinen Modellen ==================
 RESNET_PATH = r"E:\dev\projekt_python_venv\010_Riffbarsch\models\resnet\fisch_v2_Z30_20250924_0727_resnet.pt"
@@ -201,15 +202,39 @@ progress_detect.pack(side='bottom', pady=10)
 # Lade YOLO Modell
 yolo_model = YOLO(YOLO_PATH)
 
+
+
 def run_detection(img):
     progress_detect['value'] = 0
     root.update_idletasks()
     progress_detect['value'] = 30
-    results = yolo_model.predict(source=img, conf=0.25)
+
+    # YOLO Prediction
+    results = yolo_model.predict(source=np.array(img), conf=0.25)
+
+    # Ergebnisbild mit Bounding Boxes erzeugen
+    result_img = results[0].plot()  # numpy array mit Boxen
+    result_pil = Image.fromarray(result_img[..., ::-1])  # BGR -> RGB
+
+    # Halbtransparente Hervorhebung über jedes erkannte Objekt legen
+    if results[0].boxes is not None:
+        overlay = Image.new("RGBA", result_pil.size, (0, 0, 0, 0))
+        draw = ImageDraw.Draw(overlay)
+
+        for box in results[0].boxes:
+            x1, y1, x2, y2 = map(int, box.xyxy[0])  # Box-Koordinaten
+            # halbtransparentes Rechteck (z. B. rotes Overlay)
+            draw.rectangle([x1, y1, x2, y2], fill=(255, 0, 0, 80))
+
+        # Overlay mit Original kombinieren
+        result_pil = result_pil.convert("RGBA")
+        result_pil = Image.alpha_composite(result_pil, overlay)
+
     detections = len(results[0].boxes) if results[0].boxes else 0
     progress_detect['value'] = 70
-    
-    tk_img = ImageTk.PhotoImage(img.resize((400,400)))
+
+    # Anzeige im Tkinter-Canvas
+    tk_img = ImageTk.PhotoImage(result_pil.resize((400,400)))
     canvas_detect.configure(image=tk_img)
     canvas_detect.image = tk_img
 
@@ -223,7 +248,10 @@ def run_detection(img):
     canvas = FigureCanvasTkAgg(fig, master=fig_detect_frame)
     canvas.draw()
     canvas.get_tk_widget().pack(fill='both', expand=True)
+
     progress_detect['value'] = 100
+
+
 
 btn_detect = tk.Button(tab_detect, text="Objekte erkennen", 
                       command=lambda: threading.Thread(target=lambda: run_detection(current_img) if current_img else None).start(), 
