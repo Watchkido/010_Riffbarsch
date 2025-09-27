@@ -32,6 +32,27 @@
         .text-shadow {
             text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
         }
+        .banner-container {
+            margin-top: 3rem;
+            text-align: center;
+            padding: 1rem;
+        }
+        .banner-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 1rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+        .banner-image:hover {
+            transform: scale(1.02);
+        }
+        .banner-caption {
+            margin-top: 0.5rem;
+            font-style: italic;
+            color: #666;
+            font-size: 0.9rem;
+        }
     </style>
 </head>
 <body class="bg-blue-50 flex items-center justify-center min-h-screen p-4">
@@ -42,7 +63,7 @@
                 🐠 Von Riff-Fotos zur KI-Anwendung
             </h1>
             <p class="text-xl md:text-2xl text-center text-gray-600 mb-10">
-                Eine Präsentation für angehende Data Analysts
+                Eine Präsentation für angehende Data Analysts von Frank Albrecht
             </p>
 
             <div class="border-t-4 border-b-4 border-coral rounded-full py-4 px-6 mb-8 bg-coral-light">
@@ -52,10 +73,10 @@
             </div>
             
             <p class="text-base md:text-lg text-gray-700 leading-relaxed mb-6">
-                Hallo zusammen! Stellt euch vor, ich war im wohlverdienten Urlaub. Statt faul am Strand zu liegen, habe ich mich dem nassen Element hingegeben, mich in einem ägyptischen Riff in unvorstellbare Tiefen begeben, nur um die prächtigsten Exemplare der Unterwasserwelt abzulichten. Hunderte Fotos von bunten Fischen und Tauchern, jede Menge verschwommene Bilder und dann die Erkenntnis: Ich muss das alles per Hand sortieren. Ein Albtraum!
+                Hallo zusammen! Stellt euch vor, ich war im wohlverdienten Urlaub. Statt faul am Strand zu liegen, habe ich mich dem nassen Element hingegeben, mich in einem ägyptischen Riff in unvorstellbare Tiefen begeben, nur um die prächtigsten Exemplare der Unterwasserwelt abzulichten. Hunderte Fotos von bunten Fischen und Tauchern, jede Menge verschwimmene Bilder und dann die Erkenntnis: Ich muss das alles per Hand sortieren. Ein Albtraum!
             </p>
             <p class="text-base md:text-lg text-gray-700 leading-relaxed mb-6">
-                Ein Blitzgedanke erleuchtete meine von Salzwasser benebelte Birne: „Es wäre doch cool, wenn eine App alle Fische und Taucher automatisch erkennt.“ So eine App gab es nicht. Also musste ich sie bauen. Aber nicht für mich allein. Ich habe mich für euch aufgeopfert, meine kostbare Urlaubszeit geopfert, um diese Daten in aufopferungsvoller Kleinarbeit zu sammeln. Damit ich euch heute zeigen kann, dass Machine Learning keine Magie ist, sondern harte Arbeit und ein strukturierter Prozess.
+                Ein Blitzgedanke erleuchtete meine von Salzwasser benebelte Birne: „Es wäre doch cool, wenn eine App alle Fische und Taucher automatisch erkennt." So eine App gab es nicht. Also musste ich sie bauen. Aber nicht für mich allein. Ich habe mich für euch aufgeopfert, meine kostbare Urlaubszeit geopfert, um diese Daten in aufopferungsvoller Kleinarbeit zu sammeln. Damit ich euch heute zeigen kann, dass Machine Learning keine Magie ist, sondern harte Arbeit und ein strukturierter Prozess.
             </p>
             <p class="text-base md:text-lg text-gray-700 leading-relaxed mb-6">
                 Wie trainiert man also eine Maschine, Fische zu sehen? Der Prozess ist in drei einfache, aber unnachgiebige Schritte unterteilt:
@@ -79,6 +100,12 @@
             <p class="text-base md:text-lg text-gray-700 leading-relaxed text-center">
                 Dieser Workflow ist das Herzstück fast jedes Machine-Learning-Projekts. Lasst uns die Zauberei entzaubern.
             </p>
+
+            <!-- Banner Section -->
+            <div class="banner-container">
+                <img src="banner.jpg" alt="Riffbarsch AI Projekt Banner" class="banner-image mx-auto">
+                <p class="banner-caption">Riffbarsch AI-Analyse - KI-gestützte Unterwasser-Fischerkennung</p>
+            </div>
         </div>
     </div>
 </body>
