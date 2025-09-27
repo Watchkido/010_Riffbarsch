@@ -31,6 +31,6 @@ def infer_tiled(img_path, model, tile=1024, overlap=0.2, conf=0.25, iou=0.6):
     final = [dets[i] for i in keep]
     return final
 
-model = YOLO("runs/detect/train/weights/best.pt")
+model = YOLO(r"E:\dev\projekt_python_venv\010_Riffbarsch\models\yolov8n\riffbarsch_taucher_run\weights\best.pt")
 final_dets = infer_tiled("some_highres.jpg", model, tile=1024, overlap=0.2, conf=0.25, iou=0.6)
 print(final_dets)  # [x1, y1, x2, y2, score, class]
