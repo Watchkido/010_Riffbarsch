@@ -34,10 +34,10 @@ Das Riffbarsch AI-Analyse Projekt ist eine vollständige Pipeline für die KI-ge
 
 ### 🎯 Hauptziele
 
-*   **Klassifikation**: Unterscheidung zwischen Riffbarsch, Taucher und anderen Objekten
+*   **Klassifikation**: Unterscheidung zwischen Riffbarsch, Taucher und hart negativ Objekten
 *   **Objekterkennung**: Erkennung und Lokalisierung von Fischen in Unterwasserbildern
 *   **Segmentierung**: Präzise Abgrenzung von Fischkonturen
-*   **Real-time Analyse**: Schnelle Verarbeitung für praktische Anwendungen
+*   **coming soon Real-time Analyse**: Schnelle Verarbeitung für praktische Anwendungen
 
 ### 🔬 Wissenschaftlicher Hintergrund
 
@@ -52,31 +52,28 @@ Entwickelt für die marine Biodiversitätsforschung, unterstützt das System:
 
 ### 🖥️ Benutzeroberfläche
 
-*   Moderne GUI mit Tkinter
+*   GUI mit Tkinter
 *   Tab-basierte Navigation (Upload, Klassifikation, Objekterkennung, Segmentierung)
-*   Echtzeit-Visualisierung der Analyseergebnisse
-*   Progress-Bars für lange Berechnungen
-*   Interaktive Diagramme mit `matplotlib`
+*   Visualisierung der Analyseergebnisse
+*   Diagramme mit `matplotlib`
 
 ### 🤖 KI-Modelle
 
 *   ResNet18 für Bildklassifikation (3 Klassen)
 *   YOLOv8n für Objekterkennung
 *   Adaptive Segmentierung basierend auf Bildcharakteristiken
-*   GPU-Beschleunigung (CUDA-Support)
+*   RAM-DISC-Beschleunigung 
 
 ### 📊 Analysefunktionen
 
-*   Klassenwahrscheinlichkeiten mit Konfidenzintervallen
-*   Bounding Box Erkennung mit Objektzählung
+*   Klassenwahrscheinlichkeiten
+*   comming soon - Bounding Box Erkennung mit Objektzählung
 *   Segmentierungsmasken mit Flächenberechnung
 *   Statistische Auswertung der Ergebnisse
 
 ### 🔧 Technische Features
 
-*   Multi-Threading für responsive GUI
 *   Robuste Fehlerbehandlung
-*   Debug-Ausgaben für Entwicklung
 *   Modulare Architektur für Erweiterbarkeit
 
 ## 🚀 Installation
@@ -84,8 +81,8 @@ Entwickelt für die marine Biodiversitätsforschung, unterstützt das System:
 ### Voraussetzungen
 
 *   Python 3.8+
-*   CUDA-fähige GPU (empfohlen)
-*   4GB+ RAM
+*   Software ist für 50GB RAM-DISK ausgelegt
+*   4GB+ RAM (TURBO-Module 100GB+ RAM)
 *   2GB+ Festplattenspeicher
 
 ### 1. Repository klonen
