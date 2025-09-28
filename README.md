@@ -26,7 +26,7 @@
 
 ## 🚧 Webseite
 
-PyTorch Tutorials: [https://watchkido.github.io/010_Riffbarsch/](https://watchkido.github.io/010_Riffbarsch/)
+Projektwebseite: [https://watchkido.github.io/010_Riffbarsch/](https://watchkido.github.io/010_Riffbarsch/)
 
 ## 🌊 Projektübersicht
 
