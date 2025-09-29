@@ -249,6 +249,180 @@ python src/010_Riffbarsch/main.py
 │   │   ├── 📁 test/                # Test Daten
 │   │   └── 📁 masks/               # Segmentierungsmasken
 │   ├── 📁 processed/               # Verarbeitete Datasets
+│   │   ├── 📁 hard_negativ/        # Hard Negative Mining Samples (75 Kategorien)
+│   │   │   ├── 📁 algae_striped_pattern_underwater/         # Algen mit Streifen
+│   │   │   ├── 📁 alien_insect_stripes/                     # Alien Insekten-Streifen
+│   │   │   ├── 📁 anemone_tentacles_striped_pattern/        # Anemonen-Tentakel
+│   │   │   ├── 📁 aquarium_background_plants_plastic/       # Aquarium Plastikpflanzen
+│   │   │   ├── 📁 aquarium_ornament_striped_fish/           # Aquarium Deko-Fische
+│   │   │   ├── 📁 artificial_reef_fish_decor/               # Künstliche Riff-Dekoration
+│   │   │   ├── 📁 badger_stripes_face/                      # Dachs-Gesichtsstreifen
+│   │   │   ├── 📁 banded_sea_snake_underwater/              # Gebänderte Seeschlange
+│   │   │   ├── 📁 bee_striped_abdomen_macro/                # Bienen-Abdomen Makro
+│   │   │   ├── 📁 black_and_white_butterflyfish_underwater/ # Schwarz-weiße Falterfische
+│   │   │   ├── 📁 black_white_striped_alien_humanoid/       # Alien Humanoide
+│   │   │   ├── 📁 chipmunk_stripes/                         # Streifenhörnchen
+│   │   │   ├── 📁 color_shifted_underwater_coral/           # Farbverschobene Korallen
+│   │   │   ├── 📁 coral_reef_textures_underwater/           # Korallenriff-Texturen
+│   │   │   ├── 📁 cropped_fish_underwater_photo/            # Angeschnittene Fischfotos
+│   │   │   ├── 📁 cuckoo_bird_striped_wings/                # Kuckuck-Flügelstreifen
+│   │   │   ├── 📁 dragonfly_striped_wings/                  # Libellen-Flügelstreifen
+│   │   │   ├── 📁 fake_fish_toy_underwater/                 # Fake-Fisch Spielzeug
+│   │   │   ├── 📁 fantasy_striped_monster/                  # Fantasy-Streifenmonster
+│   │   │   ├── 📁 finch_striped_chest/                      # Fink mit gestreifter Brust
+│   │   │   ├── 📁 fish_dorsal_fin_closeup_underwater/       # Fisch Rückenflosse Nahaufnahme
+│   │   │   ├── 📁 fish_tail_closeup_underwater/             # Fisch Schwanzflosse Nahaufnahme
+│   │   │   ├── 📁 gnat_swarm_macro/                         # Mückenschwarm Makro
+│   │   │   ├── 📁 greenish_underwater_reef_scene/           # Grünliche Unterwasser-Riffszene
+│   │   │   ├── 📁 hawk_striped_tail_feathers/               # Falke mit gestreiften Schwanzfedern
+│   │   │   ├── 📁 Heniochus_butterflyfish_reef/             # Heniochus Falterfisch
+│   │   │   ├── 📁 hornet_black_yellow_stripes/              # Hornisse schwarz-gelb
+│   │   │   ├── 📁 juvenile_golden_trevally_fish/            # Juvenile Goldmakrele
+│   │   │   ├── 📁 juvenile_trevally_yellow_stripes/         # Juvenile Makrele gelb gestreift
+│   │   │   ├── 📁 lattice_fence_pattern/                    # Gitterzaun-Muster
+│   │   │   ├── 📁 mosquito_closeup_striped_legs/            # Mücke Nahaufnahme Beine
+│   │   │   ├── 📁 owl_striped_plumage/                      # Eule gestreiftes Gefieder
+│   │   │   ├── 📁 partial_fish_body_underwater/             # Partieller Fischkörper
+│   │   │   ├── 📁 picket_fence_black_white/                 # Lattenzaun schwarz-weiß
+│   │   │   ├── 📁 plastic_aquarium_fish_decoration/         # Plastik Aquarium-Fisch-Deko
+│   │   │   ├── 📁 reef_fish_closeup_head/                   # Rifffisch Kopf Nahaufnahme
+│   │   │   ├── 📁 reef_rock_banded_pattern/                 # Riffsgestein gebändert
+│   │   │   ├── 📁 reef_underwater_shadow_contrast/          # Riff Schatten-Kontrast
+│   │   │   ├── 📁 ribboned_sweetlips_fish/                  # Gestreifter Süßlippenfisch
+│   │   │   ├── 📁 sci_fi_striped_extraterrestrial/          # Sci-Fi Außerirdische
+│   │   │   ├── 📁 scuba_diver_yellow_fins/                  # Taucher gelbe Flossen
+│   │   │   ├── 📁 sea_sponge_striped_texture/               # Meeresschwamm gestreift
+│   │   │   ├── 📁 shoal_of_striped_tropical_fish/           # Schwarm tropischer Streifenfische
+│   │   │   ├── 📁 skunk_black_white_stripes/                # Stinktier schwarz-weiß
+│   │   │   ├── 📁 snorkeler_yellow_mask/                    # Schnorchler gelbe Maske
+│   │   │   ├── 📁 striped_alien_creature_concept_art/       # Alien Konzeptkunst
+│   │   │   ├── 📁 striped_beach_towel/                      # Gestreiftes Strandtuch
+│   │   │   ├── 📁 striped_bird_feathers/                    # Gestreifte Vogelfedern
+│   │   │   ├── 📁 striped_cat_fur/                          # Gestreiftes Katzenfell
+│   │   │   ├── 📁 striped_coral_reef_pattern/               # Gestreiftes Korallenriff-Muster
+│   │   │   ├── 📁 striped_fabric_pattern/                   # Gestreiftes Stoffmuster
+│   │   │   ├── 📁 striped_fence_wood/                       # Gestreifter Holzzaun
+│   │   │   ├── 📁 striped_fly_macro/                        # Gestreifte Fliege Makro
+│   │   │   ├── 📁 striped_gate_metal/                       # Gestreiftes Metalltor
+│   │   │   ├── 📁 striped_hoverfly_insect/                  # Gestreifte Schwebfliege
+│   │   │   ├── 📁 striped_hyena_fur_pattern/                # Streifenhyäne Fellmuster
+│   │   │   ├── 📁 striped_okapi_animal/                     # Gestreiftes Okapi
+│   │   │   ├── 📁 striped_sea_cucumber/                     # Gestreifte Seegurke
+│   │   │   ├── 📁 striped_sea_urchin_spines/                # Gestreifte Seeigel-Stacheln
+│   │   │   ├── 📁 striped_towel_beach/                      # Gestreiftes Handtuch
+│   │   │   ├── 📁 striped_wall_pattern/                     # Gestreiftes Wandmuster
+│   │   │   ├── 📁 sunshade_striped_pattern/                 # Sonnenschirm gestreift
+│   │   │   ├── 📁 sweetlips_fish_swarm_underwater/          # Süßlippenfisch-Schwarm
+│   │   │   ├── 📁 sweetlips_striped_fish_underwater/        # Gestreifte Süßlippenfische
+│   │   │   ├── 📁 tiger_mosquito_stripes/                   # Tigermücke Streifen
+│   │   │   ├── 📁 tiger_stripes_closeup/                    # Tiger Streifen Nahaufnahme
+│   │   │   ├── 📁 warning_sign_yellow_black_stripes/        # Warnschild gelb-schwarz
+│   │   │   ├── 📁 wasp_closeup_stripes/                     # Wespe Nahaufnahme Streifen
+│   │   │   ├── 📁 wooden_fence_with_stripes/                # Holzzaun mit Streifen
+│   │   │   ├── 📁 yellow_buoy_floating_water/               # Gelbe Boje schwimmend
+│   │   │   ├── 📁 yellow_jacket_wasp_flying/                # Gelbwespe fliegend
+│   │   │   ├── 📁 yellow_striped_juvenile_reef_fish/        # Gelb gestreifte juvenile Rifffische
+│   │   │   ├── 📁 young_golden_trevally_underwater/         # Junge Goldmakrele underwater
+│   │   │   ├── 📁 zebra_herd_savanna/                       # Zebraherde Savanne
+│   │   │   ├── 📁 zebra_moray_eel_underwater/               # Zebra-Muräne underwater
+│   │   │   ├── 📁 zebra_skin_pattern/                       # Zebra Hautmuster
+│   │   │   └── 📁 zebra_stripes_closeup/                    # Zebra Streifen Nahaufnahme
+
+
+│   │   ├── 📁 riffbarsch/              # Positive Samples Riffbarsch (~380 Bilder)
+│   │   │   ├── 📄 000001.jpg - 000050.jpg                   # Nummerierte Basis-Bilder
+│   │   │   ├── 📄 2025-08-04-*.jpg                          # Zeitstempel-Bilder August 4
+│   │   │   ├── 📄 Fisch_#####_*.jpg                         # Anonymisierte Fisch-Bilder
+│   │   │   ├── 📄 Fisch_20250808_*.jpg                      # Zeitstempel August 8
+│   │   │   ├── 📄 Fisch_20250810_*.jpg                      # Zeitstempel August 10
+│   │   │   ├── 📄 Fisch_20250812_*.jpg                      # Zeitstempel August 12
+│   │   │   └── 📄 Fisch_20250813_*.jpg                      # Zeitstempel August 13
+│   │   ├── 📁 taucher/                 # Positive Samples Taucher (~110 Bilder)
+│   │   │   ├── 📄 000001.jpg - 000050.jpg                   # Nummerierte Basis-Bilder
+│   │   │   ├── 📄 000r*.jpg, 00r*.jpg, 0r*.jpg              # Rotierte/Varianten
+│   │   │   ├── 📄 2025-08-04-*.jpg                          # Zeitstempel-Bilder
+│   │   │   ├── 📄 Fisch_#####_*.jpg                         # Anonymisierte Bilder
+│   │   │   ├── 📄 Fisch_20250808_*.jpg                      # Zeitstempel-Bilder
+│   │   │   └── 📄 r.jpg, rd.jpg                             # Einzelne Varianten
+
+
+
+
+│   │   ├── 📁 riffbarsch_extra/        # Data Augmentation Riffbarsch (24 Augmentations)
+│   │   │   ├── 📁 blur/                # Blur-Effekt
+│   │   │   ├── 📁 clahe/               # Kontrast-adaptive Histogramm-Equalisierung
+│   │   │   ├── 📁 crop/                # Zuschnitte
+│   │   │   ├── 📁 distortion/          # Verzerrungen
+│   │   │   ├── 📁 elastic/             # Elastische Transformationen
+│   │   │   ├── 📁 farbe/               # Farbvariationen
+│   │   │   ├── 📁 gelöchert/           # Coarse Dropout (Löcher)
+│   │   │   ├── 📁 gespiegelt/          # Horizontale Spiegelung
+│   │   │   ├── 📁 gespiegelt_vertikal/ # Vertikale Spiegelung
+│   │   │   ├── 📁 grid_distortion/     # Grid-basierte Verzerrung
+│   │   │   ├── 📁 hell_dunkel/         # Helligkeitsanpassungen
+│   │   │   ├── 📁 perspektive/         # Perspektive-Transformationen
+│   │   │   ├── 📁 posterize/           # Posterize-Effekt
+│   │   │   ├── 📁 rauschen/            # Rauschen
+│   │   │   ├── 📁 rotiert_10grad/      # Rotation 10°
+│   │   │   ├── 📁 rotiert_20grad/      # Rotation 20°
+│   │   │   ├── 📁 rotiert_30grad/      # Rotation 30°
+│   │   │   ├── 📁 rotiert_40grad/      # Rotation 40°
+│   │   │   ├── 📁 rotiert_50grad/      # Rotation 50°
+│   │   │   ├── 📁 rotiert_60grad/      # Rotation 60°
+│   │   │   ├── 📁 rotiert_70grad/      # Rotation 70°
+│   │   │   ├── 📁 rotiert_80grad/      # Rotation 80°
+│   │   │   ├── 📁 shift_scale/         # Verschiebung und Skalierung
+│   │   │   └── 📁 superpixel/          # Superpixel-Transformationen
+│   │   ├── 📁 taucher_extra/           # Data Augmentation Taucher (24 Augmentations)
+│   │   │   ├── 📁 blur/                # Blur-Effekt
+│   │   │   ├── 📁 clahe/               # Kontrast-adaptive Histogramm-Equalisierung
+│   │   │   ├── 📁 crop/                # Zuschnitte
+│   │   │   ├── 📁 distortion/          # Verzerrungen
+│   │   │   ├── 📁 elastic/             # Elastische Transformationen
+│   │   │   ├── 📁 farbe/               # Farbvariationen
+│   │   │   ├── 📁 gelöchert/           # Coarse Dropout (Löcher)
+│   │   │   ├── 📁 gespiegelt/          # Horizontale Spiegelung
+│   │   │   ├── 📁 gespiegelt_vertikal/ # Vertikale Spiegelung
+│   │   │   ├── 📁 grid_distortion/     # Grid-basierte Verzerrung
+│   │   │   ├── 📁 hell_dunkel/         # Helligkeitsanpassungen
+│   │   │   ├── 📁 perspektive/         # Perspektive-Transformationen
+│   │   │   ├── 📁 posterize/           # Posterize-Effekt
+│   │   │   ├── 📁 rauschen/            # Rauschen
+│   │   │   ├── 📁 rotiert_10grad/      # Rotation 10°
+│   │   │   ├── 📁 rotiert_20grad/      # Rotation 20°
+│   │   │   ├── 📁 rotiert_30grad/      # Rotation 30°
+│   │   │   ├── 📁 rotiert_40grad/      # Rotation 40°
+│   │   │   ├── 📁 rotiert_50grad/      # Rotation 50°
+│   │   │   ├── 📁 rotiert_60grad/      # Rotation 60°
+│   │   │   ├── 📁 rotiert_70grad/      # Rotation 70°
+│   │   │   ├── 📁 rotiert_80grad/      # Rotation 80°
+│   │   │   ├── 📁 shift_scale/         # Verschiebung und Skalierung
+│   │   │   └── 📁 superpixel/          # Superpixel-Transformationen
+│   │   └── 📁 riffbarsch_i_net_data_augmentation/ # Internet Data Augmentation (24 Augmentations)
+│   │       ├── 📁 blur/                # Blur-Effekt
+│   │       ├── 📁 clahe/               # Kontrast-adaptive Histogramm-Equalisierung
+│   │       ├── 📁 crop/                # Zuschnitte
+│   │       ├── 📁 distortion/          # Verzerrungen
+│   │       ├── 📁 elastic/             # Elastische Transformationen
+│   │       ├── 📁 farbe/               # Farbvariationen
+│   │       ├── 📁 gelöchert/           # Coarse Dropout (Löcher)
+│   │       ├── 📁 gespiegelt/          # Horizontale Spiegelung
+│   │       ├── 📁 gespiegelt_vertikal/ # Vertikale Spiegelung
+│   │       ├── 📁 grid_distortion/     # Grid-basierte Verzerrung
+│   │       ├── 📁 hell_dunkel/         # Helligkeitsanpassungen
+│   │       ├── 📁 perspektive/         # Perspektive-Transformationen
+│   │       ├── 📁 posterize/           # Posterize-Effekt
+│   │       ├── 📁 rauschen/            # Rauschen
+│   │       ├── 📁 rotiert_10grad/      # Rotation 10°
+│   │       ├── 📁 rotiert_20grad/      # Rotation 20°
+│   │       ├── 📁 rotiert_30grad/      # Rotation 30°
+│   │       ├── 📁 rotiert_40grad/      # Rotation 40°
+│   │       ├── 📁 rotiert_50grad/      # Rotation 50°
+│   │       ├── 📁 rotiert_60grad/      # Rotation 60°
+│   │       ├── 📁 rotiert_70grad/      # Rotation 70°
+│   │       ├── 📁 rotiert_80grad/      # Rotation 80°
+│   │       ├── 📁 shift_scale/         # Verschiebung und Skalierung
+│   │       └── 📁 superpixel/          # Superpixel-Transformationen
 │   └── 📁 downloads/               # Download-Cache für Hard Negative Mining
 │       ├── 📁 algae_striped_pattern_underwater/         # Algen mit Streifen
 │       ├── 📁 alien_insect_stripes/                     # Alien Insekten-Streifen
