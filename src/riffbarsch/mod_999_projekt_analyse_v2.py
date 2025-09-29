@@ -292,12 +292,100 @@ def flake8_pruefen(dateien):
         print(f"❌ Fehler bei der Flake8-Prüfung: {e}")
 
 
+
+def erstelle_ascii_baum(baum, prefix="", ist_letzter=True):
+    """
+    Erstellt eine ASCII-Baumdarstellung der Projektstruktur
+    
+    :param baum: Baumstruktur als Dictionary
+    :type baum: dict
+    :param prefix: Prefix für die aktuelle Einrückung
+    :type prefix: str
+    :param ist_letzter: Ob dies der letzte Eintrag auf dieser Ebene ist
+    :type ist_letzter: bool
+    :return: ASCII-Baum als String
+    :rtype: str
+    """
+    result = ""
+    items = list(baum.items())
+    
+    for i, (name, sub) in enumerate(items):
+        ist_letzter_item = (i == len(items) - 1)
+        
+        # Symbol für Datei/Ordner bestimmen
+        if sub is None:  # Datei
+            if name.endswith('.py'):
+                symbol = "📄"
+            elif name.endswith('.md'):
+                symbol = "📄"
+            elif name.endswith('.txt'):
+                symbol = "📄"
+            else:
+                symbol = "📄"
+        else:  # Ordner
+            symbol = "📁"
+        
+        # Verbinder bestimmen
+        connector = "└── " if ist_letzter_item else "├── "
+        
+        # Zeile hinzufügen
+        result += f"{prefix}{connector}{symbol} {name}\n"
+        
+        # Wenn es ein Ordner ist, rekursiv weitermachen
+        if sub is not None:
+            new_prefix = prefix + ("    " if ist_letzter_item else "│   ")
+            result += erstelle_ascii_baum(sub, new_prefix, ist_letzter_item)
+    
+    return result
+
+
+def erstelle_vollstaendigen_projektbaum(startverzeichnis):
+    """
+    Erstellt einen vollständigen Projektbaum (alle Dateien, nicht nur Python)
+    
+    :param startverzeichnis: Startverzeichnis
+    :type startverzeichnis: str
+    :return: Vollständiger Projektbaum
+    :rtype: dict
+    """
+    def baum_vollstaendig(pfad):
+        baum_dict = {}
+        try:
+            eintraege = sorted(os.listdir(pfad))
+        except PermissionError:
+            return baum_dict
+        
+        for eintrag in eintraege:
+            vollpfad = os.path.join(pfad, eintrag)
+            
+            # Bestimmte Ordner/Dateien ignorieren
+            if eintrag in (".venv", ".git", "__pycache__", ".pytest_cache", "node_modules"):
+                continue
+            if eintrag.startswith('.') and eintrag not in ('.gitignore', '.env'):
+                continue
+                
+            if os.path.isdir(vollpfad):
+                unterbaum = baum_vollstaendig(vollpfad)
+                # Nur hinzufügen wenn Unterbaum nicht leer oder wichtiger Ordner
+                if unterbaum or eintrag in ('src', 'data', 'models', 'docs', 'tests', 'scripts', 'notebooks'):
+                    baum_dict[eintrag] = unterbaum if unterbaum else {}
+            else:
+                # Wichtige Dateien immer hinzufügen
+                if (eintrag.endswith(('.py', '.md', '.txt', '.yml', '.yaml', '.json', '.cfg', '.ini')) or 
+                    eintrag in ('requirements.txt', 'LICENSE', 'setup.py', 'Dockerfile')):
+                    baum_dict[eintrag] = None
+        
+        return baum_dict
+    
+    return baum_vollstaendig(startverzeichnis)
+
 # 🧰 Hauptfunktion
 # -------------------------------------------
 
 def hauptfunktion(startverzeichnis: str) -> None:
     """
     Führt die komplette Analyse durch:
+    - Erstellt ASCII-Baumdarstellung der Projektstruktur
     - Findet alle Python-Dateien
     - Analysiert die Importe
     - Gibt verwendete und nicht verwendete Module aus
@@ -309,6 +397,14 @@ def hauptfunktion(startverzeichnis: str) -> None:
     :type startverzeichnis: str
     """
     print(f"🔍 Analyse im Projektordner: {startverzeichnis}\n")
+
+    # Vollständige Projektstruktur erstellen
+    projekt_baum = erstelle_vollstaendigen_projektbaum(startverzeichnis)
+    projekt_name = os.path.basename(startverzeichnis)
+    
+    # ASCII-Baum erstellen
+    ascii_baum = f"{projekt_name}/\n"
+    ascii_baum += erstelle_ascii_baum(projekt_baum)
 
     # Alle Python-Dateien im Projekt finden (als Baumstruktur)
     py_baum = finde_python_dateien(startverzeichnis)
@@ -339,6 +435,11 @@ def hauptfunktion(startverzeichnis: str) -> None:
     # Importbeziehungen analysieren
     alle_module, verwendet_von, nicht_genutzt = analysiere_imports(py_dateien)
 
+    # Ausgabe der Projektstruktur (Konsole)
+    print("🏗️ Projektstruktur:")
+    print("".ljust(80, "─"))
+    print(ascii_baum)
+
     # Ausgabe der gefundenen Dateien (Konsole)
     print("📄 Gefundene Python-Dateien:")
     for modul, Pfad in alle_module.items():
@@ -359,20 +460,34 @@ def hauptfunktion(startverzeichnis: str) -> None:
     # Funktionen pro Datei finden
     funktionen_dict = finde_und_liste_alle_funktionen()
 
-    # Ergebnisse in Datei speichern
+    # Ergebnisse in Datei speichern (MIT ASCII-BAUM AM ANFANG!)
     with open("import_analyse_ergebnis.txt", "w", encoding="utf-8") as f:
+        # ASCII-Projektstruktur am Anfang
+        f.write("🏗️ PROJEKTSTRUKTUR\n")
+        f.write("=" * 80 + "\n")
+        f.write(ascii_baum)
+        f.write("\n" + "=" * 80 + "\n\n")
+        
+        # Rest der Analyse
         f.write("📄 Python-Dateien:\n")
+        f.write("-" * 40 + "\n")
         for modul, Pfad in alle_module.items():
             f.write(f"{modul} → {Pfad}\n")
+        
         f.write("\n🔗 Verwendete Module:\n")
+        f.write("-" * 40 + "\n")
         for modul, verwendet_durch in verwendet_von.items():
             f.write(f"{modul} verwendet in:\n")
             for nutzer in verwendet_durch:
                 f.write(f"  └── {nutzer}\n")
+        
         f.write("\n🧹 Nicht verwendete Dateien:\n")
+        f.write("-" * 40 + "\n")
         for Pfad in nicht_genutzt:
             f.write(f"❌ {Pfad}\n")
+        
         f.write("\n📝 Funktionen pro Datei:\n")
+        f.write("-" * 40 + "\n")
         for Pfad, funktionen in funktionen_dict.items():
             f.write(f"{Pfad}:\n")
             for name in funktionen:
@@ -380,8 +495,7 @@ def hauptfunktion(startverzeichnis: str) -> None:
 
     flake8_pruefen(py_dateien)
     print("\n✅ Analyse abgeschlossen. Ergebnisse gespeichert in 'import_analyse_ergebnis.txt'")
-
-
+    print(f"📁 Vollständige Projektstruktur mit {len(projekt_baum)} Hauptelementen erstellt.")
 # 🏁 Ausführung
 # -------------------------------------------
 

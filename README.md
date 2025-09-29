@@ -165,21 +165,119 @@ python src/010_Riffbarsch/main.py
 ├── 📄 README.md                    # Diese Datei
 ├── 📄 requirements.txt             # Python Dependencies
 ├── 📄 LICENSE                      # MIT Lizenz
-├── 📁 src/010_Riffbarsch/          # Hauptquellcode
-│   ├── 📄 main.py                  # Hauptanwendung (GUI)
-│   ├── 📄 config.py                # Konfigurationseinstellungen
-│   ├── 📁 utils/                   # Hilfsfunktionen
-│   └── 📁 tests/                   # Unit Tests
+├── 📁 src/                         # Hauptquellcode
+│   └── 📁 riffbarsch/              # Python Package
+│       ├── 📄 __init__.py          # Package Initialisierung
+│       ├── 📄 main.py              # Hauptanwendung (GUI)
+│       ├── 📄 main_new.py          # Alternative GUI Version
+│       ├── 📄 main_new_fixed.py    # Korrigierte GUI Version
+│       ├── 📄 app.py               # Modulare App-Version
+│       ├── 📄 config.py            # Konfigurationseinstellungen
+│       ├── � mod_000_start.py     # Projektstart-Modul
+│       ├── 📄 mod_010_manual_annotation.py          # Manuelle Annotation
+│       ├── 📄 mod_020_hard_negative_mining.py       # Hard Negative Mining
+│       ├── 📄 mod_030_data_augmentation.py          # Data Augmentation
+│       ├── 📄 mod_040_resnet_daten_aufteilen.py     # ResNet Datenaufteilung
+│       ├── 📄 mod_050_resnet18_train.py             # ResNet18 Training
+│       ├── 📄 mod_060_yolo_daten_aufteilen_v2.py    # YOLO Datenaufteilung V2
+│       ├── 📄 mod_070_yolov8n_train.py              # YOLOv8n Training
+│       ├── 📄 mod_080_mask_r_cnn_daten_aufteilen.py # Mask R-CNN Daten
+│       ├── � mod_090_yolo_sam_maske_erzeugen_turbo.py # YOLO+SAM Masken
+│       ├── 📄 mod_100_mask_r_cnn_train.py           # Mask R-CNN Training
+│       ├── 📄 mod_101_mask_r_cnn_train_ram_turbo.py # RAM-Turbo Training
+│       ├── 📄 mod_110_detectron2_training.py        # Detectron2 Training
+│       ├── 📄 mod_970_a_inferenz_vollbild_m_tiling.py # Vollbild-Inferenz
+│       ├── 📄 mod_980_inferenz_model_gpu_test.py    # GPU Model Test
+│       ├── 📄 mod_990_modell_test_tool.py           # Modell-Test-Tool
+│       └── 📄 mod_999_projekt_analyse_v2.py         # Projekt-Analyse
 ├── 📁 models/                      # Trainierte AI-Modelle
 │   ├── 📁 resnet/                  # ResNet18 Klassifikation
-│   └── 📁 yolov8n/                 # YOLO Objekterkennung
-├── 📁 data/                        # Daten
-│   ├── 📁 raw/                     # Rohdaten
-│   ├── 📁 processed/               # Verarbeitete Daten
-│   └── 📁 results/                 # Analyseergebnisse
-├── 📁 notebooks/                   # Jupyter Notebooks
-├── 📁 scripts/                     # Zusätzliche Skripte
-└── 📁 docs/                        # Dokumentation
+│   │   └── 📄 fisch_v2_Z30_20250924_0727_resnet.pt # Trainiertes ResNet Modell
+│   ├── 📁 yolov8n/                 # YOLO Objekterkennung
+│   │   └── 📁 riffbarsch_taucher_run/
+│   │       └── 📁 weights/
+│   │           └── 📄 best.pt      # Trainiertes YOLO Modell
+│   └── 📁 sam_vit/                 # SAM Segmentierung
+│       └── 📄 sam_vit_b_01ec64.pth # SAM ViT-B Modell
+├── 📁 datasets/                    # Trainingsdaten (nur Ordnerstruktur)
+│   ├── 📁 riffbarsch/              # Riffbarsch Bilder
+│   │   ├── 📁 train/               # Training Bilder
+│   │   ├── 📁 val/                 # Validation Bilder  
+│   │   └── 📁 test/                # Test Bilder
+│   ├── 📁 taucher/                 # Taucher Bilder
+│   │   ├── 📁 train/               # Training Bilder
+│   │   ├── 📁 val/                 # Validation Bilder
+│   │   └── 📁 test/                # Test Bilder
+│   ├── 📁 hart_negative/           # Hard Negative Samples
+│   │   ├── 📁 original/            # Original Hard Negatives
+│   │   ├── 📁 augmented/           # Augmentierte Hard Negatives
+│   │   └── 📁 filtered/            # Gefilterte Samples
+│   ├── 📁 riffbarsch_train/        # ResNet Training Split
+│   │   ├── 📁 riffbarsch/          # Riffbarsch Klasse
+│   │   ├── 📁 taucher/             # Taucher Klasse
+│   │   └── 📁 anderer/             # Andere Objekte
+│   ├── 📁 riffbarsch_val/          # ResNet Validation Split
+│   │   ├── 📁 riffbarsch/          # Riffbarsch Klasse
+│   │   ├── 📁 taucher/             # Taucher Klasse
+│   │   └── 📁 anderer/             # Andere Objekte
+│   ├── 📁 riffbarsch_test/         # ResNet Test Split
+│   │   ├── 📁 riffbarsch/          # Riffbarsch Klasse
+│   │   ├── 📁 taucher/             # Taucher Klasse
+│   │   └── 📁 anderer/             # Andere Objekte
+│   ├── 📁 augmented/               # Data Augmentation Ausgabe
+│   │   ├── 📁 brightness/          # Helligkeits-Augmentierung
+│   │   ├── 📁 contrast/            # Kontrast-Augmentierung
+│   │   ├── 📁 rotation/            # Rotations-Augmentierung
+│   │   ├── 📁 flip/                # Spiegelung-Augmentierung
+│   │   └── 📁 combined/            # Kombinierte Augmentierungen
+│   ├── 📁 yolo_format/             # YOLO Format Daten
+│   │   ├── 📁 images/              # Bilder für YOLO Training
+│   │   │   ├── 📁 train/           # Training Bilder
+│   │   │   ├── 📁 val/             # Validation Bilder
+│   │   │   └── 📁 test/            # Test Bilder
+│   │   ├── 📁 labels/              # YOLO Label-Dateien
+│   │   │   ├── 📁 train/           # Training Labels (.txt)
+│   │   │   ├── 📁 val/             # Validation Labels (.txt)
+│   │   │   └── 📁 test/            # Test Labels (.txt)
+│   │   └── 📁 annotations/         # Annotations-Metadaten
+│   ├── 📁 mask_rcnn_format/        # Mask R-CNN Format
+│   │   ├── 📁 images/              # RGB Bilder
+│   │   ├── 📁 masks/               # Instance Segmentation Masken
+│   │   ├── 📁 annotations/         # COCO-Format Annotations
+│   │   └── 📁 metadata/            # Dataset-Metadaten
+│   └── 📁 processed/               # Verarbeitete Datasets
+│       ├── 📁 normalized/          # Normalisierte Bilder
+│       ├── 📁 resized/             # Größenangepaste Bilder
+│       ├── 📁 filtered/            # Qualitätsgefilterte Bilder
+│       ├── 📁 statistics/          # Dataset-Statistiken
+│       └── 📁 exports/             # Export-Formate für andere Tools
+├── 📁 img/                         # Dokumentations-Bilder
+│   ├── 📄 Figure_1.png             # Interaktive Klassifikation
+│   ├── 📄 Figure_2.png             # Workflow Pipeline
+│   ├── 📄 Figure_3.png             # Data Augmentation
+│   ├── 📄 Figure_4.png             # YOLO Training
+│   ├── 📄 Figure_5.png             # Segmentierung
+│   └── 📄 banner_frank_albrecht.jpg # Header Banner
+├── 📁 docs/                        # HTML Dokumentation
+│   ├── 📄 index.html               # Hauptnavigation
+│   ├── 📄 main.html                # Projektübersicht
+│   ├── 📄 mod_000_start.html       # Startseite Dokumentation
+│   ├── 📄 mod_010_manual_annotation.html    # Manuelle Annotation Docs
+│   ├── 📄 mod_020_hard_negative_mining.html # Hard Negative Mining Docs
+│   ├── 📄 mod_030_data_augmentation.html    # Data Augmentation Docs
+│   ├── 📄 mod_040_resnet_daten_aufteilen.html # ResNet Daten Docs
+│   ├── 📄 mod_050_resnet18_train.html       # ResNet Training Docs
+│   ├── 📄 mod_060_yolo_daten_aufteilen_v2.html # YOLO Daten V2 Docs
+│   ├── 📄 mod_070_yolov8n_train.html        # YOLOv8n Training Docs
+│   ├── 📄 mod_080_mask_r_cnn_daten_aufteilen.html # Mask R-CNN Daten Docs
+│   ├── 📄 mod_090_yolo_sam_maske_erzeugen_turbo.html # YOLO+SAM Docs
+│   ├── 📄 mod_100_mask_r_cnn_train.html     # Mask R-CNN Training Docs
+│   ├── 📄 mod_101_mask_r_cnn_train_ram_turbo.html # RAM-Turbo Docs
+│   └── 📄 mod_110_detectron2_training.html  # Detectron2 Training Docs
+├── 📁 notebooks/                   # Jupyter Notebooks (geplant)
+│   └── 📄 .gitkeep                 # Placeholder für Git
+└── 📁 scripts/                     # Zusätzliche Skripte (geplant)
+    └── � .gitkeep                 # Placeholder für Git
 ```
 
 ## 🤖 Modelle

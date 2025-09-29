@@ -1,0 +1,3013 @@
+🏗️ PROJEKTSTRUKTUR
+================================================================================
+010_Riffbarsch/
+├── 📄 LICENSE
+├── 📄 README.md
+├── 📁 datasets
+│   ├── 📁 maskrcnn_data
+│   │   └── 📁 masks
+│   │       └── 📁 train
+│   │           ├── 📄 000001_2025-09-23_09-52-56_metadata.json
+│   │           ├── 📄 000001_2025-09-23_09-55-49_metadata.json
+│   │           ├── 📄 000001_2025-09-23_09-55-50_metadata.json
+│   │           ├── 📄 000001_2025-09-23_10-02-00_metadata.json
+│   │           ├── 📄 000001_2025-09-23_10-07-16_metadata.json
+│   │           ├── 📄 000001_metadata.json
+│   │           ├── 📄 000002_2025-09-23_09-52-56_metadata.json
+│   │           ├── 📄 000002_2025-09-23_09-55-50_metadata.json
+│   │           ├── 📄 000002_2025-09-23_10-02-00_metadata.json
+│   │           ├── 📄 000002_2025-09-23_10-02-01_metadata.json
+│   │           ├── 📄 000002_metadata.json
+│   │           ├── 📄 000003_2025-09-23_09-52-56_metadata.json
+│   │           ├── 📄 000003_2025-09-23_09-52-57_metadata.json
+│   │           ├── 📄 000003_2025-09-23_09-55-50_metadata.json
+│   │           ├── 📄 000003_2025-09-23_09-55-51_metadata.json
+│   │           ├── 📄 000003_2025-09-23_10-02-01_metadata.json
+│   │           ├── 📄 000003_2025-09-23_10-07-16_metadata.json
+│   │           ├── 📄 000003_2025-09-23_10-07-17_metadata.json
+│   │           ├── 📄 000003_metadata.json
+│   │           ├── 📄 000004_2025-09-23_09-52-57_metadata.json
+│   │           ├── 📄 000004_2025-09-23_09-52-58_metadata.json
+│   │           ├── 📄 000004_2025-09-23_09-55-51_metadata.json
+│   │           ├── 📄 000004_2025-09-23_10-02-01_metadata.json
+│   │           ├── 📄 000004_2025-09-23_10-02-02_metadata.json
+│   │           ├── 📄 000004_metadata.json
+│   │           ├── 📄 000005_2025-09-23_09-52-58_metadata.json
+│   │           ├── 📄 000005_2025-09-23_09-55-51_metadata.json
+│   │           ├── 📄 000005_2025-09-23_09-55-52_metadata.json
+│   │           ├── 📄 000005_2025-09-23_10-02-02_metadata.json
+│   │           ├── 📄 000005_2025-09-23_10-07-17_metadata.json
+│   │           ├── 📄 000005_metadata.json
+│   │           ├── 📄 000006_2025-09-23_09-52-58_metadata.json
+│   │           ├── 📄 000006_2025-09-23_09-52-59_metadata.json
+│   │           ├── 📄 000006_2025-09-23_09-55-52_metadata.json
+│   │           ├── 📄 000006_2025-09-23_10-02-02_metadata.json
+│   │           ├── 📄 000006_metadata.json
+│   │           ├── 📄 000007_2025-09-23_09-52-59_metadata.json
+│   │           ├── 📄 000007_2025-09-23_09-55-52_metadata.json
+│   │           ├── 📄 000007_2025-09-23_09-55-53_metadata.json
+│   │           ├── 📄 000007_2025-09-23_10-02-02_metadata.json
+│   │           ├── 📄 000007_2025-09-23_10-02-03_metadata.json
+│   │           ├── 📄 000007_metadata.json
+│   │           ├── 📄 000008_2025-09-23_09-52-59_metadata.json
+│   │           ├── 📄 000008_2025-09-23_09-53-00_metadata.json
+│   │           ├── 📄 000008_2025-09-23_09-55-53_metadata.json
+│   │           ├── 📄 000008_2025-09-23_10-02-03_metadata.json
+│   │           ├── 📄 000008_metadata.json
+│   │           ├── 📄 000009_2025-09-23_09-53-00_metadata.json
+│   │           ├── 📄 000009_2025-09-23_09-53-01_metadata.json
+│   │           ├── 📄 000009_2025-09-23_09-55-53_metadata.json
+│   │           ├── 📄 000009_2025-09-23_09-55-54_metadata.json
+│   │           ├── 📄 000009_2025-09-23_10-02-04_metadata.json
+│   │           ├── 📄 000009_metadata.json
+│   │           ├── 📄 000010_2025-09-23_09-53-01_metadata.json
+│   │           ├── 📄 000010_2025-09-23_09-53-02_metadata.json
+│   │           ├── 📄 000010_2025-09-23_09-55-54_metadata.json
+│   │           ├── 📄 000010_2025-09-23_10-02-04_metadata.json
+│   │           ├── 📄 000010_2025-09-23_10-07-17_metadata.json
+│   │           ├── 📄 000010_2025-09-23_10-07-18_metadata.json
+│   │           ├── 📄 000010_metadata.json
+│   │           ├── 📄 000011_2025-09-23_09-53-02_metadata.json
+│   │           ├── 📄 000011_2025-09-23_09-55-54_metadata.json
+│   │           ├── 📄 000011_2025-09-23_09-55-55_metadata.json
+│   │           ├── 📄 000011_2025-09-23_10-02-04_metadata.json
+│   │           ├── 📄 000011_2025-09-23_10-02-05_metadata.json
+│   │           ├── 📄 000011_metadata.json
+│   │           ├── 📄 000012_2025-09-23_09-53-02_metadata.json
+│   │           ├── 📄 000012_2025-09-23_09-53-03_metadata.json
+│   │           ├── 📄 000012_2025-09-23_09-55-55_metadata.json
+│   │           ├── 📄 000012_2025-09-23_10-02-05_metadata.json
+│   │           ├── 📄 000012_2025-09-23_10-07-18_metadata.json
+│   │           ├── 📄 000012_metadata.json
+│   │           ├── 📄 000013_2025-09-23_09-53-03_metadata.json
+│   │           ├── 📄 000013_2025-09-23_09-55-55_metadata.json
+│   │           ├── 📄 000013_2025-09-23_10-02-05_metadata.json
+│   │           ├── 📄 000013_2025-09-23_10-02-06_metadata.json
+│   │           ├── 📄 000013_2025-09-23_10-07-18_metadata.json
+│   │           ├── 📄 000013_2025-09-23_10-07-19_metadata.json
+│   │           ├── 📄 000013_metadata.json
+│   │           ├── 📄 000014_2025-09-23_09-53-03_metadata.json
+│   │           ├── 📄 000014_2025-09-23_09-53-04_metadata.json
+│   │           ├── 📄 000014_2025-09-23_09-55-55_metadata.json
+│   │           ├── 📄 000014_2025-09-23_09-55-56_metadata.json
+│   │           ├── 📄 000014_2025-09-23_10-02-06_metadata.json
+│   │           ├── 📄 000014_2025-09-23_10-07-19_metadata.json
+│   │           ├── 📄 000014_2025-09-23_10-07-20_metadata.json
+│   │           ├── 📄 000014_metadata.json
+│   │           ├── 📄 000015_2025-09-23_09-53-04_metadata.json
+│   │           ├── 📄 000015_2025-09-23_09-55-56_metadata.json
+│   │           ├── 📄 000015_2025-09-23_10-02-06_metadata.json
+│   │           ├── 📄 000015_2025-09-23_10-02-07_metadata.json
+│   │           ├── 📄 000015_metadata.json
+│   │           ├── 📄 000016_2025-09-23_09-53-04_metadata.json
+│   │           ├── 📄 000016_2025-09-23_09-55-56_metadata.json
+│   │           ├── 📄 000016_2025-09-23_10-02-07_metadata.json
+│   │           ├── 📄 000016_metadata.json
+│   │           ├── 📄 000017_2025-09-23_09-53-04_metadata.json
+│   │           ├── 📄 000017_2025-09-23_09-53-05_metadata.json
+│   │           ├── 📄 000017_2025-09-23_09-55-56_metadata.json
+│   │           ├── 📄 000017_2025-09-23_09-55-57_metadata.json
+│   │           ├── 📄 000017_2025-09-23_10-02-07_metadata.json
+│   │           ├── 📄 000017_2025-09-23_10-02-08_metadata.json
+│   │           ├── 📄 000017_metadata.json
+│   │           ├── 📄 000018_2025-09-23_09-53-05_metadata.json
+│   │           ├── 📄 000018_2025-09-23_09-55-57_metadata.json
+│   │           ├── 📄 000018_2025-09-23_10-02-08_metadata.json
+│   │           ├── 📄 000018_2025-09-23_10-02-09_metadata.json
+│   │           ├── 📄 000018_metadata.json
+│   │           ├── 📄 000019_2025-09-23_09-53-05_metadata.json
+│   │           ├── 📄 000019_2025-09-23_09-55-57_metadata.json
+│   │           ├── 📄 000019_2025-09-23_09-55-58_metadata.json
+│   │           ├── 📄 000019_2025-09-23_10-02-09_metadata.json
+│   │           ├── 📄 000019_2025-09-23_10-02-10_metadata.json
+│   │           ├── 📄 000019_2025-09-23_10-07-20_metadata.json
+│   │           ├── 📄 000019_metadata.json
+│   │           ├── 📄 000020_2025-09-23_09-53-05_metadata.json
+│   │           ├── 📄 000020_2025-09-23_09-53-06_metadata.json
+│   │           ├── 📄 000020_2025-09-23_09-55-58_metadata.json
+│   │           ├── 📄 000020_2025-09-23_10-02-10_metadata.json
+│   │           ├── 📄 000021_2025-09-23_09-53-06_metadata.json
+│   │           ├── 📄 000021_2025-09-23_09-55-58_metadata.json
+│   │           ├── 📄 000021_2025-09-23_09-55-59_metadata.json
+│   │           ├── 📄 000021_2025-09-23_10-02-10_metadata.json
+│   │           ├── 📄 000021_2025-09-23_10-02-11_metadata.json
+│   │           ├── 📄 000022_2025-09-23_09-53-06_metadata.json
+│   │           ├── 📄 000022_2025-09-23_09-53-07_metadata.json
+│   │           ├── 📄 000022_2025-09-23_09-55-59_metadata.json
+│   │           ├── 📄 000022_2025-09-23_10-02-11_metadata.json
+│   │           ├── 📄 000022_2025-09-23_10-07-20_metadata.json
+│   │           ├── 📄 000022_2025-09-23_10-07-21_metadata.json
+│   │           ├── 📄 000022_metadata.json
+│   │           ├── 📄 000023_2025-09-23_09-53-07_metadata.json
+│   │           ├── 📄 000023_2025-09-23_09-55-59_metadata.json
+│   │           ├── 📄 000023_2025-09-23_10-02-11_metadata.json
+│   │           ├── 📄 000023_2025-09-23_10-02-12_metadata.json
+│   │           ├── 📄 000023_metadata.json
+│   │           ├── 📄 000024_2025-09-23_09-53-07_metadata.json
+│   │           ├── 📄 000024_2025-09-23_09-53-08_metadata.json
+│   │           ├── 📄 000024_2025-09-23_09-56-00_metadata.json
+│   │           ├── 📄 000024_2025-09-23_10-02-12_metadata.json
+│   │           ├── 📄 000024_metadata.json
+│   │           ├── 📄 000025_2025-09-23_09-53-08_metadata.json
+│   │           ├── 📄 000025_2025-09-23_09-56-00_metadata.json
+│   │           ├── 📄 000025_2025-09-23_10-02-12_metadata.json
+│   │           ├── 📄 000025_2025-09-23_10-02-13_metadata.json
+│   │           ├── 📄 000025_metadata.json
+│   │           ├── 📄 000026_2025-09-23_09-53-08_metadata.json
+│   │           ├── 📄 000026_2025-09-23_09-53-09_metadata.json
+│   │           ├── 📄 000026_2025-09-23_09-56-00_metadata.json
+│   │           ├── 📄 000026_2025-09-23_09-56-01_metadata.json
+│   │           ├── 📄 000026_2025-09-23_10-02-13_metadata.json
+│   │           ├── 📄 000026_2025-09-23_10-02-14_metadata.json
+│   │           ├── 📄 000026_metadata.json
+│   │           ├── 📄 000027_2025-09-23_09-53-09_metadata.json
+│   │           ├── 📄 000027_2025-09-23_09-56-01_metadata.json
+│   │           ├── 📄 000027_2025-09-23_09-56-02_metadata.json
+│   │           ├── 📄 000027_2025-09-23_10-02-14_metadata.json
+│   │           ├── 📄 000027_metadata.json
+│   │           ├── 📄 000028_2025-09-23_09-53-09_metadata.json
+│   │           ├── 📄 000028_2025-09-23_09-56-02_metadata.json
+│   │           ├── 📄 000028_2025-09-23_10-02-14_metadata.json
+│   │           ├── 📄 000028_2025-09-23_10-02-15_metadata.json
+│   │           ├── 📄 000028_metadata.json
+│   │           ├── 📄 000029_2025-09-23_09-53-09_metadata.json
+│   │           ├── 📄 000029_2025-09-23_09-53-10_metadata.json
+│   │           ├── 📄 000029_2025-09-23_09-56-02_metadata.json
+│   │           ├── 📄 000029_2025-09-23_09-56-03_metadata.json
+│   │           ├── 📄 000029_2025-09-23_10-02-15_metadata.json
+│   │           ├── 📄 000029_metadata.json
+│   │           ├── 📄 000030_2025-09-23_09-53-10_metadata.json
+│   │           ├── 📄 000030_2025-09-23_09-56-03_metadata.json
+│   │           ├── 📄 000030_2025-09-23_10-02-15_metadata.json
+│   │           ├── 📄 000030_metadata.json
+│   │           ├── 📄 000031_2025-09-23_09-53-10_metadata.json
+│   │           ├── 📄 000031_2025-09-23_09-53-11_metadata.json
+│   │           ├── 📄 000031_2025-09-23_09-56-03_metadata.json
+│   │           ├── 📄 000031_2025-09-23_10-02-15_metadata.json
+│   │           ├── 📄 000031_2025-09-23_10-02-16_metadata.json
+│   │           ├── 📄 000031_2025-09-23_10-07-21_metadata.json
+│   │           ├── 📄 000031_metadata.json
+│   │           ├── 📄 000032_2025-09-23_09-53-11_metadata.json
+│   │           ├── 📄 000032_2025-09-23_09-53-12_metadata.json
+│   │           ├── 📄 000032_2025-09-23_09-56-03_metadata.json
+│   │           ├── 📄 000032_2025-09-23_10-02-16_metadata.json
+│   │           ├── 📄 000032_2025-09-23_10-02-17_metadata.json
+│   │           ├── 📄 000032_metadata.json
+│   │           ├── 📄 000033_2025-09-23_09-53-12_metadata.json
+│   │           ├── 📄 000033_2025-09-23_09-56-03_metadata.json
+│   │           ├── 📄 000033_2025-09-23_09-56-04_metadata.json
+│   │           ├── 📄 000033_2025-09-23_10-02-17_metadata.json
+│   │           ├── 📄 000033_metadata.json
+│   │           ├── 📄 000034_2025-09-23_09-53-12_metadata.json
+│   │           ├── 📄 000034_2025-09-23_09-53-13_metadata.json
+│   │           ├── 📄 000034_2025-09-23_09-56-04_metadata.json
+│   │           ├── 📄 000034_2025-09-23_10-02-17_metadata.json
+│   │           ├── 📄 000034_2025-09-23_10-02-18_metadata.json
+│   │           ├── 📄 000034_metadata.json
+│   │           ├── 📄 000035_2025-09-23_09-53-13_metadata.json
+│   │           ├── 📄 000035_2025-09-23_09-56-04_metadata.json
+│   │           ├── 📄 000035_2025-09-23_10-02-18_metadata.json
+│   │           ├── 📄 000035_metadata.json
+│   │           ├── 📄 000036_2025-09-23_09-53-13_metadata.json
+│   │           ├── 📄 000036_2025-09-23_09-53-14_metadata.json
+│   │           ├── 📄 000036_2025-09-23_09-56-04_metadata.json
+│   │           ├── 📄 000036_2025-09-23_09-56-05_metadata.json
+│   │           ├── 📄 000036_2025-09-23_10-02-18_metadata.json
+│   │           ├── 📄 000036_2025-09-23_10-02-19_metadata.json
+│   │           ├── 📄 000036_metadata.json
+│   │           ├── 📄 000037_2025-09-23_09-53-14_metadata.json
+│   │           ├── 📄 000037_2025-09-23_09-56-05_metadata.json
+│   │           ├── 📄 000037_2025-09-23_10-02-19_metadata.json
+│   │           ├── 📄 000037_metadata.json
+│   │           ├── 📄 000038_2025-09-23_09-53-14_metadata.json
+│   │           ├── 📄 000038_2025-09-23_09-53-15_metadata.json
+│   │           ├── 📄 000038_2025-09-23_09-56-05_metadata.json
+│   │           ├── 📄 000038_2025-09-23_09-56-06_metadata.json
+│   │           ├── 📄 000038_2025-09-23_10-02-19_metadata.json
+│   │           ├── 📄 000038_2025-09-23_10-02-20_metadata.json
+│   │           ├── 📄 000038_metadata.json
+│   │           ├── 📄 000039_2025-09-23_09-53-15_metadata.json
+│   │           ├── 📄 000039_2025-09-23_09-56-06_metadata.json
+│   │           ├── 📄 000039_2025-09-23_10-02-20_metadata.json
+│   │           ├── 📄 000039_metadata.json
+│   │           ├── 📄 000040_2025-09-23_09-53-15_metadata.json
+│   │           ├── 📄 000040_2025-09-23_09-56-06_metadata.json
+│   │           ├── 📄 000040_2025-09-23_09-56-07_metadata.json
+│   │           ├── 📄 000040_2025-09-23_10-02-20_metadata.json
+│   │           ├── 📄 000040_2025-09-23_10-02-21_metadata.json
+│   │           ├── 📄 000040_metadata.json
+│   │           ├── 📄 000041_2025-09-23_09-53-15_metadata.json
+│   │           ├── 📄 000041_2025-09-23_09-53-16_metadata.json
+│   │           ├── 📄 000041_2025-09-23_09-56-07_metadata.json
+│   │           ├── 📄 000041_2025-09-23_10-02-21_metadata.json
+│   │           ├── 📄 000041_metadata.json
+│   │           ├── 📄 000042_2025-09-23_09-53-16_metadata.json
+│   │           ├── 📄 000042_2025-09-23_09-53-17_metadata.json
+│   │           ├── 📄 000042_2025-09-23_09-56-07_metadata.json
+│   │           ├── 📄 000042_2025-09-23_10-02-21_metadata.json
+│   │           ├── 📄 000042_2025-09-23_10-02-22_metadata.json
+│   │           ├── 📄 000042_metadata.json
+│   │           ├── 📄 000043_2025-09-23_09-53-17_metadata.json
+│   │           ├── 📄 000043_2025-09-23_09-56-07_metadata.json
+│   │           ├── 📄 000043_2025-09-23_09-56-08_metadata.json
+│   │           ├── 📄 000043_2025-09-23_10-02-22_metadata.json
+│   │           ├── 📄 000043_metadata.json
+│   │           ├── 📄 000044_2025-09-23_09-53-17_metadata.json
+│   │           ├── 📄 000044_2025-09-23_09-56-08_metadata.json
+│   │           ├── 📄 000044_2025-09-23_10-02-22_metadata.json
+│   │           ├── 📄 000044_metadata.json
+│   │           ├── 📄 000045_2025-09-23_09-53-17_metadata.json
+│   │           ├── 📄 000045_2025-09-23_09-53-18_metadata.json
+│   │           ├── 📄 000045_2025-09-23_09-56-08_metadata.json
+│   │           ├── 📄 000045_2025-09-23_10-02-22_metadata.json
+│   │           ├── 📄 000045_2025-09-23_10-02-23_metadata.json
+│   │           ├── 📄 000045_metadata.json
+│   │           ├── 📄 000046_2025-09-23_09-53-18_metadata.json
+│   │           ├── 📄 000046_2025-09-23_09-56-08_metadata.json
+│   │           ├── 📄 000046_2025-09-23_10-02-23_metadata.json
+│   │           ├── 📄 000046_metadata.json
+│   │           ├── 📄 000047_2025-09-23_09-53-18_metadata.json
+│   │           ├── 📄 000047_2025-09-23_09-53-19_metadata.json
+│   │           ├── 📄 000047_2025-09-23_09-56-08_metadata.json
+│   │           ├── 📄 000047_2025-09-23_09-56-09_metadata.json
+│   │           ├── 📄 000047_2025-09-23_10-02-23_metadata.json
+│   │           ├── 📄 000047_2025-09-23_10-02-24_metadata.json
+│   │           ├── 📄 000047_metadata.json
+│   │           ├── 📄 000048_2025-09-23_09-53-19_metadata.json
+│   │           ├── 📄 000048_2025-09-23_09-56-09_metadata.json
+│   │           ├── 📄 000048_2025-09-23_09-56-10_metadata.json
+│   │           ├── 📄 000048_2025-09-23_10-02-24_metadata.json
+│   │           ├── 📄 000048_metadata.json
+│   │           ├── 📄 000049_2025-09-23_09-53-19_metadata.json
+│   │           ├── 📄 000049_2025-09-23_09-53-20_metadata.json
+│   │           ├── 📄 000049_2025-09-23_09-56-10_metadata.json
+│   │           ├── 📄 000049_2025-09-23_09-56-11_metadata.json
+│   │           ├── 📄 000049_2025-09-23_10-02-24_metadata.json
+│   │           ├── 📄 000049_2025-09-23_10-02-25_metadata.json
+│   │           ├── 📄 000049_metadata.json
+│   │           ├── 📄 000050_2025-09-23_09-53-20_metadata.json
+│   │           ├── 📄 000050_2025-09-23_09-56-11_metadata.json
+│   │           ├── 📄 000050_2025-09-23_10-02-25_metadata.json
+│   │           ├── 📄 000050_metadata.json
+│   │           ├── 📄 0000r01_metadata.json
+│   │           ├── 📄 000r003_metadata.json
+│   │           ├── 📄 000r013_metadata.json
+│   │           ├── 📄 000r020_metadata.json
+│   │           ├── 📄 000r026_metadata.json
+│   │           ├── 📄 000r031_metadata.json
+│   │           ├── 📄 000r039_metadata.json
+│   │           ├── 📄 00r0008_metadata.json
+│   │           ├── 📄 00r0030_metadata.json
+│   │           ├── 📄 00r0046_metadata.json
+│   │           ├── 📄 00r0047_metadata.json
+│   │           ├── 📄 0r00042_metadata.json
+│   │           ├── 📄 2025-08-04-15-19-20-410_metadata.json
+│   │           ├── 📄 2025-08-04-15-19-22-078_metadata.json
+│   │           ├── 📄 2025-08-04-15-19-23-744_metadata.json
+│   │           ├── 📄 2025-08-04-15-19-25-439_metadata.json
+│   │           ├── 📄 2025-08-04-15-19-27-144_metadata.json
+│   │           ├── 📄 2025-08-04-15-19-28-783_metadata.json
+│   │           ├── 📄 2025-08-04-15-21-29-721_metadata.json
+│   │           ├── 📄 2025-08-04-15-21-31-376_metadata.json
+│   │           ├── 📄 2025-08-04-15-21-33-060_metadata.json
+│   │           ├── 📄 2025-08-04-15-21-34-762_metadata.json
+│   │           ├── 📄 2025-08-04-15-21-36-412_metadata.json
+│   │           ├── 📄 2025-08-04-15-21-38-081_metadata.json
+│   │           ├── 📄 2025-08-04-15-21-59-921_metadata.json
+│   │           ├── 📄 2025-08-04-15-22-01-822_metadata.json
+│   │           ├── 📄 2025-08-04-15-22-03-510_metadata.json
+│   │           ├── 📄 2025-08-04-15-22-05-190_metadata.json
+│   │           ├── 📄 2025-08-04-15-24-04-412_metadata.json
+│   │           ├── 📄 2025-08-04-15-24-06-102_metadata.json
+│   │           ├── 📄 2025-08-04-15-24-07-756_metadata.json
+│   │           ├── 📄 2025-08-04-15-24-09-389_metadata.json
+│   │           ├── 📄 2025-08-04-15-24-11-089_metadata.json
+│   │           ├── 📄 2025-08-04-15-24-12-767_metadata.json
+│   │           ├── 📄 2025-08-04-15-24-14-396_metadata.json
+│   │           ├── 📄 2025-08-04-15-24-16-006_metadata.json
+│   │           ├── 📄 2025-08-04-15-24-17-679_metadata.json
+│   │           ├── 📄 2025-08-04-15-24-19-323_metadata.json
+│   │           ├── 📄 2025-08-04-15-24-20-633_metadata.json
+│   │           ├── 📄 2025-08-04-15-24-22-240_metadata.json
+│   │           ├── 📄 2025-08-04-15-24-23-900_metadata.json
+│   │           ├── 📄 2025-08-04-15-24-25-540_metadata.json
+│   │           ├── 📄 2025-08-04-15-24-27-164_metadata.json
+│   │           ├── 📄 2025-08-04-15-24-28-164_metadata.json
+│   │           ├── 📄 2025-08-04-15-24-29-845_metadata.json
+│   │           ├── 📄 2025-08-04-15-24-31-494_metadata.json
+│   │           ├── 📄 2025-08-04-15-24-33-130_metadata.json
+│   │           ├── 📄 2025-08-04-15-24-38-163_metadata.json
+│   │           ├── 📄 2025-08-04-15-24-39-864_metadata.json
+│   │           ├── 📄 2025-08-04-15-24-41-529_metadata.json
+│   │           ├── 📄 2025-08-04-15-24-43-208_metadata.json
+│   │           ├── 📄 2025-08-04-15-24-44-852_metadata.json
+│   │           ├── 📄 2025-08-04-15-24-46-544_metadata.json
+│   │           ├── 📄 2025-08-04-15-24-51-779_metadata.json
+│   │           ├── 📄 2025-08-04-15-24-53-460_metadata.json
+│   │           ├── 📄 2025-08-04-15-24-55-177_metadata.json
+│   │           ├── 📄 2025-08-04-15-24-56-847_metadata.json
+│   │           ├── 📄 2025-08-04-15-24-58-526_metadata.json
+│   │           ├── 📄 2025-08-04-15-25-00-216_metadata.json
+│   │           ├── 📄 2025-08-04-15-25-01-894_metadata.json
+│   │           ├── 📄 2025-08-04-15-25-03-605_metadata.json
+│   │           ├── 📄 2025-08-04-15-25-05-253_metadata.json
+│   │           ├── 📄 2025-08-04-15-25-06-962_metadata.json
+│   │           ├── 📄 2025-08-04-15-25-08-641_metadata.json
+│   │           ├── 📄 2025-08-04-15-25-10-355_metadata.json
+│   │           ├── 📄 2025-08-04-15-25-12-053_metadata.json
+│   │           ├── 📄 2025-08-04-15-25-13-706_metadata.json
+│   │           ├── 📄 2025-08-04-15-25-18-703_metadata.json
+│   │           ├── 📄 2025-08-04-15-25-20-387_metadata.json
+│   │           ├── 📄 2025-08-04-15-25-22-053_metadata.json
+│   │           ├── 📄 2025-08-04-15-25-23-739_metadata.json
+│   │           ├── 📄 2025-08-04-15-25-25-400_metadata.json
+│   │           ├── 📄 2025-08-04-15-25-27-082_metadata.json
+│   │           ├── 📄 2025-08-04-15-25-28-742_metadata.json
+│   │           ├── 📄 2025-08-04-15-25-30-435_metadata.json
+│   │           ├── 📄 2025-08-04-15-25-32-117_metadata.json
+│   │           ├── 📄 2025-08-04-15-25-33-802_metadata.json
+│   │           ├── 📄 2025-08-04-15-25-44-447_metadata.json
+│   │           ├── 📄 2025-08-04-15-25-46-080_metadata.json
+│   │           ├── 📄 2025-08-04-15-25-47-772_metadata.json
+│   │           ├── 📄 2025-08-04-15-25-49-438_metadata.json
+│   │           ├── 📄 2025-08-04-15-25-51-104_metadata.json
+│   │           ├── 📄 2025-08-04-15-25-52-773_metadata.json
+│   │           ├── 📄 2025-08-04-15-25-54-438_metadata.json
+│   │           ├── 📄 2025-08-04-15-25-56-105_metadata.json
+│   │           ├── 📄 2025-08-04-15-25-57-797_metadata.json
+│   │           ├── 📄 2025-08-04-15-25-59-466_metadata.json
+│   │           ├── 📄 2025-08-04-15-26-01-255_metadata.json
+│   │           ├── 📄 2025-08-04-15-26-02-955_metadata.json
+│   │           ├── 📄 2025-08-04-15-26-04-622_metadata.json
+│   │           ├── 📄 2025-08-04-15-26-13-126_metadata.json
+│   │           ├── 📄 2025-08-04-15-29-32-683_metadata.json
+│   │           ├── 📄 2025-08-04-15-30-08-326_metadata.json
+│   │           ├── 📄 2025-08-04-15-30-13-420_metadata.json
+│   │           ├── 📄 2025-08-04-15-37-56-676_metadata.json
+│   │           ├── 📄 2025-08-04-15-38-11-293_metadata.json
+│   │           ├── 📄 2025-08-04-15-38-14-912_metadata.json
+│   │           ├── 📄 2025-08-04-15-38-18-463_metadata.json
+│   │           ├── 📄 2025-08-04-15-38-29-022_metadata.json
+│   │           ├── 📄 2025-08-04-15-38-32-399_metadata.json
+│   │           ├── 📄 Fisch_#####_20250805_074816.560Z_metadata.json
+│   │           ├── 📄 Fisch_#####_20250805_074828.077Z_metadata.json
+│   │           ├── 📄 Fisch_#####_20250805_074829.784Z_metadata.json
+│   │           ├── 📄 Fisch_#####_20250805_074832.112Z_metadata.json
+│   │           ├── 📄 Fisch_#####_20250805_074834.417Z_metadata.json
+│   │           ├── 📄 Fisch_#####_20250805_074836.746Z_metadata.json
+│   │           ├── 📄 Fisch_#####_20250805_074839.072Z_metadata.json
+│   │           ├── 📄 Fisch_#####_20250805_074841.377Z_metadata.json
+│   │           ├── 📄 Fisch_#####_20250805_074843.672Z_metadata.json
+│   │           ├── 📄 Fisch_#####_20250805_074846.007Z_metadata.json
+│   │           ├── 📄 Fisch_#####_20250805_074848.314Z_metadata.json
+│   │           ├── 📄 Fisch_#####_20250805_074850.637Z_metadata.json
+│   │           ├── 📄 Fisch_#####_20250805_074855.271Z_metadata.json
+│   │           ├── 📄 Fisch_#####_20250805_074857.570Z_metadata.json
+│   │           ├── 📄 Fisch_#####_20250805_074859.437Z_metadata.json
+│   │           ├── 📄 Fisch_#####_20250805_074901.737Z_metadata.json
+│   │           ├── 📄 Fisch_#####_20250805_074906.337Z_metadata.json
+│   │           ├── 📄 Fisch_#####_20250805_074913.231Z_metadata.json
+│   │           ├── 📄 Fisch_#####_20250805_074915.533Z_metadata.json
+│   │           ├── 📄 Fisch_#####_20250805_074920.157Z_metadata.json
+│   │           ├── 📄 Fisch_#####_20250805_074922.467Z_metadata.json
+│   │           ├── 📄 Fisch_#####_20250805_074924.760Z_metadata.json
+│   │           ├── 📄 Fisch_#####_20250805_074927.098Z_metadata.json
+│   │           ├── 📄 Fisch_#####_20250805_074936.421Z_metadata.json
+│   │           ├── 📄 Fisch_#####_20250805_074941.086Z_metadata.json
+│   │           ├── 📄 Fisch_#####_20250805_074943.394Z_metadata.json
+│   │           ├── 📄 Fisch_#####_20250805_074945.727Z_metadata.json
+│   │           ├── 📄 Fisch_#####_20250805_075045.837Z_metadata.json
+│   │           ├── 📄 Fisch_#####_20250805_095430.033Z_metadata.json
+│   │           ├── 📄 Fisch_#####_20250805_095441.586Z_metadata.json
+│   │           ├── 📄 Fisch_#####_20250805_095443.891Z_metadata.json
+│   │           ├── 📄 Fisch_#####_20250805_095446.193Z_metadata.json
+│   │           ├── 📄 Fisch_#####_20250805_095448.492Z_metadata.json
+│   │           ├── 📄 Fisch_#####_20250805_095450.793Z_metadata.json
+│   │           ├── 📄 Fisch_#####_20250805_095453.093Z_metadata.json
+│   │           ├── 📄 Fisch_#####_20250805_095455.393Z_metadata.json
+│   │           ├── 📄 Fisch_#####_20250805_095459.985Z_metadata.json
+│   │           ├── 📄 Fisch_#####_20250805_095520.944Z_metadata.json
+│   │           ├── 📄 Fisch_#####_20250805_095523.248Z_metadata.json
+│   │           ├── 📄 Fisch_#####_20250805_095644.512Z_metadata.json
+│   │           ├── 📄 Fisch_20250808_112845.550Z_metadata.json
+│   │           ├── 📄 Fisch_20250808_112850.150Z_metadata.json
+│   │           ├── 📄 Fisch_20250808_113014.624Z_metadata.json
+│   │           ├── 📄 Fisch_20250808_113016.923Z_metadata.json
+│   │           ├── 📄 Fisch_20250808_113019.230Z_metadata.json
+│   │           ├── 📄 Fisch_20250808_113021.554Z_metadata.json
+│   │           ├── 📄 Fisch_20250808_113023.854Z_metadata.json
+│   │           ├── 📄 Fisch_20250808_113040.082Z_metadata.json
+│   │           ├── 📄 Fisch_20250808_113049.350Z_metadata.json
+│   │           ├── 📄 Fisch_20250808_113243.344Z_metadata.json
+│   │           ├── 📄 Fisch_20250808_113245.646Z_metadata.json
+│   │           ├── 📄 Fisch_20250808_113247.939Z_metadata.json
+│   │           ├── 📄 Fisch_20250808_113250.234Z_metadata.json
+│   │           ├── 📄 Fisch_20250808_113252.545Z_metadata.json
+│   │           ├── 📄 Fisch_20250808_113254.907Z_metadata.json
+│   │           ├── 📄 Fisch_20250808_113257.210Z_metadata.json
+│   │           ├── 📄 Fisch_20250808_113259.506Z_metadata.json
+│   │           ├── 📄 Fisch_20250808_113301.837Z_metadata.json
+│   │           ├── 📄 Fisch_20250808_113304.168Z_metadata.json
+│   │           ├── 📄 Fisch_20250808_113306.495Z_metadata.json
+│   │           ├── 📄 Fisch_20250808_113308.839Z_metadata.json
+│   │           ├── 📄 Fisch_20250808_113311.138Z_metadata.json
+│   │           ├── 📄 Fisch_20250808_113313.463Z_metadata.json
+│   │           ├── 📄 Fisch_20250808_113320.428Z_metadata.json
+│   │           ├── 📄 Fisch_20250808_113334.292Z_metadata.json
+│   │           ├── 📄 Fisch_20250808_113336.587Z_metadata.json
+│   │           ├── 📄 Fisch_20250808_113338.587Z_metadata.json
+│   │           ├── 📄 Fisch_20250808_113340.891Z_metadata.json
+│   │           ├── 📄 Fisch_20250808_113350.154Z_metadata.json
+│   │           ├── 📄 Fisch_20250808_113357.084Z_metadata.json
+│   │           ├── 📄 Fisch_20250808_113359.455Z_metadata.json
+│   │           ├── 📄 Fisch_20250808_113404.122Z_metadata.json
+│   │           ├── 📄 Fisch_20250808_113424.945Z_metadata.json
+│   │           ├── 📄 Fisch_20250808_113434.234Z_metadata.json
+│   │           ├── 📄 Fisch_20250808_113436.539Z_metadata.json
+│   │           ├── 📄 Fisch_20250808_113443.499Z_metadata.json
+│   │           ├── 📄 Fisch_20250808_113459.688Z_metadata.json
+│   │           ├── 📄 Fisch_20250808_113501.996Z_metadata.json
+│   │           ├── 📄 Fisch_20250808_113504.300Z_metadata.json
+│   │           ├── 📄 Fisch_20250808_113506.585Z_metadata.json
+│   │           ├── 📄 Fisch_20250808_113508.901Z_metadata.json
+│   │           ├── 📄 Fisch_20250808_113511.218Z_metadata.json
+│   │           ├── 📄 Fisch_20250808_113513.531Z_metadata.json
+│   │           ├── 📄 Fisch_20250808_113515.819Z_metadata.json
+│   │           ├── 📄 Fisch_20250808_113518.125Z_metadata.json
+│   │           ├── 📄 Fisch_20250808_113520.455Z_metadata.json
+│   │           ├── 📄 Fisch_20250808_113522.753Z_metadata.json
+│   │           ├── 📄 Fisch_20250808_113525.083Z_metadata.json
+│   │           ├── 📄 Fisch_20250808_113527.391Z_metadata.json
+│   │           ├── 📄 Fisch_20250808_113529.750Z_metadata.json
+│   │           ├── 📄 Fisch_20250808_113532.061Z_metadata.json
+│   │           ├── 📄 Fisch_20250808_113534.384Z_metadata.json
+│   │           ├── 📄 Fisch_20250808_113536.682Z_metadata.json
+│   │           ├── 📄 Fisch_20250808_113538.979Z_metadata.json
+│   │           ├── 📄 Fisch_20250808_113541.288Z_metadata.json
+│   │           ├── 📄 Fisch_20250808_113543.581Z_metadata.json
+│   │           ├── 📄 Fisch_20250808_113545.883Z_metadata.json
+│   │           ├── 📄 Fisch_20250808_113548.172Z_metadata.json
+│   │           ├── 📄 Fisch_20250808_113550.485Z_metadata.json
+│   │           ├── 📄 Fisch_20250808_113552.512Z_metadata.json
+│   │           ├── 📄 Fisch_20250808_113554.805Z_metadata.json
+│   │           ├── 📄 Fisch_20250808_113557.110Z_metadata.json
+│   │           ├── 📄 Fisch_20250808_113819.827Z_metadata.json
+│   │           ├── 📄 Fisch_20250808_113822.165Z_metadata.json
+│   │           ├── 📄 Fisch_20250808_113846.934Z_metadata.json
+│   │           ├── 📄 Fisch_20250808_113849.254Z_metadata.json
+│   │           ├── 📄 Fisch_20250808_113853.893Z_metadata.json
+│   │           ├── 📄 Fisch_20250808_113856.220Z_metadata.json
+│   │           ├── 📄 Fisch_20250808_113905.443Z_metadata.json
+│   │           ├── 📄 Fisch_20250808_113907.750Z_metadata.json
+│   │           ├── 📄 Fisch_20250808_113912.412Z_metadata.json
+│   │           ├── 📄 Fisch_20250808_113940.203Z_metadata.json
+│   │           ├── 📄 Fisch_20250808_113944.830Z_metadata.json
+│   │           ├── 📄 Fisch_20250808_113949.441Z_metadata.json
+│   │           ├── 📄 Fisch_20250808_113951.766Z_metadata.json
+│   │           ├── 📄 Fisch_20250808_113958.732Z_metadata.json
+│   │           ├── 📄 Fisch_20250808_114001.032Z_metadata.json
+│   │           ├── 📄 Fisch_20250808_114005.661Z_metadata.json
+│   │           ├── 📄 Fisch_20250808_114014.901Z_metadata.json
+│   │           ├── 📄 Fisch_20250810_050459.087Z_metadata.json
+│   │           ├── 📄 Fisch_20250810_050549.071Z_metadata.json
+│   │           ├── 📄 Fisch_20250810_051412.847Z_metadata.json
+│   │           ├── 📄 Fisch_20250810_051414.168Z_metadata.json
+│   │           ├── 📄 Fisch_20250810_051416.013Z_metadata.json
+│   │           ├── 📄 Fisch_20250810_051417.807Z_metadata.json
+│   │           ├── 📄 Fisch_20250810_051419.177Z_metadata.json
+│   │           ├── 📄 Fisch_20250810_051420.975Z_metadata.json
+│   │           ├── 📄 Fisch_20250810_051422.810Z_metadata.json
+│   │           ├── 📄 Fisch_20250810_051424.637Z_metadata.json
+│   │           ├── 📄 Fisch_20250810_051425.777Z_metadata.json
+│   │           ├── 📄 Fisch_20250810_051427.608Z_metadata.json
+│   │           ├── 📄 Fisch_20250810_051428.776Z_metadata.json
+│   │           ├── 📄 Fisch_20250810_051430.040Z_metadata.json
+│   │           ├── 📄 Fisch_20250810_051431.842Z_metadata.json
+│   │           ├── 📄 Fisch_20250810_051433.439Z_metadata.json
+│   │           ├── 📄 Fisch_20250810_051434.570Z_metadata.json
+│   │           ├── 📄 Fisch_20250810_051436.371Z_metadata.json
+│   │           ├── 📄 Fisch_20250810_051438.167Z_metadata.json
+│   │           ├── 📄 Fisch_20250810_051516.793Z_metadata.json
+│   │           ├── 📄 Fisch_20250810_051518.584Z_metadata.json
+│   │           ├── 📄 Fisch_20250810_051520.394Z_metadata.json
+│   │           ├── 📄 Fisch_20250810_051538.382Z_metadata.json
+│   │           ├── 📄 Fisch_20250810_051540.178Z_metadata.json
+│   │           ├── 📄 Fisch_20250810_051543.815Z_metadata.json
+│   │           ├── 📄 Fisch_20250810_051545.645Z_metadata.json
+│   │           ├── 📄 Fisch_20250810_051551.075Z_metadata.json
+│   │           ├── 📄 Fisch_20250810_051552.908Z_metadata.json
+│   │           ├── 📄 Fisch_20250810_051554.706Z_metadata.json
+│   │           ├── 📄 Fisch_20250810_051558.311Z_metadata.json
+│   │           ├── 📄 Fisch_20250810_051623.626Z_metadata.json
+│   │           ├── 📄 Fisch_20250810_051629.028Z_metadata.json
+│   │           ├── 📄 Fisch_20250810_051630.825Z_metadata.json
+│   │           ├── 📄 Fisch_20250810_051632.630Z_metadata.json
+│   │           ├── 📄 Fisch_20250810_051737.740Z_metadata.json
+│   │           ├── 📄 Fisch_20250810_051739.544Z_metadata.json
+│   │           ├── 📄 Fisch_20250810_051740.576Z_metadata.json
+│   │           ├── 📄 Fisch_20250810_051741.604Z_metadata.json
+│   │           ├── 📄 Fisch_20250810_051742.615Z_metadata.json
+│   │           ├── 📄 Fisch_20250810_051743.642Z_metadata.json
+│   │           ├── 📄 Fisch_20250810_051744.675Z_metadata.json
+│   │           ├── 📄 Fisch_20250810_051746.520Z_metadata.json
+│   │           ├── 📄 Fisch_20250810_051748.078Z_metadata.json
+│   │           ├── 📄 Fisch_20250810_051749.867Z_metadata.json
+│   │           ├── 📄 Fisch_20250810_051751.719Z_metadata.json
+│   │           ├── 📄 Fisch_20250810_051753.537Z_metadata.json
+│   │           ├── 📄 Fisch_20250810_051757.176Z_metadata.json
+│   │           ├── 📄 Fisch_20250810_051808.109Z_metadata.json
+│   │           ├── 📄 Fisch_20250810_051809.931Z_metadata.json
+│   │           ├── 📄 Fisch_20250810_051811.766Z_metadata.json
+│   │           ├── 📄 Fisch_20250810_051813.600Z_metadata.json
+│   │           ├── 📄 Fisch_20250810_051815.438Z_metadata.json
+│   │           ├── 📄 Fisch_20250810_051820.925Z_metadata.json
+│   │           ├── 📄 Fisch_20250810_051822.722Z_metadata.json
+│   │           ├── 📄 Fisch_20250810_051824.525Z_metadata.json
+│   │           ├── 📄 Fisch_20250810_051826.372Z_metadata.json
+│   │           ├── 📄 Fisch_20250810_051828.198Z_metadata.json
+│   │           ├── 📄 Fisch_20250810_051829.957Z_metadata.json
+│   │           ├── 📄 Fisch_20250812_132750.600Z_metadata.json
+│   │           ├── 📄 Fisch_20250812_133511.289Z_metadata.json
+│   │           ├── 📄 Fisch_20250813_051501Z_metadata.json
+│   │           ├── 📄 Fisch_20250813_051508Z_metadata.json
+│   │           ├── 📄 Fisch_20250813_051510Z_metadata.json
+│   │           ├── 📄 Fisch_20250813_051513Z_metadata.json
+│   │           ├── 📄 Fisch_20250813_051515Z_metadata.json
+│   │           ├── 📄 Fisch_20250813_051517Z_metadata.json
+│   │           ├── 📄 Fisch_20250813_051520Z_metadata.json
+│   │           ├── 📄 Fisch_20250813_051531Z_metadata.json
+│   │           ├── 📄 Fisch_20250813_051533Z_metadata.json
+│   │           ├── 📄 Fisch_20250813_051536Z_metadata.json
+│   │           ├── 📄 Fisch_20250813_051545Z_metadata.json
+│   │           ├── 📄 Fisch_20250813_051547Z_metadata.json
+│   │           ├── 📄 Fisch_20250813_051549Z_metadata.json
+│   │           ├── 📄 Fisch_20250813_051552Z_metadata.json
+│   │           ├── 📄 Fisch_20250813_051554Z_metadata.json
+│   │           ├── 📄 Fisch_20250813_051556Z_metadata.json
+│   │           ├── 📄 Fisch_20250813_051559Z_metadata.json
+│   │           ├── 📄 Fisch_20250813_051601Z_metadata.json
+│   │           ├── 📄 Fisch_20250813_051603Z_metadata.json
+│   │           ├── 📄 Fisch_20250813_051605Z_metadata.json
+│   │           ├── 📄 Fisch_20250813_051617Z_metadata.json
+│   │           ├── 📄 Fisch_20250813_051619Z_metadata.json
+│   │           ├── 📄 Fisch_20250813_051621Z_metadata.json
+│   │           ├── 📄 Fisch_20250813_051624Z_metadata.json
+│   │           ├── 📄 Fisch_20250813_051626Z_metadata.json
+│   │           ├── 📄 Fisch_20250813_051633Z_metadata.json
+│   │           ├── 📄 Fisch_20250813_051635Z_metadata.json
+│   │           ├── 📄 Fisch_20250813_051637Z_metadata.json
+│   │           ├── 📄 Fisch_20250813_051640Z_metadata.json
+│   │           ├── 📄 Fisch_20250813_051642Z_metadata.json
+│   │           ├── 📄 Fisch_20250813_051647Z_metadata.json
+│   │           ├── 📄 Fisch_20250813_051651Z_metadata.json
+│   │           ├── 📄 Fisch_20250813_051653Z_metadata.json
+│   │           ├── 📄 Fisch_20250813_051656Z_metadata.json
+│   │           ├── 📄 Fisch_20250813_051658Z_metadata.json
+│   │           ├── 📄 Fisch_20250813_051700Z_metadata.json
+│   │           ├── 📄 Fisch_20250813_051705Z_metadata.json
+│   │           ├── 📄 Fisch_20250813_051707Z_metadata.json
+│   │           ├── 📄 Fisch_20250813_051710Z_metadata.json
+│   │           ├── 📄 Fisch_20250813_051712Z_metadata.json
+│   │           ├── 📄 Fisch_20250813_051716Z_metadata.json
+│   │           ├── 📄 Fisch_20250813_051719Z_metadata.json
+│   │           ├── 📄 Fisch_20250813_051721Z_metadata.json
+│   │           ├── 📄 Fisch_20250813_051728Z_metadata.json
+│   │           ├── 📄 Fisch_20250813_051735Z_metadata.json
+│   │           ├── 📄 Fisch_20250813_051739Z_metadata.json
+│   │           ├── 📄 Fisch_20250813_051742Z_metadata.json
+│   │           ├── 📄 Fisch_20250813_051744Z_metadata.json
+│   │           ├── 📄 Fisch_20250813_051746Z_metadata.json
+│   │           ├── 📄 Fisch_20250813_051749Z_metadata.json
+│   │           ├── 📄 Fisch_20250813_051751Z_metadata.json
+│   │           ├── 📄 Fisch_20250813_051753Z_metadata.json
+│   │           ├── 📄 Fisch_20250813_051755Z_metadata.json
+│   │           ├── 📄 Fisch_20250813_051758Z_metadata.json
+│   │           ├── 📄 Fisch_20250813_051800Z_metadata.json
+│   │           ├── 📄 Fisch_20250813_051802Z_metadata.json
+│   │           ├── 📄 Fisch_20250813_051805Z_metadata.json
+│   │           ├── 📄 Fisch_20250813_051807Z_metadata.json
+│   │           ├── 📄 Fisch_20250813_051809Z_metadata.json
+│   │           ├── 📄 Fisch_20250813_051811Z_metadata.json
+│   │           ├── 📄 Fisch_20250813_051814Z_metadata.json
+│   │           ├── 📄 Fisch_20250813_051816Z_metadata.json
+│   │           ├── 📄 Fisch_20250813_051818Z_metadata.json
+│   │           ├── 📄 Fisch_20250813_051821Z_metadata.json
+│   │           ├── 📄 Fisch_20250813_051823Z_metadata.json
+│   │           ├── 📄 Fisch_20250813_051825Z_metadata.json
+│   │           ├── 📄 Fisch_20250813_051828Z_metadata.json
+│   │           ├── 📄 Fisch_20250813_051830Z_metadata.json
+│   │           ├── 📄 Fisch_20250813_051832Z_metadata.json
+│   │           ├── 📄 Fisch_20250813_051839Z_metadata.json
+│   │           ├── 📄 Fisch_20250813_051841Z_metadata.json
+│   │           ├── 📄 Fisch_20250813_051844Z_metadata.json
+│   │           ├── 📄 Fisch_20250813_051846Z_metadata.json
+│   │           ├── 📄 Fisch_20250813_051850Z_metadata.json
+│   │           ├── 📄 Fisch_20250813_051853Z_metadata.json
+│   │           ├── 📄 Fisch_20250813_051855Z_metadata.json
+│   │           ├── 📄 Fisch_20250813_051857Z_metadata.json
+│   │           ├── 📄 Fisch_20250813_051900Z_metadata.json
+│   │           ├── 📄 Fisch_20250813_051902Z_metadata.json
+│   │           ├── 📄 Fisch_20250813_051904Z_metadata.json
+│   │           ├── 📄 Fisch_20250813_051906Z_metadata.json
+│   │           ├── 📄 Fisch_20250813_051909Z_metadata.json
+│   │           ├── 📄 Fisch_20250813_051911Z_metadata.json
+│   │           ├── 📄 Fisch_20250813_051916Z_metadata.json
+│   │           ├── 📄 Fisch_20250813_051918Z_metadata.json
+│   │           ├── 📄 Fisch_20250813_051923Z_metadata.json
+│   │           ├── 📄 Fisch_20250813_051925Z_metadata.json
+│   │           ├── 📄 Fisch_20250813_051927Z_metadata.json
+│   │           ├── 📄 Fisch_20250813_051929Z_metadata.json
+│   │           ├── 📄 Fisch_20250813_051934Z_metadata.json
+│   │           ├── 📄 Fisch_20250813_051936Z_metadata.json
+│   │           ├── 📄 Fisch_20250813_051939Z_metadata.json
+│   │           ├── 📄 Fisch_20250813_051941Z_metadata.json
+│   │           ├── 📄 Fisch_20250813_051943Z_metadata.json
+│   │           ├── 📄 Fisch_20250813_051945Z_metadata.json
+│   │           ├── 📄 Fisch_20250813_051948Z_metadata.json
+│   │           ├── 📄 Fisch_20250813_051950Z_metadata.json
+│   │           ├── 📄 Fisch_20250813_051952Z_metadata.json
+│   │           ├── 📄 Fisch_20250813_051955Z_metadata.json
+│   │           ├── 📄 Fisch_20250813_052034Z_metadata.json
+│   │           ├── 📄 Fisch_20250813_052036Z_metadata.json
+│   │           ├── 📄 Fisch_20250813_052038Z_metadata.json
+│   │           ├── 📄 Fisch_20250813_052040Z_metadata.json
+│   │           ├── 📄 Fisch_20250813_052043Z_metadata.json
+│   │           ├── 📄 Fisch_20250813_052045Z_metadata.json
+│   │           ├── 📄 Fisch_20250813_052101Z_metadata.json
+│   │           ├── 📄 Fisch_20250813_052103Z_metadata.json
+│   │           ├── 📄 Fisch_20250813_052110Z_metadata.json
+│   │           ├── 📄 Fisch_20250813_052112Z_metadata.json
+│   │           ├── 📄 Fisch_20250813_052115Z_metadata.json
+│   │           ├── 📄 Fisch_20250813_052117Z_metadata.json
+│   │           ├── 📄 Fisch_20250813_052119Z_metadata.json
+│   │           ├── 📄 Fisch_20250813_052122Z_metadata.json
+│   │           ├── 📄 Fisch_20250813_052124Z_metadata.json
+│   │           ├── 📄 Fisch_20250813_052126Z_metadata.json
+│   │           ├── 📄 Fisch_20250813_052129Z_metadata.json
+│   │           ├── 📄 Fisch_20250813_052131Z_metadata.json
+│   │           ├── 📄 Fisch_20250813_052133Z_metadata.json
+│   │           ├── 📄 Fisch_20250813_052135Z_metadata.json
+│   │           ├── 📄 Fisch_20250813_052321Z_metadata.json
+│   │           ├── 📄 Fisch_20250813_052554Z_metadata.json
+│   │           ├── 📄 Fisch_20250813_052556Z_metadata.json
+│   │           ├── 📄 Fisch_20250813_052610Z_metadata.json
+│   │           ├── 📄 r_metadata.json
+│   │           └── 📄 rd_metadata.json
+│   ├── 📁 yolo_classification
+│   │   ├── 📄 yolo_classification.yaml
+│   │   └── 📄 yolo_classification_backup.yaml
+│   └── 📁 yolo_split
+│       ├── 📁 test
+│       │   ├── 📁 hard_negatives
+│       │   │   └── 📁 labels
+│       │   │       ├── 📄 000001.txt
+│       │   │       ├── 📄 000002.txt
+│       │   │       ├── 📄 000003.txt
+│       │   │       ├── 📄 000004.txt
+│       │   │       ├── 📄 000005.txt
+│       │   │       ├── 📄 000006.txt
+│       │   │       ├── 📄 000007.txt
+│       │   │       ├── 📄 000008.txt
+│       │   │       ├── 📄 000009.txt
+│       │   │       ├── 📄 000010.txt
+│       │   │       ├── 📄 000011.txt
+│       │   │       ├── 📄 000012.txt
+│       │   │       ├── 📄 000013.txt
+│       │   │       ├── 📄 000014.txt
+│       │   │       ├── 📄 000015.txt
+│       │   │       ├── 📄 000016.txt
+│       │   │       ├── 📄 000017.txt
+│       │   │       ├── 📄 000018.txt
+│       │   │       ├── 📄 000019.txt
+│       │   │       ├── 📄 000020.txt
+│       │   │       ├── 📄 000021.txt
+│       │   │       ├── 📄 000022.txt
+│       │   │       ├── 📄 000023.txt
+│       │   │       ├── 📄 000024.txt
+│       │   │       ├── 📄 000025.txt
+│       │   │       ├── 📄 000026.txt
+│       │   │       ├── 📄 000027.txt
+│       │   │       ├── 📄 000028.txt
+│       │   │       ├── 📄 000029.txt
+│       │   │       ├── 📄 000030.txt
+│       │   │       ├── 📄 000031.txt
+│       │   │       ├── 📄 000032.txt
+│       │   │       ├── 📄 000033.txt
+│       │   │       ├── 📄 000034.txt
+│       │   │       ├── 📄 000035.txt
+│       │   │       ├── 📄 000036.txt
+│       │   │       ├── 📄 000037.txt
+│       │   │       ├── 📄 000038.txt
+│       │   │       ├── 📄 000039.txt
+│       │   │       ├── 📄 000040.txt
+│       │   │       ├── 📄 000041.txt
+│       │   │       ├── 📄 000042.txt
+│       │   │       ├── 📄 000043.txt
+│       │   │       ├── 📄 000044.txt
+│       │   │       ├── 📄 000045.txt
+│       │   │       ├── 📄 000046.txt
+│       │   │       ├── 📄 000047.txt
+│       │   │       ├── 📄 000048.txt
+│       │   │       ├── 📄 000049.txt
+│       │   │       └── 📄 000050.txt
+│       │   └── 📁 labels
+│       │       ├── 📄 000001_2025-09-23_09-52-56.txt
+│       │       ├── 📄 000001_2025-09-23_09-55-49.txt
+│       │       ├── 📄 000001_2025-09-23_10-02-00.txt
+│       │       ├── 📄 000001_2025-09-23_10-07-16.txt
+│       │       ├── 📄 000002_2025-09-23_09-52-56.txt
+│       │       ├── 📄 000002_2025-09-23_09-55-50.txt
+│       │       ├── 📄 000002_2025-09-23_10-02-00.txt
+│       │       ├── 📄 000002_2025-09-23_10-02-01.txt
+│       │       ├── 📄 000003_2025-09-23_09-52-56.txt
+│       │       ├── 📄 000003_2025-09-23_09-52-57.txt
+│       │       ├── 📄 000003_2025-09-23_09-55-50.txt
+│       │       ├── 📄 000003_2025-09-23_09-55-51.txt
+│       │       ├── 📄 000003_2025-09-23_10-02-01.txt
+│       │       ├── 📄 000003_2025-09-23_10-07-17.txt
+│       │       ├── 📄 000004_2025-09-23_09-52-58.txt
+│       │       ├── 📄 000004_2025-09-23_09-55-51.txt
+│       │       ├── 📄 000004_2025-09-23_10-02-01.txt
+│       │       ├── 📄 000005_2025-09-23_09-52-58.txt
+│       │       ├── 📄 000005_2025-09-23_09-55-51.txt
+│       │       ├── 📄 000005_2025-09-23_09-55-52.txt
+│       │       ├── 📄 000005_2025-09-23_10-02-02.txt
+│       │       ├── 📄 000005_2025-09-23_10-07-17.txt
+│       │       ├── 📄 000006_2025-09-23_09-52-58.txt
+│       │       ├── 📄 000006_2025-09-23_09-52-59.txt
+│       │       ├── 📄 000006_2025-09-23_09-55-52.txt
+│       │       ├── 📄 000006_2025-09-23_10-02-02.txt
+│       │       ├── 📄 000007_2025-09-23_09-52-59.txt
+│       │       ├── 📄 000007_2025-09-23_09-55-52.txt
+│       │       ├── 📄 000007_2025-09-23_10-02-02.txt
+│       │       ├── 📄 000007_2025-09-23_10-02-03.txt
+│       │       ├── 📄 000008_2025-09-23_09-52-59.txt
+│       │       ├── 📄 000008_2025-09-23_09-53-00.txt
+│       │       ├── 📄 000008_2025-09-23_09-55-53.txt
+│       │       ├── 📄 000008_2025-09-23_10-02-03.txt
+│       │       ├── 📄 000009.txt
+│       │       ├── 📄 000009_2025-09-23_09-53-00.txt
+│       │       ├── 📄 000009_2025-09-23_09-53-01.txt
+│       │       ├── 📄 000009_2025-09-23_09-55-53.txt
+│       │       ├── 📄 000009_2025-09-23_09-55-54.txt
+│       │       ├── 📄 000009_2025-09-23_10-02-04.txt
+│       │       ├── 📄 000010_2025-09-23_09-53-01.txt
+│       │       ├── 📄 000010_2025-09-23_09-53-02.txt
+│       │       ├── 📄 000010_2025-09-23_09-55-54.txt
+│       │       ├── 📄 000010_2025-09-23_10-02-04.txt
+│       │       ├── 📄 000010_2025-09-23_10-07-18.txt
+│       │       ├── 📄 000011.txt
+│       │       ├── 📄 000011_2025-09-23_09-53-02.txt
+│       │       ├── 📄 000011_2025-09-23_09-55-54.txt
+│       │       ├── 📄 000011_2025-09-23_10-02-04.txt
+│       │       ├── 📄 000011_2025-09-23_10-02-05.txt
+│       │       ├── 📄 000012_2025-09-23_09-53-02.txt
+│       │       ├── 📄 000012_2025-09-23_09-55-55.txt
+│       │       ├── 📄 000012_2025-09-23_10-02-05.txt
+│       │       ├── 📄 000012_2025-09-23_10-07-18.txt
+│       │       ├── 📄 000013_2025-09-23_09-53-03.txt
+│       │       ├── 📄 000013_2025-09-23_09-55-55.txt
+│       │       ├── 📄 000013_2025-09-23_10-02-05.txt
+│       │       ├── 📄 000013_2025-09-23_10-02-06.txt
+│       │       ├── 📄 000013_2025-09-23_10-07-19.txt
+│       │       ├── 📄 000014.txt
+│       │       ├── 📄 000014_2025-09-23_09-53-03.txt
+│       │       ├── 📄 000014_2025-09-23_09-53-04.txt
+│       │       ├── 📄 000014_2025-09-23_09-55-55.txt
+│       │       ├── 📄 000014_2025-09-23_09-55-56.txt
+│       │       ├── 📄 000014_2025-09-23_10-02-06.txt
+│       │       ├── 📄 000014_2025-09-23_10-07-19.txt
+│       │       ├── 📄 000014_2025-09-23_10-07-20.txt
+│       │       ├── 📄 000015.txt
+│       │       ├── 📄 000015_2025-09-23_09-53-04.txt
+│       │       ├── 📄 000015_2025-09-23_09-55-56.txt
+│       │       ├── 📄 000015_2025-09-23_10-02-06.txt
+│       │       ├── 📄 000015_2025-09-23_10-02-07.txt
+│       │       ├── 📄 000016_2025-09-23_09-53-04.txt
+│       │       ├── 📄 000016_2025-09-23_09-55-56.txt
+│       │       ├── 📄 000016_2025-09-23_10-02-07.txt
+│       │       ├── 📄 000017_2025-09-23_09-53-04.txt
+│       │       ├── 📄 000017_2025-09-23_09-53-05.txt
+│       │       ├── 📄 000017_2025-09-23_09-55-57.txt
+│       │       ├── 📄 000017_2025-09-23_10-02-08.txt
+│       │       ├── 📄 000018_2025-09-23_09-53-05.txt
+│       │       ├── 📄 000018_2025-09-23_09-55-57.txt
+│       │       ├── 📄 000018_2025-09-23_10-02-08.txt
+│       │       ├── 📄 000018_2025-09-23_10-02-09.txt
+│       │       ├── 📄 000019_2025-09-23_09-53-05.txt
+│       │       ├── 📄 000019_2025-09-23_09-55-57.txt
+│       │       ├── 📄 000019_2025-09-23_09-55-58.txt
+│       │       ├── 📄 000019_2025-09-23_10-02-09.txt
+│       │       ├── 📄 000019_2025-09-23_10-02-10.txt
+│       │       ├── 📄 000019_2025-09-23_10-07-20.txt
+│       │       ├── 📄 000020.txt
+│       │       ├── 📄 000020_2025-09-23_09-53-05.txt
+│       │       ├── 📄 000020_2025-09-23_09-53-06.txt
+│       │       ├── 📄 000020_2025-09-23_09-55-58.txt
+│       │       ├── 📄 000020_2025-09-23_10-02-10.txt
+│       │       ├── 📄 000021.txt
+│       │       ├── 📄 000021_2025-09-23_09-55-58.txt
+│       │       ├── 📄 000021_2025-09-23_09-55-59.txt
+│       │       ├── 📄 000021_2025-09-23_10-02-10.txt
+│       │       ├── 📄 000021_2025-09-23_10-02-11.txt
+│       │       ├── 📄 000022.txt
+│       │       ├── 📄 000022_2025-09-23_09-53-06.txt
+│       │       ├── 📄 000022_2025-09-23_09-53-07.txt
+│       │       ├── 📄 000022_2025-09-23_09-55-59.txt
+│       │       ├── 📄 000022_2025-09-23_10-02-11.txt
+│       │       ├── 📄 000022_2025-09-23_10-07-20.txt
+│       │       ├── 📄 000022_2025-09-23_10-07-21.txt
+│       │       ├── 📄 000023_2025-09-23_09-53-07.txt
+│       │       ├── 📄 000023_2025-09-23_09-55-59.txt
+│       │       ├── 📄 000023_2025-09-23_09-56-00.txt
+│       │       ├── 📄 000023_2025-09-23_10-02-12.txt
+│       │       ├── 📄 000024_2025-09-23_09-53-07.txt
+│       │       ├── 📄 000024_2025-09-23_09-53-08.txt
+│       │       ├── 📄 000024_2025-09-23_09-56-00.txt
+│       │       ├── 📄 000024_2025-09-23_10-02-12.txt
+│       │       ├── 📄 000025_2025-09-23_09-53-08.txt
+│       │       ├── 📄 000025_2025-09-23_09-56-00.txt
+│       │       ├── 📄 000025_2025-09-23_10-02-12.txt
+│       │       ├── 📄 000025_2025-09-23_10-02-13.txt
+│       │       ├── 📄 000026_2025-09-23_09-53-08.txt
+│       │       ├── 📄 000026_2025-09-23_09-53-09.txt
+│       │       ├── 📄 000026_2025-09-23_09-56-00.txt
+│       │       ├── 📄 000026_2025-09-23_09-56-01.txt
+│       │       ├── 📄 000026_2025-09-23_10-02-13.txt
+│       │       ├── 📄 000027.txt
+│       │       ├── 📄 000027_2025-09-23_09-53-09.txt
+│       │       ├── 📄 000027_2025-09-23_09-56-01.txt
+│       │       ├── 📄 000027_2025-09-23_09-56-02.txt
+│       │       ├── 📄 000027_2025-09-23_10-02-14.txt
+│       │       ├── 📄 000028_2025-09-23_09-53-09.txt
+│       │       ├── 📄 000028_2025-09-23_09-56-02.txt
+│       │       ├── 📄 000028_2025-09-23_10-02-14.txt
+│       │       ├── 📄 000028_2025-09-23_10-02-15.txt
+│       │       ├── 📄 000029_2025-09-23_09-53-09.txt
+│       │       ├── 📄 000029_2025-09-23_09-53-10.txt
+│       │       ├── 📄 000029_2025-09-23_09-56-02.txt
+│       │       ├── 📄 000029_2025-09-23_09-56-03.txt
+│       │       ├── 📄 000029_2025-09-23_10-02-15.txt
+│       │       ├── 📄 000030_2025-09-23_09-53-10.txt
+│       │       ├── 📄 000030_2025-09-23_09-56-03.txt
+│       │       ├── 📄 000030_2025-09-23_10-02-15.txt
+│       │       ├── 📄 000031_2025-09-23_09-53-10.txt
+│       │       ├── 📄 000031_2025-09-23_09-53-11.txt
+│       │       ├── 📄 000031_2025-09-23_09-56-03.txt
+│       │       ├── 📄 000031_2025-09-23_10-02-15.txt
+│       │       ├── 📄 000031_2025-09-23_10-02-16.txt
+│       │       ├── 📄 000031_2025-09-23_10-07-21.txt
+│       │       ├── 📄 000032_2025-09-23_09-53-11.txt
+│       │       ├── 📄 000032_2025-09-23_09-53-12.txt
+│       │       ├── 📄 000032_2025-09-23_09-56-03.txt
+│       │       ├── 📄 000032_2025-09-23_10-02-16.txt
+│       │       ├── 📄 000033_2025-09-23_09-53-12.txt
+│       │       ├── 📄 000033_2025-09-23_09-56-03.txt
+│       │       ├── 📄 000033_2025-09-23_09-56-04.txt
+│       │       ├── 📄 000033_2025-09-23_10-02-17.txt
+│       │       ├── 📄 000034_2025-09-23_09-53-12.txt
+│       │       ├── 📄 000034_2025-09-23_09-53-13.txt
+│       │       ├── 📄 000034_2025-09-23_09-56-04.txt
+│       │       ├── 📄 000034_2025-09-23_10-02-18.txt
+│       │       ├── 📄 000035_2025-09-23_09-53-13.txt
+│       │       ├── 📄 000035_2025-09-23_09-56-04.txt
+│       │       ├── 📄 000035_2025-09-23_10-02-18.txt
+│       │       ├── 📄 000036.txt
+│       │       ├── 📄 000036_2025-09-23_09-53-13.txt
+│       │       ├── 📄 000036_2025-09-23_09-53-14.txt
+│       │       ├── 📄 000036_2025-09-23_09-56-04.txt
+│       │       ├── 📄 000036_2025-09-23_09-56-05.txt
+│       │       ├── 📄 000036_2025-09-23_10-02-18.txt
+│       │       ├── 📄 000036_2025-09-23_10-02-19.txt
+│       │       ├── 📄 000037_2025-09-23_09-53-14.txt
+│       │       ├── 📄 000037_2025-09-23_09-56-05.txt
+│       │       ├── 📄 000037_2025-09-23_10-02-19.txt
+│       │       ├── 📄 000038_2025-09-23_09-53-14.txt
+│       │       ├── 📄 000038_2025-09-23_09-53-15.txt
+│       │       ├── 📄 000038_2025-09-23_09-56-05.txt
+│       │       ├── 📄 000038_2025-09-23_09-56-06.txt
+│       │       ├── 📄 000038_2025-09-23_10-02-19.txt
+│       │       ├── 📄 000038_2025-09-23_10-02-20.txt
+│       │       ├── 📄 000039_2025-09-23_09-53-15.txt
+│       │       ├── 📄 000039_2025-09-23_09-56-06.txt
+│       │       ├── 📄 000039_2025-09-23_10-02-20.txt
+│       │       ├── 📄 000040.txt
+│       │       ├── 📄 000040_2025-09-23_09-53-15.txt
+│       │       ├── 📄 000040_2025-09-23_09-56-06.txt
+│       │       ├── 📄 000040_2025-09-23_09-56-07.txt
+│       │       ├── 📄 000040_2025-09-23_10-02-20.txt
+│       │       ├── 📄 000040_2025-09-23_10-02-21.txt
+│       │       ├── 📄 000041_2025-09-23_09-53-15.txt
+│       │       ├── 📄 000041_2025-09-23_09-53-16.txt
+│       │       ├── 📄 000041_2025-09-23_09-56-07.txt
+│       │       ├── 📄 000041_2025-09-23_10-02-21.txt
+│       │       ├── 📄 000042_2025-09-23_09-53-17.txt
+│       │       ├── 📄 000042_2025-09-23_09-56-07.txt
+│       │       ├── 📄 000042_2025-09-23_10-02-21.txt
+│       │       ├── 📄 000043_2025-09-23_09-53-17.txt
+│       │       ├── 📄 000043_2025-09-23_09-56-07.txt
+│       │       ├── 📄 000043_2025-09-23_09-56-08.txt
+│       │       ├── 📄 000043_2025-09-23_10-02-22.txt
+│       │       ├── 📄 000044_2025-09-23_09-53-17.txt
+│       │       ├── 📄 000044_2025-09-23_09-56-08.txt
+│       │       ├── 📄 000044_2025-09-23_10-02-22.txt
+│       │       ├── 📄 000045_2025-09-23_09-53-17.txt
+│       │       ├── 📄 000045_2025-09-23_09-53-18.txt
+│       │       ├── 📄 000045_2025-09-23_10-02-22.txt
+│       │       ├── 📄 000045_2025-09-23_10-02-23.txt
+│       │       ├── 📄 000046_2025-09-23_09-53-18.txt
+│       │       ├── 📄 000046_2025-09-23_09-56-08.txt
+│       │       ├── 📄 000046_2025-09-23_10-02-23.txt
+│       │       ├── 📄 000047.txt
+│       │       ├── 📄 000047_2025-09-23_09-53-19.txt
+│       │       ├── 📄 000047_2025-09-23_09-56-08.txt
+│       │       ├── 📄 000047_2025-09-23_09-56-09.txt
+│       │       ├── 📄 000047_2025-09-23_10-02-23.txt
+│       │       ├── 📄 000048_2025-09-23_09-53-19.txt
+│       │       ├── 📄 000048_2025-09-23_09-56-09.txt
+│       │       ├── 📄 000048_2025-09-23_10-02-24.txt
+│       │       ├── 📄 000049_2025-09-23_09-53-20.txt
+│       │       ├── 📄 000049_2025-09-23_09-56-10.txt
+│       │       ├── 📄 000050_2025-09-23_09-53-20.txt
+│       │       ├── 📄 000050_2025-09-23_09-56-11.txt
+│       │       ├── 📄 000050_2025-09-23_10-02-25.txt
+│       │       ├── 📄 000r027.txt
+│       │       ├── 📄 00r0021.txt
+│       │       ├── 📄 00r0029.txt
+│       │       ├── 📄 00r0044.txt
+│       │       ├── 📄 2025-08-04-15-19-20-410.txt
+│       │       ├── 📄 2025-08-04-15-19-22-078.txt
+│       │       ├── 📄 2025-08-04-15-19-23-744.txt
+│       │       ├── 📄 2025-08-04-15-19-25-439.txt
+│       │       ├── 📄 2025-08-04-15-19-27-144.txt
+│       │       ├── 📄 2025-08-04-15-19-28-783.txt
+│       │       ├── 📄 2025-08-04-15-21-29-721.txt
+│       │       ├── 📄 2025-08-04-15-21-31-376.txt
+│       │       ├── 📄 2025-08-04-15-21-33-060.txt
+│       │       ├── 📄 2025-08-04-15-21-34-762.txt
+│       │       ├── 📄 2025-08-04-15-21-36-412.txt
+│       │       ├── 📄 2025-08-04-15-21-38-081.txt
+│       │       ├── 📄 2025-08-04-15-21-59-921.txt
+│       │       ├── 📄 2025-08-04-15-22-01-822.txt
+│       │       ├── 📄 2025-08-04-15-22-03-510.txt
+│       │       ├── 📄 2025-08-04-15-22-05-190.txt
+│       │       ├── 📄 2025-08-04-15-24-04-412.txt
+│       │       ├── 📄 2025-08-04-15-24-06-102.txt
+│       │       ├── 📄 2025-08-04-15-24-07-756.txt
+│       │       ├── 📄 2025-08-04-15-24-09-389.txt
+│       │       ├── 📄 2025-08-04-15-24-11-089.txt
+│       │       ├── 📄 2025-08-04-15-24-12-767.txt
+│       │       ├── 📄 2025-08-04-15-24-14-396.txt
+│       │       ├── 📄 2025-08-04-15-24-16-006.txt
+│       │       ├── 📄 2025-08-04-15-24-17-679.txt
+│       │       ├── 📄 2025-08-04-15-24-19-323.txt
+│       │       ├── 📄 2025-08-04-15-24-20-633.txt
+│       │       ├── 📄 2025-08-04-15-24-22-240.txt
+│       │       ├── 📄 2025-08-04-15-24-23-900.txt
+│       │       ├── 📄 2025-08-04-15-24-25-540.txt
+│       │       ├── 📄 2025-08-04-15-24-27-164.txt
+│       │       ├── 📄 2025-08-04-15-24-28-164.txt
+│       │       ├── 📄 2025-08-04-15-24-29-845.txt
+│       │       ├── 📄 2025-08-04-15-24-31-494.txt
+│       │       ├── 📄 2025-08-04-15-24-33-130.txt
+│       │       ├── 📄 2025-08-04-15-24-38-163.txt
+│       │       ├── 📄 2025-08-04-15-24-39-864.txt
+│       │       ├── 📄 2025-08-04-15-24-41-529.txt
+│       │       ├── 📄 2025-08-04-15-24-43-208.txt
+│       │       ├── 📄 2025-08-04-15-24-44-852.txt
+│       │       ├── 📄 2025-08-04-15-24-46-544.txt
+│       │       ├── 📄 2025-08-04-15-24-51-779.txt
+│       │       ├── 📄 2025-08-04-15-24-53-460.txt
+│       │       ├── 📄 2025-08-04-15-24-55-177.txt
+│       │       ├── 📄 2025-08-04-15-24-56-847.txt
+│       │       ├── 📄 2025-08-04-15-24-58-526.txt
+│       │       ├── 📄 2025-08-04-15-25-00-216.txt
+│       │       ├── 📄 2025-08-04-15-25-03-605.txt
+│       │       ├── 📄 2025-08-04-15-25-05-253.txt
+│       │       ├── 📄 2025-08-04-15-25-06-962.txt
+│       │       ├── 📄 2025-08-04-15-25-10-355.txt
+│       │       ├── 📄 2025-08-04-15-25-12-053.txt
+│       │       ├── 📄 2025-08-04-15-25-13-706.txt
+│       │       ├── 📄 2025-08-04-15-25-18-703.txt
+│       │       ├── 📄 2025-08-04-15-25-20-387.txt
+│       │       ├── 📄 2025-08-04-15-25-22-053.txt
+│       │       ├── 📄 2025-08-04-15-25-23-739.txt
+│       │       ├── 📄 2025-08-04-15-25-25-400.txt
+│       │       ├── 📄 2025-08-04-15-25-27-082.txt
+│       │       ├── 📄 2025-08-04-15-25-28-742.txt
+│       │       ├── 📄 2025-08-04-15-25-30-435.txt
+│       │       ├── 📄 2025-08-04-15-25-32-117.txt
+│       │       ├── 📄 2025-08-04-15-25-33-802.txt
+│       │       ├── 📄 2025-08-04-15-25-44-447.txt
+│       │       ├── 📄 2025-08-04-15-25-46-080.txt
+│       │       ├── 📄 2025-08-04-15-25-47-772.txt
+│       │       ├── 📄 2025-08-04-15-25-49-438.txt
+│       │       ├── 📄 2025-08-04-15-25-51-104.txt
+│       │       ├── 📄 2025-08-04-15-25-52-773.txt
+│       │       ├── 📄 2025-08-04-15-25-54-438.txt
+│       │       ├── 📄 2025-08-04-15-25-56-105.txt
+│       │       ├── 📄 2025-08-04-15-25-57-797.txt
+│       │       ├── 📄 2025-08-04-15-25-59-466.txt
+│       │       ├── 📄 2025-08-04-15-26-01-255.txt
+│       │       ├── 📄 2025-08-04-15-26-02-955.txt
+│       │       ├── 📄 2025-08-04-15-26-04-622.txt
+│       │       ├── 📄 2025-08-04-15-26-13-126.txt
+│       │       ├── 📄 2025-08-04-15-29-32-683.txt
+│       │       ├── 📄 2025-08-04-15-30-08-326.txt
+│       │       ├── 📄 2025-08-04-15-37-56-676.txt
+│       │       ├── 📄 2025-08-04-15-38-11-293.txt
+│       │       ├── 📄 2025-08-04-15-38-14-912.txt
+│       │       ├── 📄 2025-08-04-15-38-18-463.txt
+│       │       ├── 📄 2025-08-04-15-38-29-022.txt
+│       │       ├── 📄 2025-08-04-15-38-32-399.txt
+│       │       ├── 📄 Fisch_#####_20250805_074816.560Z.txt
+│       │       ├── 📄 Fisch_#####_20250805_074828.077Z.txt
+│       │       ├── 📄 Fisch_#####_20250805_074829.784Z.txt
+│       │       ├── 📄 Fisch_#####_20250805_074832.112Z.txt
+│       │       ├── 📄 Fisch_#####_20250805_074834.417Z.txt
+│       │       ├── 📄 Fisch_#####_20250805_074836.746Z.txt
+│       │       ├── 📄 Fisch_#####_20250805_074839.072Z.txt
+│       │       ├── 📄 Fisch_#####_20250805_074841.377Z.txt
+│       │       ├── 📄 Fisch_#####_20250805_074843.672Z.txt
+│       │       ├── 📄 Fisch_#####_20250805_074846.007Z.txt
+│       │       ├── 📄 Fisch_#####_20250805_074848.314Z.txt
+│       │       ├── 📄 Fisch_#####_20250805_074850.637Z.txt
+│       │       ├── 📄 Fisch_#####_20250805_074855.271Z.txt
+│       │       ├── 📄 Fisch_#####_20250805_074857.570Z.txt
+│       │       ├── 📄 Fisch_#####_20250805_074859.437Z.txt
+│       │       ├── 📄 Fisch_#####_20250805_074901.737Z.txt
+│       │       ├── 📄 Fisch_#####_20250805_074906.337Z.txt
+│       │       ├── 📄 Fisch_#####_20250805_074913.231Z.txt
+│       │       ├── 📄 Fisch_#####_20250805_074915.533Z.txt
+│       │       ├── 📄 Fisch_#####_20250805_074920.157Z.txt
+│       │       ├── 📄 Fisch_#####_20250805_074922.467Z.txt
+│       │       ├── 📄 Fisch_#####_20250805_074924.760Z.txt
+│       │       ├── 📄 Fisch_#####_20250805_074927.098Z.txt
+│       │       ├── 📄 Fisch_#####_20250805_074941.086Z.txt
+│       │       ├── 📄 Fisch_#####_20250805_074943.394Z.txt
+│       │       ├── 📄 Fisch_#####_20250805_074945.727Z.txt
+│       │       ├── 📄 Fisch_#####_20250805_075045.837Z.txt
+│       │       ├── 📄 Fisch_#####_20250805_095430.033Z.txt
+│       │       ├── 📄 Fisch_#####_20250805_095441.586Z.txt
+│       │       ├── 📄 Fisch_#####_20250805_095443.891Z.txt
+│       │       ├── 📄 Fisch_#####_20250805_095446.193Z.txt
+│       │       ├── 📄 Fisch_#####_20250805_095448.492Z.txt
+│       │       ├── 📄 Fisch_#####_20250805_095450.793Z.txt
+│       │       ├── 📄 Fisch_#####_20250805_095453.093Z.txt
+│       │       ├── 📄 Fisch_#####_20250805_095455.393Z.txt
+│       │       ├── 📄 Fisch_#####_20250805_095459.985Z.txt
+│       │       ├── 📄 Fisch_#####_20250805_095520.944Z.txt
+│       │       ├── 📄 Fisch_#####_20250805_095523.248Z.txt
+│       │       ├── 📄 Fisch_#####_20250805_095644.512Z.txt
+│       │       ├── 📄 Fisch_20250808_112845.550Z.txt
+│       │       ├── 📄 Fisch_20250808_112850.150Z.txt
+│       │       ├── 📄 Fisch_20250808_113014.624Z.txt
+│       │       ├── 📄 Fisch_20250808_113016.923Z.txt
+│       │       ├── 📄 Fisch_20250808_113019.230Z.txt
+│       │       ├── 📄 Fisch_20250808_113021.554Z.txt
+│       │       ├── 📄 Fisch_20250808_113023.854Z.txt
+│       │       ├── 📄 Fisch_20250808_113040.082Z.txt
+│       │       ├── 📄 Fisch_20250808_113049.350Z.txt
+│       │       ├── 📄 Fisch_20250808_113243.344Z.txt
+│       │       ├── 📄 Fisch_20250808_113245.646Z.txt
+│       │       ├── 📄 Fisch_20250808_113247.939Z.txt
+│       │       ├── 📄 Fisch_20250808_113250.234Z.txt
+│       │       ├── 📄 Fisch_20250808_113252.545Z.txt
+│       │       ├── 📄 Fisch_20250808_113254.907Z.txt
+│       │       ├── 📄 Fisch_20250808_113257.210Z.txt
+│       │       ├── 📄 Fisch_20250808_113259.506Z.txt
+│       │       ├── 📄 Fisch_20250808_113301.837Z.txt
+│       │       ├── 📄 Fisch_20250808_113304.168Z.txt
+│       │       ├── 📄 Fisch_20250808_113306.495Z.txt
+│       │       ├── 📄 Fisch_20250808_113308.839Z.txt
+│       │       ├── 📄 Fisch_20250808_113311.138Z.txt
+│       │       ├── 📄 Fisch_20250808_113313.463Z.txt
+│       │       ├── 📄 Fisch_20250808_113320.428Z.txt
+│       │       ├── 📄 Fisch_20250808_113334.292Z.txt
+│       │       ├── 📄 Fisch_20250808_113336.587Z.txt
+│       │       ├── 📄 Fisch_20250808_113338.587Z.txt
+│       │       ├── 📄 Fisch_20250808_113340.891Z.txt
+│       │       ├── 📄 Fisch_20250808_113350.154Z.txt
+│       │       ├── 📄 Fisch_20250808_113357.084Z.txt
+│       │       ├── 📄 Fisch_20250808_113404.122Z.txt
+│       │       ├── 📄 Fisch_20250808_113424.945Z.txt
+│       │       ├── 📄 Fisch_20250808_113434.234Z.txt
+│       │       ├── 📄 Fisch_20250808_113436.539Z.txt
+│       │       ├── 📄 Fisch_20250808_113443.499Z.txt
+│       │       ├── 📄 Fisch_20250808_113459.688Z.txt
+│       │       ├── 📄 Fisch_20250808_113501.996Z.txt
+│       │       ├── 📄 Fisch_20250808_113504.300Z.txt
+│       │       ├── 📄 Fisch_20250808_113506.585Z.txt
+│       │       ├── 📄 Fisch_20250808_113508.901Z.txt
+│       │       ├── 📄 Fisch_20250808_113511.218Z.txt
+│       │       ├── 📄 Fisch_20250808_113513.531Z.txt
+│       │       ├── 📄 Fisch_20250808_113515.819Z.txt
+│       │       ├── 📄 Fisch_20250808_113518.125Z.txt
+│       │       ├── 📄 Fisch_20250808_113520.455Z.txt
+│       │       ├── 📄 Fisch_20250808_113522.753Z.txt
+│       │       ├── 📄 Fisch_20250808_113525.083Z.txt
+│       │       ├── 📄 Fisch_20250808_113527.391Z.txt
+│       │       ├── 📄 Fisch_20250808_113529.750Z.txt
+│       │       ├── 📄 Fisch_20250808_113532.061Z.txt
+│       │       ├── 📄 Fisch_20250808_113534.384Z.txt
+│       │       ├── 📄 Fisch_20250808_113536.682Z.txt
+│       │       ├── 📄 Fisch_20250808_113538.979Z.txt
+│       │       ├── 📄 Fisch_20250808_113541.288Z.txt
+│       │       ├── 📄 Fisch_20250808_113543.581Z.txt
+│       │       ├── 📄 Fisch_20250808_113545.883Z.txt
+│       │       ├── 📄 Fisch_20250808_113548.172Z.txt
+│       │       ├── 📄 Fisch_20250808_113550.485Z.txt
+│       │       ├── 📄 Fisch_20250808_113552.512Z.txt
+│       │       ├── 📄 Fisch_20250808_113554.805Z.txt
+│       │       ├── 📄 Fisch_20250808_113557.110Z.txt
+│       │       ├── 📄 Fisch_20250808_113819.827Z.txt
+│       │       ├── 📄 Fisch_20250808_113822.165Z.txt
+│       │       ├── 📄 Fisch_20250808_113846.934Z.txt
+│       │       ├── 📄 Fisch_20250808_113849.254Z.txt
+│       │       ├── 📄 Fisch_20250808_113856.220Z.txt
+│       │       ├── 📄 Fisch_20250808_113905.443Z.txt
+│       │       ├── 📄 Fisch_20250808_113907.750Z.txt
+│       │       ├── 📄 Fisch_20250808_113912.412Z.txt
+│       │       ├── 📄 Fisch_20250808_113940.203Z.txt
+│       │       ├── 📄 Fisch_20250808_113944.830Z.txt
+│       │       ├── 📄 Fisch_20250808_113949.441Z.txt
+│       │       ├── 📄 Fisch_20250808_113951.766Z.txt
+│       │       ├── 📄 Fisch_20250808_113958.732Z.txt
+│       │       ├── 📄 Fisch_20250808_114001.032Z.txt
+│       │       ├── 📄 Fisch_20250808_114005.661Z.txt
+│       │       ├── 📄 Fisch_20250808_114014.901Z.txt
+│       │       ├── 📄 Fisch_20250810_050459.087Z.txt
+│       │       ├── 📄 Fisch_20250810_050549.071Z.txt
+│       │       ├── 📄 Fisch_20250810_050601.667Z.txt
+│       │       ├── 📄 Fisch_20250810_050910.107Z.txt
+│       │       ├── 📄 Fisch_20250810_050921.632Z.txt
+│       │       ├── 📄 Fisch_20250810_050934.288Z.txt
+│       │       ├── 📄 Fisch_20250810_050940.594Z.txt
+│       │       ├── 📄 Fisch_20250810_051113.762Z.txt
+│       │       ├── 📄 Fisch_20250810_051120.099Z.txt
+│       │       ├── 📄 Fisch_20250810_051126.418Z.txt
+│       │       ├── 📄 Fisch_20250810_051350.958Z.txt
+│       │       ├── 📄 Fisch_20250810_051412.847Z.txt
+│       │       ├── 📄 Fisch_20250810_051414.168Z.txt
+│       │       ├── 📄 Fisch_20250810_051416.013Z.txt
+│       │       ├── 📄 Fisch_20250810_051417.807Z.txt
+│       │       ├── 📄 Fisch_20250810_051419.177Z.txt
+│       │       ├── 📄 Fisch_20250810_051420.975Z.txt
+│       │       ├── 📄 Fisch_20250810_051422.810Z.txt
+│       │       ├── 📄 Fisch_20250810_051424.637Z.txt
+│       │       ├── 📄 Fisch_20250810_051425.777Z.txt
+│       │       ├── 📄 Fisch_20250810_051427.608Z.txt
+│       │       ├── 📄 Fisch_20250810_051428.776Z.txt
+│       │       ├── 📄 Fisch_20250810_051430.040Z.txt
+│       │       ├── 📄 Fisch_20250810_051431.842Z.txt
+│       │       ├── 📄 Fisch_20250810_051433.439Z.txt
+│       │       ├── 📄 Fisch_20250810_051434.570Z.txt
+│       │       ├── 📄 Fisch_20250810_051436.371Z.txt
+│       │       ├── 📄 Fisch_20250810_051438.167Z.txt
+│       │       ├── 📄 Fisch_20250810_051516.793Z.txt
+│       │       ├── 📄 Fisch_20250810_051518.584Z.txt
+│       │       ├── 📄 Fisch_20250810_051520.394Z.txt
+│       │       ├── 📄 Fisch_20250810_051538.382Z.txt
+│       │       ├── 📄 Fisch_20250810_051543.815Z.txt
+│       │       ├── 📄 Fisch_20250810_051545.645Z.txt
+│       │       ├── 📄 Fisch_20250810_051551.075Z.txt
+│       │       ├── 📄 Fisch_20250810_051552.908Z.txt
+│       │       ├── 📄 Fisch_20250810_051554.706Z.txt
+│       │       ├── 📄 Fisch_20250810_051558.311Z.txt
+│       │       ├── 📄 Fisch_20250810_051623.626Z.txt
+│       │       ├── 📄 Fisch_20250810_051630.825Z.txt
+│       │       ├── 📄 Fisch_20250810_051632.630Z.txt
+│       │       ├── 📄 Fisch_20250810_051737.740Z.txt
+│       │       ├── 📄 Fisch_20250810_051739.544Z.txt
+│       │       ├── 📄 Fisch_20250810_051740.576Z.txt
+│       │       ├── 📄 Fisch_20250810_051741.604Z.txt
+│       │       ├── 📄 Fisch_20250810_051742.615Z.txt
+│       │       ├── 📄 Fisch_20250810_051743.642Z.txt
+│       │       ├── 📄 Fisch_20250810_051744.675Z.txt
+│       │       ├── 📄 Fisch_20250810_051746.520Z.txt
+│       │       ├── 📄 Fisch_20250810_051748.078Z.txt
+│       │       ├── 📄 Fisch_20250810_051749.867Z.txt
+│       │       ├── 📄 Fisch_20250810_051751.719Z.txt
+│       │       ├── 📄 Fisch_20250810_051753.537Z.txt
+│       │       ├── 📄 Fisch_20250810_051757.176Z.txt
+│       │       ├── 📄 Fisch_20250810_051808.109Z.txt
+│       │       ├── 📄 Fisch_20250810_051809.931Z.txt
+│       │       ├── 📄 Fisch_20250810_051811.766Z.txt
+│       │       ├── 📄 Fisch_20250810_051813.600Z.txt
+│       │       ├── 📄 Fisch_20250810_051815.438Z.txt
+│       │       ├── 📄 Fisch_20250810_051822.722Z.txt
+│       │       ├── 📄 Fisch_20250810_051824.525Z.txt
+│       │       ├── 📄 Fisch_20250810_051826.372Z.txt
+│       │       ├── 📄 Fisch_20250810_051828.198Z.txt
+│       │       ├── 📄 Fisch_20250810_051829.957Z.txt
+│       │       ├── 📄 Fisch_20250812_132750.600Z.txt
+│       │       ├── 📄 Fisch_20250812_133511.289Z.txt
+│       │       ├── 📄 Fisch_20250813_051501Z.txt
+│       │       ├── 📄 Fisch_20250813_051508Z.txt
+│       │       ├── 📄 Fisch_20250813_051510Z.txt
+│       │       ├── 📄 Fisch_20250813_051513Z.txt
+│       │       ├── 📄 Fisch_20250813_051515Z.txt
+│       │       ├── 📄 Fisch_20250813_051517Z.txt
+│       │       ├── 📄 Fisch_20250813_051520Z.txt
+│       │       ├── 📄 Fisch_20250813_051531Z.txt
+│       │       ├── 📄 Fisch_20250813_051533Z.txt
+│       │       ├── 📄 Fisch_20250813_051536Z.txt
+│       │       ├── 📄 Fisch_20250813_051545Z.txt
+│       │       ├── 📄 Fisch_20250813_051547Z.txt
+│       │       ├── 📄 Fisch_20250813_051549Z.txt
+│       │       ├── 📄 Fisch_20250813_051552Z.txt
+│       │       ├── 📄 Fisch_20250813_051554Z.txt
+│       │       ├── 📄 Fisch_20250813_051556Z.txt
+│       │       ├── 📄 Fisch_20250813_051559Z.txt
+│       │       ├── 📄 Fisch_20250813_051601Z.txt
+│       │       ├── 📄 Fisch_20250813_051603Z.txt
+│       │       ├── 📄 Fisch_20250813_051605Z.txt
+│       │       ├── 📄 Fisch_20250813_051617Z.txt
+│       │       ├── 📄 Fisch_20250813_051619Z.txt
+│       │       ├── 📄 Fisch_20250813_051621Z.txt
+│       │       ├── 📄 Fisch_20250813_051624Z.txt
+│       │       ├── 📄 Fisch_20250813_051626Z.txt
+│       │       ├── 📄 Fisch_20250813_051633Z.txt
+│       │       ├── 📄 Fisch_20250813_051635Z.txt
+│       │       ├── 📄 Fisch_20250813_051637Z.txt
+│       │       ├── 📄 Fisch_20250813_051640Z.txt
+│       │       ├── 📄 Fisch_20250813_051642Z.txt
+│       │       ├── 📄 Fisch_20250813_051647Z.txt
+│       │       ├── 📄 Fisch_20250813_051651Z.txt
+│       │       ├── 📄 Fisch_20250813_051653Z.txt
+│       │       ├── 📄 Fisch_20250813_051656Z.txt
+│       │       ├── 📄 Fisch_20250813_051658Z.txt
+│       │       ├── 📄 Fisch_20250813_051700Z.txt
+│       │       ├── 📄 Fisch_20250813_051705Z.txt
+│       │       ├── 📄 Fisch_20250813_051707Z.txt
+│       │       ├── 📄 Fisch_20250813_051710Z.txt
+│       │       ├── 📄 Fisch_20250813_051712Z.txt
+│       │       ├── 📄 Fisch_20250813_051716Z.txt
+│       │       ├── 📄 Fisch_20250813_051719Z.txt
+│       │       ├── 📄 Fisch_20250813_051721Z.txt
+│       │       ├── 📄 Fisch_20250813_051728Z.txt
+│       │       ├── 📄 Fisch_20250813_051735Z.txt
+│       │       ├── 📄 Fisch_20250813_051739Z.txt
+│       │       ├── 📄 Fisch_20250813_051742Z.txt
+│       │       ├── 📄 Fisch_20250813_051744Z.txt
+│       │       ├── 📄 Fisch_20250813_051746Z.txt
+│       │       ├── 📄 Fisch_20250813_051749Z.txt
+│       │       ├── 📄 Fisch_20250813_051751Z.txt
+│       │       ├── 📄 Fisch_20250813_051753Z.txt
+│       │       ├── 📄 Fisch_20250813_051755Z.txt
+│       │       ├── 📄 Fisch_20250813_051758Z.txt
+│       │       ├── 📄 Fisch_20250813_051800Z.txt
+│       │       ├── 📄 Fisch_20250813_051802Z.txt
+│       │       ├── 📄 Fisch_20250813_051805Z.txt
+│       │       ├── 📄 Fisch_20250813_051807Z.txt
+│       │       ├── 📄 Fisch_20250813_051809Z.txt
+│       │       ├── 📄 Fisch_20250813_051811Z.txt
+│       │       ├── 📄 Fisch_20250813_051814Z.txt
+│       │       ├── 📄 Fisch_20250813_051816Z.txt
+│       │       ├── 📄 Fisch_20250813_051818Z.txt
+│       │       ├── 📄 Fisch_20250813_051821Z.txt
+│       │       ├── 📄 Fisch_20250813_051823Z.txt
+│       │       ├── 📄 Fisch_20250813_051825Z.txt
+│       │       ├── 📄 Fisch_20250813_051828Z.txt
+│       │       ├── 📄 Fisch_20250813_051830Z.txt
+│       │       ├── 📄 Fisch_20250813_051832Z.txt
+│       │       ├── 📄 Fisch_20250813_051839Z.txt
+│       │       ├── 📄 Fisch_20250813_051841Z.txt
+│       │       ├── 📄 Fisch_20250813_051844Z.txt
+│       │       ├── 📄 Fisch_20250813_051846Z.txt
+│       │       ├── 📄 Fisch_20250813_051850Z.txt
+│       │       ├── 📄 Fisch_20250813_051853Z.txt
+│       │       ├── 📄 Fisch_20250813_051855Z.txt
+│       │       ├── 📄 Fisch_20250813_051857Z.txt
+│       │       ├── 📄 Fisch_20250813_051900Z.txt
+│       │       ├── 📄 Fisch_20250813_051902Z.txt
+│       │       ├── 📄 Fisch_20250813_051904Z.txt
+│       │       ├── 📄 Fisch_20250813_051906Z.txt
+│       │       ├── 📄 Fisch_20250813_051909Z.txt
+│       │       ├── 📄 Fisch_20250813_051911Z.txt
+│       │       ├── 📄 Fisch_20250813_051916Z.txt
+│       │       ├── 📄 Fisch_20250813_051918Z.txt
+│       │       ├── 📄 Fisch_20250813_051923Z.txt
+│       │       ├── 📄 Fisch_20250813_051925Z.txt
+│       │       ├── 📄 Fisch_20250813_051929Z.txt
+│       │       ├── 📄 Fisch_20250813_051934Z.txt
+│       │       ├── 📄 Fisch_20250813_051936Z.txt
+│       │       ├── 📄 Fisch_20250813_051939Z.txt
+│       │       ├── 📄 Fisch_20250813_051941Z.txt
+│       │       ├── 📄 Fisch_20250813_051943Z.txt
+│       │       ├── 📄 Fisch_20250813_051945Z.txt
+│       │       ├── 📄 Fisch_20250813_051948Z.txt
+│       │       ├── 📄 Fisch_20250813_051950Z.txt
+│       │       ├── 📄 Fisch_20250813_051952Z.txt
+│       │       ├── 📄 Fisch_20250813_051955Z.txt
+│       │       ├── 📄 Fisch_20250813_052034Z.txt
+│       │       ├── 📄 Fisch_20250813_052036Z.txt
+│       │       ├── 📄 Fisch_20250813_052038Z.txt
+│       │       ├── 📄 Fisch_20250813_052040Z.txt
+│       │       ├── 📄 Fisch_20250813_052043Z.txt
+│       │       ├── 📄 Fisch_20250813_052045Z.txt
+│       │       ├── 📄 Fisch_20250813_052101Z.txt
+│       │       ├── 📄 Fisch_20250813_052103Z.txt
+│       │       ├── 📄 Fisch_20250813_052110Z.txt
+│       │       ├── 📄 Fisch_20250813_052112Z.txt
+│       │       ├── 📄 Fisch_20250813_052115Z.txt
+│       │       ├── 📄 Fisch_20250813_052117Z.txt
+│       │       ├── 📄 Fisch_20250813_052119Z.txt
+│       │       ├── 📄 Fisch_20250813_052122Z.txt
+│       │       ├── 📄 Fisch_20250813_052124Z.txt
+│       │       ├── 📄 Fisch_20250813_052126Z.txt
+│       │       ├── 📄 Fisch_20250813_052129Z.txt
+│       │       ├── 📄 Fisch_20250813_052131Z.txt
+│       │       ├── 📄 Fisch_20250813_052133Z.txt
+│       │       ├── 📄 Fisch_20250813_052135Z.txt
+│       │       ├── 📄 Fisch_20250813_052321Z.txt
+│       │       ├── 📄 Fisch_20250813_052554Z.txt
+│       │       ├── 📄 Fisch_20250813_052556Z.txt
+│       │       └── 📄 Fisch_20250813_052610Z.txt
+│       ├── 📁 train
+│       │   └── 📁 labels
+│       │       ├── 📄 000001.txt
+│       │       ├── 📄 000001_2025-09-23_09-52-56.txt
+│       │       ├── 📄 000001_2025-09-23_09-55-49.txt
+│       │       ├── 📄 000001_2025-09-23_09-55-50.txt
+│       │       ├── 📄 000001_2025-09-23_10-02-00.txt
+│       │       ├── 📄 000001_2025-09-23_10-07-16.txt
+│       │       ├── 📄 000002.txt
+│       │       ├── 📄 000002_2025-09-23_09-52-56.txt
+│       │       ├── 📄 000002_2025-09-23_09-55-50.txt
+│       │       ├── 📄 000002_2025-09-23_10-02-00.txt
+│       │       ├── 📄 000002_2025-09-23_10-02-01.txt
+│       │       ├── 📄 000003.txt
+│       │       ├── 📄 000003_2025-09-23_09-52-56.txt
+│       │       ├── 📄 000003_2025-09-23_09-52-57.txt
+│       │       ├── 📄 000003_2025-09-23_09-55-50.txt
+│       │       ├── 📄 000003_2025-09-23_09-55-51.txt
+│       │       ├── 📄 000003_2025-09-23_10-02-01.txt
+│       │       ├── 📄 000003_2025-09-23_10-07-16.txt
+│       │       ├── 📄 000003_2025-09-23_10-07-17.txt
+│       │       ├── 📄 000004.txt
+│       │       ├── 📄 000004_2025-09-23_09-52-57.txt
+│       │       ├── 📄 000004_2025-09-23_09-52-58.txt
+│       │       ├── 📄 000004_2025-09-23_09-55-51.txt
+│       │       ├── 📄 000004_2025-09-23_10-02-01.txt
+│       │       ├── 📄 000004_2025-09-23_10-02-02.txt
+│       │       ├── 📄 000005.txt
+│       │       ├── 📄 000005_2025-09-23_09-52-58.txt
+│       │       ├── 📄 000005_2025-09-23_09-55-51.txt
+│       │       ├── 📄 000005_2025-09-23_09-55-52.txt
+│       │       ├── 📄 000005_2025-09-23_10-02-02.txt
+│       │       ├── 📄 000005_2025-09-23_10-07-17.txt
+│       │       ├── 📄 000006.txt
+│       │       ├── 📄 000006_2025-09-23_09-52-58.txt
+│       │       ├── 📄 000006_2025-09-23_09-52-59.txt
+│       │       ├── 📄 000006_2025-09-23_09-55-52.txt
+│       │       ├── 📄 000006_2025-09-23_10-02-02.txt
+│       │       ├── 📄 000007.txt
+│       │       ├── 📄 000007_2025-09-23_09-52-59.txt
+│       │       ├── 📄 000007_2025-09-23_09-55-52.txt
+│       │       ├── 📄 000007_2025-09-23_09-55-53.txt
+│       │       ├── 📄 000007_2025-09-23_10-02-02.txt
+│       │       ├── 📄 000007_2025-09-23_10-02-03.txt
+│       │       ├── 📄 000008.txt
+│       │       ├── 📄 000008_2025-09-23_09-52-59.txt
+│       │       ├── 📄 000008_2025-09-23_09-53-00.txt
+│       │       ├── 📄 000008_2025-09-23_09-55-53.txt
+│       │       ├── 📄 000008_2025-09-23_10-02-03.txt
+│       │       ├── 📄 000009.txt
+│       │       ├── 📄 000009_2025-09-23_09-53-00.txt
+│       │       ├── 📄 000009_2025-09-23_09-53-01.txt
+│       │       ├── 📄 000009_2025-09-23_09-55-53.txt
+│       │       ├── 📄 000009_2025-09-23_09-55-54.txt
+│       │       ├── 📄 000009_2025-09-23_10-02-04.txt
+│       │       ├── 📄 000010.txt
+│       │       ├── 📄 000010_2025-09-23_09-53-01.txt
+│       │       ├── 📄 000010_2025-09-23_09-53-02.txt
+│       │       ├── 📄 000010_2025-09-23_09-55-54.txt
+│       │       ├── 📄 000010_2025-09-23_10-02-04.txt
+│       │       ├── 📄 000010_2025-09-23_10-07-17.txt
+│       │       ├── 📄 000010_2025-09-23_10-07-18.txt
+│       │       ├── 📄 000011.txt
+│       │       ├── 📄 000011_2025-09-23_09-53-02.txt
+│       │       ├── 📄 000011_2025-09-23_09-55-54.txt
+│       │       ├── 📄 000011_2025-09-23_09-55-55.txt
+│       │       ├── 📄 000011_2025-09-23_10-02-04.txt
+│       │       ├── 📄 000011_2025-09-23_10-02-05.txt
+│       │       ├── 📄 000012.txt
+│       │       ├── 📄 000012_2025-09-23_09-53-02.txt
+│       │       ├── 📄 000012_2025-09-23_09-53-03.txt
+│       │       ├── 📄 000012_2025-09-23_09-55-55.txt
+│       │       ├── 📄 000012_2025-09-23_10-02-05.txt
+│       │       ├── 📄 000012_2025-09-23_10-07-18.txt
+│       │       ├── 📄 000013.txt
+│       │       ├── 📄 000013_2025-09-23_09-53-03.txt
+│       │       ├── 📄 000013_2025-09-23_09-55-55.txt
+│       │       ├── 📄 000013_2025-09-23_10-02-05.txt
+│       │       ├── 📄 000013_2025-09-23_10-02-06.txt
+│       │       ├── 📄 000013_2025-09-23_10-07-18.txt
+│       │       ├── 📄 000013_2025-09-23_10-07-19.txt
+│       │       ├── 📄 000014.txt
+│       │       ├── 📄 000014_2025-09-23_09-53-03.txt
+│       │       ├── 📄 000014_2025-09-23_09-53-04.txt
+│       │       ├── 📄 000014_2025-09-23_09-55-55.txt
+│       │       ├── 📄 000014_2025-09-23_09-55-56.txt
+│       │       ├── 📄 000014_2025-09-23_10-02-06.txt
+│       │       ├── 📄 000014_2025-09-23_10-07-19.txt
+│       │       ├── 📄 000014_2025-09-23_10-07-20.txt
+│       │       ├── 📄 000015.txt
+│       │       ├── 📄 000015_2025-09-23_09-53-04.txt
+│       │       ├── 📄 000015_2025-09-23_09-55-56.txt
+│       │       ├── 📄 000015_2025-09-23_10-02-06.txt
+│       │       ├── 📄 000015_2025-09-23_10-02-07.txt
+│       │       ├── 📄 000016.txt
+│       │       ├── 📄 000016_2025-09-23_09-53-04.txt
+│       │       ├── 📄 000016_2025-09-23_09-55-56.txt
+│       │       ├── 📄 000016_2025-09-23_10-02-07.txt
+│       │       ├── 📄 000017.txt
+│       │       ├── 📄 000017_2025-09-23_09-53-04.txt
+│       │       ├── 📄 000017_2025-09-23_09-53-05.txt
+│       │       ├── 📄 000017_2025-09-23_09-55-56.txt
+│       │       ├── 📄 000017_2025-09-23_09-55-57.txt
+│       │       ├── 📄 000017_2025-09-23_10-02-07.txt
+│       │       ├── 📄 000017_2025-09-23_10-02-08.txt
+│       │       ├── 📄 000018.txt
+│       │       ├── 📄 000018_2025-09-23_09-53-05.txt
+│       │       ├── 📄 000018_2025-09-23_09-55-57.txt
+│       │       ├── 📄 000018_2025-09-23_10-02-08.txt
+│       │       ├── 📄 000018_2025-09-23_10-02-09.txt
+│       │       ├── 📄 000019.txt
+│       │       ├── 📄 000019_2025-09-23_09-53-05.txt
+│       │       ├── 📄 000019_2025-09-23_09-55-57.txt
+│       │       ├── 📄 000019_2025-09-23_09-55-58.txt
+│       │       ├── 📄 000019_2025-09-23_10-02-09.txt
+│       │       ├── 📄 000019_2025-09-23_10-02-10.txt
+│       │       ├── 📄 000019_2025-09-23_10-07-20.txt
+│       │       ├── 📄 000020_2025-09-23_09-53-05.txt
+│       │       ├── 📄 000020_2025-09-23_09-53-06.txt
+│       │       ├── 📄 000020_2025-09-23_09-55-58.txt
+│       │       ├── 📄 000020_2025-09-23_10-02-10.txt
+│       │       ├── 📄 000021_2025-09-23_09-53-06.txt
+│       │       ├── 📄 000021_2025-09-23_09-55-58.txt
+│       │       ├── 📄 000021_2025-09-23_09-55-59.txt
+│       │       ├── 📄 000021_2025-09-23_10-02-10.txt
+│       │       ├── 📄 000021_2025-09-23_10-02-11.txt
+│       │       ├── 📄 000022.txt
+│       │       ├── 📄 000022_2025-09-23_09-53-06.txt
+│       │       ├── 📄 000022_2025-09-23_09-53-07.txt
+│       │       ├── 📄 000022_2025-09-23_09-55-59.txt
+│       │       ├── 📄 000022_2025-09-23_10-02-11.txt
+│       │       ├── 📄 000022_2025-09-23_10-07-20.txt
+│       │       ├── 📄 000022_2025-09-23_10-07-21.txt
+│       │       ├── 📄 000023.txt
+│       │       ├── 📄 000023_2025-09-23_09-53-07.txt
+│       │       ├── 📄 000023_2025-09-23_09-55-59.txt
+│       │       ├── 📄 000023_2025-09-23_10-02-11.txt
+│       │       ├── 📄 000023_2025-09-23_10-02-12.txt
+│       │       ├── 📄 000024.txt
+│       │       ├── 📄 000024_2025-09-23_09-53-07.txt
+│       │       ├── 📄 000024_2025-09-23_09-53-08.txt
+│       │       ├── 📄 000024_2025-09-23_09-56-00.txt
+│       │       ├── 📄 000024_2025-09-23_10-02-12.txt
+│       │       ├── 📄 000025.txt
+│       │       ├── 📄 000025_2025-09-23_09-53-08.txt
+│       │       ├── 📄 000025_2025-09-23_09-56-00.txt
+│       │       ├── 📄 000025_2025-09-23_10-02-12.txt
+│       │       ├── 📄 000025_2025-09-23_10-02-13.txt
+│       │       ├── 📄 000026.txt
+│       │       ├── 📄 000026_2025-09-23_09-53-08.txt
+│       │       ├── 📄 000026_2025-09-23_09-53-09.txt
+│       │       ├── 📄 000026_2025-09-23_09-56-00.txt
+│       │       ├── 📄 000026_2025-09-23_09-56-01.txt
+│       │       ├── 📄 000026_2025-09-23_10-02-13.txt
+│       │       ├── 📄 000026_2025-09-23_10-02-14.txt
+│       │       ├── 📄 000027.txt
+│       │       ├── 📄 000027_2025-09-23_09-53-09.txt
+│       │       ├── 📄 000027_2025-09-23_09-56-01.txt
+│       │       ├── 📄 000027_2025-09-23_09-56-02.txt
+│       │       ├── 📄 000027_2025-09-23_10-02-14.txt
+│       │       ├── 📄 000028.txt
+│       │       ├── 📄 000028_2025-09-23_09-53-09.txt
+│       │       ├── 📄 000028_2025-09-23_09-56-02.txt
+│       │       ├── 📄 000028_2025-09-23_10-02-14.txt
+│       │       ├── 📄 000028_2025-09-23_10-02-15.txt
+│       │       ├── 📄 000029.txt
+│       │       ├── 📄 000029_2025-09-23_09-53-09.txt
+│       │       ├── 📄 000029_2025-09-23_09-53-10.txt
+│       │       ├── 📄 000029_2025-09-23_09-56-02.txt
+│       │       ├── 📄 000029_2025-09-23_09-56-03.txt
+│       │       ├── 📄 000029_2025-09-23_10-02-15.txt
+│       │       ├── 📄 000030.txt
+│       │       ├── 📄 000030_2025-09-23_09-53-10.txt
+│       │       ├── 📄 000030_2025-09-23_09-56-03.txt
+│       │       ├── 📄 000030_2025-09-23_10-02-15.txt
+│       │       ├── 📄 000031.txt
+│       │       ├── 📄 000031_2025-09-23_09-53-10.txt
+│       │       ├── 📄 000031_2025-09-23_09-53-11.txt
+│       │       ├── 📄 000031_2025-09-23_09-56-03.txt
+│       │       ├── 📄 000031_2025-09-23_10-02-15.txt
+│       │       ├── 📄 000031_2025-09-23_10-02-16.txt
+│       │       ├── 📄 000031_2025-09-23_10-07-21.txt
+│       │       ├── 📄 000032.txt
+│       │       ├── 📄 000032_2025-09-23_09-53-11.txt
+│       │       ├── 📄 000032_2025-09-23_09-53-12.txt
+│       │       ├── 📄 000032_2025-09-23_09-56-03.txt
+│       │       ├── 📄 000032_2025-09-23_10-02-16.txt
+│       │       ├── 📄 000032_2025-09-23_10-02-17.txt
+│       │       ├── 📄 000033.txt
+│       │       ├── 📄 000033_2025-09-23_09-53-12.txt
+│       │       ├── 📄 000033_2025-09-23_09-56-03.txt
+│       │       ├── 📄 000033_2025-09-23_09-56-04.txt
+│       │       ├── 📄 000033_2025-09-23_10-02-17.txt
+│       │       ├── 📄 000034.txt
+│       │       ├── 📄 000034_2025-09-23_09-53-12.txt
+│       │       ├── 📄 000034_2025-09-23_09-53-13.txt
+│       │       ├── 📄 000034_2025-09-23_09-56-04.txt
+│       │       ├── 📄 000034_2025-09-23_10-02-17.txt
+│       │       ├── 📄 000034_2025-09-23_10-02-18.txt
+│       │       ├── 📄 000035.txt
+│       │       ├── 📄 000035_2025-09-23_09-53-13.txt
+│       │       ├── 📄 000035_2025-09-23_09-56-04.txt
+│       │       ├── 📄 000035_2025-09-23_10-02-18.txt
+│       │       ├── 📄 000036.txt
+│       │       ├── 📄 000036_2025-09-23_09-53-13.txt
+│       │       ├── 📄 000036_2025-09-23_09-53-14.txt
+│       │       ├── 📄 000036_2025-09-23_09-56-04.txt
+│       │       ├── 📄 000036_2025-09-23_09-56-05.txt
+│       │       ├── 📄 000036_2025-09-23_10-02-18.txt
+│       │       ├── 📄 000036_2025-09-23_10-02-19.txt
+│       │       ├── 📄 000037.txt
+│       │       ├── 📄 000037_2025-09-23_09-53-14.txt
+│       │       ├── 📄 000037_2025-09-23_09-56-05.txt
+│       │       ├── 📄 000037_2025-09-23_10-02-19.txt
+│       │       ├── 📄 000038.txt
+│       │       ├── 📄 000038_2025-09-23_09-53-14.txt
+│       │       ├── 📄 000038_2025-09-23_09-53-15.txt
+│       │       ├── 📄 000038_2025-09-23_09-56-05.txt
+│       │       ├── 📄 000038_2025-09-23_09-56-06.txt
+│       │       ├── 📄 000038_2025-09-23_10-02-19.txt
+│       │       ├── 📄 000038_2025-09-23_10-02-20.txt
+│       │       ├── 📄 000039.txt
+│       │       ├── 📄 000039_2025-09-23_09-53-15.txt
+│       │       ├── 📄 000039_2025-09-23_09-56-06.txt
+│       │       ├── 📄 000039_2025-09-23_10-02-20.txt
+│       │       ├── 📄 000040.txt
+│       │       ├── 📄 000040_2025-09-23_09-53-15.txt
+│       │       ├── 📄 000040_2025-09-23_09-56-06.txt
+│       │       ├── 📄 000040_2025-09-23_09-56-07.txt
+│       │       ├── 📄 000040_2025-09-23_10-02-20.txt
+│       │       ├── 📄 000040_2025-09-23_10-02-21.txt
+│       │       ├── 📄 000041.txt
+│       │       ├── 📄 000041_2025-09-23_09-53-15.txt
+│       │       ├── 📄 000041_2025-09-23_09-53-16.txt
+│       │       ├── 📄 000041_2025-09-23_09-56-07.txt
+│       │       ├── 📄 000041_2025-09-23_10-02-21.txt
+│       │       ├── 📄 000042.txt
+│       │       ├── 📄 000042_2025-09-23_09-53-16.txt
+│       │       ├── 📄 000042_2025-09-23_09-53-17.txt
+│       │       ├── 📄 000042_2025-09-23_09-56-07.txt
+│       │       ├── 📄 000042_2025-09-23_10-02-21.txt
+│       │       ├── 📄 000042_2025-09-23_10-02-22.txt
+│       │       ├── 📄 000043.txt
+│       │       ├── 📄 000043_2025-09-23_09-53-17.txt
+│       │       ├── 📄 000043_2025-09-23_09-56-07.txt
+│       │       ├── 📄 000043_2025-09-23_09-56-08.txt
+│       │       ├── 📄 000043_2025-09-23_10-02-22.txt
+│       │       ├── 📄 000044.txt
+│       │       ├── 📄 000044_2025-09-23_09-53-17.txt
+│       │       ├── 📄 000044_2025-09-23_09-56-08.txt
+│       │       ├── 📄 000044_2025-09-23_10-02-22.txt
+│       │       ├── 📄 000045.txt
+│       │       ├── 📄 000045_2025-09-23_09-53-17.txt
+│       │       ├── 📄 000045_2025-09-23_09-53-18.txt
+│       │       ├── 📄 000045_2025-09-23_09-56-08.txt
+│       │       ├── 📄 000045_2025-09-23_10-02-22.txt
+│       │       ├── 📄 000045_2025-09-23_10-02-23.txt
+│       │       ├── 📄 000046.txt
+│       │       ├── 📄 000046_2025-09-23_09-53-18.txt
+│       │       ├── 📄 000046_2025-09-23_09-56-08.txt
+│       │       ├── 📄 000046_2025-09-23_10-02-23.txt
+│       │       ├── 📄 000047.txt
+│       │       ├── 📄 000047_2025-09-23_09-53-18.txt
+│       │       ├── 📄 000047_2025-09-23_09-53-19.txt
+│       │       ├── 📄 000047_2025-09-23_09-56-08.txt
+│       │       ├── 📄 000047_2025-09-23_09-56-09.txt
+│       │       ├── 📄 000047_2025-09-23_10-02-23.txt
+│       │       ├── 📄 000047_2025-09-23_10-02-24.txt
+│       │       ├── 📄 000048.txt
+│       │       ├── 📄 000048_2025-09-23_09-53-19.txt
+│       │       ├── 📄 000048_2025-09-23_09-56-09.txt
+│       │       ├── 📄 000048_2025-09-23_09-56-10.txt
+│       │       ├── 📄 000048_2025-09-23_10-02-24.txt
+│       │       ├── 📄 000049.txt
+│       │       ├── 📄 000049_2025-09-23_09-53-19.txt
+│       │       ├── 📄 000049_2025-09-23_09-53-20.txt
+│       │       ├── 📄 000049_2025-09-23_09-56-10.txt
+│       │       ├── 📄 000049_2025-09-23_09-56-11.txt
+│       │       ├── 📄 000049_2025-09-23_10-02-24.txt
+│       │       ├── 📄 000049_2025-09-23_10-02-25.txt
+│       │       ├── 📄 000050.txt
+│       │       ├── 📄 000050_2025-09-23_09-53-20.txt
+│       │       ├── 📄 000050_2025-09-23_09-56-11.txt
+│       │       ├── 📄 000050_2025-09-23_10-02-25.txt
+│       │       ├── 📄 0000r01.txt
+│       │       ├── 📄 000r003.txt
+│       │       ├── 📄 000r013.txt
+│       │       ├── 📄 000r020.txt
+│       │       ├── 📄 000r026.txt
+│       │       ├── 📄 000r031.txt
+│       │       ├── 📄 000r039.txt
+│       │       ├── 📄 00r0008.txt
+│       │       ├── 📄 00r0030.txt
+│       │       ├── 📄 00r0046.txt
+│       │       ├── 📄 00r0047.txt
+│       │       ├── 📄 0r00042.txt
+│       │       ├── 📄 2025-08-04-15-19-20-410.txt
+│       │       ├── 📄 2025-08-04-15-19-22-078.txt
+│       │       ├── 📄 2025-08-04-15-19-23-744.txt
+│       │       ├── 📄 2025-08-04-15-19-25-439.txt
+│       │       ├── 📄 2025-08-04-15-19-27-144.txt
+│       │       ├── 📄 2025-08-04-15-19-28-783.txt
+│       │       ├── 📄 2025-08-04-15-21-29-721.txt
+│       │       ├── 📄 2025-08-04-15-21-31-376.txt
+│       │       ├── 📄 2025-08-04-15-21-33-060.txt
+│       │       ├── 📄 2025-08-04-15-21-34-762.txt
+│       │       ├── 📄 2025-08-04-15-21-36-412.txt
+│       │       ├── 📄 2025-08-04-15-21-38-081.txt
+│       │       ├── 📄 2025-08-04-15-21-59-921.txt
+│       │       ├── 📄 2025-08-04-15-22-01-822.txt
+│       │       ├── 📄 2025-08-04-15-22-03-510.txt
+│       │       ├── 📄 2025-08-04-15-22-05-190.txt
+│       │       ├── 📄 2025-08-04-15-24-04-412.txt
+│       │       ├── 📄 2025-08-04-15-24-06-102.txt
+│       │       ├── 📄 2025-08-04-15-24-07-756.txt
+│       │       ├── 📄 2025-08-04-15-24-09-389.txt
+│       │       ├── 📄 2025-08-04-15-24-11-089.txt
+│       │       ├── 📄 2025-08-04-15-24-12-767.txt
+│       │       ├── 📄 2025-08-04-15-24-14-396.txt
+│       │       ├── 📄 2025-08-04-15-24-16-006.txt
+│       │       ├── 📄 2025-08-04-15-24-17-679.txt
+│       │       ├── 📄 2025-08-04-15-24-19-323.txt
+│       │       ├── 📄 2025-08-04-15-24-20-633.txt
+│       │       ├── 📄 2025-08-04-15-24-22-240.txt
+│       │       ├── 📄 2025-08-04-15-24-23-900.txt
+│       │       ├── 📄 2025-08-04-15-24-25-540.txt
+│       │       ├── 📄 2025-08-04-15-24-27-164.txt
+│       │       ├── 📄 2025-08-04-15-24-28-164.txt
+│       │       ├── 📄 2025-08-04-15-24-29-845.txt
+│       │       ├── 📄 2025-08-04-15-24-31-494.txt
+│       │       ├── 📄 2025-08-04-15-24-33-130.txt
+│       │       ├── 📄 2025-08-04-15-24-38-163.txt
+│       │       ├── 📄 2025-08-04-15-24-39-864.txt
+│       │       ├── 📄 2025-08-04-15-24-41-529.txt
+│       │       ├── 📄 2025-08-04-15-24-43-208.txt
+│       │       ├── 📄 2025-08-04-15-24-44-852.txt
+│       │       ├── 📄 2025-08-04-15-24-46-544.txt
+│       │       ├── 📄 2025-08-04-15-24-51-779.txt
+│       │       ├── 📄 2025-08-04-15-24-53-460.txt
+│       │       ├── 📄 2025-08-04-15-24-55-177.txt
+│       │       ├── 📄 2025-08-04-15-24-56-847.txt
+│       │       ├── 📄 2025-08-04-15-24-58-526.txt
+│       │       ├── 📄 2025-08-04-15-25-00-216.txt
+│       │       ├── 📄 2025-08-04-15-25-01-894.txt
+│       │       ├── 📄 2025-08-04-15-25-03-605.txt
+│       │       ├── 📄 2025-08-04-15-25-05-253.txt
+│       │       ├── 📄 2025-08-04-15-25-06-962.txt
+│       │       ├── 📄 2025-08-04-15-25-08-641.txt
+│       │       ├── 📄 2025-08-04-15-25-10-355.txt
+│       │       ├── 📄 2025-08-04-15-25-12-053.txt
+│       │       ├── 📄 2025-08-04-15-25-13-706.txt
+│       │       ├── 📄 2025-08-04-15-25-18-703.txt
+│       │       ├── 📄 2025-08-04-15-25-20-387.txt
+│       │       ├── 📄 2025-08-04-15-25-22-053.txt
+│       │       ├── 📄 2025-08-04-15-25-23-739.txt
+│       │       ├── 📄 2025-08-04-15-25-25-400.txt
+│       │       ├── 📄 2025-08-04-15-25-27-082.txt
+│       │       ├── 📄 2025-08-04-15-25-28-742.txt
+│       │       ├── 📄 2025-08-04-15-25-30-435.txt
+│       │       ├── 📄 2025-08-04-15-25-32-117.txt
+│       │       ├── 📄 2025-08-04-15-25-33-802.txt
+│       │       ├── 📄 2025-08-04-15-25-44-447.txt
+│       │       ├── 📄 2025-08-04-15-25-46-080.txt
+│       │       ├── 📄 2025-08-04-15-25-47-772.txt
+│       │       ├── 📄 2025-08-04-15-25-49-438.txt
+│       │       ├── 📄 2025-08-04-15-25-51-104.txt
+│       │       ├── 📄 2025-08-04-15-25-52-773.txt
+│       │       ├── 📄 2025-08-04-15-25-54-438.txt
+│       │       ├── 📄 2025-08-04-15-25-56-105.txt
+│       │       ├── 📄 2025-08-04-15-25-57-797.txt
+│       │       ├── 📄 2025-08-04-15-25-59-466.txt
+│       │       ├── 📄 2025-08-04-15-26-01-255.txt
+│       │       ├── 📄 2025-08-04-15-26-02-955.txt
+│       │       ├── 📄 2025-08-04-15-26-04-622.txt
+│       │       ├── 📄 2025-08-04-15-26-13-126.txt
+│       │       ├── 📄 2025-08-04-15-29-32-683.txt
+│       │       ├── 📄 2025-08-04-15-30-08-326.txt
+│       │       ├── 📄 2025-08-04-15-30-13-420.txt
+│       │       ├── 📄 2025-08-04-15-37-56-676.txt
+│       │       ├── 📄 2025-08-04-15-38-11-293.txt
+│       │       ├── 📄 2025-08-04-15-38-14-912.txt
+│       │       ├── 📄 2025-08-04-15-38-18-463.txt
+│       │       ├── 📄 2025-08-04-15-38-29-022.txt
+│       │       ├── 📄 2025-08-04-15-38-32-399.txt
+│       │       ├── 📄 Fisch_#####_20250805_074816.560Z.txt
+│       │       ├── 📄 Fisch_#####_20250805_074828.077Z.txt
+│       │       ├── 📄 Fisch_#####_20250805_074829.784Z.txt
+│       │       ├── 📄 Fisch_#####_20250805_074832.112Z.txt
+│       │       ├── 📄 Fisch_#####_20250805_074834.417Z.txt
+│       │       ├── 📄 Fisch_#####_20250805_074836.746Z.txt
+│       │       ├── 📄 Fisch_#####_20250805_074839.072Z.txt
+│       │       ├── 📄 Fisch_#####_20250805_074841.377Z.txt
+│       │       ├── 📄 Fisch_#####_20250805_074843.672Z.txt
+│       │       ├── 📄 Fisch_#####_20250805_074846.007Z.txt
+│       │       ├── 📄 Fisch_#####_20250805_074848.314Z.txt
+│       │       ├── 📄 Fisch_#####_20250805_074850.637Z.txt
+│       │       ├── 📄 Fisch_#####_20250805_074855.271Z.txt
+│       │       ├── 📄 Fisch_#####_20250805_074857.570Z.txt
+│       │       ├── 📄 Fisch_#####_20250805_074859.437Z.txt
+│       │       ├── 📄 Fisch_#####_20250805_074901.737Z.txt
+│       │       ├── 📄 Fisch_#####_20250805_074906.337Z.txt
+│       │       ├── 📄 Fisch_#####_20250805_074913.231Z.txt
+│       │       ├── 📄 Fisch_#####_20250805_074915.533Z.txt
+│       │       ├── 📄 Fisch_#####_20250805_074920.157Z.txt
+│       │       ├── 📄 Fisch_#####_20250805_074922.467Z.txt
+│       │       ├── 📄 Fisch_#####_20250805_074924.760Z.txt
+│       │       ├── 📄 Fisch_#####_20250805_074927.098Z.txt
+│       │       ├── 📄 Fisch_#####_20250805_074936.421Z.txt
+│       │       ├── 📄 Fisch_#####_20250805_074941.086Z.txt
+│       │       ├── 📄 Fisch_#####_20250805_074943.394Z.txt
+│       │       ├── 📄 Fisch_#####_20250805_074945.727Z.txt
+│       │       ├── 📄 Fisch_#####_20250805_075045.837Z.txt
+│       │       ├── 📄 Fisch_#####_20250805_095430.033Z.txt
+│       │       ├── 📄 Fisch_#####_20250805_095441.586Z.txt
+│       │       ├── 📄 Fisch_#####_20250805_095443.891Z.txt
+│       │       ├── 📄 Fisch_#####_20250805_095446.193Z.txt
+│       │       ├── 📄 Fisch_#####_20250805_095448.492Z.txt
+│       │       ├── 📄 Fisch_#####_20250805_095450.793Z.txt
+│       │       ├── 📄 Fisch_#####_20250805_095453.093Z.txt
+│       │       ├── 📄 Fisch_#####_20250805_095455.393Z.txt
+│       │       ├── 📄 Fisch_#####_20250805_095459.985Z.txt
+│       │       ├── 📄 Fisch_#####_20250805_095520.944Z.txt
+│       │       ├── 📄 Fisch_#####_20250805_095523.248Z.txt
+│       │       ├── 📄 Fisch_#####_20250805_095644.512Z.txt
+│       │       ├── 📄 Fisch_20250808_112845.550Z.txt
+│       │       ├── 📄 Fisch_20250808_112850.150Z.txt
+│       │       ├── 📄 Fisch_20250808_113014.624Z.txt
+│       │       ├── 📄 Fisch_20250808_113016.923Z.txt
+│       │       ├── 📄 Fisch_20250808_113019.230Z.txt
+│       │       ├── 📄 Fisch_20250808_113021.554Z.txt
+│       │       ├── 📄 Fisch_20250808_113023.854Z.txt
+│       │       ├── 📄 Fisch_20250808_113040.082Z.txt
+│       │       ├── 📄 Fisch_20250808_113049.350Z.txt
+│       │       ├── 📄 Fisch_20250808_113243.344Z.txt
+│       │       ├── 📄 Fisch_20250808_113245.646Z.txt
+│       │       ├── 📄 Fisch_20250808_113247.939Z.txt
+│       │       ├── 📄 Fisch_20250808_113250.234Z.txt
+│       │       ├── 📄 Fisch_20250808_113252.545Z.txt
+│       │       ├── 📄 Fisch_20250808_113254.907Z.txt
+│       │       ├── 📄 Fisch_20250808_113257.210Z.txt
+│       │       ├── 📄 Fisch_20250808_113259.506Z.txt
+│       │       ├── 📄 Fisch_20250808_113301.837Z.txt
+│       │       ├── 📄 Fisch_20250808_113304.168Z.txt
+│       │       ├── 📄 Fisch_20250808_113306.495Z.txt
+│       │       ├── 📄 Fisch_20250808_113308.839Z.txt
+│       │       ├── 📄 Fisch_20250808_113311.138Z.txt
+│       │       ├── 📄 Fisch_20250808_113313.463Z.txt
+│       │       ├── 📄 Fisch_20250808_113320.428Z.txt
+│       │       ├── 📄 Fisch_20250808_113334.292Z.txt
+│       │       ├── 📄 Fisch_20250808_113336.587Z.txt
+│       │       ├── 📄 Fisch_20250808_113338.587Z.txt
+│       │       ├── 📄 Fisch_20250808_113340.891Z.txt
+│       │       ├── 📄 Fisch_20250808_113350.154Z.txt
+│       │       ├── 📄 Fisch_20250808_113357.084Z.txt
+│       │       ├── 📄 Fisch_20250808_113359.455Z.txt
+│       │       ├── 📄 Fisch_20250808_113404.122Z.txt
+│       │       ├── 📄 Fisch_20250808_113424.945Z.txt
+│       │       ├── 📄 Fisch_20250808_113434.234Z.txt
+│       │       ├── 📄 Fisch_20250808_113436.539Z.txt
+│       │       ├── 📄 Fisch_20250808_113443.499Z.txt
+│       │       ├── 📄 Fisch_20250808_113459.688Z.txt
+│       │       ├── 📄 Fisch_20250808_113501.996Z.txt
+│       │       ├── 📄 Fisch_20250808_113504.300Z.txt
+│       │       ├── 📄 Fisch_20250808_113506.585Z.txt
+│       │       ├── 📄 Fisch_20250808_113508.901Z.txt
+│       │       ├── 📄 Fisch_20250808_113511.218Z.txt
+│       │       ├── 📄 Fisch_20250808_113513.531Z.txt
+│       │       ├── 📄 Fisch_20250808_113515.819Z.txt
+│       │       ├── 📄 Fisch_20250808_113518.125Z.txt
+│       │       ├── 📄 Fisch_20250808_113520.455Z.txt
+│       │       ├── 📄 Fisch_20250808_113522.753Z.txt
+│       │       ├── 📄 Fisch_20250808_113525.083Z.txt
+│       │       ├── 📄 Fisch_20250808_113527.391Z.txt
+│       │       ├── 📄 Fisch_20250808_113529.750Z.txt
+│       │       ├── 📄 Fisch_20250808_113532.061Z.txt
+│       │       ├── 📄 Fisch_20250808_113534.384Z.txt
+│       │       ├── 📄 Fisch_20250808_113536.682Z.txt
+│       │       ├── 📄 Fisch_20250808_113538.979Z.txt
+│       │       ├── 📄 Fisch_20250808_113541.288Z.txt
+│       │       ├── 📄 Fisch_20250808_113543.581Z.txt
+│       │       ├── 📄 Fisch_20250808_113545.883Z.txt
+│       │       ├── 📄 Fisch_20250808_113548.172Z.txt
+│       │       ├── 📄 Fisch_20250808_113550.485Z.txt
+│       │       ├── 📄 Fisch_20250808_113552.512Z.txt
+│       │       ├── 📄 Fisch_20250808_113554.805Z.txt
+│       │       ├── 📄 Fisch_20250808_113557.110Z.txt
+│       │       ├── 📄 Fisch_20250808_113819.827Z.txt
+│       │       ├── 📄 Fisch_20250808_113822.165Z.txt
+│       │       ├── 📄 Fisch_20250808_113846.934Z.txt
+│       │       ├── 📄 Fisch_20250808_113849.254Z.txt
+│       │       ├── 📄 Fisch_20250808_113853.893Z.txt
+│       │       ├── 📄 Fisch_20250808_113856.220Z.txt
+│       │       ├── 📄 Fisch_20250808_113905.443Z.txt
+│       │       ├── 📄 Fisch_20250808_113907.750Z.txt
+│       │       ├── 📄 Fisch_20250808_113912.412Z.txt
+│       │       ├── 📄 Fisch_20250808_113940.203Z.txt
+│       │       ├── 📄 Fisch_20250808_113944.830Z.txt
+│       │       ├── 📄 Fisch_20250808_113949.441Z.txt
+│       │       ├── 📄 Fisch_20250808_113951.766Z.txt
+│       │       ├── 📄 Fisch_20250808_113958.732Z.txt
+│       │       ├── 📄 Fisch_20250808_114001.032Z.txt
+│       │       ├── 📄 Fisch_20250808_114005.661Z.txt
+│       │       ├── 📄 Fisch_20250808_114014.901Z.txt
+│       │       ├── 📄 Fisch_20250810_050459.087Z.txt
+│       │       ├── 📄 Fisch_20250810_050549.071Z.txt
+│       │       ├── 📄 Fisch_20250810_050601.667Z.txt
+│       │       ├── 📄 Fisch_20250810_050910.107Z.txt
+│       │       ├── 📄 Fisch_20250810_050921.632Z.txt
+│       │       ├── 📄 Fisch_20250810_050934.288Z.txt
+│       │       ├── 📄 Fisch_20250810_050940.594Z.txt
+│       │       ├── 📄 Fisch_20250810_051113.762Z.txt
+│       │       ├── 📄 Fisch_20250810_051120.099Z.txt
+│       │       ├── 📄 Fisch_20250810_051126.418Z.txt
+│       │       ├── 📄 Fisch_20250810_051350.958Z.txt
+│       │       ├── 📄 Fisch_20250810_051412.847Z.txt
+│       │       ├── 📄 Fisch_20250810_051414.168Z.txt
+│       │       ├── 📄 Fisch_20250810_051416.013Z.txt
+│       │       ├── 📄 Fisch_20250810_051417.807Z.txt
+│       │       ├── 📄 Fisch_20250810_051419.177Z.txt
+│       │       ├── 📄 Fisch_20250810_051420.975Z.txt
+│       │       ├── 📄 Fisch_20250810_051422.810Z.txt
+│       │       ├── 📄 Fisch_20250810_051424.637Z.txt
+│       │       ├── 📄 Fisch_20250810_051425.777Z.txt
+│       │       ├── 📄 Fisch_20250810_051427.608Z.txt
+│       │       ├── 📄 Fisch_20250810_051428.776Z.txt
+│       │       ├── 📄 Fisch_20250810_051430.040Z.txt
+│       │       ├── 📄 Fisch_20250810_051431.842Z.txt
+│       │       ├── 📄 Fisch_20250810_051433.439Z.txt
+│       │       ├── 📄 Fisch_20250810_051434.570Z.txt
+│       │       ├── 📄 Fisch_20250810_051436.371Z.txt
+│       │       ├── 📄 Fisch_20250810_051438.167Z.txt
+│       │       ├── 📄 Fisch_20250810_051516.793Z.txt
+│       │       ├── 📄 Fisch_20250810_051518.584Z.txt
+│       │       ├── 📄 Fisch_20250810_051520.394Z.txt
+│       │       ├── 📄 Fisch_20250810_051538.382Z.txt
+│       │       ├── 📄 Fisch_20250810_051540.178Z.txt
+│       │       ├── 📄 Fisch_20250810_051543.815Z.txt
+│       │       ├── 📄 Fisch_20250810_051545.645Z.txt
+│       │       ├── 📄 Fisch_20250810_051551.075Z.txt
+│       │       ├── 📄 Fisch_20250810_051552.908Z.txt
+│       │       ├── 📄 Fisch_20250810_051554.706Z.txt
+│       │       ├── 📄 Fisch_20250810_051558.311Z.txt
+│       │       ├── 📄 Fisch_20250810_051623.626Z.txt
+│       │       ├── 📄 Fisch_20250810_051629.028Z.txt
+│       │       ├── 📄 Fisch_20250810_051630.825Z.txt
+│       │       ├── 📄 Fisch_20250810_051632.630Z.txt
+│       │       ├── 📄 Fisch_20250810_051737.740Z.txt
+│       │       ├── 📄 Fisch_20250810_051739.544Z.txt
+│       │       ├── 📄 Fisch_20250810_051740.576Z.txt
+│       │       ├── 📄 Fisch_20250810_051741.604Z.txt
+│       │       ├── 📄 Fisch_20250810_051742.615Z.txt
+│       │       ├── 📄 Fisch_20250810_051743.642Z.txt
+│       │       ├── 📄 Fisch_20250810_051744.675Z.txt
+│       │       ├── 📄 Fisch_20250810_051746.520Z.txt
+│       │       ├── 📄 Fisch_20250810_051748.078Z.txt
+│       │       ├── 📄 Fisch_20250810_051749.867Z.txt
+│       │       ├── 📄 Fisch_20250810_051751.719Z.txt
+│       │       ├── 📄 Fisch_20250810_051753.537Z.txt
+│       │       ├── 📄 Fisch_20250810_051757.176Z.txt
+│       │       ├── 📄 Fisch_20250810_051808.109Z.txt
+│       │       ├── 📄 Fisch_20250810_051809.931Z.txt
+│       │       ├── 📄 Fisch_20250810_051811.766Z.txt
+│       │       ├── 📄 Fisch_20250810_051813.600Z.txt
+│       │       ├── 📄 Fisch_20250810_051815.438Z.txt
+│       │       ├── 📄 Fisch_20250810_051820.925Z.txt
+│       │       ├── 📄 Fisch_20250810_051822.722Z.txt
+│       │       ├── 📄 Fisch_20250810_051824.525Z.txt
+│       │       ├── 📄 Fisch_20250810_051826.372Z.txt
+│       │       ├── 📄 Fisch_20250810_051828.198Z.txt
+│       │       ├── 📄 Fisch_20250810_051829.957Z.txt
+│       │       ├── 📄 Fisch_20250812_132750.600Z.txt
+│       │       ├── 📄 Fisch_20250812_133511.289Z.txt
+│       │       ├── 📄 Fisch_20250813_051501Z.txt
+│       │       ├── 📄 Fisch_20250813_051508Z.txt
+│       │       ├── 📄 Fisch_20250813_051510Z.txt
+│       │       ├── 📄 Fisch_20250813_051513Z.txt
+│       │       ├── 📄 Fisch_20250813_051515Z.txt
+│       │       ├── 📄 Fisch_20250813_051517Z.txt
+│       │       ├── 📄 Fisch_20250813_051520Z.txt
+│       │       ├── 📄 Fisch_20250813_051531Z.txt
+│       │       ├── 📄 Fisch_20250813_051533Z.txt
+│       │       ├── 📄 Fisch_20250813_051536Z.txt
+│       │       ├── 📄 Fisch_20250813_051545Z.txt
+│       │       ├── 📄 Fisch_20250813_051547Z.txt
+│       │       ├── 📄 Fisch_20250813_051549Z.txt
+│       │       ├── 📄 Fisch_20250813_051552Z.txt
+│       │       ├── 📄 Fisch_20250813_051554Z.txt
+│       │       ├── 📄 Fisch_20250813_051556Z.txt
+│       │       ├── 📄 Fisch_20250813_051559Z.txt
+│       │       ├── 📄 Fisch_20250813_051601Z.txt
+│       │       ├── 📄 Fisch_20250813_051603Z.txt
+│       │       ├── 📄 Fisch_20250813_051605Z.txt
+│       │       ├── 📄 Fisch_20250813_051617Z.txt
+│       │       ├── 📄 Fisch_20250813_051619Z.txt
+│       │       ├── 📄 Fisch_20250813_051621Z.txt
+│       │       ├── 📄 Fisch_20250813_051624Z.txt
+│       │       ├── 📄 Fisch_20250813_051626Z.txt
+│       │       ├── 📄 Fisch_20250813_051633Z.txt
+│       │       ├── 📄 Fisch_20250813_051635Z.txt
+│       │       ├── 📄 Fisch_20250813_051637Z.txt
+│       │       ├── 📄 Fisch_20250813_051640Z.txt
+│       │       ├── 📄 Fisch_20250813_051642Z.txt
+│       │       ├── 📄 Fisch_20250813_051647Z.txt
+│       │       ├── 📄 Fisch_20250813_051651Z.txt
+│       │       ├── 📄 Fisch_20250813_051653Z.txt
+│       │       ├── 📄 Fisch_20250813_051656Z.txt
+│       │       ├── 📄 Fisch_20250813_051658Z.txt
+│       │       ├── 📄 Fisch_20250813_051700Z.txt
+│       │       ├── 📄 Fisch_20250813_051705Z.txt
+│       │       ├── 📄 Fisch_20250813_051707Z.txt
+│       │       ├── 📄 Fisch_20250813_051710Z.txt
+│       │       ├── 📄 Fisch_20250813_051712Z.txt
+│       │       ├── 📄 Fisch_20250813_051716Z.txt
+│       │       ├── 📄 Fisch_20250813_051719Z.txt
+│       │       ├── 📄 Fisch_20250813_051721Z.txt
+│       │       ├── 📄 Fisch_20250813_051728Z.txt
+│       │       ├── 📄 Fisch_20250813_051735Z.txt
+│       │       ├── 📄 Fisch_20250813_051739Z.txt
+│       │       ├── 📄 Fisch_20250813_051742Z.txt
+│       │       ├── 📄 Fisch_20250813_051744Z.txt
+│       │       ├── 📄 Fisch_20250813_051746Z.txt
+│       │       ├── 📄 Fisch_20250813_051749Z.txt
+│       │       ├── 📄 Fisch_20250813_051751Z.txt
+│       │       ├── 📄 Fisch_20250813_051753Z.txt
+│       │       ├── 📄 Fisch_20250813_051755Z.txt
+│       │       ├── 📄 Fisch_20250813_051758Z.txt
+│       │       ├── 📄 Fisch_20250813_051800Z.txt
+│       │       ├── 📄 Fisch_20250813_051802Z.txt
+│       │       ├── 📄 Fisch_20250813_051805Z.txt
+│       │       ├── 📄 Fisch_20250813_051807Z.txt
+│       │       ├── 📄 Fisch_20250813_051809Z.txt
+│       │       ├── 📄 Fisch_20250813_051811Z.txt
+│       │       ├── 📄 Fisch_20250813_051814Z.txt
+│       │       ├── 📄 Fisch_20250813_051816Z.txt
+│       │       ├── 📄 Fisch_20250813_051818Z.txt
+│       │       ├── 📄 Fisch_20250813_051821Z.txt
+│       │       ├── 📄 Fisch_20250813_051823Z.txt
+│       │       ├── 📄 Fisch_20250813_051825Z.txt
+│       │       ├── 📄 Fisch_20250813_051828Z.txt
+│       │       ├── 📄 Fisch_20250813_051830Z.txt
+│       │       ├── 📄 Fisch_20250813_051832Z.txt
+│       │       ├── 📄 Fisch_20250813_051839Z.txt
+│       │       ├── 📄 Fisch_20250813_051841Z.txt
+│       │       ├── 📄 Fisch_20250813_051844Z.txt
+│       │       ├── 📄 Fisch_20250813_051846Z.txt
+│       │       ├── 📄 Fisch_20250813_051850Z.txt
+│       │       ├── 📄 Fisch_20250813_051853Z.txt
+│       │       ├── 📄 Fisch_20250813_051855Z.txt
+│       │       ├── 📄 Fisch_20250813_051857Z.txt
+│       │       ├── 📄 Fisch_20250813_051900Z.txt
+│       │       ├── 📄 Fisch_20250813_051902Z.txt
+│       │       ├── 📄 Fisch_20250813_051904Z.txt
+│       │       ├── 📄 Fisch_20250813_051906Z.txt
+│       │       ├── 📄 Fisch_20250813_051909Z.txt
+│       │       ├── 📄 Fisch_20250813_051911Z.txt
+│       │       ├── 📄 Fisch_20250813_051916Z.txt
+│       │       ├── 📄 Fisch_20250813_051918Z.txt
+│       │       ├── 📄 Fisch_20250813_051923Z.txt
+│       │       ├── 📄 Fisch_20250813_051925Z.txt
+│       │       ├── 📄 Fisch_20250813_051927Z.txt
+│       │       ├── 📄 Fisch_20250813_051929Z.txt
+│       │       ├── 📄 Fisch_20250813_051934Z.txt
+│       │       ├── 📄 Fisch_20250813_051936Z.txt
+│       │       ├── 📄 Fisch_20250813_051939Z.txt
+│       │       ├── 📄 Fisch_20250813_051941Z.txt
+│       │       ├── 📄 Fisch_20250813_051943Z.txt
+│       │       ├── 📄 Fisch_20250813_051945Z.txt
+│       │       ├── 📄 Fisch_20250813_051948Z.txt
+│       │       ├── 📄 Fisch_20250813_051950Z.txt
+│       │       ├── 📄 Fisch_20250813_051952Z.txt
+│       │       ├── 📄 Fisch_20250813_051955Z.txt
+│       │       ├── 📄 Fisch_20250813_052034Z.txt
+│       │       ├── 📄 Fisch_20250813_052036Z.txt
+│       │       ├── 📄 Fisch_20250813_052038Z.txt
+│       │       ├── 📄 Fisch_20250813_052040Z.txt
+│       │       ├── 📄 Fisch_20250813_052043Z.txt
+│       │       ├── 📄 Fisch_20250813_052045Z.txt
+│       │       ├── 📄 Fisch_20250813_052101Z.txt
+│       │       ├── 📄 Fisch_20250813_052103Z.txt
+│       │       ├── 📄 Fisch_20250813_052110Z.txt
+│       │       ├── 📄 Fisch_20250813_052112Z.txt
+│       │       ├── 📄 Fisch_20250813_052115Z.txt
+│       │       ├── 📄 Fisch_20250813_052117Z.txt
+│       │       ├── 📄 Fisch_20250813_052119Z.txt
+│       │       ├── 📄 Fisch_20250813_052122Z.txt
+│       │       ├── 📄 Fisch_20250813_052124Z.txt
+│       │       ├── 📄 Fisch_20250813_052126Z.txt
+│       │       ├── 📄 Fisch_20250813_052129Z.txt
+│       │       ├── 📄 Fisch_20250813_052131Z.txt
+│       │       ├── 📄 Fisch_20250813_052133Z.txt
+│       │       ├── 📄 Fisch_20250813_052135Z.txt
+│       │       ├── 📄 Fisch_20250813_052321Z.txt
+│       │       ├── 📄 Fisch_20250813_052554Z.txt
+│       │       ├── 📄 Fisch_20250813_052556Z.txt
+│       │       ├── 📄 Fisch_20250813_052610Z.txt
+│       │       ├── 📄 r.txt
+│       │       └── 📄 rd.txt
+│       ├── 📁 val
+│       │   └── 📁 labels
+│       │       ├── 📄 000001_2025-09-23_09-52-56.txt
+│       │       ├── 📄 000001_2025-09-23_09-55-49.txt
+│       │       ├── 📄 000001_2025-09-23_09-55-50.txt
+│       │       ├── 📄 000001_2025-09-23_10-02-00.txt
+│       │       ├── 📄 000001_2025-09-23_10-07-16.txt
+│       │       ├── 📄 000002_2025-09-23_09-52-56.txt
+│       │       ├── 📄 000002_2025-09-23_09-55-50.txt
+│       │       ├── 📄 000002_2025-09-23_10-02-01.txt
+│       │       ├── 📄 000003.txt
+│       │       ├── 📄 000003_2025-09-23_09-52-56.txt
+│       │       ├── 📄 000003_2025-09-23_09-52-57.txt
+│       │       ├── 📄 000003_2025-09-23_09-55-50.txt
+│       │       ├── 📄 000003_2025-09-23_09-55-51.txt
+│       │       ├── 📄 000003_2025-09-23_10-02-01.txt
+│       │       ├── 📄 000004_2025-09-23_09-52-57.txt
+│       │       ├── 📄 000004_2025-09-23_09-52-58.txt
+│       │       ├── 📄 000004_2025-09-23_10-02-01.txt
+│       │       ├── 📄 000004_2025-09-23_10-02-02.txt
+│       │       ├── 📄 000005_2025-09-23_09-52-58.txt
+│       │       ├── 📄 000005_2025-09-23_09-55-51.txt
+│       │       ├── 📄 000005_2025-09-23_09-55-52.txt
+│       │       ├── 📄 000005_2025-09-23_10-02-02.txt
+│       │       ├── 📄 000005_2025-09-23_10-07-17.txt
+│       │       ├── 📄 000006_2025-09-23_09-52-58.txt
+│       │       ├── 📄 000006_2025-09-23_09-52-59.txt
+│       │       ├── 📄 000006_2025-09-23_09-55-52.txt
+│       │       ├── 📄 000006_2025-09-23_10-02-02.txt
+│       │       ├── 📄 000007_2025-09-23_09-52-59.txt
+│       │       ├── 📄 000007_2025-09-23_09-55-52.txt
+│       │       ├── 📄 000007_2025-09-23_09-55-53.txt
+│       │       ├── 📄 000007_2025-09-23_10-02-02.txt
+│       │       ├── 📄 000007_2025-09-23_10-02-03.txt
+│       │       ├── 📄 000008_2025-09-23_09-52-59.txt
+│       │       ├── 📄 000008_2025-09-23_09-53-00.txt
+│       │       ├── 📄 000008_2025-09-23_09-55-53.txt
+│       │       ├── 📄 000008_2025-09-23_10-02-03.txt
+│       │       ├── 📄 000009_2025-09-23_09-53-00.txt
+│       │       ├── 📄 000009_2025-09-23_09-53-01.txt
+│       │       ├── 📄 000009_2025-09-23_10-02-04.txt
+│       │       ├── 📄 000010_2025-09-23_09-53-01.txt
+│       │       ├── 📄 000010_2025-09-23_09-55-54.txt
+│       │       ├── 📄 000010_2025-09-23_10-02-04.txt
+│       │       ├── 📄 000010_2025-09-23_10-07-18.txt
+│       │       ├── 📄 000011_2025-09-23_09-53-02.txt
+│       │       ├── 📄 000011_2025-09-23_09-55-54.txt
+│       │       ├── 📄 000011_2025-09-23_09-55-55.txt
+│       │       ├── 📄 000011_2025-09-23_10-02-04.txt
+│       │       ├── 📄 000011_2025-09-23_10-02-05.txt
+│       │       ├── 📄 000012_2025-09-23_09-53-02.txt
+│       │       ├── 📄 000012_2025-09-23_09-53-03.txt
+│       │       ├── 📄 000012_2025-09-23_09-55-55.txt
+│       │       ├── 📄 000012_2025-09-23_10-02-05.txt
+│       │       ├── 📄 000012_2025-09-23_10-07-18.txt
+│       │       ├── 📄 000013_2025-09-23_09-53-03.txt
+│       │       ├── 📄 000013_2025-09-23_09-55-55.txt
+│       │       ├── 📄 000013_2025-09-23_10-02-05.txt
+│       │       ├── 📄 000013_2025-09-23_10-02-06.txt
+│       │       ├── 📄 000013_2025-09-23_10-07-19.txt
+│       │       ├── 📄 000014_2025-09-23_09-53-03.txt
+│       │       ├── 📄 000014_2025-09-23_09-55-55.txt
+│       │       ├── 📄 000014_2025-09-23_09-55-56.txt
+│       │       ├── 📄 000014_2025-09-23_10-02-06.txt
+│       │       ├── 📄 000014_2025-09-23_10-07-19.txt
+│       │       ├── 📄 000015_2025-09-23_09-53-04.txt
+│       │       ├── 📄 000015_2025-09-23_09-55-56.txt
+│       │       ├── 📄 000015_2025-09-23_10-02-06.txt
+│       │       ├── 📄 000015_2025-09-23_10-02-07.txt
+│       │       ├── 📄 000016_2025-09-23_09-53-04.txt
+│       │       ├── 📄 000016_2025-09-23_09-55-56.txt
+│       │       ├── 📄 000016_2025-09-23_10-02-07.txt
+│       │       ├── 📄 000017_2025-09-23_09-53-04.txt
+│       │       ├── 📄 000017_2025-09-23_09-53-05.txt
+│       │       ├── 📄 000017_2025-09-23_09-55-56.txt
+│       │       ├── 📄 000017_2025-09-23_09-55-57.txt
+│       │       ├── 📄 000017_2025-09-23_10-02-08.txt
+│       │       ├── 📄 000018_2025-09-23_09-53-05.txt
+│       │       ├── 📄 000018_2025-09-23_09-55-57.txt
+│       │       ├── 📄 000018_2025-09-23_10-02-09.txt
+│       │       ├── 📄 000019_2025-09-23_09-53-05.txt
+│       │       ├── 📄 000019_2025-09-23_09-55-57.txt
+│       │       ├── 📄 000019_2025-09-23_09-55-58.txt
+│       │       ├── 📄 000019_2025-09-23_10-02-09.txt
+│       │       ├── 📄 000019_2025-09-23_10-02-10.txt
+│       │       ├── 📄 000019_2025-09-23_10-07-20.txt
+│       │       ├── 📄 000020_2025-09-23_09-53-05.txt
+│       │       ├── 📄 000020_2025-09-23_09-53-06.txt
+│       │       ├── 📄 000020_2025-09-23_09-55-58.txt
+│       │       ├── 📄 000020_2025-09-23_10-02-10.txt
+│       │       ├── 📄 000021.txt
+│       │       ├── 📄 000021_2025-09-23_09-53-06.txt
+│       │       ├── 📄 000021_2025-09-23_10-02-10.txt
+│       │       ├── 📄 000022_2025-09-23_09-53-06.txt
+│       │       ├── 📄 000022_2025-09-23_09-53-07.txt
+│       │       ├── 📄 000022_2025-09-23_09-55-59.txt
+│       │       ├── 📄 000022_2025-09-23_10-02-11.txt
+│       │       ├── 📄 000022_2025-09-23_10-07-20.txt
+│       │       ├── 📄 000023.txt
+│       │       ├── 📄 000023_2025-09-23_09-53-07.txt
+│       │       ├── 📄 000023_2025-09-23_09-55-59.txt
+│       │       ├── 📄 000023_2025-09-23_10-02-12.txt
+│       │       ├── 📄 000024_2025-09-23_09-53-07.txt
+│       │       ├── 📄 000024_2025-09-23_09-56-00.txt
+│       │       ├── 📄 000024_2025-09-23_10-02-12.txt
+│       │       ├── 📄 000025_2025-09-23_09-53-08.txt
+│       │       ├── 📄 000025_2025-09-23_09-56-00.txt
+│       │       ├── 📄 000025_2025-09-23_10-02-13.txt
+│       │       ├── 📄 000026.txt
+│       │       ├── 📄 000026_2025-09-23_09-53-08.txt
+│       │       ├── 📄 000026_2025-09-23_09-53-09.txt
+│       │       ├── 📄 000026_2025-09-23_09-56-00.txt
+│       │       ├── 📄 000026_2025-09-23_09-56-01.txt
+│       │       ├── 📄 000026_2025-09-23_10-02-13.txt
+│       │       ├── 📄 000026_2025-09-23_10-02-14.txt
+│       │       ├── 📄 000027_2025-09-23_09-53-09.txt
+│       │       ├── 📄 000027_2025-09-23_09-56-01.txt
+│       │       ├── 📄 000027_2025-09-23_10-02-14.txt
+│       │       ├── 📄 000028_2025-09-23_09-53-09.txt
+│       │       ├── 📄 000028_2025-09-23_09-56-02.txt
+│       │       ├── 📄 000028_2025-09-23_10-02-14.txt
+│       │       ├── 📄 000028_2025-09-23_10-02-15.txt
+│       │       ├── 📄 000029_2025-09-23_09-53-09.txt
+│       │       ├── 📄 000029_2025-09-23_09-56-02.txt
+│       │       ├── 📄 000029_2025-09-23_10-02-15.txt
+│       │       ├── 📄 000030_2025-09-23_09-53-10.txt
+│       │       ├── 📄 000030_2025-09-23_09-56-03.txt
+│       │       ├── 📄 000030_2025-09-23_10-02-15.txt
+│       │       ├── 📄 000031.txt
+│       │       ├── 📄 000031_2025-09-23_09-53-11.txt
+│       │       ├── 📄 000031_2025-09-23_09-56-03.txt
+│       │       ├── 📄 000031_2025-09-23_10-02-16.txt
+│       │       ├── 📄 000031_2025-09-23_10-07-21.txt
+│       │       ├── 📄 000032_2025-09-23_09-53-11.txt
+│       │       ├── 📄 000032_2025-09-23_09-53-12.txt
+│       │       ├── 📄 000032_2025-09-23_09-56-03.txt
+│       │       ├── 📄 000032_2025-09-23_10-02-16.txt
+│       │       ├── 📄 000032_2025-09-23_10-02-17.txt
+│       │       ├── 📄 000033.txt
+│       │       ├── 📄 000033_2025-09-23_09-53-12.txt
+│       │       ├── 📄 000033_2025-09-23_09-56-03.txt
+│       │       ├── 📄 000033_2025-09-23_09-56-04.txt
+│       │       ├── 📄 000033_2025-09-23_10-02-17.txt
+│       │       ├── 📄 000034_2025-09-23_09-53-12.txt
+│       │       ├── 📄 000034_2025-09-23_09-53-13.txt
+│       │       ├── 📄 000034_2025-09-23_09-56-04.txt
+│       │       ├── 📄 000034_2025-09-23_10-02-17.txt
+│       │       ├── 📄 000034_2025-09-23_10-02-18.txt
+│       │       ├── 📄 000035_2025-09-23_09-53-13.txt
+│       │       ├── 📄 000035_2025-09-23_09-56-04.txt
+│       │       ├── 📄 000035_2025-09-23_10-02-18.txt
+│       │       ├── 📄 000036_2025-09-23_09-53-13.txt
+│       │       ├── 📄 000036_2025-09-23_09-53-14.txt
+│       │       ├── 📄 000036_2025-09-23_09-56-04.txt
+│       │       ├── 📄 000036_2025-09-23_09-56-05.txt
+│       │       ├── 📄 000036_2025-09-23_10-02-18.txt
+│       │       ├── 📄 000036_2025-09-23_10-02-19.txt
+│       │       ├── 📄 000037.txt
+│       │       ├── 📄 000037_2025-09-23_09-53-14.txt
+│       │       ├── 📄 000037_2025-09-23_09-56-05.txt
+│       │       ├── 📄 000037_2025-09-23_10-02-19.txt
+│       │       ├── 📄 000038_2025-09-23_09-56-05.txt
+│       │       ├── 📄 000038_2025-09-23_10-02-20.txt
+│       │       ├── 📄 000039_2025-09-23_09-53-15.txt
+│       │       ├── 📄 000039_2025-09-23_09-56-06.txt
+│       │       ├── 📄 000039_2025-09-23_10-02-20.txt
+│       │       ├── 📄 000040_2025-09-23_09-53-15.txt
+│       │       ├── 📄 000040_2025-09-23_09-56-06.txt
+│       │       ├── 📄 000040_2025-09-23_09-56-07.txt
+│       │       ├── 📄 000040_2025-09-23_10-02-21.txt
+│       │       ├── 📄 000041_2025-09-23_09-53-15.txt
+│       │       ├── 📄 000041_2025-09-23_09-53-16.txt
+│       │       ├── 📄 000041_2025-09-23_09-56-07.txt
+│       │       ├── 📄 000041_2025-09-23_10-02-21.txt
+│       │       ├── 📄 000042_2025-09-23_09-53-16.txt
+│       │       ├── 📄 000042_2025-09-23_09-56-07.txt
+│       │       ├── 📄 000042_2025-09-23_10-02-21.txt
+│       │       ├── 📄 000042_2025-09-23_10-02-22.txt
+│       │       ├── 📄 000043_2025-09-23_09-53-17.txt
+│       │       ├── 📄 000043_2025-09-23_09-56-07.txt
+│       │       ├── 📄 000043_2025-09-23_09-56-08.txt
+│       │       ├── 📄 000043_2025-09-23_10-02-22.txt
+│       │       ├── 📄 000044_2025-09-23_09-53-17.txt
+│       │       ├── 📄 000044_2025-09-23_09-56-08.txt
+│       │       ├── 📄 000044_2025-09-23_10-02-22.txt
+│       │       ├── 📄 000045_2025-09-23_09-53-17.txt
+│       │       ├── 📄 000045_2025-09-23_09-53-18.txt
+│       │       ├── 📄 000045_2025-09-23_09-56-08.txt
+│       │       ├── 📄 000045_2025-09-23_10-02-22.txt
+│       │       ├── 📄 000045_2025-09-23_10-02-23.txt
+│       │       ├── 📄 000046.txt
+│       │       ├── 📄 000046_2025-09-23_09-53-18.txt
+│       │       ├── 📄 000046_2025-09-23_09-56-08.txt
+│       │       ├── 📄 000046_2025-09-23_10-02-23.txt
+│       │       ├── 📄 000047_2025-09-23_09-53-19.txt
+│       │       ├── 📄 000047_2025-09-23_09-56-08.txt
+│       │       ├── 📄 000047_2025-09-23_09-56-09.txt
+│       │       ├── 📄 000047_2025-09-23_10-02-23.txt
+│       │       ├── 📄 000047_2025-09-23_10-02-24.txt
+│       │       ├── 📄 000048_2025-09-23_09-53-19.txt
+│       │       ├── 📄 000048_2025-09-23_09-56-09.txt
+│       │       ├── 📄 000048_2025-09-23_09-56-10.txt
+│       │       ├── 📄 000048_2025-09-23_10-02-24.txt
+│       │       ├── 📄 000049_2025-09-23_09-53-19.txt
+│       │       ├── 📄 000049_2025-09-23_09-53-20.txt
+│       │       ├── 📄 000049_2025-09-23_09-56-10.txt
+│       │       ├── 📄 000049_2025-09-23_09-56-11.txt
+│       │       ├── 📄 000049_2025-09-23_10-02-24.txt
+│       │       ├── 📄 000050_2025-09-23_09-53-20.txt
+│       │       ├── 📄 000050_2025-09-23_09-56-11.txt
+│       │       ├── 📄 000050_2025-09-23_10-02-25.txt
+│       │       ├── 📄 000r038.txt
+│       │       ├── 📄 00r0014.txt
+│       │       ├── 📄 00r0032.txt
+│       │       ├── 📄 2025-08-04-15-19-20-410.txt
+│       │       ├── 📄 2025-08-04-15-19-22-078.txt
+│       │       ├── 📄 2025-08-04-15-19-23-744.txt
+│       │       ├── 📄 2025-08-04-15-19-25-439.txt
+│       │       ├── 📄 2025-08-04-15-19-27-144.txt
+│       │       ├── 📄 2025-08-04-15-19-28-783.txt
+│       │       ├── 📄 2025-08-04-15-21-29-721.txt
+│       │       ├── 📄 2025-08-04-15-21-31-376.txt
+│       │       ├── 📄 2025-08-04-15-21-33-060.txt
+│       │       ├── 📄 2025-08-04-15-21-34-762.txt
+│       │       ├── 📄 2025-08-04-15-21-36-412.txt
+│       │       ├── 📄 2025-08-04-15-21-38-081.txt
+│       │       ├── 📄 2025-08-04-15-21-59-921.txt
+│       │       ├── 📄 2025-08-04-15-22-01-822.txt
+│       │       ├── 📄 2025-08-04-15-22-03-510.txt
+│       │       ├── 📄 2025-08-04-15-22-05-190.txt
+│       │       ├── 📄 2025-08-04-15-24-04-412.txt
+│       │       ├── 📄 2025-08-04-15-24-06-102.txt
+│       │       ├── 📄 2025-08-04-15-24-07-756.txt
+│       │       ├── 📄 2025-08-04-15-24-09-389.txt
+│       │       ├── 📄 2025-08-04-15-24-11-089.txt
+│       │       ├── 📄 2025-08-04-15-24-12-767.txt
+│       │       ├── 📄 2025-08-04-15-24-14-396.txt
+│       │       ├── 📄 2025-08-04-15-24-16-006.txt
+│       │       ├── 📄 2025-08-04-15-24-17-679.txt
+│       │       ├── 📄 2025-08-04-15-24-19-323.txt
+│       │       ├── 📄 2025-08-04-15-24-20-633.txt
+│       │       ├── 📄 2025-08-04-15-24-22-240.txt
+│       │       ├── 📄 2025-08-04-15-24-23-900.txt
+│       │       ├── 📄 2025-08-04-15-24-25-540.txt
+│       │       ├── 📄 2025-08-04-15-24-27-164.txt
+│       │       ├── 📄 2025-08-04-15-24-28-164.txt
+│       │       ├── 📄 2025-08-04-15-24-29-845.txt
+│       │       ├── 📄 2025-08-04-15-24-31-494.txt
+│       │       ├── 📄 2025-08-04-15-24-33-130.txt
+│       │       ├── 📄 2025-08-04-15-24-38-163.txt
+│       │       ├── 📄 2025-08-04-15-24-39-864.txt
+│       │       ├── 📄 2025-08-04-15-24-41-529.txt
+│       │       ├── 📄 2025-08-04-15-24-43-208.txt
+│       │       ├── 📄 2025-08-04-15-24-44-852.txt
+│       │       ├── 📄 2025-08-04-15-24-46-544.txt
+│       │       ├── 📄 2025-08-04-15-24-51-779.txt
+│       │       ├── 📄 2025-08-04-15-24-53-460.txt
+│       │       ├── 📄 2025-08-04-15-24-55-177.txt
+│       │       ├── 📄 2025-08-04-15-24-56-847.txt
+│       │       ├── 📄 2025-08-04-15-24-58-526.txt
+│       │       ├── 📄 2025-08-04-15-25-00-216.txt
+│       │       ├── 📄 2025-08-04-15-25-01-894.txt
+│       │       ├── 📄 2025-08-04-15-25-03-605.txt
+│       │       ├── 📄 2025-08-04-15-25-05-253.txt
+│       │       ├── 📄 2025-08-04-15-25-06-962.txt
+│       │       ├── 📄 2025-08-04-15-25-08-641.txt
+│       │       ├── 📄 2025-08-04-15-25-10-355.txt
+│       │       ├── 📄 2025-08-04-15-25-12-053.txt
+│       │       ├── 📄 2025-08-04-15-25-13-706.txt
+│       │       ├── 📄 2025-08-04-15-25-18-703.txt
+│       │       ├── 📄 2025-08-04-15-25-20-387.txt
+│       │       ├── 📄 2025-08-04-15-25-22-053.txt
+│       │       ├── 📄 2025-08-04-15-25-23-739.txt
+│       │       ├── 📄 2025-08-04-15-25-25-400.txt
+│       │       ├── 📄 2025-08-04-15-25-27-082.txt
+│       │       ├── 📄 2025-08-04-15-25-28-742.txt
+│       │       ├── 📄 2025-08-04-15-25-30-435.txt
+│       │       ├── 📄 2025-08-04-15-25-32-117.txt
+│       │       ├── 📄 2025-08-04-15-25-33-802.txt
+│       │       ├── 📄 2025-08-04-15-25-44-447.txt
+│       │       ├── 📄 2025-08-04-15-25-46-080.txt
+│       │       ├── 📄 2025-08-04-15-25-47-772.txt
+│       │       ├── 📄 2025-08-04-15-25-49-438.txt
+│       │       ├── 📄 2025-08-04-15-25-51-104.txt
+│       │       ├── 📄 2025-08-04-15-25-52-773.txt
+│       │       ├── 📄 2025-08-04-15-25-54-438.txt
+│       │       ├── 📄 2025-08-04-15-25-56-105.txt
+│       │       ├── 📄 2025-08-04-15-25-57-797.txt
+│       │       ├── 📄 2025-08-04-15-25-59-466.txt
+│       │       ├── 📄 2025-08-04-15-26-01-255.txt
+│       │       ├── 📄 2025-08-04-15-26-02-955.txt
+│       │       ├── 📄 2025-08-04-15-26-04-622.txt
+│       │       ├── 📄 2025-08-04-15-26-13-126.txt
+│       │       ├── 📄 2025-08-04-15-29-32-683.txt
+│       │       ├── 📄 2025-08-04-15-30-08-326.txt
+│       │       ├── 📄 2025-08-04-15-30-13-420.txt
+│       │       ├── 📄 2025-08-04-15-37-56-676.txt
+│       │       ├── 📄 2025-08-04-15-38-11-293.txt
+│       │       ├── 📄 2025-08-04-15-38-14-912.txt
+│       │       ├── 📄 2025-08-04-15-38-18-463.txt
+│       │       ├── 📄 2025-08-04-15-38-29-022.txt
+│       │       ├── 📄 2025-08-04-15-38-32-399.txt
+│       │       ├── 📄 Fisch_#####_20250805_074816.560Z.txt
+│       │       ├── 📄 Fisch_#####_20250805_074828.077Z.txt
+│       │       ├── 📄 Fisch_#####_20250805_074829.784Z.txt
+│       │       ├── 📄 Fisch_#####_20250805_074832.112Z.txt
+│       │       ├── 📄 Fisch_#####_20250805_074834.417Z.txt
+│       │       ├── 📄 Fisch_#####_20250805_074836.746Z.txt
+│       │       ├── 📄 Fisch_#####_20250805_074839.072Z.txt
+│       │       ├── 📄 Fisch_#####_20250805_074841.377Z.txt
+│       │       ├── 📄 Fisch_#####_20250805_074843.672Z.txt
+│       │       ├── 📄 Fisch_#####_20250805_074846.007Z.txt
+│       │       ├── 📄 Fisch_#####_20250805_074848.314Z.txt
+│       │       ├── 📄 Fisch_#####_20250805_074850.637Z.txt
+│       │       ├── 📄 Fisch_#####_20250805_074855.271Z.txt
+│       │       ├── 📄 Fisch_#####_20250805_074857.570Z.txt
+│       │       ├── 📄 Fisch_#####_20250805_074859.437Z.txt
+│       │       ├── 📄 Fisch_#####_20250805_074901.737Z.txt
+│       │       ├── 📄 Fisch_#####_20250805_074906.337Z.txt
+│       │       ├── 📄 Fisch_#####_20250805_074913.231Z.txt
+│       │       ├── 📄 Fisch_#####_20250805_074915.533Z.txt
+│       │       ├── 📄 Fisch_#####_20250805_074920.157Z.txt
+│       │       ├── 📄 Fisch_#####_20250805_074922.467Z.txt
+│       │       ├── 📄 Fisch_#####_20250805_074924.760Z.txt
+│       │       ├── 📄 Fisch_#####_20250805_074927.098Z.txt
+│       │       ├── 📄 Fisch_#####_20250805_074936.421Z.txt
+│       │       ├── 📄 Fisch_#####_20250805_074941.086Z.txt
+│       │       ├── 📄 Fisch_#####_20250805_074943.394Z.txt
+│       │       ├── 📄 Fisch_#####_20250805_074945.727Z.txt
+│       │       ├── 📄 Fisch_#####_20250805_075045.837Z.txt
+│       │       ├── 📄 Fisch_#####_20250805_095430.033Z.txt
+│       │       ├── 📄 Fisch_#####_20250805_095441.586Z.txt
+│       │       ├── 📄 Fisch_#####_20250805_095443.891Z.txt
+│       │       ├── 📄 Fisch_#####_20250805_095446.193Z.txt
+│       │       ├── 📄 Fisch_#####_20250805_095448.492Z.txt
+│       │       ├── 📄 Fisch_#####_20250805_095450.793Z.txt
+│       │       ├── 📄 Fisch_#####_20250805_095453.093Z.txt
+│       │       ├── 📄 Fisch_#####_20250805_095455.393Z.txt
+│       │       ├── 📄 Fisch_#####_20250805_095459.985Z.txt
+│       │       ├── 📄 Fisch_#####_20250805_095520.944Z.txt
+│       │       ├── 📄 Fisch_#####_20250805_095523.248Z.txt
+│       │       ├── 📄 Fisch_#####_20250805_095644.512Z.txt
+│       │       ├── 📄 Fisch_20250808_112845.550Z.txt
+│       │       ├── 📄 Fisch_20250808_112850.150Z.txt
+│       │       ├── 📄 Fisch_20250808_113014.624Z.txt
+│       │       ├── 📄 Fisch_20250808_113016.923Z.txt
+│       │       ├── 📄 Fisch_20250808_113019.230Z.txt
+│       │       ├── 📄 Fisch_20250808_113021.554Z.txt
+│       │       ├── 📄 Fisch_20250808_113023.854Z.txt
+│       │       ├── 📄 Fisch_20250808_113040.082Z.txt
+│       │       ├── 📄 Fisch_20250808_113049.350Z.txt
+│       │       ├── 📄 Fisch_20250808_113243.344Z.txt
+│       │       ├── 📄 Fisch_20250808_113245.646Z.txt
+│       │       ├── 📄 Fisch_20250808_113247.939Z.txt
+│       │       ├── 📄 Fisch_20250808_113250.234Z.txt
+│       │       ├── 📄 Fisch_20250808_113252.545Z.txt
+│       │       ├── 📄 Fisch_20250808_113254.907Z.txt
+│       │       ├── 📄 Fisch_20250808_113257.210Z.txt
+│       │       ├── 📄 Fisch_20250808_113259.506Z.txt
+│       │       ├── 📄 Fisch_20250808_113301.837Z.txt
+│       │       ├── 📄 Fisch_20250808_113304.168Z.txt
+│       │       ├── 📄 Fisch_20250808_113306.495Z.txt
+│       │       ├── 📄 Fisch_20250808_113308.839Z.txt
+│       │       ├── 📄 Fisch_20250808_113311.138Z.txt
+│       │       ├── 📄 Fisch_20250808_113313.463Z.txt
+│       │       ├── 📄 Fisch_20250808_113336.587Z.txt
+│       │       ├── 📄 Fisch_20250808_113338.587Z.txt
+│       │       ├── 📄 Fisch_20250808_113340.891Z.txt
+│       │       ├── 📄 Fisch_20250808_113350.154Z.txt
+│       │       ├── 📄 Fisch_20250808_113357.084Z.txt
+│       │       ├── 📄 Fisch_20250808_113359.455Z.txt
+│       │       ├── 📄 Fisch_20250808_113404.122Z.txt
+│       │       ├── 📄 Fisch_20250808_113424.945Z.txt
+│       │       ├── 📄 Fisch_20250808_113434.234Z.txt
+│       │       ├── 📄 Fisch_20250808_113436.539Z.txt
+│       │       ├── 📄 Fisch_20250808_113443.499Z.txt
+│       │       ├── 📄 Fisch_20250808_113459.688Z.txt
+│       │       ├── 📄 Fisch_20250808_113501.996Z.txt
+│       │       ├── 📄 Fisch_20250808_113504.300Z.txt
+│       │       ├── 📄 Fisch_20250808_113506.585Z.txt
+│       │       ├── 📄 Fisch_20250808_113508.901Z.txt
+│       │       ├── 📄 Fisch_20250808_113513.531Z.txt
+│       │       ├── 📄 Fisch_20250808_113515.819Z.txt
+│       │       ├── 📄 Fisch_20250808_113518.125Z.txt
+│       │       ├── 📄 Fisch_20250808_113520.455Z.txt
+│       │       ├── 📄 Fisch_20250808_113522.753Z.txt
+│       │       ├── 📄 Fisch_20250808_113525.083Z.txt
+│       │       ├── 📄 Fisch_20250808_113527.391Z.txt
+│       │       ├── 📄 Fisch_20250808_113529.750Z.txt
+│       │       ├── 📄 Fisch_20250808_113532.061Z.txt
+│       │       ├── 📄 Fisch_20250808_113534.384Z.txt
+│       │       ├── 📄 Fisch_20250808_113536.682Z.txt
+│       │       ├── 📄 Fisch_20250808_113538.979Z.txt
+│       │       ├── 📄 Fisch_20250808_113541.288Z.txt
+│       │       ├── 📄 Fisch_20250808_113543.581Z.txt
+│       │       ├── 📄 Fisch_20250808_113545.883Z.txt
+│       │       ├── 📄 Fisch_20250808_113548.172Z.txt
+│       │       ├── 📄 Fisch_20250808_113550.485Z.txt
+│       │       ├── 📄 Fisch_20250808_113552.512Z.txt
+│       │       ├── 📄 Fisch_20250808_113554.805Z.txt
+│       │       ├── 📄 Fisch_20250808_113557.110Z.txt
+│       │       ├── 📄 Fisch_20250808_113819.827Z.txt
+│       │       ├── 📄 Fisch_20250808_113822.165Z.txt
+│       │       ├── 📄 Fisch_20250808_113846.934Z.txt
+│       │       ├── 📄 Fisch_20250808_113849.254Z.txt
+│       │       ├── 📄 Fisch_20250808_113853.893Z.txt
+│       │       ├── 📄 Fisch_20250808_113856.220Z.txt
+│       │       ├── 📄 Fisch_20250808_113905.443Z.txt
+│       │       ├── 📄 Fisch_20250808_113907.750Z.txt
+│       │       ├── 📄 Fisch_20250808_113940.203Z.txt
+│       │       ├── 📄 Fisch_20250808_113944.830Z.txt
+│       │       ├── 📄 Fisch_20250808_113949.441Z.txt
+│       │       ├── 📄 Fisch_20250808_113951.766Z.txt
+│       │       ├── 📄 Fisch_20250808_113958.732Z.txt
+│       │       ├── 📄 Fisch_20250808_114001.032Z.txt
+│       │       ├── 📄 Fisch_20250808_114005.661Z.txt
+│       │       ├── 📄 Fisch_20250808_114014.901Z.txt
+│       │       ├── 📄 Fisch_20250810_050459.087Z.txt
+│       │       ├── 📄 Fisch_20250810_050549.071Z.txt
+│       │       ├── 📄 Fisch_20250810_050601.667Z.txt
+│       │       ├── 📄 Fisch_20250810_050910.107Z.txt
+│       │       ├── 📄 Fisch_20250810_050921.632Z.txt
+│       │       ├── 📄 Fisch_20250810_050934.288Z.txt
+│       │       ├── 📄 Fisch_20250810_050940.594Z.txt
+│       │       ├── 📄 Fisch_20250810_051113.762Z.txt
+│       │       ├── 📄 Fisch_20250810_051120.099Z.txt
+│       │       ├── 📄 Fisch_20250810_051126.418Z.txt
+│       │       ├── 📄 Fisch_20250810_051350.958Z.txt
+│       │       ├── 📄 Fisch_20250810_051412.847Z.txt
+│       │       ├── 📄 Fisch_20250810_051414.168Z.txt
+│       │       ├── 📄 Fisch_20250810_051416.013Z.txt
+│       │       ├── 📄 Fisch_20250810_051417.807Z.txt
+│       │       ├── 📄 Fisch_20250810_051419.177Z.txt
+│       │       ├── 📄 Fisch_20250810_051420.975Z.txt
+│       │       ├── 📄 Fisch_20250810_051422.810Z.txt
+│       │       ├── 📄 Fisch_20250810_051424.637Z.txt
+│       │       ├── 📄 Fisch_20250810_051425.777Z.txt
+│       │       ├── 📄 Fisch_20250810_051427.608Z.txt
+│       │       ├── 📄 Fisch_20250810_051428.776Z.txt
+│       │       ├── 📄 Fisch_20250810_051430.040Z.txt
+│       │       ├── 📄 Fisch_20250810_051431.842Z.txt
+│       │       ├── 📄 Fisch_20250810_051433.439Z.txt
+│       │       ├── 📄 Fisch_20250810_051434.570Z.txt
+│       │       ├── 📄 Fisch_20250810_051436.371Z.txt
+│       │       ├── 📄 Fisch_20250810_051438.167Z.txt
+│       │       ├── 📄 Fisch_20250810_051516.793Z.txt
+│       │       ├── 📄 Fisch_20250810_051518.584Z.txt
+│       │       ├── 📄 Fisch_20250810_051520.394Z.txt
+│       │       ├── 📄 Fisch_20250810_051538.382Z.txt
+│       │       ├── 📄 Fisch_20250810_051540.178Z.txt
+│       │       ├── 📄 Fisch_20250810_051543.815Z.txt
+│       │       ├── 📄 Fisch_20250810_051545.645Z.txt
+│       │       ├── 📄 Fisch_20250810_051551.075Z.txt
+│       │       ├── 📄 Fisch_20250810_051552.908Z.txt
+│       │       ├── 📄 Fisch_20250810_051554.706Z.txt
+│       │       ├── 📄 Fisch_20250810_051558.311Z.txt
+│       │       ├── 📄 Fisch_20250810_051629.028Z.txt
+│       │       ├── 📄 Fisch_20250810_051630.825Z.txt
+│       │       ├── 📄 Fisch_20250810_051632.630Z.txt
+│       │       ├── 📄 Fisch_20250810_051737.740Z.txt
+│       │       ├── 📄 Fisch_20250810_051739.544Z.txt
+│       │       ├── 📄 Fisch_20250810_051740.576Z.txt
+│       │       ├── 📄 Fisch_20250810_051741.604Z.txt
+│       │       ├── 📄 Fisch_20250810_051742.615Z.txt
+│       │       ├── 📄 Fisch_20250810_051743.642Z.txt
+│       │       ├── 📄 Fisch_20250810_051744.675Z.txt
+│       │       ├── 📄 Fisch_20250810_051746.520Z.txt
+│       │       ├── 📄 Fisch_20250810_051748.078Z.txt
+│       │       ├── 📄 Fisch_20250810_051749.867Z.txt
+│       │       ├── 📄 Fisch_20250810_051751.719Z.txt
+│       │       ├── 📄 Fisch_20250810_051753.537Z.txt
+│       │       ├── 📄 Fisch_20250810_051757.176Z.txt
+│       │       ├── 📄 Fisch_20250810_051808.109Z.txt
+│       │       ├── 📄 Fisch_20250810_051809.931Z.txt
+│       │       ├── 📄 Fisch_20250810_051811.766Z.txt
+│       │       ├── 📄 Fisch_20250810_051813.600Z.txt
+│       │       ├── 📄 Fisch_20250810_051815.438Z.txt
+│       │       ├── 📄 Fisch_20250810_051820.925Z.txt
+│       │       ├── 📄 Fisch_20250810_051822.722Z.txt
+│       │       ├── 📄 Fisch_20250810_051824.525Z.txt
+│       │       ├── 📄 Fisch_20250810_051826.372Z.txt
+│       │       ├── 📄 Fisch_20250810_051828.198Z.txt
+│       │       ├── 📄 Fisch_20250810_051829.957Z.txt
+│       │       ├── 📄 Fisch_20250812_132750.600Z.txt
+│       │       ├── 📄 Fisch_20250812_133511.289Z.txt
+│       │       ├── 📄 Fisch_20250813_051501Z.txt
+│       │       ├── 📄 Fisch_20250813_051508Z.txt
+│       │       ├── 📄 Fisch_20250813_051510Z.txt
+│       │       ├── 📄 Fisch_20250813_051513Z.txt
+│       │       ├── 📄 Fisch_20250813_051515Z.txt
+│       │       ├── 📄 Fisch_20250813_051517Z.txt
+│       │       ├── 📄 Fisch_20250813_051520Z.txt
+│       │       ├── 📄 Fisch_20250813_051531Z.txt
+│       │       ├── 📄 Fisch_20250813_051533Z.txt
+│       │       ├── 📄 Fisch_20250813_051536Z.txt
+│       │       ├── 📄 Fisch_20250813_051545Z.txt
+│       │       ├── 📄 Fisch_20250813_051547Z.txt
+│       │       ├── 📄 Fisch_20250813_051549Z.txt
+│       │       ├── 📄 Fisch_20250813_051552Z.txt
+│       │       ├── 📄 Fisch_20250813_051554Z.txt
+│       │       ├── 📄 Fisch_20250813_051556Z.txt
+│       │       ├── 📄 Fisch_20250813_051559Z.txt
+│       │       ├── 📄 Fisch_20250813_051601Z.txt
+│       │       ├── 📄 Fisch_20250813_051603Z.txt
+│       │       ├── 📄 Fisch_20250813_051605Z.txt
+│       │       ├── 📄 Fisch_20250813_051617Z.txt
+│       │       ├── 📄 Fisch_20250813_051619Z.txt
+│       │       ├── 📄 Fisch_20250813_051621Z.txt
+│       │       ├── 📄 Fisch_20250813_051624Z.txt
+│       │       ├── 📄 Fisch_20250813_051626Z.txt
+│       │       ├── 📄 Fisch_20250813_051633Z.txt
+│       │       ├── 📄 Fisch_20250813_051635Z.txt
+│       │       ├── 📄 Fisch_20250813_051637Z.txt
+│       │       ├── 📄 Fisch_20250813_051640Z.txt
+│       │       ├── 📄 Fisch_20250813_051642Z.txt
+│       │       ├── 📄 Fisch_20250813_051647Z.txt
+│       │       ├── 📄 Fisch_20250813_051651Z.txt
+│       │       ├── 📄 Fisch_20250813_051653Z.txt
+│       │       ├── 📄 Fisch_20250813_051656Z.txt
+│       │       ├── 📄 Fisch_20250813_051658Z.txt
+│       │       ├── 📄 Fisch_20250813_051700Z.txt
+│       │       ├── 📄 Fisch_20250813_051705Z.txt
+│       │       ├── 📄 Fisch_20250813_051707Z.txt
+│       │       ├── 📄 Fisch_20250813_051710Z.txt
+│       │       ├── 📄 Fisch_20250813_051712Z.txt
+│       │       ├── 📄 Fisch_20250813_051716Z.txt
+│       │       ├── 📄 Fisch_20250813_051719Z.txt
+│       │       ├── 📄 Fisch_20250813_051721Z.txt
+│       │       ├── 📄 Fisch_20250813_051728Z.txt
+│       │       ├── 📄 Fisch_20250813_051735Z.txt
+│       │       ├── 📄 Fisch_20250813_051739Z.txt
+│       │       ├── 📄 Fisch_20250813_051742Z.txt
+│       │       ├── 📄 Fisch_20250813_051744Z.txt
+│       │       ├── 📄 Fisch_20250813_051746Z.txt
+│       │       ├── 📄 Fisch_20250813_051749Z.txt
+│       │       ├── 📄 Fisch_20250813_051751Z.txt
+│       │       ├── 📄 Fisch_20250813_051753Z.txt
+│       │       ├── 📄 Fisch_20250813_051755Z.txt
+│       │       ├── 📄 Fisch_20250813_051758Z.txt
+│       │       ├── 📄 Fisch_20250813_051800Z.txt
+│       │       ├── 📄 Fisch_20250813_051802Z.txt
+│       │       ├── 📄 Fisch_20250813_051805Z.txt
+│       │       ├── 📄 Fisch_20250813_051807Z.txt
+│       │       ├── 📄 Fisch_20250813_051809Z.txt
+│       │       ├── 📄 Fisch_20250813_051811Z.txt
+│       │       ├── 📄 Fisch_20250813_051814Z.txt
+│       │       ├── 📄 Fisch_20250813_051816Z.txt
+│       │       ├── 📄 Fisch_20250813_051818Z.txt
+│       │       ├── 📄 Fisch_20250813_051821Z.txt
+│       │       ├── 📄 Fisch_20250813_051823Z.txt
+│       │       ├── 📄 Fisch_20250813_051825Z.txt
+│       │       ├── 📄 Fisch_20250813_051828Z.txt
+│       │       ├── 📄 Fisch_20250813_051830Z.txt
+│       │       ├── 📄 Fisch_20250813_051832Z.txt
+│       │       ├── 📄 Fisch_20250813_051839Z.txt
+│       │       ├── 📄 Fisch_20250813_051841Z.txt
+│       │       ├── 📄 Fisch_20250813_051844Z.txt
+│       │       ├── 📄 Fisch_20250813_051846Z.txt
+│       │       ├── 📄 Fisch_20250813_051850Z.txt
+│       │       ├── 📄 Fisch_20250813_051853Z.txt
+│       │       ├── 📄 Fisch_20250813_051855Z.txt
+│       │       ├── 📄 Fisch_20250813_051857Z.txt
+│       │       ├── 📄 Fisch_20250813_051900Z.txt
+│       │       ├── 📄 Fisch_20250813_051902Z.txt
+│       │       ├── 📄 Fisch_20250813_051904Z.txt
+│       │       ├── 📄 Fisch_20250813_051906Z.txt
+│       │       ├── 📄 Fisch_20250813_051909Z.txt
+│       │       ├── 📄 Fisch_20250813_051911Z.txt
+│       │       ├── 📄 Fisch_20250813_051916Z.txt
+│       │       ├── 📄 Fisch_20250813_051918Z.txt
+│       │       ├── 📄 Fisch_20250813_051923Z.txt
+│       │       ├── 📄 Fisch_20250813_051925Z.txt
+│       │       ├── 📄 Fisch_20250813_051927Z.txt
+│       │       ├── 📄 Fisch_20250813_051929Z.txt
+│       │       ├── 📄 Fisch_20250813_051934Z.txt
+│       │       ├── 📄 Fisch_20250813_051936Z.txt
+│       │       ├── 📄 Fisch_20250813_051939Z.txt
+│       │       ├── 📄 Fisch_20250813_051941Z.txt
+│       │       ├── 📄 Fisch_20250813_051943Z.txt
+│       │       ├── 📄 Fisch_20250813_051945Z.txt
+│       │       ├── 📄 Fisch_20250813_051948Z.txt
+│       │       ├── 📄 Fisch_20250813_051950Z.txt
+│       │       ├── 📄 Fisch_20250813_051952Z.txt
+│       │       ├── 📄 Fisch_20250813_051955Z.txt
+│       │       ├── 📄 Fisch_20250813_052034Z.txt
+│       │       ├── 📄 Fisch_20250813_052036Z.txt
+│       │       ├── 📄 Fisch_20250813_052038Z.txt
+│       │       ├── 📄 Fisch_20250813_052040Z.txt
+│       │       ├── 📄 Fisch_20250813_052043Z.txt
+│       │       ├── 📄 Fisch_20250813_052045Z.txt
+│       │       ├── 📄 Fisch_20250813_052101Z.txt
+│       │       ├── 📄 Fisch_20250813_052103Z.txt
+│       │       ├── 📄 Fisch_20250813_052110Z.txt
+│       │       ├── 📄 Fisch_20250813_052112Z.txt
+│       │       ├── 📄 Fisch_20250813_052115Z.txt
+│       │       ├── 📄 Fisch_20250813_052117Z.txt
+│       │       ├── 📄 Fisch_20250813_052119Z.txt
+│       │       ├── 📄 Fisch_20250813_052122Z.txt
+│       │       ├── 📄 Fisch_20250813_052124Z.txt
+│       │       ├── 📄 Fisch_20250813_052126Z.txt
+│       │       ├── 📄 Fisch_20250813_052129Z.txt
+│       │       ├── 📄 Fisch_20250813_052131Z.txt
+│       │       ├── 📄 Fisch_20250813_052133Z.txt
+│       │       ├── 📄 Fisch_20250813_052135Z.txt
+│       │       ├── 📄 Fisch_20250813_052321Z.txt
+│       │       ├── 📄 Fisch_20250813_052554Z.txt
+│       │       ├── 📄 Fisch_20250813_052556Z.txt
+│       │       └── 📄 Fisch_20250813_052610Z.txt
+│       └── 📄 yolo_riff.yaml
+├── 📁 docs
+│   ├── 📄 README2.md
+│   ├── 📄 Wie mask_rcnn arbeitet.md
+│   ├── 📄 diagramm erklärung.md
+│   ├── 📄 ram optimierung.txt
+│   ├── 📄 wie resnet18 funktioniert.md
+│   ├── 📄 wie yolov8n funktioniert.md
+│   └── 📄 yolov8_trainer_parameter.md
+├── 📄 import_analyse_ergebnis.txt
+├── 📁 instructions
+│   ├── 📄 dataset_links.txt
+│   └── 📄 download_instructions.md
+├── 📁 models
+│   └── 📁 yolov8n
+│       └── 📁 riffbarsch_taucher_run
+│           └── 📄 args.yaml
+├── 📄 requirements-dev.txt
+├── 📄 requirements.txt
+└── 📁 src
+    └── 📁 riffbarsch
+        ├── 📄 __init__.py
+        ├── 📄 config.py
+        ├── 📁 core
+        │   ├── 📄 __init__.py
+        │   ├── 📄 config.py
+        │   └── 📄 model_manager.py
+        ├── 📄 main_v1.py
+        ├── 📄 main_v2.py
+        ├── 📄 main_v3.py
+        ├── 📄 main_v4.py
+        ├── 📄 mask_rcnn_visualisierung.py
+        ├── 📄 mod_010_fotos_haendisch_einteilen.py
+        ├── 📄 mod_020_hard_negativ_bilder_scrappen.py
+        ├── 📄 mod_030_data_augmentation.py
+        ├── 📄 mod_040_resnet_daten_aufteilen.py
+        ├── 📄 mod_050_resnet18_train.py
+        ├── 📄 mod_060_yolo_daten_aufteilen_v2.py
+        ├── 📄 mod_070_yolov8n_train.py
+        ├── 📄 mod_080_mask_r_cnn_daten_aufteilen.py
+        ├── 📄 mod_090_yolo_sam_maske_erzeugen.py
+        ├── 📄 mod_090_yolo_sam_maske_erzeugen_turbo.py
+        ├── 📄 mod_100_mask_r_cnn_train.py
+        ├── 📄 mod_101_mask_r_cnn_train_ram_turbo.py
+        ├── 📄 mod_997_gitkeep_einfügen.py
+        ├── 📄 mod_998_finde_alle_funktionen.py
+        ├── 📄 mod_999_projekt_analyse_v2.py
+        ├── 📄 test_visualisierung.py
+        ├── 📁 utils
+        │   ├── 📄 __init__.py
+        │   ├── 📄 helper.py
+        │   └── 📄 konstanten.py
+        └── 📄 yolov8_visualize_final.py
+
+================================================================================
+
+📄 Python-Dateien:
+----------------------------------------
+__init__ → E:/dev/projekt_python_venv/010_Riffbarsch\src\riffbarsch\utils\__init__.py
+config → E:/dev/projekt_python_venv/010_Riffbarsch\src\riffbarsch\core\config.py
+model_manager → E:/dev/projekt_python_venv/010_Riffbarsch\src\riffbarsch\core\model_manager.py
+main_v1 → E:/dev/projekt_python_venv/010_Riffbarsch\src\riffbarsch\main_v1.py
+main_v2 → E:/dev/projekt_python_venv/010_Riffbarsch\src\riffbarsch\main_v2.py
+main_v3 → E:/dev/projekt_python_venv/010_Riffbarsch\src\riffbarsch\main_v3.py
+main_v4 → E:/dev/projekt_python_venv/010_Riffbarsch\src\riffbarsch\main_v4.py
+mask_rcnn_visualisierung → E:/dev/projekt_python_venv/010_Riffbarsch\src\riffbarsch\mask_rcnn_visualisierung.py
+mod_010_fotos_haendisch_einteilen → E:/dev/projekt_python_venv/010_Riffbarsch\src\riffbarsch\mod_010_fotos_haendisch_einteilen.py
+mod_020_hard_negativ_bilder_scrappen → E:/dev/projekt_python_venv/010_Riffbarsch\src\riffbarsch\mod_020_hard_negativ_bilder_scrappen.py
+mod_030_data_augmentation → E:/dev/projekt_python_venv/010_Riffbarsch\src\riffbarsch\mod_030_data_augmentation.py
+mod_040_resnet_daten_aufteilen → E:/dev/projekt_python_venv/010_Riffbarsch\src\riffbarsch\mod_040_resnet_daten_aufteilen.py
+mod_050_resnet18_train → E:/dev/projekt_python_venv/010_Riffbarsch\src\riffbarsch\mod_050_resnet18_train.py
+mod_060_yolo_daten_aufteilen_v2 → E:/dev/projekt_python_venv/010_Riffbarsch\src\riffbarsch\mod_060_yolo_daten_aufteilen_v2.py
+mod_070_yolov8n_train → E:/dev/projekt_python_venv/010_Riffbarsch\src\riffbarsch\mod_070_yolov8n_train.py
+mod_080_mask_r_cnn_daten_aufteilen → E:/dev/projekt_python_venv/010_Riffbarsch\src\riffbarsch\mod_080_mask_r_cnn_daten_aufteilen.py
+mod_090_yolo_sam_maske_erzeugen → E:/dev/projekt_python_venv/010_Riffbarsch\src\riffbarsch\mod_090_yolo_sam_maske_erzeugen.py
+mod_090_yolo_sam_maske_erzeugen_turbo → E:/dev/projekt_python_venv/010_Riffbarsch\src\riffbarsch\mod_090_yolo_sam_maske_erzeugen_turbo.py
+mod_100_mask_r_cnn_train → E:/dev/projekt_python_venv/010_Riffbarsch\src\riffbarsch\mod_100_mask_r_cnn_train.py
+mod_101_mask_r_cnn_train_ram_turbo → E:/dev/projekt_python_venv/010_Riffbarsch\src\riffbarsch\mod_101_mask_r_cnn_train_ram_turbo.py
+mod_997_gitkeep_einfügen → E:/dev/projekt_python_venv/010_Riffbarsch\src\riffbarsch\mod_997_gitkeep_einfügen.py
+mod_998_finde_alle_funktionen → E:/dev/projekt_python_venv/010_Riffbarsch\src\riffbarsch\mod_998_finde_alle_funktionen.py
+mod_999_projekt_analyse_v2 → E:/dev/projekt_python_venv/010_Riffbarsch\src\riffbarsch\mod_999_projekt_analyse_v2.py
+test_visualisierung → E:/dev/projekt_python_venv/010_Riffbarsch\src\riffbarsch\test_visualisierung.py
+helper → E:/dev/projekt_python_venv/010_Riffbarsch\src\riffbarsch\utils\helper.py
+konstanten → E:/dev/projekt_python_venv/010_Riffbarsch\src\riffbarsch\utils\konstanten.py
+yolov8_visualize_final → E:/dev/projekt_python_venv/010_Riffbarsch\src\riffbarsch\yolov8_visualize_final.py
+
+🔗 Verwendete Module:
+----------------------------------------
+config verwendet in:
+  └── model_manager
+  └── mod_060_yolo_daten_aufteilen_v2
+  └── mod_999_projekt_analyse_v2
+
+🧹 Nicht verwendete Dateien:
+----------------------------------------
+❌ E:/dev/projekt_python_venv/010_Riffbarsch\src\riffbarsch\mod_030_data_augmentation.py
+❌ E:/dev/projekt_python_venv/010_Riffbarsch\src\riffbarsch\mod_080_mask_r_cnn_daten_aufteilen.py
+❌ E:/dev/projekt_python_venv/010_Riffbarsch\src\riffbarsch\main_v4.py
+❌ E:/dev/projekt_python_venv/010_Riffbarsch\src\riffbarsch\mod_050_resnet18_train.py
+❌ E:/dev/projekt_python_venv/010_Riffbarsch\src\riffbarsch\mod_040_resnet_daten_aufteilen.py
+❌ E:/dev/projekt_python_venv/010_Riffbarsch\src\riffbarsch\yolov8_visualize_final.py
+❌ E:/dev/projekt_python_venv/010_Riffbarsch\src\riffbarsch\mod_020_hard_negativ_bilder_scrappen.py
+❌ E:/dev/projekt_python_venv/010_Riffbarsch\src\riffbarsch\mod_998_finde_alle_funktionen.py
+❌ E:/dev/projekt_python_venv/010_Riffbarsch\src\riffbarsch\mod_060_yolo_daten_aufteilen_v2.py
+❌ E:/dev/projekt_python_venv/010_Riffbarsch\src\riffbarsch\mod_090_yolo_sam_maske_erzeugen_turbo.py
+❌ E:/dev/projekt_python_venv/010_Riffbarsch\src\riffbarsch\mod_997_gitkeep_einfügen.py
+❌ E:/dev/projekt_python_venv/010_Riffbarsch\src\riffbarsch\main_v3.py
+❌ E:/dev/projekt_python_venv/010_Riffbarsch\src\riffbarsch\mod_090_yolo_sam_maske_erzeugen.py
+❌ E:/dev/projekt_python_venv/010_Riffbarsch\src\riffbarsch\utils\konstanten.py
+❌ E:/dev/projekt_python_venv/010_Riffbarsch\src\riffbarsch\mod_100_mask_r_cnn_train.py
+❌ E:/dev/projekt_python_venv/010_Riffbarsch\src\riffbarsch\mod_070_yolov8n_train.py
+❌ E:/dev/projekt_python_venv/010_Riffbarsch\src\riffbarsch\main_v2.py
+❌ E:/dev/projekt_python_venv/010_Riffbarsch\src\riffbarsch\mod_010_fotos_haendisch_einteilen.py
+❌ E:/dev/projekt_python_venv/010_Riffbarsch\src\riffbarsch\utils\helper.py
+❌ E:/dev/projekt_python_venv/010_Riffbarsch\src\riffbarsch\core\model_manager.py
+❌ E:/dev/projekt_python_venv/010_Riffbarsch\src\riffbarsch\main_v1.py
+❌ E:/dev/projekt_python_venv/010_Riffbarsch\src\riffbarsch\mask_rcnn_visualisierung.py
+❌ E:/dev/projekt_python_venv/010_Riffbarsch\src\riffbarsch\mod_999_projekt_analyse_v2.py
+❌ E:/dev/projekt_python_venv/010_Riffbarsch\src\riffbarsch\mod_101_mask_r_cnn_train_ram_turbo.py
+
+📝 Funktionen pro Datei:
+----------------------------------------
+E:/dev/projekt_python_venv/010_Riffbarsch\src\riffbarsch\__init__.py:
+E:/dev/projekt_python_venv/010_Riffbarsch\src\riffbarsch\config.py:
+E:/dev/projekt_python_venv/010_Riffbarsch\src\riffbarsch\core\__init__.py:
+E:/dev/projekt_python_venv/010_Riffbarsch\src\riffbarsch\core\config.py:
+  - validate_paths()
+  - create_directories()
+  - get_device_info()
+E:/dev/projekt_python_venv/010_Riffbarsch\src\riffbarsch\core\model_manager.py:
+  - __init__()
+  - load_models()
+  - load_resnet()
+  - load_yolo()
+  - resnet_available()
+  - yolo_available()
+  - models_loaded()
+  - get_model_info()
+  - cleanup()
+E:/dev/projekt_python_venv/010_Riffbarsch\src\riffbarsch\main_v1.py:
+  - __init__()
+  - load_models()
+  - get_resnet_model()
+  - get_yolo_model()
+  - resnet_available()
+  - yolo_available()
+  - __init__()
+  - load_image()
+  - get_image()
+  - get_image_for_display()
+  - get_image_tensor_for_resnet()
+  - __init__()
+  - _on_enter()
+  - _on_leave()
+  - __init__()
+  - set_image()
+  - clear()
+  - __init__()
+  - setup_ui()
+  - __init__()
+  - setup_ui()
+  - create_header()
+  - create_main_area()
+  - create_upload_tab()
+  - create_analysis_tab()
+  - create_status_bar()
+  - update_status()
+  - on_tab_changed()
+  - load_image()
+  - clear_image()
+  - create_rgb_histogram()
+  - update_analysis_display()
+  - start_classification()
+  - _run_classification_thread()
+  - _update_classification_ui()
+  - _create_classification_chart()
+  - start_detection()
+  - _run_detection_thread()
+  - _update_detection_ui()
+  - _create_detection_chart()
+  - start_segmentation()
+  - _run_segmentation_thread()
+  - _create_adaptive_segmentation()
+  - _create_fish_mask()
+  - _update_segmentation_ui()
+  - _create_segmentation_chart()
+  - run()
+  - on_closing()
+E:/dev/projekt_python_venv/010_Riffbarsch\src\riffbarsch\main_v2.py:
+  - create_adaptive_mask()
+  - create_elliptical_mask()
+  - open_image()
+  - run_classification()
+  - run_detection()
+  - run_segmentation()
+E:/dev/projekt_python_venv/010_Riffbarsch\src\riffbarsch\main_v3.py:
+  - __init__()
+  - load_models()
+  - get_resnet_model()
+  - get_yolo_model()
+  - resnet_available()
+  - yolo_available()
+  - __init__()
+  - load_image()
+  - get_image()
+  - get_image_for_display()
+  - get_image_tensor_for_resnet()
+  - __init__()
+  - _on_enter()
+  - _on_leave()
+  - __init__()
+  - set_image()
+  - clear()
+  - __init__()
+  - setup_ui()
+  - __init__()
+  - setup_ui()
+  - create_header()
+  - create_main_area()
+  - create_upload_tab()
+  - create_analysis_tab()
+  - create_status_bar()
+  - update_status()
+  - on_tab_changed()
+  - load_image()
+  - clear_image()
+  - create_rgb_histogram()
+  - update_analysis_display()
+  - start_classification()
+  - _run_classification_thread()
+  - _update_classification_ui()
+  - _create_classification_chart()
+  - start_detection()
+  - _run_detection_thread()
+  - _update_detection_ui()
+  - _create_detection_chart()
+  - start_segmentation()
+  - _run_segmentation_thread()
+  - _create_adaptive_segmentation()
+  - _create_fish_mask()
+  - _update_segmentation_ui()
+  - _create_segmentation_chart()
+  - run()
+  - on_closing()
+E:/dev/projekt_python_venv/010_Riffbarsch\src\riffbarsch\main_v4.py:
+  - open_image()
+  - run_classification()
+  - run_detection()
+E:/dev/projekt_python_venv/010_Riffbarsch\src\riffbarsch\mask_rcnn_visualisierung.py:
+  - main()
+  - __init__()
+  - lade_modell()
+  - sammle_training_statistiken()
+  - teste_modell_performance()
+  - erstelle_loss_diagramme()
+  - erstelle_3d_loss_landschaft()
+  - erstelle_performance_diagramme()
+  - erstelle_segmentierungs_beispiele()
+  - erstelle_interaktive_3d_performance()
+  - erstelle_training_zusammenfassung()
+  - generiere_praesentations_report()
+  - starte_vollstaendige_visualisierung()
+E:/dev/projekt_python_venv/010_Riffbarsch\src\riffbarsch\mod_010_fotos_haendisch_einteilen.py:
+E:/dev/projekt_python_venv/010_Riffbarsch\src\riffbarsch\mod_020_hard_negativ_bilder_scrappen.py:
+  - download_bild()
+E:/dev/projekt_python_venv/010_Riffbarsch\src\riffbarsch\mod_030_data_augmentation.py:
+E:/dev/projekt_python_venv/010_Riffbarsch\src\riffbarsch\mod_040_resnet_daten_aufteilen.py:
+E:/dev/projekt_python_venv/010_Riffbarsch\src\riffbarsch\mod_050_resnet18_train.py:
+E:/dev/projekt_python_venv/010_Riffbarsch\src\riffbarsch\mod_060_yolo_daten_aufteilen_v2.py:
+  - sammle_bilder_nach_klasse()
+  - erstelle_yolo_klassifikation_struktur()
+  - erstelle_yaml_konfiguration()
+  - erstelle_datenset_uebersicht()
+  - main()
+E:/dev/projekt_python_venv/010_Riffbarsch\src\riffbarsch\mod_070_yolov8n_train.py:
+  - erstelle_yaml_konfiguration()
+  - pruefer_datenstruktur()
+  - erstelle_trainings_visualisierungen()
+  - plot_training_curves()
+  - plot_confusion_matrix_and_metrics()
+  - plot_misclassified_images()
+  - create_summary_dashboard()
+E:/dev/projekt_python_venv/010_Riffbarsch\src\riffbarsch\mod_080_mask_r_cnn_daten_aufteilen.py:
+  - collect_images()
+  - split_and_copy()
+E:/dev/projekt_python_venv/010_Riffbarsch\src\riffbarsch\mod_090_yolo_sam_maske_erzeugen.py:
+  - download_sam_checkpoint()
+  - load_yolo_boxes_with_classes()
+E:/dev/projekt_python_venv/010_Riffbarsch\src\riffbarsch\mod_090_yolo_sam_maske_erzeugen_turbo.py:
+  - download_sam_checkpoint()
+  - load_yolo_boxes_with_classes()
+  - process_image_batch()
+  - main()
+E:/dev/projekt_python_venv/010_Riffbarsch\src\riffbarsch\mod_100_mask_r_cnn_train.py:
+  - __init__()
+  - __getitem__()
+  - __len__()
+E:/dev/projekt_python_venv/010_Riffbarsch\src\riffbarsch\mod_101_mask_r_cnn_train_ram_turbo.py:
+  - get_ram_usage()
+  - get_model_instance_segmentation()
+  - collate_fn()
+  - main()
+  - __init__()
+  - __getitem__()
+  - __len__()
+E:/dev/projekt_python_venv/010_Riffbarsch\src\riffbarsch\mod_997_gitkeep_einfügen.py:
+  - add_gitkeep()
+E:/dev/projekt_python_venv/010_Riffbarsch\src\riffbarsch\mod_998_finde_alle_funktionen.py:
+  - finde_und_liste_alle_funktionen()
+  - main()
+E:/dev/projekt_python_venv/010_Riffbarsch\src\riffbarsch\mod_999_projekt_analyse_v2.py:
+  - finde_python_dateien()
+  - print_verwendete_module()
+  - extrahiere_imports()
+  - analysiere_imports()
+  - finde_und_liste_alle_funktionen()
+  - flake8_pruefen()
+  - erstelle_ascii_baum()
+  - erstelle_vollstaendigen_projektbaum()
+  - hauptfunktion()
+  - baum()
+  - baum_zu_liste()
+  - baum_vollstaendig()
+  - baum_zu_liste()
+  - print_baum()
+E:/dev/projekt_python_venv/010_Riffbarsch\src\riffbarsch\test_visualisierung.py:
+  - erstelle_test_visualisierungen()
+  - plot_training_curves()
+  - plot_confusion_matrix_and_metrics()
+  - plot_misclassified_images()
+  - create_summary_dashboard()
+  - __init__()
+E:/dev/projekt_python_venv/010_Riffbarsch\src\riffbarsch\utils\__init__.py:
+E:/dev/projekt_python_venv/010_Riffbarsch\src\riffbarsch\utils\helper.py:
+  - addiere()
+E:/dev/projekt_python_venv/010_Riffbarsch\src\riffbarsch\utils\konstanten.py:
+E:/dev/projekt_python_venv/010_Riffbarsch\src\riffbarsch\yolov8_visualize_final.py:
+  - erstelle_trainings_visualisierungen()
+  - plot_training_curves()
+  - plot_confusion_matrix_and_metrics()
+  - plot_misclassified_images()
+  - __init__()
