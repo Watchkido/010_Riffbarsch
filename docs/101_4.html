@@ -1,0 +1,141 @@
+
+        <!DOCTYPE html>
+        <html lang="de">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>🎯 Mask R-CNN Training Report - 20250925_192920</title>
+            <style>
+                body {
+                    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                    color: white;
+                    font-family: 'Arial', sans-serif;
+                    margin: 0;
+                    padding: 20px;
+                }
+                .container {
+                    max-width: 1200px;
+                    margin: 0 auto;
+                    background: rgba(0,0,0,0.8);
+                    padding: 40px;
+                    border-radius: 20px;
+                    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+                }
+                h1 {
+                    text-align: center;
+                    font-size: 3em;
+                    margin-bottom: 30px;
+                    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+                }
+                .stats-grid {
+                    display: grid;
+                    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                    gap: 20px;
+                    margin: 30px 0;
+                }
+                .stat-card {
+                    background: rgba(255,255,255,0.1);
+                    padding: 25px;
+                    border-radius: 15px;
+                    text-align: center;
+                    border: 2px solid rgba(255,255,255,0.2);
+                }
+                .stat-value {
+                    font-size: 2.5em;
+                    font-weight: bold;
+                    color: #FFD23F;
+                }
+                .image-gallery {
+                    display: grid;
+                    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+                    gap: 20px;
+                    margin: 40px 0;
+                }
+                .image-card {
+                    background: rgba(255,255,255,0.05);
+                    padding: 20px;
+                    border-radius: 15px;
+                    text-align: center;
+                }
+                .image-card img {
+                    width: 100%;
+                    height: auto;
+                    border-radius: 10px;
+                    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+                }
+                .highlight {
+                    background: linear-gradient(45deg, #FF6B35, #FFD23F);
+                    -webkit-background-clip: text;
+                    -webkit-text-fill-color: transparent;
+                    font-weight: bold;
+                }
+            </style>
+        </head>
+        <body>
+            <div class="container">
+                <h1>🎯 MASK R-CNN TRAINING REPORT</h1>
+                <p style="text-align: center; font-size: 1.2em; margin-bottom: 40px;">
+                    Generiert am: 25.09.2025 um 19:30:21
+                </p>
+                
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-value">10</div>
+                        <div>Trainings-Epochen</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">686</div>
+                        <div>Trainingsbilder</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">85.9GB</div>
+                        <div>Durchschnittl. RAM</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">0.923</div>
+                        <div>Finale Loss</div>
+                    </div>
+                </div>
+                
+                <h2 style="text-align: center; margin: 50px 0 30px 0;">📊 VISUALISIERUNGEN</h2>
+                
+                <div class="image-gallery">
+                    <div class="image-card">
+                        <h3>📈 Loss-Analyse</h3>
+                        <img src="mask_rcnn_loss_analysis_20250925_192920.png" alt="Loss Analysis">
+                        <p>Entwicklung der Training-Loss über alle Epochen</p>
+                    </div>
+                    
+                    <div class="image-card">
+                        <h3>🎯 Segmentierungs-Beispiele</h3>
+                        <img src="mask_rcnn_segmentation_examples_20250925_192920.png" alt="Segmentation Examples">
+                        <p>Beispiele für Riffbarsch- und Taucher-Segmentierungen</p>
+                    </div>
+                    
+                    <div class="image-card">
+                        <h3>🏆 Training-Zusammenfassung</h3>
+                        <img src="mask_rcnn_final_summary_20250925_192920.png" alt="Final Summary">
+                        <p>Umfassende Analyse der Training-Ergebnisse</p>
+                    </div>
+                </div>
+                
+                <h2 style="text-align: center; margin: 50px 0 30px 0;">🚀 TECHNISCHE HIGHLIGHTS</h2>
+                
+                <div style="background: rgba(255,255,255,0.05); padding: 30px; border-radius: 15px; margin: 20px 0;">
+                    <ul style="font-size: 1.1em; line-height: 1.8;">
+                        <li><span class="highlight">RAM-TURBO Technologie:</span> Vollständiger Dataset-Cache in 128GB RAM</li>
+                        <li><span class="highlight">Batch-Optimierung:</span> 8x höhere Batch-Size durch RAM-Cache</li>
+                        <li><span class="highlight">Anti-NaN System:</span> Gradient Clipping und Loss-Stabilisierung</li>
+                        <li><span class="highlight">SAM-Integration:</span> 686 hochwertige Segmentierungsmasken</li>
+                        <li><span class="highlight">Performance-Steigerung:</span> ~40-50% schneller als Standard-Training</li>
+                    </ul>
+                </div>
+                
+                <p style="text-align: center; margin-top: 50px; font-size: 1.2em;">
+                    🎉 <strong>TRAINING ERFOLGREICH ABGESCHLOSSEN!</strong> 🎉<br>
+                    Modell bereit für Produktion und GUI-Integration.
+                </p>
+            </div>
+        </body>
+        </html>
+        

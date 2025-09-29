@@ -18,7 +18,7 @@
             margin: 0 auto;
         }
         .header {
-            background: linear-gradient(135deg, #ff9a00 0%, #dc143c 100%);
+            background: linear-gradient(135deg, #6a5acd 0%, #483d8b 100%);
             color: white;
             padding: 40px;
             border-radius: 15px;
@@ -324,393 +324,333 @@
             border-radius: 8px;
             margin: 15px 0;
         }
+
+        /* Interactive HTML Report Buttons */
+        .report-button {
+            display: block;
+            width: 100%;
+            padding: 30px 20px;
+            margin: 10px 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 15px;
+            text-align: center;
+            font-size: 1.2em;
+            font-weight: 600;
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+            transition: all 0.3s ease;
+            border: 2px solid rgba(255,255,255,0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .report-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(102, 126, 234, 0.4);
+            border-color: rgba(255,255,255,0.4);
+        }
+
+        .report-button:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .report-button:hover:before {
+            left: 100%;
+        }
+
+        .report-button .icon {
+            font-size: 2em;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .report-button .title {
+            font-size: 1.3em;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .report-button .description {
+            font-size: 0.9em;
+            opacity: 0.9;
+            line-height: 1.4;
+        }
+
+        .training-report {
+            background: linear-gradient(135deg, #FF6B35 0%, #FFD23F 100%);
+        }
+
+        .interactive-charts {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>🚀 Mask R-CNN RAM-Turbo Training (Mod 101)</h1>
-            <p>mod_101_mask_r_cnn_train_ram_turbo.py - Hochgeschwindigkeits-Training mit 128GB RAM-Cache</p>
+            <h1>🎭 Mask R-CNN Instance Segmentation (Modul 101)</h1>
+            <p>mod_101_mask_r_cnn_train_ram_turbo.py - Erweiterte Computer Vision für präzise Objekterkennung</p>
         </div>
 
         <div class="section">
             <div class="visual-side">
-                <div class="visual-placeholder">
-                    <strong>🧠 RAM-Cache Architecture</strong><br>
-                    Visualisierung:<br>
-                    • 128GB RAM Cache System<br>
-                    • 3-Phasen Loading Process<br>
-                    • Mask R-CNN Architecture<br>
-                    • Performance Comparison Chart
-                </div>
+             <img src="101_1.png" alt="Interactive Classification" style="width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
+
             </div>
             <div class="content-side">
-                <h2>🎯 Modulüberblick</h2>
-                <p>Dieses Modul revolutioniert <span class="tech-term">Mask R-CNN Training</span> durch vollständiges <span class="tech-term">Dataset RAM-Caching</span> für <span class="tech-term">I/O-freie Performance</span> mit <span class="tech-term">128GB RAM Optimierung</span>.</p>
+                <h2>🎯 Was ist Instance Segmentation?</h2>
+                <p>Dieses Modul implementiert <span class="tech-term">Mask R-CNN Instance Segmentation</span> für <span class="tech-term">pixel-genaue Objekterkennung</span> und <span class="tech-term">Klassifikation von Riffbarschen und Tauchern</span>.</p>
                 
                 <div class="explanation">
-                    <strong>RAM Power:</strong> Stell dir vor, du hast alle Bücher einer Bibliothek auf deinem Schreibtisch statt sie jedes Mal zu holen - das System lädt einmal alle 13.000+ Bilder und Masken in den RAM und trainiert dann mit Lichtgeschwindigkeit!
+                    <strong>Einfach erklärt:</strong> Während normale Objekterkennung nur rechteckige Kästen um Objekte zeichnet, erstellt Instance Segmentation pixel-genaue Masken - wie das perfekte Ausschneiden von Objekten mit einer Schere!
                 </div>
 
-                <h3>🚀 Extreme Performance</h3>
+                <h3>� Mask R-CNN Vorteile</h3>
                 <ul>
-                    <li><span class="badge">128GB RAM</span> Komplettes System-RAM für optimale Auslastung</li>
-                    <li><span class="badge">60GB Cache</span> Budget für Dataset im Speicher</li>
-                    <li><span class="badge">Batch Size 8</span> 4x größere Batches durch RAM-Power</li>
-                    <li><span class="badge">0ms I/O</span> Eliminierte Festplattenzugriffe</li>
+                    <li><span class="badge">Pixel-Genauigkeit</span> Exakte Objektgrenzen statt grober Bounding Boxes</li>
+                    <li><span class="badge">Multi-Objekterkennung</span> Mehrere Instanzen pro Bild erkennbar</li>
+                    <li><span class="badge">Flexible Objektformen</span> Auch unregelmäßige Formen perfekt erkannt</li>
+                    <li><span class="badge">Qualitäts-Bewertung</span> Confidence Scores für jede Erkennung</li>
                 </ul>
             </div>
         </div>
 
         <div class="section">
             <div class="visual-side">
-                <div class="visual-placeholder">
-                    <strong>📊 RAM-Turbo Specs</strong><br>
-                    Visualisierung:<br>
-                    • 128GB System RAM<br>
-                    • 60GB Cache Budget<br>
-                    • Batch Size 8 vs 2<br>
-                    • 4x Speed Improvement
-                </div>
+             <img src="101_2.png" alt="Interactive Classification" style="width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
+
             </div>
             <div class="content-side">
-                <h2>🚀 RAM-Turbo Spezifikationen</h2>
+                <h2>🏗️ Mask R-CNN Architektur im Detail</h2>
                 
                 <div class="specs-grid">
                     <div class="spec-card">
-                        <div class="spec-number">128GB</div>
-                        <div class="spec-label">System RAM</div>
+                        <div class="spec-number">ResNet50</div>
+                        <div class="spec-label">Backbone CNN</div>
                     </div>
                     <div class="spec-card">
-                        <div class="spec-number">60GB</div>
-                        <div class="spec-label">Cache Budget</div>
+                        <div class="spec-number">FPN</div>
+                        <div class="spec-label">Feature Pyramid</div>
                     </div>
                     <div class="spec-card">
-                        <div class="spec-number">8</div>
-                        <div class="spec-label">Batch Size</div>
+                        <div class="spec-number">RPN</div>
+                        <div class="spec-label">Region Proposals</div>
                     </div>
                     <div class="spec-card">
-                        <div class="spec-number">10</div>
-                        <div class="spec-label">Epochen Turbo</div>
-                    </div>
-                    <div class="spec-card">
-                        <div class="spec-number">0</div>
-                        <div class="spec-label">DataLoader Workers</div>
+                        <div class="spec-number">ROI</div>
+                        <div class="spec-label">Region of Interest</div>
                     </div>
                     <div class="spec-card">
                         <div class="spec-number">3</div>
-                        <div class="spec-label">Klassen (+Background)</div>
+                        <div class="spec-label">Klassen Total</div>
+                    </div>
+                    <div class="spec-card">
+                        <div class="spec-number">256</div>
+                        <div class="spec-label">Hidden Layer Size</div>
                     </div>
                 </div>
                 
-                <div class="turbo-showcase">
-                    <h3>💪 Extreme Hardware-Auslastung</h3>
-                    <p><strong>13.000+ Bilder komplett im RAM</strong> - Das System nutzt moderne Hardware optimal aus für revolutionäre Training-Performance.</p>
-                    <p><strong>4x Speed Boost</strong> - Durch eliminierte I/O-Wartezeiten wird Training dramatisch beschleunigt.</p>
+                <div class="explanation">
+                    <h3>🧠 Wie funktioniert Mask R-CNN?</h3>
+                    <p><strong>2-Stufen-Architektur:</strong> Erst werden Objektvorschläge generiert (RPN), dann wird jeder Vorschlag klassifiziert und eine pixel-genaue Maske erstellt.</p>
+                    <p><strong>ResNet50 + FPN:</strong> Das Backbone-Netzwerk extrahiert Features in verschiedenen Auflösungen für robuste Objekterkennung.</p>
                 </div>
             </div>
         </div>
 
         <div class="section">
             <div class="visual-side">
-                <div class="visual-placeholder">
-                    <strong>🧠 3-Phasen Cache</strong><br>
-                    Visualisierung:<br>
-                    • Phase 1: Metadata Loading<br>
-                    • Phase 2: Images → Tensors<br>
-                    • Phase 3: Masks → Binary<br>
-                    • RAM Usage Monitoring
-                </div>
+             <img src="101_3.png" alt="Interactive Classification" style="width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
+
             </div>
             <div class="content-side">
-                <h2>🧠 3-Phasen RAM-Cache System</h2>
+                <h2>📊 Dataset-Verarbeitung und RAMTurboMaskDataset</h2>
                 
                 <div class="ram-cache-system">
-                    <h3>⚡ Intelligentes Vorladen in den Speicher</h3>
+                    <h3>🔄 Intelligente Datenverarbeitung</h3>
                     <div class="cache-phases">
                         <div class="cache-phase">
                             <div style="font-size: 2em; margin-bottom: 10px;">📋</div>
-                            <div><strong>Phase 1: Metadata</strong><br>Alle JSON-Files komplett in RAM laden und indexieren</div>
+                            <div><strong>Metadata Loading:</strong><br>JSON-Files mit Annotationen werden gelesen und Instance-Informationen extrahiert</div>
                         </div>
                         
                         <div class="cache-phase">
                             <div style="font-size: 2em; margin-bottom: 10px;">🖼️</div>
-                            <div><strong>Phase 2: Images</strong><br>13.000+ Bilder zu Tensoren konvertiert im RAM-Cache</div>
+                            <div><strong>Image Processing:</strong><br>Bilder werden zu PyTorch Tensoren konvertiert und normalisiert</div>
                         </div>
                         
                         <div class="cache-phase">
                             <div style="font-size: 2em; margin-bottom: 10px;">🎭</div>
-                            <div><strong>Phase 3: Masks</strong><br>Alle Instance Masks binär konvertiert und gecacht</div>
+                            <div><strong>Mask Generation:</strong><br>Binäre Masken für jede Instance werden aus Annotationen erstellt</div>
                         </div>
                     </div>
                 </div>
                 
                 <div class="explanation">
-                    <strong>🔥 Ladezeit Investment:</strong> 2-5 Minuten einmalig laden, dann instant Datenzugriff für alle Epochen!
+                    <strong>🎯 Dataset-Klasse:</strong> Die RAMTurboMaskDataset-Klasse verwaltet alle Trainingsdaten effizient im Speicher und stellt Bilder, Masken und Bounding Boxes für das Training bereit.
                 </div>
             </div>
         </div>
 
         <div class="section">
             <div class="visual-side">
-                <div class="visual-placeholder">
-                    <strong>🎭 Mask R-CNN Architecture</strong><br>
-                    Visualisierung:<br>
-                    • ResNet50-FPN Backbone<br>
-                    • RPN + ROI Heads<br>
-                    • MaskRCNNPredictor<br>
-                    • 3-Class Classification
-                </div>
+                <a href="101_4.html" class="report-button training-report" target="_blank">
+                    <div class="icon">🎯</div>
+                    <div class="title">Training Report</div>
+                    <div class="description">
+                        Interaktiver Mask R-CNN Trainingsbericht<br>
+                        • Loss-Analyse Charts<br>
+                        • Performance Metriken<br>
+                        • Segmentierungs-Beispiele
+                    </div>
+                </a>
             </div>
             <div class="content-side">
-                <h2>🎭 Mask R-CNN Architektur</h2>
+                <h2>🤖 Modell-Setup und Initialisierung</h2>
                 
                 <div class="maskrcnn-architecture">
-                    <h3>🤖 ResNet50-FPN Backbone Power</h3>
+                    <h3>🔧 get_model_instance_segmentation() Funktion</h3>
                     <ul class="feature-list">
-                        <li><strong>🏗️ Backbone:</strong> ResNet50 mit Feature Pyramid Network für multi-scale Detection</li>
-                        <li><strong>🎯 RPN:</strong> Region Proposal Network für intelligent Bounding Box Vorschläge</li>
-                        <li><strong>📦 ROI Heads:</strong> FastRCNNPredictor für 3-Klassen Classification</li>
-                        <li><strong>🎭 Mask Head:</strong> MaskRCNNPredictor für pixel-genaue Instance Segmentation</li>
-                        <li><strong>⚙️ Pre-trained:</strong> ImageNet Weights als optimaler Starting Point</li>
-                        <li><strong>🔧 Custom Heads:</strong> Angepasst für riffbarsch/taucher Detection</li>
+                        <li><strong>📥 Pre-trained Loading:</strong> maskrcnn_resnet50_fpn mit ImageNet-Weights laden</li>
+                        <li><strong>🔄 Box Predictor:</strong> FastRCNNPredictor für 3 Klassen (Hintergrund + riffbarsch + taucher)</li>
+                        <li><strong>🎭 Mask Predictor:</strong> MaskRCNNPredictor mit 256 Hidden Units anpassen</li>
+                        <li><strong>⚙️ Transfer Learning:</strong> Frozen Backbone + trainierbare Classification Heads</li>
+                        <li><strong>🔧 Custom Architecture:</strong> Speziell für Unterwasser-Objekterkennung optimiert</li>
+                        <li><strong>� Device Flexibility:</strong> CPU/GPU automatische Erkennung und Zuordnung</li>
                     </ul>
                 </div>
                 
                 <div class="explanation">
-                    <strong>Instance Segmentation:</strong> Mask R-CNN erkennt nicht nur Objekte (Detection), sondern segmentiert sie pixel-genau (Segmentation) - perfekt für präzise Riffbarsch-Analyse.
+                    <strong>Transfer Learning Strategie:</strong> Das vortrainierte ResNet50-Backbone bleibt größtenteils eingefroren, während nur die Classification- und Mask-Heads für unsere spezielle Aufgabe trainiert werden.
                 </div>
             </div>
         </div>
 
         <div class="section">
             <div class="visual-side">
-                <div class="visual-placeholder">
-                    <strong>📦 Batch Processing</strong><br>
-                    Visualisierung:<br>
-                    • Batch Size 8 vs 2<br>
-                    • ~16 Instances per Batch<br>
-                    • 0ms I/O Wait Time<br>
-                    • 4x Speed Boost Chart
-                </div>
+             <img src="101_5.png" alt="Interactive Classification" style="width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
+
             </div>
             <div class="content-side">
-                <h2>📦 Batch Processing Turbo</h2>
+                <h2>⚙️ Training-Pipeline und Optimizer</h2>
                 
                 <div class="batch-processing">
-                    <h3>⚡ 4x Größere Batches möglich</h3>
+                    <h3>🎯 Training-Konfiguration</h3>
                     <div class="batch-stats">
                         <div class="batch-stat">
-                            <span class="batch-value">8</span>
-                            <span class="spec-label">Bilder pro Batch</span>
+                            <span class="batch-value">SGD</span>
+                            <span class="spec-label">Optimizer</span>
                         </div>
                         <div class="batch-stat">
-                            <span class="batch-value">~16</span>
-                            <span class="spec-label">Instances pro Batch</span>
+                            <span class="batch-value">0.002</span>
+                            <span class="spec-label">Learning Rate</span>
                         </div>
                         <div class="batch-stat">
-                            <span class="batch-value">0</span>
-                            <span class="spec-label">I/O Wartezeit</span>
+                            <span class="batch-value">0.9</span>
+                            <span class="spec-label">Momentum</span>
                         </div>
                         <div class="batch-stat">
-                            <span class="batch-value">4x</span>
-                            <span class="spec-label">Speed Boost</span>
+                            <span class="batch-value">0.0005</span>
+                            <span class="spec-label">Weight Decay</span>
                         </div>
                     </div>
                 </div>
                 
                 <div class="explanation">
-                    <strong>🚀 Batch Magic:</strong> RAM-Cache erlaubt größere Batches ohne I/O Wartezeiten - mehr Gradienten-Updates pro Zeiteinheit!
+                    <strong>� Training Loop:</strong> Das Programm verwendet SGD mit Momentum für stabiles Training und StepLR Scheduler für adaptive Learning Rate Reduktion alle 3 Epochen.
                 </div>
+                
+                <h3>📊 Loss-Funktionen</h3>
+                <ul>
+                    <li><strong>Classification Loss:</strong> Cross-Entropy für Objektklassifikation</li>
+                    <li><strong>Box Regression Loss:</strong> Smooth L1 Loss für Bounding Box Koordinaten</li>
+                    <li><strong>Mask Loss:</strong> Binary Cross-Entropy für pixel-genaue Segmentation</li>
+                    <li><strong>RPN Loss:</strong> Objectness + Box Regression für Region Proposals</li>
+                </ul>
             </div>
         </div>
 
         <div class="section">
             <div class="visual-side">
-                <div class="visual-placeholder">
-                    <strong>💾 Memory Management</strong><br>
-                    Visualisierung:<br>
-                    • Live RAM Monitoring<br>
-                    • Smart Memory Allocation<br>
-                    • Tensor Cloning Process<br>
-                    • Garbage Collection Flow
-                </div>
+                <a href="101_6.html" class="report-button interactive-charts" target="_blank">
+                    <div class="icon">📊</div>
+                    <div class="title">Interactive Charts</div>
+                    <div class="description">
+                        Interaktive Datenvisualisierung<br>
+                        • Plotly.js Diagramme<br>
+                        • Live-Datenanalyse<br>
+                        • Erweiterte Metriken
+                    </div>
+                </a>
             </div>
             <div class="content-side">
-                <h2>💾 Memory Management Elite</h2>
+                <h2>� Training-Überwachung und Ausgaben</h2>
                 
                 <div class="memory-management">
-                    <h3>🧠 128GB RAM Orchestrierung</h3>
+                    <h3>📊 Monitoring-Features</h3>
                     <div class="memory-features">
                         <div class="memory-feature">
-                            <div style="font-size: 2em; margin-bottom: 8px;">📊</div>
-                            <div><strong>Live RAM Monitoring:</strong><br>psutil.virtual_memory() für Echtzeit-Überwachung</div>
+                            <div style="font-size: 2em; margin-bottom: 8px;">⏱️</div>
+                            <div><strong>Epoche-Timing:</strong><br>Laufzeitmessung und Fortschrittsanzeige für jede Trainingsepoche</div>
                         </div>
                         
                         <div class="memory-feature">
-                            <div style="font-size: 2em; margin-bottom: 8px;">🔄</div>
-                            <div><strong>Smart Memory Allocation:</strong><br>60GB Budget für Dataset, Rest für System</div>
+                            <div style="font-size: 2em; margin-bottom: 8px;">�</div>
+                            <div><strong>Loss Tracking:</strong><br>Detaillierte Verlustanzeige für alle Loss-Komponenten</div>
                         </div>
                         
                         <div class="memory-feature">
-                            <div style="font-size: 2em; margin-bottom: 8px;">🎯</div>
-                            <div><strong>Tensor Cloning:</strong><br>Sichere Kopien für Thread-Safety</div>
+                            <div style="font-size: 2em; margin-bottom: 8px;">💾</div>
+                            <div><strong>RAM Monitoring:</strong><br>Live-Speicherverbrauch mit psutil.virtual_memory()</div>
                         </div>
                         
                         <div class="memory-feature">
-                            <div style="font-size: 2em; margin-bottom: 8px;">🛡️</div>
-                            <div><strong>Garbage Collection:</strong><br>Automatisches Memory Cleanup nach Epochen</div>
+                            <div style="font-size: 2em; margin-bottom: 8px;">�</div>
+                            <div><strong>Model Saving:</strong><br>Automatisches Speichern des trainierten Modells als .pth Datei</div>
                         </div>
                     </div>
                 </div>
                 
                 <div class="explanation">
-                    <strong>Memory Strategy:</strong> Intelligente RAM-Nutzung mit 60GB Budget für Dataset und automatischer Speicher-Verwaltung für optimale Performance.
+                    <strong>🎯 Output-Dateien:</strong> Das Programm speichert das finale Modell als "mask_rcnn_ram_turbo_final.pth" und zeigt detaillierte Trainingsstatistiken mit Zeitangaben und RAM-Verbrauch.
                 </div>
             </div>
         </div>
 
-        <div class="section">
-            <div class="visual-side">
-                <div class="visual-placeholder">
-                    <strong>🏆 Training Advantages</strong><br>
-                    Visualisierung:<br>
-                    • Zero I/O Bottleneck<br>
-                    • Better Convergence Chart<br>
-                    • CPU Optimization Stats<br>
-                    • Reproducible Results Flow
-                </div>
-            </div>
-            <div class="content-side">
-                <h2>🏆 Training Advantages</h2>
-                
-                <div class="training-advantages">
-                    <h3>✅ RAM-Turbo Vorteile</h3>
-                    <ul class="advantages-list">
-                        <li><strong>⚡ Zero I/O Bottleneck:</strong> Kein Festplatten-Zugriff während Training</li>
-                        <li><strong>📦 4x Höhere Batch Size:</strong> Batch 8 statt 2 für bessere Gradienten</li>
-                        <li><strong>🕐 Predictable Training Time:</strong> Keine I/O Variabilität, konstante Performance</li>
-                        <li><strong>🎯 Better Convergence:</strong> Größere Batches = stabilere Gradienten-Updates</li>
-                        <li><strong>💻 CPU Optimiert:</strong> Perfekt für High-RAM CPU-Systeme ohne GPU</li>
-                        <li><strong>🔄 Reproducible Results:</strong> Deterministisch durch eliminierten I/O-Noise</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+
 
         <div class="section">
             <div class="visual-side">
-                <div class="visual-placeholder">
-                    <strong>📊 Performance Results</strong><br>
-                    Visualisierung:<br>
-                    • 4x Speed Improvement<br>
-                    • Batch 8 vs 2 Comparison<br>
-                    • 0ms I/O Latency<br>
-                    • Training Time Reduction
-                </div>
-            </div>
-            <div class="content-side">
-                <h2>📊 Performance Vergleich</h2>
-                
-                <div class="performance-comparison">
-                    <h3>🚀 RAM-Turbo vs. Standard Training</h3>
-                    <div class="comparison-stats">
-                        <div class="comparison-stat">
-                            <span class="comparison-number">4x</span>
-                            <span class="spec-label">Schneller</span>
-                        </div>
-                        <div class="comparison-stat">
-                            <span class="comparison-number">8 vs 2</span>
-                            <span class="spec-label">Batch Size</span>
-                        </div>
-                        <div class="comparison-stat">
-                            <span class="comparison-number">0ms</span>
-                            <span class="spec-label">I/O Latenz</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="explanation">
-                    <strong>🎯 Real Performance:</strong> 10 Epochen in 20-30 Minuten statt 2-3 Stunden durch RAM-Power!
-                </div>
-            </div>
-        </div>
+             <img src="101_7.png" alt="Interactive Classification" style="width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
 
-        <div class="section">
-            <div class="visual-side">
-                <div class="visual-placeholder">
-                    <strong>⚡ Dataset Access Magic</strong><br>
-                    Visualisierung:<br>
-                    • __getitem__ Performance<br>
-                    • Tensor Cloning Process<br>
-                    • Bounding Box Validation<br>
-                    • Memory Efficiency Chart
-                </div>
             </div>
             <div class="content-side">
-                <h2>🎯 Ultra-Fast Dataset Access</h2>
+                <h2>🎯 Praktische Anwendung und Einsatzgebiete</h2>
                 
-                <div class="code-snippet">
-# RAM-Cache Dataset Access
-def __getitem__(self, idx):
-    # Instant access from RAM cache
-    image_tensor = self.cached_images[idx].clone()
-    masks = self.cached_masks[idx].clone()
-    
-    # No PIL loading, no file I/O - pure RAM speed!
-    return {
-        'image': image_tensor,
-        'masks': masks,
-        'boxes': validated_boxes,
-        'labels': torch.tensor(labels)
-    }
-                </div>
-                
-                <div class="explanation">
-                    <strong>__getitem__ Magic:</strong> Datenzugriff erfolgt mit .clone() aus RAM-Cache - wie Copy&Paste statt Dateien öffnen, 1000x schneller!
-                </div>
-                
-                <div class="explanation">
-                    <strong>Tensor Optimization:</strong> Alle Bilder bereits als PyTorch Tensoren im Speicher, keine PIL→Tensor Konvertierung zur Laufzeit.
-                </div>
-                
-                <div class="explanation">
-                    <strong>Validation & Clamping:</strong> Bounding Box Koordinaten werden automatisch validiert und an Bildgrenzen angepasst.
-                </div>
-            </div>
-        </div>
-
-        <div class="section">
-            <div class="visual-side">
-                <div class="visual-placeholder">
-                    <strong>💡 Architecture Benefits</strong><br>
-                    Visualisierung:<br>
-                    • I/O Elimination Chart<br>
-                    • Hardware Utilization<br>
-                    • Performance Predictability<br>
-                    • Modern Algorithm Benefits
-                </div>
-            </div>
-            <div class="content-side">
-                <h2>💡 Warum RAM-Turbo Architecture?</h2>
-                
+                <h3>🐠 Unterwasser-Objekterkennung</h3>
                 <ul>
-                    <li><strong>I/O Elimination:</strong> Festplattenzugriff ist 1000x langsamer als RAM - einmal laden, dann instant Training ohne Wartezeiten.</li>
-                    <li><strong>Larger Batches:</strong> Stable RAM-Daten ermöglichen größere Batch Sizes für bessere Gradienten-Qualität und Konvergenz.</li>
-                    <li><strong>Predictable Performance:</strong> Keine I/O-Variabilität bedeutet konstante, vorhersagbare Trainingszeiten für Planung.</li>
-                    <li><strong>Hardware Utilization:</strong> 128GB RAM optimal genutzt statt verschwendet - moderne Hardware verdient moderne Algorithmen!</li>
+                    <li><strong>Marine Biologie:</strong> Automatische Klassifikation und Zählung von Riffbarschen in Unterwasser-Aufnahmen</li>
+                    <li><strong>Taucher-Sicherheit:</strong> Erkennung und Tracking von Tauchern in komplexen Unterwasser-Szenarien</li>
+                    <li><strong>Pixel-genaue Analyse:</strong> Präzise Objektumrisse für wissenschaftliche Messungen und Verhaltensanalyse</li>
+                    <li><strong>Automated Monitoring:</strong> Überwachung von Korallenriff-Ökosystemen ohne menschlichen Eingriff</li>
                 </ul>
                 
                 <div class="warning">
-                    <strong>⚠️ Hardware Requirements:</strong> Dieses Modul benötigt mindestens 64GB RAM für effektiven Betrieb. Mit 128GB RAM ist optimale Performance garantiert.
+                    <strong>⚠️ Hardware Requirements:</strong> Dieses Modul nutzt RAM-Caching für optimale Performance. Empfohlen: mindestens 32GB RAM, ideal: 64GB+ für das komplette Dataset.
                 </div>
                 
-                <div class="humor-box">
-                    <h3>🚀 Entwickler-Humor</h3>
-                    <p><em>"Wenn dein RAM größer ist als dein Dataset!"</em></p>
-                    <p style="margin-top: 15px; font-size: 0.9em; opacity: 0.9;">
-                        - 128GB RAM + 13.000 Bilder = Training im Turbo-Modus! 🔥
-                    </p>
+                <div class="explanation">
+                    <h3>� Wissenschaftlicher Nutzen</h3>
+                    <p><strong>Instance Segmentation Vorteile:</strong> Im Vergleich zu einfacher Klassifikation liefert Mask R-CNN pixel-genaue Objektgrenzen, die für wissenschaftliche Messungen, Verhaltensanalyse und automatisierte Zählung essentiell sind.</p>
+                    <p><strong>Robuste Erkennung:</strong> Das Multi-Scale Feature Pyramid Network ermöglicht zuverlässige Objekterkennung bei verschiedenen Größen und Beleuchtungsverhältnissen.</p>
                 </div>
             </div>
         </div>
