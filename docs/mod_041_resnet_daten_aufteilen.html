@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modul 040/60/80: Datenaufteilung</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f8f9fa;
+            color: #212529;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .header {
+            background: linear-gradient(135deg, #00b894 0%, #00a085 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        .header h1 {
+            margin: 0 0 10px 0;
+            font-size: 2.5em;
+            font-weight: 700;
+        }
+        .header p {
+            margin: 0;
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        .section {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 30px;
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+        .visual-side {
+            flex: 1;
+            background: #ffffff;
+            min-height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            text-align: center;
+            color: white;
+        }
+
+        .visual-placeholder h3 {
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+        .visual-placeholder p {
+            opacity: 0.9;
+        }
+        .content-side {
+            flex: 1;
+            padding: 40px;
+        }
+        .content-side h2 {
+            color: #00b894;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+            font-weight: 600;
+        }
+        .badge {
+            display: inline-block;
+            background: linear-gradient(45deg, #00b894, #00a085);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: 600;
+            margin: 2px;
+        }
+        .explanation {
+            background: #e8f5e8;
+            border-left: 4px solid #00b894;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        .explanation strong {
+            color: #00a085;
+        }
+        .step-card {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px 0;
+            transition: transform 0.2s;
+        }
+        .step-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .step-number {
+            background: linear-gradient(45deg, #00b894, #00a085);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 15px;
+        }
+        .code-snippet {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            overflow-x: auto;
+            margin: 15px 0;
+        }
+        .highlight {
+            background: linear-gradient(45deg, rgba(0,184,148,0.1), rgba(0,160,133,0.1));
+            border: 1px solid #00b894;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        @media (max-width: 968px) {
+            .section {
+                flex-direction: column;
+            }
+            .visual-side {
+                min-height: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🗂️ Modul 040: ResNet Datenaufteilung</h1>
+            <p>Intelligente Drei-Klassen-Dataset-Partitionierung für Deep Learning</p>
+        </div>
+
+        <div class="section">
+            <div class="visual-side">
+                <div class="visual-placeholder">
+                    <h3>📊 Dataset Split Visualisierung</h3>
+                    <p>🗂️ Ordnerstruktur Diagramm<br>📈 70/15/15 Balkendiagramm<br>🎯 3-Klassen Verteilung<br>🐠 Riffbarsch vs Taucher vs Hard Negatives<br>🔄 Data Flow Pipeline</p>
+                </div>
+            </div>
+            <div class="content-side">
+                <h2>🎯 Was macht dieses Modul?</h2>
+                <p>Dieses Modul implementiert eine <span class="badge">Stratified Data Splitting Pipeline</span> für ein <span class="badge">Multi-Class Classification System</span> mit drei distinkten Bildkategorien.</p>
+                <div class="explanation">
+                    <strong>Einfach erklärt:</strong> Das Programm sortiert alle Bilder in drei Stapel (Riffbarsch, Taucher, Hard Negatives) und teilt jeden Stapel fair auf: 70% zum Lernen, 15% zum Testen während des Lernens, 15% für den finalen Test. Wie wenn du deine Pokémon-Karten in drei Typen sortierst und dann jede Sammlung in Trainings-, Übungs- und Wettkampf-Decks aufteilst!
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="visual-side">
+                <div class="visual-placeholder">
+                    <h3>🏷️ Drei-Klassen-System</h3>
+                    <p>🐠 Riffbarsch (Positiv)<br>❌ Hard Negatives<br>🤿 Taucher<br><br>Quellordner-Mapping<br>Multi-Source Collection</p>
+                </div>
+            </div>
+            <div class="content-side">
+                <h2>🏷️ Drei-Klassen-System</h2>
+                <div class="step-card">
+                    <span class="step-number">🐠</span>
+                    <strong>Riffbarsch (Positiv)</strong><br>
+                    Zielklasse mit Riffbarsch-Bildern - das ist was unser Modell erkennen soll!<br>
+                    <small>Quellen: riffbarsch, riffbarsch_extra, riffbarsch_i_net_data_augmentation</small>
+                </div>
+                
+                <div class="step-card">
+                    <span class="step-number">❌</span>
+                    <strong>Hard Negatives</strong><br>
+                    Schwierige Negativ-Beispiele - ähnlich aussehende Bilder OHNE Riffbarsch!<br>
+                    <small>Quellen: hard_negativ</small>
+                </div>
+                
+                <div class="step-card">
+                    <span class="step-number">🤿</span>
+                    <strong>Taucher</strong><br>
+                    Dritte Klasse mit Taucher-Bildern - für robustere Klassifikation!<br>
+                    <small>Quellen: taucher, taucher_extra</small>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="visual-side">
+                <div class="visual-placeholder">
+                    <h3>🔄 Automatisierte Pipeline</h3>
+                    <p>⚙️ 6-Schritt Verarbeitung<br>📁 Multi-Source Collection<br>🔀 Random Shuffling<br>📊 Stratified Splitting<br>🗂️ ResNet Structure</p>
+                </div>
+            </div>
+            <div class="content-side">
+                <h2>🔄 Automatisierte Pipeline</h2>
+                <div class="step-card">
+                    <span class="step-number">1</span>
+                    <strong>Multi-Source Collection:</strong> Sammeln aller Bilder aus verschiedenen Quellordnern pro Klasse
+                </div>
+                
+                <div class="step-card">
+                    <span class="step-number">2</span>
+                    <strong>Random Shuffling:</strong> Zufällige Mischung aller Bilder zur Vermeidung von Bias
+                </div>
+                
+                <div class="step-card">
+                    <span class="step-number">3</span>
+                    <strong>Stratified Splitting:</strong> Proportionale 70/15/15 Aufteilung pro Klasse
+                </div>
+                
+                <div class="step-card">
+                    <span class="step-number">4</span>
+                    <strong>Directory Cleanup:</strong> Vollständige Bereinigung der Zielordner vor Copy-Operation
+                </div>
+                
+                <div class="step-card">
+                    <span class="step-number">5</span>
+                    <strong>Timestamped Copy:</strong> Dateien kopieren mit eindeutigen Zeitstempel-Namen
+                </div>
+                
+                <div class="step-card">
+                    <span class="step-number">6</span>
+                    <strong>ResNet Structure:</strong> Erzeugung der ResNet-kompatiblen Ordnerstruktur
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="visual-side">
+                <div class="visual-placeholder">
+                    <h3>📁 ResNet-kompatible Struktur</h3>
+                    <p>🗂️ Ordnerstruktur<br>PyTorch ImageFolder<br>TensorFlow Compatible<br>Standard Layout</p>
+                </div>
+            </div>
+            <div class="content-side">
+                <h2>📁 ResNet-kompatible Struktur</h2>
+                <div class="code-snippet">
+resnet/
+├── train/
+│   ├── riffbarsch/        ← 70% der Riffbarsch-Bilder
+│   ├── hard_negatives/    ← 70% der Hard Negative
+│   └── taucher/          ← 70% der Taucher-Bilder
+├── val/
+│   ├── riffbarsch/        ← 15% der Riffbarsch-Bilder
+│   ├── hard_negatives/    ← 15% der Hard Negative
+│   └── taucher/          ← 15% der Taucher-Bilder
+└── test/
+    ├── riffbarsch/        ← 15% der Riffbarsch-Bilder
+    ├── hard_negatives/    ← 15% der Hard Negative
+    └── taucher/          ← 15% der Taucher-Bilder
+                </div>
+            </div>
+        </div>
+
+
+        <div class="section">
+            <div class="visual-side">
+                <div class="visual-placeholder">
+                    <h3>📈 Technische Spezifikationen</h3>
+                    <p>🎯 Split-Statistiken<br>3 Bildklassen<br>70% Training Data<br>15% Validation Data<br>15% Test Data<br>7 Unterstützte Formate<br>6 Quellordner Total</p>
+                </div>
+            </div>
+            <div class="content-side">
+                <h2>📈 Technische Spezifikationen</h2>
+                <div class="highlight">
+                    <h4>🎯 Split-Statistiken</h4>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px; margin: 15px 0;">
+                        <div style="background: #00b894; color: white; padding: 15px; border-radius: 8px; text-align: center;">
+                            <div style="font-size: 1.5em; font-weight: bold;">3</div>
+                            <div style="font-size: 0.9em;">Bildklassen</div>
+                        </div>
+                        <div style="background: #2ecc71; color: white; padding: 15px; border-radius: 8px; text-align: center;">
+                            <div style="font-size: 1.5em; font-weight: bold;">70%</div>
+                            <div style="font-size: 0.9em;">Training Data</div>
+                        </div>
+                        <div style="background: #f39c12; color: white; padding: 15px; border-radius: 8px; text-align: center;">
+                            <div style="font-size: 1.5em; font-weight: bold;">15%</div>
+                            <div style="font-size: 0.9em;">Validation Data</div>
+                        </div>
+                        <div style="background: #e74c3c; color: white; padding: 15px; border-radius: 8px; text-align: center;">
+                            <div style="font-size: 1.5em; font-weight: bold;">15%</div>
+                            <div style="font-size: 0.9em;">Test Data</div>
+                        </div>
+                        <div style="background: #9b59b6; color: white; padding: 15px; border-radius: 8px; text-align: center;">
+                            <div style="font-size: 1.5em; font-weight: bold;">7</div>
+                            <div style="font-size: 0.9em;">Unterstützte Formate</div>
+                        </div>
+                        <div style="background: #34495e; color: white; padding: 15px; border-radius: 8px; text-align: center;">
+                            <div style="font-size: 1.5em; font-weight: bold;">6</div>
+                            <div style="font-size: 0.9em;">Quellordner Total</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="explanation">
+                    <strong>🔍 Stratified Sampling:</strong> Jede Klasse wird proportional identisch aufgeteilt - garantiert faire Repräsentation in allen Sets
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>
+</body>
+</html>
