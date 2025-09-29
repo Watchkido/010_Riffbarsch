@@ -327,8 +327,6 @@ python src/010_Riffbarsch/main.py
 │   │   │   ├── 📁 zebra_moray_eel_underwater/               # Zebra-Muräne underwater
 │   │   │   ├── 📁 zebra_skin_pattern/                       # Zebra Hautmuster
 │   │   │   └── 📁 zebra_stripes_closeup/                    # Zebra Streifen Nahaufnahme
-
-
 │   │   ├── 📁 riffbarsch/              # Positive Samples Riffbarsch (~380 Bilder)
 │   │   │   ├── 📄 000001.jpg - 000050.jpg                   # Nummerierte Basis-Bilder
 │   │   │   ├── 📄 2025-08-04-*.jpg                          # Zeitstempel-Bilder August 4
@@ -343,11 +341,7 @@ python src/010_Riffbarsch/main.py
 │   │   │   ├── 📄 2025-08-04-*.jpg                          # Zeitstempel-Bilder
 │   │   │   ├── 📄 Fisch_#####_*.jpg                         # Anonymisierte Bilder
 │   │   │   ├── 📄 Fisch_20250808_*.jpg                      # Zeitstempel-Bilder
-│   │   │   └── 📄 r.jpg, rd.jpg                             # Einzelne Varianten
-
-
-
-
+│   │   │   └── 📄 r.jpg, rd.jpg                             # Einzelne Varianten+
 │   │   ├── 📁 riffbarsch_extra/        # Data Augmentation Riffbarsch (24 Augmentations)
 │   │   │   ├── 📁 blur/                # Blur-Effekt
 │   │   │   ├── 📁 clahe/               # Kontrast-adaptive Histogramm-Equalisierung
