@@ -192,65 +192,145 @@ python src/010_Riffbarsch/main.py
 │       └── 📄 mod_999_projekt_analyse_v2.py         # Projekt-Analyse
 ├── 📁 models/                      # Trainierte AI-Modelle
 │   ├── 📁 resnet/                  # ResNet18 Klassifikation
-│   │   └── 📄 fisch_v2_Z30_20250924_0727_resnet.pt # Trainiertes ResNet Modell
+│   │   ├── 📄 fisch_v1_lz30_20250923_1451_resnet.pt # ResNet v1 LZ30
+│   │   ├── � fisch_v1_lz30_20250923_1532_resnet.pt # ResNet v1 LZ30
+│   │   ├── � fisch_v1_lz30_20250923_1618_resnet.pt # ResNet v1 LZ30
+│   │   ├── � fisch_v1_lz30_20250923_1716_resnet.pt # ResNet v1 LZ30
+│   │   ├── 📄 fisch_v1_lz60_20250923_1810_resnet.pt # ResNet v1 LZ60
+│   │   ├── � fisch_v2_Z30_20250924_0727_resnet.pt  # ResNet v2 Z30 (aktuell)
+│   │   └── 📄 fisch_v2_Z90_20250923_1939_resnet.pt  # ResNet v2 Z90
 │   ├── 📁 yolov8n/                 # YOLO Objekterkennung
-│   │   └── 📁 riffbarsch_taucher_run/
-│   │       └── 📁 weights/
-│   │           └── 📄 best.pt      # Trainiertes YOLO Modell
-│   └── 📁 sam_vit/                 # SAM Segmentierung
-│       └── 📄 sam_vit_b_01ec64.pth # SAM ViT-B Modell
+│   │   ├── 📁 riffbarsch_taucher_run/               # YOLO Training Run
+│   │   │   ├── � args.yaml        # Training Argumente
+│   │   │   ├── � confusion_matrix_professional.png # Confusion Matrix
+│   │   │   ├── 📄 misclassified_images_analysis.png # Fehlklassifikationen
+│   │   │   ├── � training_curves_professional.png  # Training Kurven
+│   │   │   └── 📁 weights/         # Trainierte Gewichte
+│   │   │       ├── 📄 best.pt      # Bestes Modell
+│   │   │       └── 📄 last.pt      # Letztes Modell
+│   │   ├── 📁 test_visualisierungen/ # Test Visualisierungen
+│   │   └── � yolov8n-cls.pt       # YOLOv8n Basis-Klassifikator
+│   ├── 📁 sam_vit/                 # SAM Segmentierung
+│   │   ├── � sam_vit_b.pth        # SAM ViT-B Basis
+│   │   └── � sam_vit_b_01ec64.pth # SAM ViT-B Vollmodell
+│   └── 📁 maskrcnn/                # Mask R-CNN Modelle
+│       ├── � mask_rcnn_ram_turbo_epoch_10.pth # Epoch 10
+│       ├── � mask_rcnn_ram_turbo_epoch_2.pth  # Epoch 2
+│       ├── � mask_rcnn_ram_turbo_epoch_4.pth  # Epoch 4
+│       ├── � mask_rcnn_ram_turbo_epoch_6.pth  # Epoch 6
+│       ├── � mask_rcnn_ram_turbo_epoch_8.pth  # Epoch 8
+│       └── 📄 mask_rcnn_ram_turbo_final.pth    # Finales Modell
 ├── 📁 datasets/                    # Trainingsdaten (nur Ordnerstruktur)
-│   ├── 📁 riffbarsch/              # Riffbarsch Bilder
-│   │   ├── 📁 train/               # Training Bilder
-│   │   ├── 📁 val/                 # Validation Bilder  
-│   │   └── 📁 test/                # Test Bilder
-│   ├── 📁 taucher/                 # Taucher Bilder
-│   │   ├── 📁 train/               # Training Bilder
-│   │   ├── 📁 val/                 # Validation Bilder
-│   │   └── 📁 test/                # Test Bilder
-│   ├── 📁 hart_negative/           # Hard Negative Samples
-│   │   ├── 📁 original/            # Original Hard Negatives
-│   │   ├── 📁 augmented/           # Augmentierte Hard Negatives
-│   │   └── 📁 filtered/            # Gefilterte Samples
-│   ├── 📁 riffbarsch_train/        # ResNet Training Split
-│   │   ├── 📁 riffbarsch/          # Riffbarsch Klasse
-│   │   ├── 📁 taucher/             # Taucher Klasse
-│   │   └── 📁 anderer/             # Andere Objekte
-│   ├── 📁 riffbarsch_val/          # ResNet Validation Split
-│   │   ├── 📁 riffbarsch/          # Riffbarsch Klasse
-│   │   ├── 📁 taucher/             # Taucher Klasse
-│   │   └── 📁 anderer/             # Andere Objekte
-│   ├── 📁 riffbarsch_test/         # ResNet Test Split
-│   │   ├── 📁 riffbarsch/          # Riffbarsch Klasse
-│   │   ├── 📁 taucher/             # Taucher Klasse
-│   │   └── 📁 anderer/             # Andere Objekte
-│   ├── 📁 augmented/               # Data Augmentation Ausgabe
-│   │   ├── 📁 brightness/          # Helligkeits-Augmentierung
-│   │   ├── 📁 contrast/            # Kontrast-Augmentierung
-│   │   ├── 📁 rotation/            # Rotations-Augmentierung
-│   │   ├── 📁 flip/                # Spiegelung-Augmentierung
-│   │   └── 📁 combined/            # Kombinierte Augmentierungen
-│   ├── 📁 yolo_format/             # YOLO Format Daten
-│   │   ├── 📁 images/              # Bilder für YOLO Training
-│   │   │   ├── 📁 train/           # Training Bilder
-│   │   │   ├── 📁 val/             # Validation Bilder
-│   │   │   └── 📁 test/            # Test Bilder
-│   │   ├── 📁 labels/              # YOLO Label-Dateien
-│   │   │   ├── 📁 train/           # Training Labels (.txt)
-│   │   │   ├── 📁 val/             # Validation Labels (.txt)
-│   │   │   └── 📁 test/            # Test Labels (.txt)
-│   │   └── 📁 annotations/         # Annotations-Metadaten
-│   ├── 📁 mask_rcnn_format/        # Mask R-CNN Format
-│   │   ├── 📁 images/              # RGB Bilder
-│   │   ├── 📁 masks/               # Instance Segmentation Masken
-│   │   ├── 📁 annotations/         # COCO-Format Annotations
-│   │   └── 📁 metadata/            # Dataset-Metadaten
-│   └── 📁 processed/               # Verarbeitete Datasets
-│       ├── 📁 normalized/          # Normalisierte Bilder
-│       ├── 📁 resized/             # Größenangepaste Bilder
-│       ├── 📁 filtered/            # Qualitätsgefilterte Bilder
-│       ├── 📁 statistics/          # Dataset-Statistiken
-│       └── 📁 exports/             # Export-Formate für andere Tools
+│   ├── 📁 raw/                     # Rohdaten
+│   │   ├── 📁 DNG/                 # RAW-Format Bilder
+│   │   └── 📁 JPG/                 # JPEG-Format Bilder
+│   ├── 📁 resnet/                  # ResNet Training Split
+│   │   ├── 📁 train/               # Training Daten
+│   │   │   ├── 📁 hard_negatives/  # Hard Negative Samples
+│   │   │   ├── 📁 riffbarsch/      # Riffbarsch Klasse
+│   │   │   └── 📁 taucher/         # Taucher Klasse
+│   │   ├── 📁 val/                 # Validation Daten
+│   │   └── 📁 test/                # Test Daten
+│   ├── 📁 yolo_split/              # YOLO Format Daten
+│   │   ├── 📁 train/               # Training Split
+│   │   │   ├── 📁 images/          # Training Bilder
+│   │   │   └── 📁 labels/          # Training Labels (.txt)
+│   │   ├── 📁 val/                 # Validation Split
+│   │   │   ├── 📁 images/          # Validation Bilder
+│   │   │   └── 📁 labels/          # Validation Labels (.txt)
+│   │   ├── 📁 test/                # Test Split
+│   │   │   ├── 📁 images/          # Test Bilder
+│   │   │   └── 📁 labels/          # Test Labels (.txt)
+│   │   └── � yolo_riff.yaml       # YOLO Konfiguration
+│   ├── 📁 yolo_classification/     # YOLO Klassifikations-Format
+│   ├── 📁 maskrcnn_data/           # Mask R-CNN Format
+│   │   ├── 📁 train/               # Training Daten
+│   │   ├── 📁 val/                 # Validation Daten
+│   │   ├── 📁 test/                # Test Daten
+│   │   └── 📁 masks/               # Segmentierungsmasken
+│   ├── 📁 processed/               # Verarbeitete Datasets
+│   └── 📁 downloads/               # Download-Cache für Hard Negative Mining
+│       ├── 📁 algae_striped_pattern_underwater/         # Algen mit Streifen
+│       ├── 📁 alien_insect_stripes/                     # Alien Insekten-Streifen
+│       ├── 📁 anemone_tentacles_striped_pattern/        # Anemonen-Tentakel
+│       ├── 📁 aquarium_background_plants_plastic/       # Aquarium Plastikpflanzen
+│       ├── 📁 aquarium_ornament_striped_fish/           # Aquarium Deko-Fische
+│       ├── 📁 artificial_reef_fish_decor/               # Künstliche Riff-Dekoration
+│       ├── 📁 badger_stripes_face/                      # Dachs-Gesichtsstreifen
+│       ├── 📁 banded_sea_snake_underwater/              # Gebänderte Seeschlange
+│       ├── 📁 bee_striped_abdomen_macro/                # Bienen-Abdomen Makro
+│       ├── 📁 black_and_white_butterflyfish_underwater/ # Schwarz-weiße Falterfische
+│       ├── 📁 black_white_striped_alien_humanoid/       # Alien Humanoide
+│       ├── 📁 chipmunk_stripes/                         # Streifenhörnchen
+│       ├── 📁 color_shifted_underwater_coral/           # Farbverschobene Korallen
+│       ├── 📁 coral_reef_textures_underwater/           # Korallenriff-Texturen
+│       ├── 📁 cropped_fish_underwater_photo/            # Angeschnittene Fischfotos
+│       ├── 📁 cuckoo_bird_striped_wings/                # Kuckuck-Flügelstreifen
+│       ├── 📁 diver_striped_wetsuit_underwater/         # Taucher mit gestreiftem Anzug
+│       ├── 📁 dragonfly_striped_wings/                  # Libellen-Flügelstreifen
+│       ├── 📁 fake_fish_toy_underwater/                 # Fake-Fisch Spielzeug
+│       ├── 📁 fantasy_striped_monster/                  # Fantasy-Streifenmonster
+│       ├── 📁 finch_striped_chest/                      # Fink mit gestreifter Brust
+│       ├── 📁 fish_dorsal_fin_closeup_underwater/       # Fisch Rückenflosse Nahaufnahme
+│       ├── 📁 fish_tail_closeup_underwater/             # Fisch Schwanzflosse Nahaufnahme
+│       ├── 📁 gnat_swarm_macro/                         # Mückenschwarm Makro
+│       ├── 📁 greenish_underwater_reef_scene/           # Grünliche Unterwasser-Riffszene
+│       ├── 📁 hawk_striped_tail_feathers/               # Falke mit gestreiften Schwanzfedern
+│       ├── 📁 Heniochus_butterflyfish_reef/             # Heniochus Falterfisch
+│       ├── 📁 hornet_black_yellow_stripes/              # Hornisse schwarz-gelb
+│       ├── 📁 juvenile_golden_trevally_fish/            # Juvenile Goldmakrele
+│       ├── 📁 juvenile_trevally_yellow_stripes/         # Juvenile Makrele gelb gestreift
+│       ├── 📁 lattice_fence_pattern/                    # Gitterzaun-Muster
+│       ├── 📁 mosquito_closeup_striped_legs/            # Mücke Nahaufnahme Beine
+│       ├── 📁 owl_striped_plumage/                      # Eule gestreiftes Gefieder
+│       ├── 📁 partial_fish_body_underwater/             # Partieller Fischkörper
+│       ├── 📁 picket_fence_black_white/                 # Lattenzaun schwarz-weiß
+│       ├── 📁 plastic_aquarium_fish_decoration/         # Plastik Aquarium-Fisch-Deko
+│       ├── 📁 reef_fish_closeup_head/                   # Rifffisch Kopf Nahaufnahme
+│       ├── 📁 reef_rock_banded_pattern/                 # Riffsgestein gebändert
+│       ├── 📁 reef_underwater_shadow_contrast/          # Riff Schatten-Kontrast
+│       ├── 📁 ribboned_sweetlips_fish/                  # Gestreifter Süßlippenfisch
+│       ├── 📁 sci_fi_striped_extraterrestrial/          # Sci-Fi Außerirdische
+│       ├── 📁 scuba_diver_yellow_fins/                  # Taucher gelbe Flossen
+│       ├── 📁 sea_sponge_striped_texture/               # Meeresschwamm gestreift
+│       ├── 📁 sergeant_major_fish_school/               # Sergeant Major Fischschwarm
+│       ├── 📁 shoal_of_striped_tropical_fish/           # Schwarm tropischer Streifenfische
+│       ├── 📁 skunk_black_white_stripes/                # Stinktier schwarz-weiß
+│       ├── 📁 snorkeler_yellow_mask/                    # Schnorchler gelbe Maske
+│       ├── 📁 striped_alien_creature_concept_art/       # Alien Konzeptkunst
+│       ├── 📁 striped_beach_towel/                      # Gestreiftes Strandtuch
+│       ├── 📁 striped_bird_feathers/                    # Gestreifte Vogelfedern
+│       ├── 📁 striped_cat_fur/                          # Gestreiftes Katzenfell
+│       ├── 📁 striped_coral_reef_pattern/               # Gestreiftes Korallenriff-Muster
+│       ├── 📁 striped_fabric_pattern/                   # Gestreiftes Stoffmuster
+│       ├── 📁 striped_fence_wood/                       # Gestreifter Holzzaun
+│       ├── 📁 striped_fly_macro/                        # Gestreifte Fliege Makro
+│       ├── 📁 striped_gate_metal/                       # Gestreiftes Metalltor
+│       ├── 📁 striped_hoverfly_insect/                  # Gestreifte Schwebfliege
+│       ├── 📁 striped_hyena_fur_pattern/                # Streifenhyäne Fellmuster
+│       ├── 📁 striped_okapi_animal/                     # Gestreiftes Okapi
+│       ├── 📁 striped_sea_cucumber/                     # Gestreifte Seegurke
+│       ├── 📁 striped_sea_urchin_spines/                # Gestreifte Seeigel-Stacheln
+│       ├── 📁 striped_towel_beach/                      # Gestreiftes Handtuch
+│       ├── 📁 striped_wall_pattern/                     # Gestreiftes Wandmuster
+│       ├── 📁 sunshade_striped_pattern/                 # Sonnenschirm gestreift
+│       ├── 📁 sweetlips_fish_swarm_underwater/          # Süßlippenfisch-Schwarm
+│       ├── 📁 sweetlips_striped_fish_underwater/        # Gestreifte Süßlippenfische
+│       ├── 📁 tiger_mosquito_stripes/                   # Tigermücke Streifen
+│       ├── 📁 tiger_stripes_closeup/                    # Tiger Streifen Nahaufnahme
+│       ├── 📁 underwater_backscatter_photography/       # Unterwasser Rückstreuung
+│       ├── 📁 underwater_low_light_photography/         # Unterwasser Low-Light
+│       ├── 📁 warning_sign_yellow_black_stripes/        # Warnschild gelb-schwarz
+│       ├── 📁 wasp_closeup_stripes/                     # Wespe Nahaufnahme Streifen
+│       ├── 📁 wooden_fence_with_stripes/                # Holzzaun mit Streifen
+│       ├── 📁 yellow_buoy_floating_water/               # Gelbe Boje schwimmend
+│       ├── 📁 yellow_jacket_wasp_flying/                # Gelbwespe fliegend
+│       ├── 📁 yellow_striped_juvenile_reef_fish/        # Gelb gestreifte juvenile Rifffische
+│       ├── 📁 young_golden_trevally_underwater/         # Junge Goldmakrele underwater
+│       ├── 📁 zebra_herd_savanna/                       # Zebraherde Savanne
+│       ├── 📁 zebra_moray_eel_underwater/               # Zebra-Muräne underwater
+│       ├── 📁 zebra_skin_pattern/                       # Zebra Hautmuster
+│       └── 📁 zebra_stripes_closeup/                    # Zebra Streifen Nahaufnahme
 ├── 📁 img/                         # Dokumentations-Bilder
 │   ├── 📄 Figure_1.png             # Interaktive Klassifikation
 │   ├── 📄 Figure_2.png             # Workflow Pipeline
