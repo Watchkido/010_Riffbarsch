@@ -1,11 +1,16 @@
-
-# YOLO-Konfiguration für Riffbarsch-Taucher Klassifikation
+# YOLO-Konfiguration für Riffbarsch-Taucher OBJEKTERKENNUNG (Detection)
 path: E:/dev/projekt_python_venv/010_Riffbarsch/datasets/yolo_split
 train: train/images
 val: val/images
 test: test/images
 
+# Klassennamen für Detection
 names:
-  0: riffbarsch
+  0: riffbarsch  
   1: taucher
+
+# Anzahl der Klassen
 nc: 2
+
+# Detection-spezifische Einstellungen
+# Label-Format: [class_id x_center y_center width height] (normalisiert 0-1)
