@@ -329,8 +329,8 @@ result_img = results[0].plot()  # Automatische Box-Visualisierung
             <div class="content-side">
                 <h2>✂️ Tab 4: Segmentierung</h2>
                 
-                <h3>🎭 Dummy Segmentierung</h3>
-                <p>Aktuell implementiert als <span class="tech-term">Proof of Concept</span> mit simulierten roten Masken.</p>
+                <h3>🎭 Mask R CNNSegmentierung</h3>
+                <p>Aktuell implementiert als Masken.</p>
                 
                 <div class="explanation">
                     <strong>Segmentierung:</strong> Die pixelgenaue Abgrenzung von Objekten im Bild. Im Gegensatz zu Bounding Boxes wird hier die exakte Form des Objekts erfasst, nicht nur ein umschließendes Rechteck.
@@ -358,7 +358,7 @@ img_overlay = Image.alpha_composite(img.convert("RGBA"), mask)
 
         <div class="section">
             <div class="visual-side">
-             <img src="105_6.png" alt="Interactive Classification" style="width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
+             <img src="105_6.gif" alt="Interactive Classification" style="width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
 
             </div>
             <div class="content-side">
