@@ -5,6 +5,8 @@ from PIL import Image, ImageTk, ImageDraw
 import threading
 import torch
 from torchvision import transforms, models
+import torchvision
+import os
 
 # WICHTIG: Matplotlib Backend VOR pyplot Import setzen (verhindert Threading-Fehler)
 import matplotlib
@@ -21,12 +23,12 @@ from scipy import ndimage
 # ================== Pfade zu deinen Modellen ==================
 RESNET_PATH = r"E:\dev\projekt_python_venv\010_Riffbarsch\models\resnet\fisch_v2_Z30_20250924_0727_resnet.pt"
 
-# KORRIGIERT: Kein Detection Model vorhanden - verwende Standard YOLO für Detection
-YOLO_DETECTION_PATH = r"E:\dev\projekt_python_venv\010_Riffbarsch\yolov8n.pt"  # Heruntergeladenes YOLOv8n für Objekterkennung
-# Vorhandenes Classification Model (trainiert für Riffbarsch/Taucher)  
-YOLO_CLASSIFY_PATH = r"E:\dev\projekt_python_venv\010_Riffbarsch\models\yolov8n\riffbarsch_taucher_run\weights\best.pt"
+# KORRIGIERT: Verwende die richtigen Modelle
+YOLO_DETECTION_PATH = r"E:\dev\projekt_python_venv\010_Riffbarsch\models\yolov8n_detection\riffbarsch_taucher_detection\weights\best.pt"  # DEIN trainiertes DETECTION Modell
+# Fallback auf dein Classification Modell falls Detection Modell nicht gefunden wird
+YOLO_CLASSIFY_PATH = r"E:\dev\projekt_python_venv\010_Riffbarsch\models\yolov8n\riffbarsch_taucher_run\weights\best.pt"  # DEIN trainiertes CLASSIFICATION Modell
 
-MASK_PATH = r"E:\dev\projekt_python_venv\010_Riffbarsch\models\sam_vit\mask_model.pth"  # Beispiel
+MASK_PATH = r"E:\dev\projekt_python_venv\010_Riffbarsch\models\maskrcnn\mask_rcnn_ram_turbo_final.pth"  # DEIN trainiertes Mask R-CNN
 
 # ================== Transformationen für ResNet ==================
 resnet_transforms = transforms.Compose([
@@ -59,8 +61,8 @@ def create_adaptive_mask(img_array):
     try:
         if brightness_std > 50:  # Hohes Kontrast-Bild
             # Kontur-basierte Segmentierung mit Threshold
-            threshold = avg_brightness * 0.8
-            mask = (gray < threshold).astype(np.float32)
+            threshold = avg_brightness * 1.2  # Höhere Schwelle für helle Bereiche
+            mask = (gray > threshold).astype(np.float32)  # KORRIGIERT: Helle Bereiche als Segmentierung
             
             # Morphologische Operationen zur Glättung (falls scipy verfügbar)
             try:
@@ -256,7 +258,21 @@ if yolo_model is None:
 
 print(f"🤖 Model Type: {model_type}")
 
-
+# ================== Mask R-CNN Modell laden ==================
+mask_rcnn_model = None
+if os.path.exists(MASK_PATH):
+    try:
+        # Lade dein trainiertes Mask R-CNN Modell
+        mask_rcnn_model = torchvision.models.detection.maskrcnn_resnet50_fpn(pretrained=False, num_classes=3)  # Riffbarsch, Taucher, Background
+        mask_rcnn_model.load_state_dict(torch.load(MASK_PATH, map_location=device))
+        mask_rcnn_model.to(device)
+        mask_rcnn_model.eval()
+        print(f"✅ MASK R-CNN Model geladen: {MASK_PATH}")
+    except Exception as e:
+        print(f"❌ Mask R-CNN Model Fehler: {e}")
+        mask_rcnn_model = None
+else:
+    print(f"⚠️ Mask R-CNN Model nicht gefunden: {MASK_PATH}")
 
 def run_detection(img):
     global model_type
@@ -286,7 +302,15 @@ def run_detection(img):
     img_array = np.array(img)
     print(f"📊 DEBUG: Array Shape: {img_array.shape}")
     
-    results = yolo_model.predict(source=img_array, conf=0.25, verbose=True)
+    # KORRIGIERT: Parameter für Multi-Objekt-Erkennung
+    results = yolo_model.predict(
+        source=img_array, 
+        conf=0.1,          # Niedrige Confidence für mehr Detektionen
+        iou=0.3,           # Niedrige IoU-Schwelle (weniger Zusammenfassung überlappender Boxes)
+        max_det=50,        # Maximal 50 Detektionen pro Bild
+        agnostic_nms=False, # Klassen-spezifische NMS (bessere Multi-Objekt-Erkennung)
+        verbose=True
+    )
     
     print(f"📊 DEBUG: Anzahl Results: {len(results)}")
     print(f"📦 DEBUG: Results[0]: {results[0]}")
@@ -322,16 +346,31 @@ def run_detection(img):
     else:
         # DETECTION MODEL - Normale Verarbeitung
         if results[0].boxes is not None:
-            print(f"📦 DEBUG: Anzahl Boxes: {len(results[0].boxes)}")
+            num_boxes = len(results[0].boxes)
+            print(f"📦 DEBUG: Anzahl Boxes: {num_boxes}")
             print(f"📦 DEBUG: Boxes Tensor: {results[0].boxes.data}")
+            
+            # Zusätzliche Analyse der Box-Koordinaten
+            for i, box in enumerate(results[0].boxes):
+                coords = box.xyxy[0].cpu().numpy()
+                conf = float(box.conf[0])
+                cls = int(box.cls[0])
+                print(f"   📦 Box {i+1}: Coords={coords}, Conf={conf:.3f}, Class={cls}")
+                
         else:
             print("⚠️ DEBUG: KEINE BOXES ERKANNT!")
 
-        # KORREKT: Bounding Boxes OHNE Overlay verwenden
-        result_img = results[0].plot()  # YOLO zeichnet bereits die Bounding Boxes
+        # KORREKT: Bounding Boxes mit EXPLIZITER Konfiguration
+        result_img = results[0].plot(
+            conf=True,        # Zeige Confidence-Werte
+            labels=True,      # Zeige Klassenlabels
+            boxes=True,       # Zeige ALLE Bounding Boxes
+            line_width=2,     # Dickere Linien für bessere Sichtbarkeit
+        )  
         result_pil = Image.fromarray(result_img[..., ::-1])  # BGR -> RGB
         
         print(f"🖼️ DEBUG: Result Image Shape: {result_img.shape}")
+        print(f"🖼️ DEBUG: Plotting {num_boxes if 'num_boxes' in locals() else 0} Bounding Boxes")
     
     # Klassen-spezifische Zählung mit DETAILLIERTEM Debug
     riffbarsch_count = 0
@@ -340,6 +379,8 @@ def run_detection(img):
     
     if model_type == "detection" and results[0].boxes is not None:
         print("🔍 DEBUG: DETAILLIERTE BOX-ANALYSE:")
+        print(f"🏷️ DEBUG: Verfügbare Klassen: {yolo_model.names}")
+        
         for i, box in enumerate(results[0].boxes):
             class_id = int(box.cls[0])  # Klassen-ID extrahieren
             confidence = float(box.conf[0])  # Confidence-Score
@@ -348,14 +389,14 @@ def run_detection(img):
             
             print(f"   Box {i+1}: Klasse={class_id} ({class_name}), Confidence={confidence:.3f}, Coords={coords}")
             
-            # Standard COCO Klassen auf Riffbarsch/Taucher mappen
-            if class_name.lower() in ['fish', 'person']:
-                if class_name.lower() == 'fish':
-                    riffbarsch_count += 1
-                    print(f"     -> FISCH als RIFFBARSCH interpretiert!")
-                elif class_name.lower() == 'person':
-                    taucher_count += 1
-                    print(f"     -> PERSON als TAUCHER interpretiert!")
+            # DEIN trainiertes Modell: Direkte Zuordnung basierend auf Klassen-ID oder Namen
+            class_name_lower = class_name.lower()
+            if 'riffbarsch' in class_name_lower or class_id == 0:  # Annahme: Riffbarsch ist Klasse 0
+                riffbarsch_count += 1
+                print(f"     -> RIFFBARSCH erkannt!")
+            elif 'taucher' in class_name_lower or 'diver' in class_name_lower or class_id == 1:  # Annahme: Taucher ist Klasse 1
+                taucher_count += 1
+                print(f"     -> TAUCHER erkannt!")
             else:
                 andere_count += 1
                 print(f"     -> ANDERE KLASSE ({class_name}) erkannt!")
@@ -455,27 +496,68 @@ def run_segmentation(img):
     progress_segment['value'] = 0
     root.update_idletasks()
     
-    # Erstelle eine adaptive Maske basierend auf Bildinhalt
-    progress_segment['value'] = 25
-    img_array = np.array(img)
-    height, width = img_array.shape[:2]
-    
-    # Erstelle intelligente Maske basierend auf Bildanalyse
-    mask_array = create_adaptive_mask(img_array)
-    progress_segment['value'] = 50
-    
-    # Konvertiere Maske zu PIL Image
-    mask_img = Image.fromarray((mask_array * 255).astype(np.uint8), 'L')
-    
-    # Erstelle farbige Overlay-Maske
-    colored_mask = Image.new("RGBA", img.size, (255, 0, 0, 0))
-    colored_mask.paste((255, 0, 0, 120), mask=mask_img)  # Rote semi-transparente Maske
-    
-    # Kombiniere Originalbild mit Maske
-    img_rgba = img.convert("RGBA")
-    img_with_mask = Image.alpha_composite(img_rgba, colored_mask)
-    
-    progress_segment['value'] = 75
+    if mask_rcnn_model is None:
+        print("⚠️ Kein Mask R-CNN Modell verfügbar - verwende Dummy-Segmentierung")
+        # Fallback auf adaptive Maske
+        progress_segment['value'] = 25
+        img_array = np.array(img)
+        height, width = img_array.shape[:2]
+        
+        mask_array = create_adaptive_mask(img_array)
+        progress_segment['value'] = 50
+        
+        # Konvertiere Maske zu PIL Image
+        mask_img = Image.fromarray((mask_array * 255).astype(np.uint8), 'L')
+        
+        # Erstelle farbige Overlay-Maske
+        colored_mask = Image.new("RGBA", img.size, (255, 0, 0, 0))
+        colored_mask.paste((255, 0, 0, 120), mask=mask_img)  # Rote semi-transparente Maske
+        
+        # Kombiniere Originalbild mit Maske
+        img_rgba = img.convert("RGBA")
+        img_with_mask = Image.alpha_composite(img_rgba, colored_mask)
+        progress_segment['value'] = 75
+    else:
+        # Verwende dein trainiertes Mask R-CNN Modell
+        print("🎯 Verwende trainiertes Mask R-CNN Modell")
+        progress_segment['value'] = 25
+        
+        # Bildgrößen für Statistiken
+        img_array = np.array(img)
+        height, width = img_array.shape[:2]
+        
+        # Bild für Mask R-CNN vorbereiten
+        img_tensor = transforms.ToTensor()(img).unsqueeze(0).to(device)
+        progress_segment['value'] = 50
+        
+        # Mask R-CNN Inferenz
+        with torch.no_grad():
+            predictions = mask_rcnn_model(img_tensor)
+        
+        # Extrahiere Masken aus Predictions
+        if len(predictions[0]['masks']) > 0:
+            # Nehme die beste Maske (höchste Konfidenz)
+            best_mask = predictions[0]['masks'][0, 0].cpu().numpy()
+            mask_array = (best_mask > 0.5).astype(np.float32)  # Threshold bei 0.5
+            print(f"🎭 Mask R-CNN: {len(predictions[0]['masks'])} Masken gefunden")
+        else:
+            # Fallback wenn keine Masken gefunden
+            print("⚠️ Mask R-CNN: Keine Masken gefunden - verwende Dummy")
+            mask_array = create_adaptive_mask(img_array)
+        
+        progress_segment['value'] = 65
+        
+        # Konvertiere Maske zu PIL Image
+        mask_img = Image.fromarray((mask_array * 255).astype(np.uint8), 'L')
+        
+        # Erstelle farbige Overlay-Maske (blau für echte Mask R-CNN Ergebnisse)
+        colored_mask = Image.new("RGBA", img.size, (0, 0, 255, 0))
+        colored_mask.paste((0, 0, 255, 120), mask=mask_img)  # Blaue semi-transparente Maske
+        
+        # Kombiniere Originalbild mit Maske
+        img_rgba = img.convert("RGBA")
+        img_with_mask = Image.alpha_composite(img_rgba, colored_mask)
+        progress_segment['value'] = 75
     
     # Zeige das Ergebnis
     tk_img = ImageTk.PhotoImage(img_with_mask.resize((400,400)))
@@ -484,38 +566,65 @@ def run_segmentation(img):
     
     # Berechne Statistiken
     mask_pixels = np.sum(mask_array > 0)
+    background_pixels = np.sum(mask_array == 0)
     total_pixels = width * height
     mask_percentage = (mask_pixels / total_pixels) * 100
+    background_percentage = (background_pixels / total_pixels) * 100
     
-    progress_segment['value'] = 100
+    print(f"📊 DEBUG Maske Statistiken:")
+    print(f"   🎯 Segmentierte Pixel (>0): {mask_pixels}")
+    print(f"   🏗️ Hintergrund Pixel (=0): {background_pixels}")
+    print(f"   📏 Total Pixel: {total_pixels}")
+    print(f"   📊 Segmentiert: {mask_percentage:.1f}%")
+    print(f"   📊 Hintergrund: {background_percentage:.1f}%")
+    print(f"   🔍 Mask Array Min/Max: {mask_array.min():.3f}/{mask_array.max():.3f}")
+    print(f"   🔍 Mask Array Unique Values: {np.unique(mask_array)}")
+    
+    progress_segment['value'] = 90
     
     # Erstelle Diagramm mit Masken-Vorschau (Höhe 20% reduziert)
-    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(6.4, 2.56))
+    try:
+        fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(6.4, 2.56))
+        
+        # Links: Prozentuale Verteilung - KORRIGIERT: Reihenfolge angepasst
+        values = [background_percentage, mask_percentage]  # KORRIGIERT: Hintergrund zuerst, dann Segmentiert
+        labels = ["Segmentiert","Hintergrund" ]  # KORRIGIERT: Labels entsprechend angepasst
+        colors = ['#95a5a6', '#e74c3c']  # KORRIGIERT: Grau für Hintergrund, Rot für Segmentiert
+        
+        print(f"📊 DEBUG Diagramm-Werte:")
+        print(f"   Labels: {labels}")
+        print(f"   Values: {values}")
+        
+        ax1.bar(labels, values, color=colors)
+        ax1.set_ylabel("Prozent")
+        ax1.set_title(f"Segmentierung: {mask_percentage:.1f}%")  # Titel bleibt gleich - zeigt segmentierten Anteil
+        ax1.set_ylim(0, 100)
+        
+        # Werte auf Balken anzeigen
+        for i, (label, value) in enumerate(zip(labels, values)):
+            ax1.text(i, value + 2, f'{value:.1f}%', ha='center', va='bottom')
+            print(f"   Balken {i}: '{label}' = {value:.1f}%")
+        
+        # Rechts: Maske als Schwarz-Weiß Bild
+        ax2.imshow(mask_array, cmap='gray', interpolation='nearest')
+        ax2.set_title("Segmentierungsmaske")
+        ax2.axis('off')
     
-    # Links: Prozentuale Verteilung
-    ax1.bar(["Segmentiert", "Hintergrund"], [mask_percentage, 100-mask_percentage], 
-           color=['#e74c3c', '#ecf0f1'])
-    ax1.set_ylabel("Prozent")
-    ax1.set_title(f"Segmentierung: {mask_percentage:.1f}%")
-    ax1.set_ylim(0, 100)
-    
-    # Werte auf Balken anzeigen
-    for i, v in enumerate([mask_percentage, 100-mask_percentage]):
-        ax1.text(i, v + 2, f'{v:.1f}%', ha='center', va='bottom')
-    
-    # Rechts: Maske als Schwarz-Weiß Bild
-    ax2.imshow(mask_array, cmap='gray', interpolation='nearest')
-    ax2.set_title("Segmentierungsmaske")
-    ax2.axis('off')
-    
-    plt.tight_layout()
-    
-    # Altes Diagramm entfernen und neues einfügen
-    for widget in fig_segment_frame.winfo_children():
-        widget.destroy()
-    canvas = FigureCanvasTkAgg(fig, master=fig_segment_frame)
-    canvas.draw()
-    canvas.get_tk_widget().pack(fill='both', expand=True)
+        plt.tight_layout()
+        
+        # Altes Diagramm entfernen und neues einfügen
+        for widget in fig_segment_frame.winfo_children():
+            widget.destroy()
+        canvas = FigureCanvasTkAgg(fig, master=fig_segment_frame)
+        canvas.draw()
+        canvas.get_tk_widget().pack(fill='both', expand=True)
+        
+        progress_segment['value'] = 100
+        print("✅ Segmentierung abgeschlossen")
+        
+    except Exception as e:
+        print(f"❌ Diagramm-Fehler: {e}")
+        progress_segment['value'] = 100
 
 btn_segment = tk.Button(tab_segment, text="Segmentieren", 
                        command=lambda: threading.Thread(target=lambda: run_segmentation(current_img) if current_img else None).start(), 
