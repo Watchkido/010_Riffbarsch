@@ -139,7 +139,16 @@ def open_image():
     global current_img
     file_path = filedialog.askopenfilename(filetypes=[("Image files", "*.png *.jpg *.jpeg *.bmp *.gif")])
     if file_path:
-        current_img = Image.open(file_path)
+        # Bild laden und zu RGB konvertieren (entfernt Alpha-Kanal für YOLO/ResNet Kompatibilität)
+        temp_img = Image.open(file_path)
+        if temp_img.mode == 'RGBA':
+            # RGBA zu RGB konvertieren (weißer Hintergrund für Transparenz)
+            rgb_img = Image.new('RGB', temp_img.size, (255, 255, 255))
+            rgb_img.paste(temp_img, mask=temp_img.split()[-1])  # Alpha-Kanal als Maske
+            current_img = rgb_img
+        else:
+            current_img = temp_img.convert('RGB')  # Sicherstellen dass es RGB ist
+        
         tk_img = ImageTk.PhotoImage(current_img.resize((600,400)))
         canvas_upload.configure(image=tk_img)
         canvas_upload.image = tk_img
@@ -168,6 +177,12 @@ def run_classification(img):
     progress_classify['value'] = 0
     root.update_idletasks()
     progress_classify['value'] = 20
+    
+    # Sicherstellen dass Bild RGB ist (3 Kanäle für ResNet)
+    if img.mode != 'RGB':
+        print(f"🔄 DEBUG: ResNet Konvertiere {img.mode} -> RGB")
+        img = img.convert('RGB')
+    
     img_tensor = resnet_transforms(img).unsqueeze(0).to(device)
     progress_classify['value'] = 50
     with torch.no_grad():
@@ -259,10 +274,19 @@ def run_detection(img):
 
     # YOLO Prediction mit Debug-Info
     print(f"📸 DEBUG: Bildgröße: {img.size}")
+    print(f"📸 DEBUG: Bildmodus: {img.mode}")
     print(f"🤖 DEBUG: Model Type: {model_type}")
     print(f"🤖 DEBUG: YOLO Modell: {type(yolo_model)}")
     
-    results = yolo_model.predict(source=np.array(img), conf=0.25, verbose=True)
+    # Sicherstellen dass Bild RGB ist (3 Kanäle für YOLO)
+    if img.mode != 'RGB':
+        print(f"🔄 DEBUG: Konvertiere {img.mode} -> RGB")
+        img = img.convert('RGB')
+    
+    img_array = np.array(img)
+    print(f"📊 DEBUG: Array Shape: {img_array.shape}")
+    
+    results = yolo_model.predict(source=img_array, conf=0.25, verbose=True)
     
     print(f"📊 DEBUG: Anzahl Results: {len(results)}")
     print(f"📦 DEBUG: Results[0]: {results[0]}")
